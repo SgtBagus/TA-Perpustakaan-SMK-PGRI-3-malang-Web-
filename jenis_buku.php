@@ -105,7 +105,7 @@
       "language": {
         "lengthMenu"  : "Tampilkan _MENU_ Data Jenis Buku Perhalaman",
         "zeroRecords" : "Data Jenis Buku Tidak Ditemukan",
-        "info"        : "Data Jenis Buku Sebanyak _TOTAL_ Dengan Halaman _START_ sampai _END_",
+        "info"        : "Data Jenis Buku Sebanyak _TOTAL_ Dengan Halaman <b>_START_</b> sampai <b>_END_</b>",
         "infoEmpty"   : "Data Jenis Buku Tidak Ada",
         "infoFiltered": "(Pencarian dari _MAX_ Total Data)",
         "search"      : "Pencarian : ",
