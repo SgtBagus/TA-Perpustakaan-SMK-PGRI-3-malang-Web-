@@ -13,7 +13,7 @@
           </div>
           <div class="panel-body">
             <div align="right">
-              <a href="tambah_siswa.php">
+              <a href="tambah_jenis_buku.php">
                 <button type="button" class="btn btn-primary">
                   <i class="zmdi zmdi-plus-circle"></i> Tambah Data Jenis Buku
                 </button>
@@ -31,7 +31,7 @@
                     <th>No</th>
                     <th>Nomor Dewery</th>
                     <th>Subyek</th>
-                    <th>Dekripsi</th>
+                    <th width="500px">Dekripsi</th>
                     <th>Aksi</th>
                   </tr>
                 </thead>
@@ -47,12 +47,13 @@
                       '.$data_jenis_buku['deskripsi_jenis_buku'].'
                     </td>
                     <td align="right">
-                      <a href="edit_jenis_buku.php?no_dewery='.$data_jenis_buku['no_dewery'].'">
+                      <a href="ubah_jenis_buku.php?no_dewery='.$data_jenis_buku['no_dewery'].'">
                         <button type="button" class="btn btn-primary">
                           <i class="zmdi zmdi-edit"></i> Edit
                         </button>
                       </a>
-                      <a href="proses/hapus_jenis_buku.php?id='.$data_jenis_buku['id_jenis_buku'].'">
+                      <a href="system/hapus_jenis_buku.php?id='.$data_jenis_buku['id_jenis_buku'].'"
+                      onclick="return confirm(\'Anda Yakin Ingin Menghapus Data ?\')">
                         <button type="button" class="btn btn-danger">
                           <i class="zmdi zmdi-delete"></i> Hapus
                         </button>

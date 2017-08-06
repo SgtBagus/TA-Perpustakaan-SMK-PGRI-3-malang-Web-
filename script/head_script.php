@@ -9,4 +9,5 @@
     <link rel="stylesheet" href="asstes/css/vendor.min.css">
     <link rel="stylesheet" href="asstes/css/cosmos.min.css">
     <link rel="stylesheet" href="asstes/css/application.min.css">
+    <link rel="stylesheet" href="asstes/css/scrollbar.css">
   </head>

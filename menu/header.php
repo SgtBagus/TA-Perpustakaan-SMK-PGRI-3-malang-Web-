@@ -1,16 +1,12 @@
 <div class="site-header">
   <nav class="navbar navbar-default">
     <div class="navbar-header" align="center">
-      <a class="navbar-brand" href="index-2.html">
+      <a class="navbar-brand" href="index.php">
         <img src="img/logo.png" alt="" height="25">
         <span>Katalog Perpustakaan</span>
       </a>
       <button class="navbar-toggler left-sidebar-toggle pull-left visible-xs" type="button">
         <span class="hamburger"></span>
-      </button>
-      <button class="navbar-toggler right-sidebar-toggle pull-right visible-xs-block" type="button">
-        <i class="zmdi zmdi-long-arrow-left"></i>
-        <div class="dot bg-danger"></div>
       </button>
       <button class="navbar-toggler pull-right visible-xs-block" type="button" data-toggle="collapse" data-target="#navbar">
         <span class="more"></span>

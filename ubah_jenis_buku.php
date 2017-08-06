@@ -3,7 +3,26 @@
 <html lang="en">
   <?php include('script/head_script.php') ?>
   <body class="layout layout-header-fixed layout-left-sidebar-fixed">
-    <?php include('menu/header.php') ?>
+    <?php include('menu/header.php');
+
+    if (isset($_GET['no_dewery'])) {
+        $no_dewery = ($_GET["no_dewery"]);
+        $query = "SELECT * FROM jenis_buku WHERE no_dewery ='$no_dewery'";
+        $result = mysqli_query($con, $query);
+
+        if(!$result){
+        die ("Query Error: ".mysqli_errno($con).
+            " - ".mysqli_error($con));
+        }
+
+        $data = mysqli_fetch_assoc($result);
+        $id_jenis_buku = $data["id_jenis_buku"];
+        $no_dewery = $data["no_dewery"];
+        $subyek = $data["subyek"];
+        $deskripsi = $data["deskripsi_jenis_buku"];
+    }
+    ?>
+
     <div class="site-main">
       <?php include('menu/sidebar.php') ?>
       <div class="site-content">
@@ -14,23 +33,19 @@
           <div class="panel-body">
             <div class="row">
               <div class="col-md-8">
-                <form class="form-horizontal" method="post" action="system/proses_tambah_jenis_buku.php">
+                <form class="form-horizontal" method="post" action="system/proses_ubah_jenis_buku.php">
                   <div class="form-group">
-                    <label class="col-sm-3 control-label" for="form-control-5">Nomor Dewery</label>
-                    <div class="col-sm-9">
-                      <input class="form-control" type="number" name="no_dewery" placeholder="Nomer Dewery">
-                    </div>
-                  </div>
-                  <div class="form-group">
+                    <input hidden="true" name="id" value="<?php echo $id_jenis_buku ?>">
+                    <input hidden="true" name="no_dewery" value="<?php echo $no_dewery ?>">
                     <label class="col-sm-3 control-label" for="form-control-5">Subyek</label>
                     <div class="col-sm-9">
-                      <input class="form-control" type="text" name="subyek" placeholder="Subyek">
+                      <input class="form-control" type="text" name="subyek" placeholder="Subyek" value="<?php echo $subyek ?>">
                     </div>
                   </div>
                   <div class="form-group">
                     <label class="col-sm-3 control-label" for="form-control-8">Deskripsi</label>
                     <div class="col-sm-9">
-                      <textarea class="form-control" rows="3" name="deskripsi" placeholder="Deskripsi"></textarea>
+                      <textarea class="form-control" rows="3" name="deskripsi" placeholder="Deskripsi"><?php echo $deskripsi ?></textarea>
                     </div>
                   </div>
                   <div align="right">
@@ -40,7 +55,7 @@
                           </button>
                       </a>
                       <button type="submit" name="input" rel="tooltip" class="btn btn-primary btn-fill">
-                              <i class="zmdi zmdi-plus-circle"></i> Tambah
+                              <i class="zmdi zmdi-edit"></i> Ubah Data
                       </button>
                   </div>
                 </form>
