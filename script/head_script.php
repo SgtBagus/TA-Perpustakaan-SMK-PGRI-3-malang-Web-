@@ -1,3 +1,7 @@
+<?php
+    include 'system/koneksi.php';
+?>
+
   <head>
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700" rel="stylesheet">
     <title><?php echo $page; ?> - Katalog Perpustakaan SMK PGRI 3</title>

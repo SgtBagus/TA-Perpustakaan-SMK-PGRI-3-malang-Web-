@@ -21,6 +21,10 @@
             </div>
             <br>
             <div class="table-responsive">
+<?php
+  $query_jenis_buku = "SELECT * FROM jenis_buku" ;
+  $result_jenis_buku = mysqli_query($con, $query_jenis_buku);
+?>
               <table class="table table-striped table-bordered dataTable" id="dataTable">
                 <thead>
                   <tr>
@@ -32,62 +36,32 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>000</td>
-                    <td>Komputer</td>
+<?php
+  $no_jenis_buku = 1;
+  while($data_jenis_buku = mysqli_fetch_assoc($result_jenis_buku)){
+                  echo '<tr>
+                    <td>'.$no_jenis_buku.'</td>
+                    <td>'.$data_jenis_buku['no_dewery'].'</td>
+                    <td>'.$data_jenis_buku['subyek'].'</td>
                     <td>
-                      Buku dengan Jenis Komputer ini diperlukan pengguna bidang TI
+                      '.$data_jenis_buku['deskripsi_jenis_buku'].'
                     </td>
                     <td align="right">
-                      <a href="edit_jenis_buku.php">
+                      <a href="edit_jenis_buku.php?no_dewery='.$data_jenis_buku['no_dewery'].'">
                         <button type="button" class="btn btn-primary">
                           <i class="zmdi zmdi-edit"></i> Edit
                         </button>
                       </a>
-                      <a href="proses/hapus_jenis_buku.php">
+                      <a href="proses/hapus_jenis_buku.php?id='.$data_jenis_buku['id_jenis_buku'].'">
                         <button type="button" class="btn btn-danger">
                           <i class="zmdi zmdi-delete"></i> Hapus
                         </button>
                       </a>
                     </td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>100</td>
-                    <td>Pisologi</td>
-                    <td>-</td>
-                    <td align="right">
-                      <a href="edit_jenis_buku.php">
-                        <button type="button" class="btn btn-primary">
-                          <i class="zmdi zmdi-edit"></i> Edit
-                        </button>
-                      </a>
-                      <a href="proses/hapus_jenis_buku.php">
-                        <button type="button" class="btn btn-danger">
-                          <i class="zmdi zmdi-delete"></i> Hapus
-                        </button>
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>400</td>
-                    <td>Bahasa</td>
-                    <td>Buku ini sangat diperlukan untuk mengenal beberapa bahasa yg ada didunia</td>
-                    <td align="right">
-                      <a href="edit_jenis_buku.php">
-                        <button type="button" class="btn btn-primary">
-                          <i class="zmdi zmdi-edit"></i> Edit
-                        </button>
-                      </a>
-                      <a href="proses/hapus_jenis_buku.php">
-                        <button type="button" class="btn btn-danger">
-                          <i class="zmdi zmdi-delete"></i> Hapus
-                        </button>
-                      </a>
-                    </td>
-                  </tr>
+                  </tr>';
+                  $no_jenis_buku++;
+  }
+?>
                 </tbody>
               </table>
             </div>
@@ -99,7 +73,7 @@
   </body>
   <?php include('script/footer_script.php') ?>
   <script src="asstes/js/tables-datatables.min.js"></script>
-  <script>
+  <script type="text/javascript" charset="utf-8">
   $(document).ready(function() {
     $('#dataTable').DataTable({
       "language": {

@@ -8,11 +8,11 @@
       <?php include('menu/sidebar.php') ?>
 
       <div class="site-content">
-        Isi nya disini
+        Isi nya
       </div>
 
       <?php include('menu/footer.php') ?>
     </div>
   </body>
       <?php include('script/footer_script.php') ?>
-</html>
+</html> 
