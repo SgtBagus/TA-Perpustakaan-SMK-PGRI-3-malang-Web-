@@ -10,4 +10,7 @@
     <link rel="stylesheet" href="asstes/css/cosmos.min.css">
     <link rel="stylesheet" href="asstes/css/application.min.css">
     <link rel="stylesheet" href="asstes/css/scrollbar.css">
+    <link rel="stylesheet" href="asstes/dist/sweetalert2.min.css">
+    <script src="asstes/dist/sweetalert2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
   </head>

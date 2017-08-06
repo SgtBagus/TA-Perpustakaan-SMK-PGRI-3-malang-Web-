@@ -10,5 +10,5 @@
             " - ".mysqli_error($con));
       }
   }
-  header("location:../jenis_buku.php?proses=hapus");
+  header("location:../jenis_buku.php?aksi=hapus");
 ?>

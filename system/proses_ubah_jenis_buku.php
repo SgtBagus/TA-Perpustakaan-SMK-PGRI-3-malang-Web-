@@ -9,7 +9,7 @@ $deskripsi_jenis_buku = $_POST['deskripsi'];
   $prosescek= mysqli_query($con, $cekdulu);
 
   if (mysqli_num_rows($prosescek)>0) {
-    header("location:../ubah_jenis_buku.php?no_dewery=$no_dewery");
+    header("location:../ubah_jenis_buku.php?no_dewery=$no_dewery&pesan=error");
   }
   else {
   $query = "UPDATE jenis_buku SET subyek='$subyek',
@@ -21,6 +21,6 @@ $deskripsi_jenis_buku = $_POST['deskripsi'];
              " - ".mysqli_error($con));
 
     }
-    header("location:../jenis_buku.php?proses=ubah");
+    header("location:../jenis_buku.php?aksi=ubah");
   }
 ?>

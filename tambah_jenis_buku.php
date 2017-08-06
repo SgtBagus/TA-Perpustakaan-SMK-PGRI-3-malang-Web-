@@ -53,4 +53,19 @@
     </div>
   </body>
   <?php include('script/footer_script.php') ?>
+  <script type="text/javascript">
+  <?php
+      if (isset($_GET['pesan'])) {
+          $pesan = ($_GET["pesan"]);
+          if($pesan == "error"){
+              echo 'swal({
+                title: "Kesalahan!",
+                text: "Jenis buku telah ada.",
+                type: "error",
+                showConfirmButton: true,
+              })';
+          }
+      }
+  ?>
+  </script>
 </html>

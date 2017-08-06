@@ -12,12 +12,16 @@
             <h3 class="m-t-0 m-b-5">Tabel Data Jenis Buku</h3>
           </div>
           <div class="panel-body">
-            <div align="right">
-              <a href="tambah_jenis_buku.php">
-                <button type="button" class="btn btn-primary">
-                  <i class="zmdi zmdi-plus-circle"></i> Tambah Data Jenis Buku
-                </button>
-              </a>
+            <div class="row">
+              <div class="col-sm-12">
+                <div align="right">
+                  <a href="tambah_jenis_buku.php">
+                    <button type="button" class="btn btn-primary">
+                      <i class="zmdi zmdi-plus-circle"></i> Tambah Data Jenis Buku
+                    </button>
+                  </a>
+                </div>
+              </div>
             </div>
             <br>
             <div class="table-responsive">
@@ -52,12 +56,9 @@
                           <i class="zmdi zmdi-edit"></i> Edit
                         </button>
                       </a>
-                      <a href="system/hapus_jenis_buku.php?id='.$data_jenis_buku['id_jenis_buku'].'"
-                      onclick="return confirm(\'Anda Yakin Ingin Menghapus Data ?\')">
-                        <button type="button" class="btn btn-danger">
+                        <button onclick="hapus('.$data_jenis_buku['id_jenis_buku'].')" type="button" class="btn btn-danger">
                           <i class="zmdi zmdi-delete"></i> Hapus
                         </button>
-                      </a>
                     </td>
                   </tr>';
                   $no_jenis_buku++;
@@ -73,23 +74,48 @@
     </div>
   </body>
   <?php include('script/footer_script.php') ?>
-  <script src="asstes/js/tables-datatables.min.js"></script>
-  <script type="text/javascript" charset="utf-8">
-  $(document).ready(function() {
-    $('#dataTable').DataTable({
-      "language": {
-        "lengthMenu"  : "Tampilkan _MENU_ Data Jenis Buku Perhalaman",
-        "zeroRecords" : "Data Jenis Buku Tidak Ditemukan",
-        "info"        : "Data Jenis Buku Sebanyak _TOTAL_ Dengan Halaman <b>_START_</b> sampai <b>_END_</b>",
-        "infoEmpty"   : "Data Jenis Buku Tidak Ada",
-        "infoFiltered": "(Pencarian dari _MAX_ Total Data)",
-        "search"      : "Pencarian : ",
-        "paginate"    : {
-                        "next"      : "Selanjutnya",
-                        "previous"  : "Sebelumnya"
-        }
+  <script type="text/javascript">
+  function hapus(id) {
+    swal({
+      title: 'Apakah anda yakin?',
+      text: "Data buku yang memiliki jenis buku yang sama akan Terhapus",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+      }).then(function () {
+          document.location="system/hapus_jenis_buku.php?id="+id;
+    })
+  }
+  <?php
+      if (isset($_GET['aksi'])) {
+          $aksi = ($_GET["aksi"]);
+          if($aksi == "hapus"){
+              echo 'swal({
+                title: "Terhapus!",
+                text: "Jenis buku telah dihapus.",
+                type: "success",
+                showConfirmButton: true,
+              })';
+          }
+          else if($aksi == "tambah"){
+              echo 'swal({
+                title: "Tertambah!",
+                text: "Jenis buku telah ditambah.",
+                type: "success",
+                showConfirmButton: true,
+              })';
+          }
+          else if($aksi == "ubah"){
+              echo 'swal({
+                title: "Terubah!",
+                text: "Jenis buku telah diubah.",
+                type: "success",
+                showConfirmButton: true,
+              })';
+          }
       }
-    });
-  });
+  ?>
   </script>
 </html>

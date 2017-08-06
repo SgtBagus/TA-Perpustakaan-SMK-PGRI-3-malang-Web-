@@ -10,7 +10,7 @@ if (isset($_POST['input'])) {
   $cekdulu= "SELECT * FROM jenis_buku WHERE subyek='$Subyek'";
   $prosescek= mysqli_query($con, $cekdulu);
   if (mysqli_num_rows($prosescek)>0) {
-    header("location:../tambah_jenis_buku.php");
+    header("location:../tambah_jenis_buku.php?pesan=error");
   }
   else {
 
@@ -21,7 +21,7 @@ if (isset($_POST['input'])) {
         die ("Query gagal dijalankan: ".mysqli_errno($con).
              " - ".mysqli_error($con));
     }
-  header("location:../jenis_buku.php");
+  header("location:../jenis_buku.php?aksi=tambah");
   }
 }
 ?>

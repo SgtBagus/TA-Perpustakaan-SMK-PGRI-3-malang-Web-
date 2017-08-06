@@ -15,4 +15,4 @@
     </div>
   </body>
       <?php include('script/footer_script.php') ?>
-</html> 
+</html>
