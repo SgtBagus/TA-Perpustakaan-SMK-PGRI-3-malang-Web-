@@ -1,4 +1,4 @@
-<?php $page="PEGAWAI" ?>
+<?php $page="BUKU" ?>
 <!DOCTYPE html>
 <html lang="en">
   <?php include('script/head_script.php') ?>
@@ -9,62 +9,66 @@
       <div class="site-content">
         <div class="panel panel-default panel-table">
           <div class="panel-heading">
-            <h3 class="m-t-0 m-b-5">PEGAWAI</h3>
+            <h3 class="m-t-0 m-b-5">BUKU</h3>
           </div>
           <div class="panel-body">
             <div align="right">
-              <a href="tambah_pegawai.php">
+              <a href="tambah_siswa.php">
                 <button type="button" class="btn btn-primary">
-                  <i class="zmdi zmdi-account-add"></i> Tambah Data Pegawai
+                  <i class="zmdi zmdi-account-add"></i> Tambah Data Buku
                 </button>
               </a>
             </div>
             <br>
             <div class="table-responsive">
 <?php
-  $query_pegawai = "SELECT id_pegawai,nip,nama_pegawai,jabatan_pegawai,perwalian_kelas,
-                  varifikasi_pegawai FROM pegawai";
-  $result_pegawai = mysqli_query($con, $query_pegawai);
+  $query_buku = "SELECT a.id_buku, a.judul_buku, a.id_jenis_buku, b.subyek, a.jenis_media,
+                  a.bahasa FROM buku AS a INNER JOIN jenis_buku AS b WHERE a.id_jenis_buku = b.id_jenis_buku" ;
+
+  $result_buku = mysqli_query($con, $query_buku);
 ?>
               <table class="table table-striped table-bordered dataTable" id="dataTable">
                 <thead>
                   <tr>
                     <th>No</th>
-                    <th>NIP</th>
-                    <th>Nama Pegawai</th>
-                    <th>Jabatan</th>
-                    <th>Perwalian Kelas</th>
-                    <th>Varifikasi</th>
+                    <th>Judul buku</th>
+                    <th>Jenis Buku</th>
+                    <th>Media</th>
+                    <th>Bahasa</th>
                     <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
 <?php
-  $no_pegawai = 1;
-  while($data_pegawai = mysqli_fetch_assoc($result_pegawai)){
+  $no_buku = 1;
+  while($data_buku = mysqli_fetch_assoc($result_buku)){
                   echo '<tr>
-                    <td>'.$no_pegawai.'</td>
-                    <td>'.$data_pegawai['nip'].'</td>
-                    <td>'.$data_pegawai['nama_pegawai'].'</td>
-                    <td>'.$data_pegawai['jabatan_pegawai'].'</td>
-                    <td>'.$data_pegawai['perwalian_kelas'].'</td>
-                    <td>'.$data_pegawai['varifikasi_pegawai'].'</td>
-                    <td>
-                      <a href="detail_pegawai.php">
+                    <td>'.$no_buku.'</td>
+                    <td>'.$data_buku['judul_buku'].'</td>
+                    <td>'.$data_buku['subyek'].'</td>
+                    <td>'.$data_buku['jenis_media'].'</td>
+                    <td>'.$data_buku['bahasa'].'</td>
+                    <td align="right">
+                      <a href="detail_buku.php">
                         <button type="button" class="btn btn-primary">
                           <i class="zmdi zmdi-eye"></i> Detail
                         </button>
                       </a>
-                      <a href="system/proses_hapus_pegawai.php">
+                      <a href="ubah_buku.php">
+                        <button type="button" class="btn btn-primary">
+                          <i class="zmdi zmdi-edit"></i> Ubah
+                        </button>
+                      </a>
+                      <a href="proses/hapus_siswa.php">
                         <button type="button" class="btn btn-danger">
                           <i class="zmdi zmdi-delete"></i> Hapus
                         </button>
                       </a>
                     </td>
                   </tr>';
-                  $no_pegawai++;
+                  $no_buku++;
                 }
-  ?>
+?>
                 </tbody>
               </table>
             </div>

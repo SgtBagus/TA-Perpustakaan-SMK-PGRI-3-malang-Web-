@@ -9,15 +9,41 @@
       <div class="site-content">
         <div class="panel panel-default panel-table">
           <div class="panel-heading">
-            <h3 class="m-t-0 m-b-5">Tabel Data Jenis Buku</h3>
+            <h3 class="m-t-0 m-b-5">Jenis Buku</h3>
           </div>
           <div class="panel-body">
             <div class="row">
-              <div class="col-sm-12">
+              <div class="col-sm-6">
+                <form class="form-horizontal" method="get" action="?">
+                  <div class="form-group">
+                    <div class="col-sm-8">
+                      <div class="input-group">
+                        <input type="text" name="cari" class="form-control" placeholder="Pencarian....">
+                        <span class="input-group-btn">
+              <?php
+                if (isset($_GET['cari'])) {
+                  echo '<a href="jenis_buku.php">
+                    <button class="btn btn-default" type="button">
+                      Reset
+                    </button>
+                  </a>';
+                }else{
+                  echo '<button class="btn btn-default" type="submit">
+                    <i class="zmdi zmdi-search"></i>
+                  </button>';
+                }
+              ?>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="col-sm-6">
                 <div align="right">
                   <a href="tambah_jenis_buku.php">
                     <button type="button" class="btn btn-primary">
-                      <i class="zmdi zmdi-plus-circle"></i> Tambah Data Jenis Buku
+                      <i class="zmdi zmdi-plus-circle"></i> Tambah Jenis Buku
                     </button>
                   </a>
                 </div>
@@ -26,10 +52,17 @@
             <br>
             <div class="table-responsive">
 <?php
-  $query_jenis_buku = "SELECT * FROM jenis_buku" ;
+  if (isset($_GET['cari'])) {
+    $cari = ($_GET["cari"]);
+    $query_jenis_buku = "SELECT * FROM jenis_buku WHERE no_dewery like '%$cari%' OR subyek like '%$cari%'" ;
+  }
+  else{
+    $query_jenis_buku = "SELECT * FROM jenis_buku";
+  }
+
   $result_jenis_buku = mysqli_query($con, $query_jenis_buku);
 ?>
-              <table class="table table-striped table-bordered dataTable" id="dataTable">
+              <table class="table table-striped table-bordered dataTable">
                 <thead>
                   <tr>
                     <th>No</th>

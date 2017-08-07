@@ -7,7 +7,7 @@ if (isset($_POST['input'])) {
   $Subyek                 = $_POST['subyek'];
   $Deskripsi              = $_POST['deskripsi'];
 
-  $cekdulu= "SELECT * FROM jenis_buku WHERE subyek='$Subyek'";
+  $cekdulu= "SELECT * FROM jenis_buku WHERE no_dewery='$Nomor_Dewery'";
   $prosescek= mysqli_query($con, $cekdulu);
   if (mysqli_num_rows($prosescek)>0) {
     header("location:../tambah_jenis_buku.php?pesan=error");
