@@ -1,6 +1,10 @@
 <?php include('system/session.php');
 
-  $query_login = "SELECT * FROM varifikasi WHERE email_user ='$_SESSION[email]'";
+  // $query_buku = "SELECT a.id_buku, a.judul_buku, a.id_jenis_buku, b.subyek, a.jenis_media,
+  // --                 a.bahasa FROM buku AS a INNER JOIN jenis_buku AS b WHERE a.id_jenis_buku = b.id_jenis_buku" ;
+                  
+  $query_login = "SELECT a.*, b.* FROM varifikasi AS a INNER JOIN 
+                  pegawai AS b WHERE a.id_user = b.id_pegawai AND email_user ='$_SESSION[email]'";
   $result_login = mysqli_query($con, $query_login);
   if(!$result_login){
     die ("Query Error: ".mysqli_errno($con).
@@ -8,7 +12,11 @@
   }
   $data_login = mysqli_fetch_assoc($result_login);
   $username   = $data_login["username_user"];
+  $email      = $data_login["email_user"];
   $foto_user  = $data_login["foto_user"];
+  $jabatan    = $data_login["jabatan_pegawai"];
+  $role       = $data_login["role_user"];
+  $no_hp      = $data_login["no_hp_pegawai"];
 ?>
 
 <div class="site-header">
@@ -47,7 +55,7 @@
               <span class="hidden-md-up m-l-15">Account</span>
             </a>
             <ul class="dropdown-menu">
-              <li><a href="#">Profile</a></li>
+              <li><a href="profil.php">Profil</a></li>
               <li><a href="#">Help</a></li>
               <li role="separator" class="divider"></li>
               <li><a href="system/logout.php">Logout</a></li>
@@ -108,8 +116,8 @@
             </a>
             <ul class="dropdown-menu">
               <li>
-                <a href="#">
-                  <i class="zmdi zmdi-account-o m-r-10"></i> Profile</a>
+                <a href="profil.php">
+                  <i class="zmdi zmdi-account-o m-r-10"></i> Profil</a>
               </li>
               <li>
                 <a href="#">
