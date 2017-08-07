@@ -62,7 +62,7 @@
 
   $result_jenis_buku = mysqli_query($con, $query_jenis_buku);
 ?>
-              <table class="table table-striped table-bordered dataTable">
+              <table class="table">
                 <thead>
                   <tr>
                     <th>No</th>
