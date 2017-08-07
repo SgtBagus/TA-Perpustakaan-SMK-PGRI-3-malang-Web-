@@ -1,3 +1,16 @@
+<?php include('system/session.php');
+
+  $query_login = "SELECT * FROM varifikasi WHERE email_user ='$_SESSION[email]'";
+  $result_login = mysqli_query($con, $query_login);
+  if(!$result_login){
+    die ("Query Error: ".mysqli_errno($con).
+    " - ".mysqli_error($con));
+  }
+  $data_login = mysqli_fetch_assoc($result_login);
+  $username   = $data_login["username_user"];
+  $foto_user  = $data_login["foto_user"];
+?>
+
 <div class="site-header">
   <nav class="navbar navbar-default">
     <div class="navbar-header" align="center">
@@ -20,9 +33,9 @@
         <ul class="nav navbar-nav">
           <li class="visible-xs-block">
             <div class="nav-avatar">
-              <img class="img-circle" src="img/avatars/1.jpg" alt="" width="48" height="48">
+              <img class="img-circle" src="img/avatars/<?php echo $foto_user ?>" alt="" width="48" height="48">
             </div>
-            <h4 class="navbar-text text-center">Admin</h4>
+            <h4 class="navbar-text text-center"><?php echo $username; ?></h4>
           </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
@@ -37,7 +50,7 @@
               <li><a href="#">Profile</a></li>
               <li><a href="#">Help</a></li>
               <li role="separator" class="divider"></li>
-              <li><a href="#">Logout</a></li>
+              <li><a href="system/logout.php">Logout</a></li>
             </ul>
           </li>
           <li class="nav-table dropdown">
@@ -87,9 +100,9 @@
           <li class="nav-table dropdown hidden-sm-down">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
               <span class="nav-cell p-r-10">
-                <img class="img-circle" src="img/avatars/1.jpg" alt="" width="32" height="32">
+                <img class="img-circle" src="img/avatars/<?php echo $foto_user ?>" alt="" width="32" height="32">
               </span>
-              <span class="nav-cell">Admin
+              <span class="nav-cell"><?php echo $username; ?>
                 <span class="caret"></span>
               </span>
             </a>
@@ -104,7 +117,7 @@
               </li>
               <li role="separator" class="divider"></li>
               <li>
-                <a href="#">
+                <a href="system/logout.php">
                   <i class="zmdi zmdi-power m-r-10"></i> Logout</a>
               </li>
             </ul>

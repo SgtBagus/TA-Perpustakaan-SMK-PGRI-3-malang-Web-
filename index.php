@@ -1,4 +1,4 @@
-<?php $page="DASHBOARD" ?>
+<?php $page="DASHBOARD"; ?>
 <!DOCTYPE html>
 <html lang="en">
   <?php include('script/head_script.php') ?>

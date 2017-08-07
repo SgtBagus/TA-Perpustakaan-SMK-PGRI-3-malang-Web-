@@ -1,5 +1,5 @@
 <?php $page="PEGAWAI" ?>
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
   <?php include('script/head_script.php') ?>
   <body class="layout layout-header-fixed layout-left-sidebar-fixed">
