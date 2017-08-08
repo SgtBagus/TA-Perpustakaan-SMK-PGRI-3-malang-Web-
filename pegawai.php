@@ -22,18 +22,19 @@
             <br>
             <div class="table-responsive">
 <?php
-  $query_pegawai = "SELECT id_pegawai,nip,nama_pegawai,jabatan_pegawai,perwalian_kelas,
-                  varifikasi_pegawai FROM pegawai";
+  $query_pegawai = "SELECT id_user,no_induk,nama,jabatan, tgl_entri,
+                  varifikasi FROM user";
   $result_pegawai = mysqli_query($con, $query_pegawai);
+
 ?>
-              <table class="table table-striped table-bordered dataTable" id="dataTable">
+              <table class="table">
                 <thead>
                   <tr>
                     <th>No</th>
                     <th>NIP</th>
                     <th>Nama Pegawai</th>
                     <th>Jabatan</th>
-                    <th>Perwalian Kelas</th>
+                    <th>Tanggal Terdaftar</th>
                     <th>Varifikasi</th>
                     <th>Aksi</th>
                   </tr>
@@ -44,13 +45,21 @@
   while($data_pegawai = mysqli_fetch_assoc($result_pegawai)){
                   echo '<tr>
                     <td>'.$no_pegawai.'</td>
-                    <td>'.$data_pegawai['nip'].'</td>
-                    <td>'.$data_pegawai['nama_pegawai'].'</td>
-                    <td>'.$data_pegawai['jabatan_pegawai'].'</td>
-                    <td>'.$data_pegawai['perwalian_kelas'].'</td>
-                    <td>'.$data_pegawai['varifikasi_pegawai'].'</td>
-                    <td>
-                      <a href="detail_pegawai.php">
+                    <td>'.$data_pegawai['no_induk'].'</td>
+                    <td>'.$data_pegawai['nama'].'</td>
+                    <td>'.$data_pegawai['jabatan'].'</td>
+                    <td>'.tanggal_indo(''.$data_pegawai['tgl_entri'].'').'</td>
+                    <td>'.$data_pegawai['varifikasi'].'</td>
+                    <td>';
+  if($id_login == $data_pegawai['id_user']){
+                      echo '<a href="Profil.php">
+                        <button type="button" class="btn btn-primary">
+                          <i class="zmdi zmdi-account"></i> Profil
+                        </button>
+                      </a>';
+  }
+  else{
+                      echo '<a href="detail_pegawai.php">
                         <button type="button" class="btn btn-primary">
                           <i class="zmdi zmdi-eye"></i> Detail
                         </button>
@@ -59,8 +68,9 @@
                         <button type="button" class="btn btn-danger">
                           <i class="zmdi zmdi-delete"></i> Hapus
                         </button>
-                      </a>
-                    </td>
+                      </a>';
+  }
+                    echo '</td>
                   </tr>';
                   $no_pegawai++;
                 }

@@ -4,15 +4,16 @@
   // --                 a.bahasa FROM buku AS a INNER JOIN jenis_buku AS b WHERE a.id_jenis_buku = b.id_jenis_buku" ;
                   
   $query_login = "SELECT a.*, b.* FROM varifikasi AS a INNER JOIN 
-                  pegawai AS b WHERE a.id_user = b.id_user AND email_user ='$_SESSION[email]'";
+                  user AS b WHERE a.id_user = b.id_user AND email_user ='$_SESSION[email]'";
   $result_login = mysqli_query($con, $query_login);
   if(!$result_login){
     die ("Query Error: ".mysqli_errno($con).
-    " - ".mysqli_error($con));
+    " - ".mysqli_error($con)); 
   }
 
   $data_login   = mysqli_fetch_assoc($result_login);
-  $username     = $data_login["username_user"];
+  $username     = $data_login["username_user"]; 
+  $id_login     = $data_login["id_user"];
   $email        = $data_login["email_user"];
   $nama         = $data_login["nama"];
   $foto_user    = $data_login["foto_user"];
