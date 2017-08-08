@@ -17,12 +17,17 @@
                     <img src="img/avatars/<?php echo $foto_user ?>" alt="Foto Profil" width="100" height="100">
                   </div>
                   <div class="pa-name"><?php echo $username ?>
-                    <i class="zmdi zmdi-check-circle text-success m-l-5"></i>
+                    <?php
+                    if($role == "Admin"){
+                      echo '<i class="zmdi zmdi-check-circle text-success m-l-5"></i>';
+                    }
+                    ?>
+                    <div class="pa-text"><?php echo $nama ?> · <?php echo $jabatan ?></div>
                   </div>
                 </div>
               </div>
               <div class="p-info m-b-20">
-                <h4 class="m-y-0">Contact info</h4>
+                <h4 class="m-y-0">Info</h4>
                 <hr>
                 <div class="pi-item">
                   <div class="pii-icon">
@@ -40,277 +45,194 @@
                   <div class="pii-icon">
                     <i class="zmdi zmdi-home"></i>
                   </div>
-                  <div class="pii-value">1600 Amphitheatre Parkway, Mountain View, CA 94043, United States</div>
+                  <div class="pii-value"><?php echo $alamat ?></div>
                 </div>
-              </div>
-              <div class="p-skills m-b-20 m-sm-0">
-                <h4 class="m-y-0">Current progress</h4>
-                <hr>
-                <div class="clearfix m-b-5">
-                  <small class="pull-left">PHP</small>
-                  <small class="pull-right">80%</small>
-                </div>
-                <div class="progress progress-xs">
-                  <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-                    <span class="sr-only">80% Complete (success)</span>
+                <div class="pi-item">
+                  <div class="pii-icon">
+                    <i class="zmdi zmdi-assignment-account"></i>
                   </div>
+                  <div class="pii-value"><?php echo tanggal_indo(''.$masuk.'')?></div>
                 </div>
-                <div class="clearfix m-b-5">
-                  <small class="pull-left">HTML</small>
-                  <small class="pull-right">50%</small>
-                </div>
-                <div class="progress progress-xs">
-                  <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 50%">
-                    <span class="sr-only">50% Complete (success)</span>
+                <div class="pi-item">
+                  <div class="pii-icon">
+                    <i class="zmdi zmdi-accounts-add"></i>
                   </div>
-                </div>
-                <div class="clearfix m-b-5">
-                  <small class="pull-left">JavaScript</small>
-                  <small class="pull-right">80%</small>
-                </div>
-                <div class="progress progress-xs m-b-0">
-                  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                    <span class="sr-only">60% Complete (success)</span>
-                  </div>
+                  <div class="pii-value"><?php echo tanggal_indo(''.$entri.'')?></div>
                 </div>
               </div>
             </div>
             <div class="col-md-8 col-sm-7">
-              <div class="p-content">
-                <ul class="nav nav-tabs nav-tabs-custom" role="tablist">
-                  <li class="active">
-                    <a href="#tab-timeline" data-toggle="tab" role="tab">Tasks <span class="badge badge-primary m-l-5">7</span></a>
-                  </li>
-                  <li>
-                    <a href="#tab-timeline" data-toggle="tab" role="tab">History <span class="badge badge-primary m-l-5">2</span></a>
-                  </li>
-                  <li>
-                    <a href="#tab-timeline" data-toggle="tab" role="tab">Notes</a>
-                  </li>
-                  <li class="pull-sm-right hidden-xs">
-                    <a href="#" data-toggle="tab" role="tab">
-                      <i class="zmdi zmdi-chevron-right"></i>
-                    </a>
-                  </li>
-                  <li class="pull-sm-right hidden-xs">
-                    <a href="#" data-toggle="tab" role="tab">
-                      <i class="zmdi zmdi-chevron-left"></i>
-                    </a>
-                  </li>
-                </ul>
-                <div class="tab-content">
-                  <div class="tab-pane active" id="tab-timeline" role="tabpanel">
-                    <div class="clearfix p-y-20 p-x-30">
-                      <h4 class="pull-sm-left">Tasks (7)</h4>
-                      <button type="button" class="btn btn-outline-primary pull-sm-right">
-                        <i class="zmdi zmdi-plus"></i> New task</button>
-                    </div>
-                    <div class="pc-task">
-                      <a href="#">
-                        <div class="pct-avatar">
-                          <img src="img/avatars/3.jpg" alt="" width="40" height="40">
+              <div class="panel panel-default">
+                <div class="panel-body">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <ul class="nav nav-tabs nav-tabs-custom nav-justified m-b-15">
+                        <li class="active">
+                          <a href="#kegiatan" role="tab" data-toggle="tab" >
+                            <i class="zmdi zmdi-time-restore-setting"></i> Kegiatan</a>
+                        </li>
+                        <li>
+                          <a href="#biodata" role="tab" data-toggle="tab">
+                            <i class="zmdi zmdi-account"></i> Biodata</a>
+                        </li>
+                        <li class="dropdown">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                            <i class="zmdi zmdi-account"></i> Akun
+                            <span class="caret"></span>
+                          </a>
+                          <ul class="dropdown-menu">
+                            <li><a href="#email"  role="tab" data-toggle="tab" >Email</a></li>
+                            <li><a href="#password"  role="tab" data-toggle="tab" >Password</a></li>
+                          </ul>
+                        </li>
+                      </ul>
+                      <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane fade  active in" id="kegiatan">
+                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque lacinia non massa a euismod. Nam bibendum mauris mollis, ultricies orci vitae, tristique est. Mauris pellentesque justo ut est fringilla imperdiet.</p>
+                          <p>Cras varius vehicula lorem sollicitudin ullamcorper. Sed nec purus eget velit elementum posuere. Aliquam et orci tincidunt, vulputate tortor quis, iaculis sapien. Praesent semper dui at porta consequat. In quis turpis mollis, rutrum erat tincidunt, tincidunt ipsum. Suspendisse feugiat bibendum faucibus.</p>
                         </div>
-                        <div class="pct-name">Jonathan Mel
-                          <span class="label label-danger m-l-5">new</span>
+                        <div role="tabpanel" class="tab-pane fade" id="biodata">
+                          <form class="form-horizontal" method="post" action="system/proses_ubah_biodata.php">
+                            <div class="form-group">
+                              <label class="col-sm-3 control-label" for="form-control-5">Foto Profil</label>
+                              <div class="col-sm-9">
+                                <img id="preview_gambar" src="img/avatars/<?php echo $foto_user ?>" alt="Foto Profil" width="100" height="100">
+                                <input id="preview" style="visibility:hidden;" type="file" accept="image/png, image/jpeg, image/jpg" name="foto" onchange="readURL(this);" onclick="myFunction()"/>
+                                <label for="preview" class="btn btn-primary btn-fill"><i class="zmdi zmdi-edit"> </i> Ubah Foto Profil</label>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="col-sm-3 control-label" for="form-control-5">Nama</label>
+                              <div class="col-sm-9">
+                                <input class="form-control" type="text" name="subyek" placeholder="name" value="<?php echo $nama ?>">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="col-sm-3 control-label" for="form-control-21">Jabatan</label>
+                              <div class="col-sm-9">
+                                <select name="jabatan" class="form-control">
+                                <?php
+                                  if($jabatan == "Guru Pengajar"){
+                                    echo '<option value="Guru Pengajar" selected="selected">Guru Pengajar</option>
+                                    <option value="Kesiswaan">Kesiswaan</option>
+                                    <option value="Pustakawan">Pustakawan</option>
+                                    <option value="Karyawan">Karyawan</option>
+                                    <option value="Administrasi">Administrasi</option>
+                                    <option value="Siswa">Siswa</option>';
+                                  }else if ($jabatan == "Kesiswaan"){
+                                    echo '<option value="Guru Pengajar">Guru Pengajar</option>
+                                    <option value="Kesiswaan"  selected="selected">Kesiswaan</option>
+                                    <option value="Pustakawan">Pustakawan</option>
+                                    <option value="Karyawan">Karyawan</option>
+                                    <option value="Administrasi">Administrasi</option>
+                                    <option value="Siswa">Siswa</option>';
+                                  }else if ($jabatan == "Pustakawan"){
+                                    echo '<option value="Guru Pengajar">Guru Pengajar</option>
+                                    <option value="Kesiswaan">Kesiswaan</option>
+                                    <option value="Pustakawan" selected="selected">Pustakawan</option>
+                                    <option value="Karyawan">Karyawan</option>
+                                    <option value="Administrasi">Administrasi</option>
+                                    <option value="Siswa">Siswa</option>';
+                                  }else if ($jabatan == "Karyawan"){
+                                    echo '<option value="Guru Pengajar">Guru Pengajar</option>
+                                    <option value="Kesiswaan">Kesiswaan</option>
+                                    <option value="Pustakawan">Pustakawan</option>
+                                    <option value="Karyawan" selected="selected">Karyawan</option>
+                                    <option value="Administrasi">Administrasi</option>
+                                    <option value="Siswa">Siswa</option>';
+                                  }else if ($jabatan == "Administrasi"){
+                                    echo '<option value="Guru Pengajar">Guru Pengajar</option>
+                                    <option value="Kesiswaan">Kesiswaan</option>
+                                    <option value="Pustakawan">Pustakawan</option>
+                                    <option value="Karyawan">Karyawan</option>
+                                    <option value="Administrasi" selected="selected">Administrasi</option>
+                                    <option value="Siswa">Siswa</option>';
+                                  }else {
+                                    echo '<option value="Guru Pengajar">Guru Pengajar</option>
+                                    <option value="Kesiswaan">Kesiswaan</option>
+                                    <option value="Pustakawan">Pustakawan</option>
+                                    <option value="Karyawan">Karyawan</option>
+                                    <option value="Administrasi">Administrasi</option>
+                                    <option value="Siswa" selected="selected">Siswa</option>';
+                                  }
+                                ?>
+                                </select>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="col-sm-3 control-label" for="form-control-5">No Hp</label>
+                              <div class="col-sm-9">
+                                <input class="form-control" type="text" name="no_hp" placeholder="no_hp" value="<?php echo $no_hp ?>">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="col-sm-3 control-label" for="form-control-8">Alamat</label>
+                              <div class="col-sm-9">
+                                <textarea class="form-control" rows="3" name="alamat" placeholder="Alamat"><?php echo $alamat ?></textarea>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="col-sm-3 control-label" for="form-control-5">Password Anda</label>
+                              <div class="col-sm-9">
+                                <input class="form-control" type="password" name="konfirmasi" placeholder="Password Anda">
+                              </div>
+                            </div>
+                            <div align="right">
+                                <button type="submit" name="input" rel="tooltip" class="btn btn-primary btn-fill">
+                                  <i class="zmdi zmdi-edit"></i> Ubah Biodata
+                                </button>
+                            </div>
+                          </form>
                         </div>
-                        <div class="pct-time">
-                          <i class="zmdi zmdi-alarm-check"></i> 17 Jun</div>
-                        <div class="pct-text">Nam nisl enim, elementum at dolor quis, pharetra dignissim nisl. Nunc at viverra ex. Phasellus pharetra, leo ut interdum tincidunt, turpis arcu egestas nibh, non ultricies lectus mauris hendrerit diam.</div>
-                        <div class="clearfix">
-                          <button type="button" class="btn btn-outline-success btn-xs pull-left">
-                            <i class="zmdi zmdi-comment-text-alt"></i> Message</button>
-                          <button type="button" class="btn btn-default btn-xs pull-right m-l-10">
-                            <i class="zmdi zmdi-delete"></i>
-                          </button>
-                          <button type="button" class="btn btn-default btn-xs pull-right">
-                            <i class="zmdi zmdi-edit"></i>
-                          </button>
+                        <div role="tabpanel" class="tab-pane fade" id="email">
+                          <form class="form-horizontal" method="post" action="system/proses_ubah_email.php">
+                            <div class="form-group">
+                              <label class="col-sm-3 control-label" for="form-control-5">Email</label>
+                              <div class="col-sm-9">
+                                <input class="form-control" type="text" name="email" placeholder="email" value="<?php echo $email ?>">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="col-sm-3 control-label" for="form-control-5">Password Anda</label>
+                              <div class="col-sm-9">
+                                <input class="form-control" type="password" name="konfirmasi" placeholder="Konfirmasi Anda">
+                              </div>
+                            </div>
+                            <div align="right">
+                                <button type="submit" name="input" rel="tooltip" class="btn btn-primary btn-fill">
+                                  <i class="zmdi zmdi-edit"></i> Ubah Email
+                                </button>
+                            </div>
+                          </form>
                         </div>
-                      </a>
-                    </div>
-                    <div class="pc-task">
-                      <a href="#">
-                        <div class="pct-avatar">
-                          <img src="img/avatars/4.jpg" alt="" width="40" height="40">
+                        <div role="tabpanel" class="tab-pane fade" id="password">
+                          <form class="form-horizontal" method="post" action="system/proses_ubah_password.php">
+                            <div class="form-group">
+                              <label class="col-sm-3 control-label" for="form-control-5">Password Baru</label>
+                              <div class="col-sm-9">
+                                <input class="form-control" type="text" name="password_baru" placeholder="Password Baru">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="col-sm-3 control-label" for="form-control-5">Konfirmasi Password</label>
+                              <div class="col-sm-9">
+                                <input class="form-control" type="text" name="konfirmasi_password_baru" placeholder="Konfimasi Password">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="col-sm-3 control-label" for="form-control-5">Password Anda</label>
+                              <div class="col-sm-9">
+                                <input class="form-control" type="password" name="password_lama" placeholder="Password Anda">
+                              </div>
+                            </div>
+                            <div align="right">
+                                <button type="submit" name="input" rel="tooltip" class="btn btn-primary btn-fill">
+                                  <i class="zmdi zmdi-edit"></i> Ubah Password
+                                </button>
+                            </div>
+                          </form>
                         </div>
-                        <div class="pct-name">Landon Graham
-                          <span class="label label-info m-l-5">in progress</span>
-                        </div>
-                        <div class="pct-time">
-                          <i class="zmdi zmdi-alarm-check"></i> 14 Jun</div>
-                        <div class="pct-text">Nam nisl enim, elementum at dolor quis, pharetra dignissim nisl. Nunc at viverra ex. Phasellus pharetra, leo ut interdum tincidunt, turpis arcu egestas nibh, non ultricies lectus mauris hendrerit diam.</div>
-                        <div class="clearfix">
-                          <button type="button" class="btn btn-outline-success btn-xs pull-left">
-                            <i class="zmdi zmdi-comment-text-alt"></i> Message</button>
-                          <button type="button" class="btn btn-default btn-xs pull-right m-l-10">
-                            <i class="zmdi zmdi-delete"></i>
-                          </button>
-                          <button type="button" class="btn btn-default btn-xs pull-right">
-                            <i class="zmdi zmdi-edit"></i>
-                          </button>
-                        </div>
-                      </a>
-                    </div>
-                    <div class="pc-task">
-                      <a href="#">
-                        <div class="pct-avatar">
-                          <img src="img/avatars/5.jpg" alt="" width="40" height="40">
-                        </div>
-                        <div class="pct-name">Ron Carran
-                          <span class="label label-success m-l-5">done</span>
-                        </div>
-                        <div class="pct-time">
-                          <i class="zmdi zmdi-alarm-check"></i> 25 Jun</div>
-                        <div class="pct-text">Nam nisl enim, elementum at dolor quis, pharetra dignissim nisl. Nunc at viverra ex. Phasellus pharetra, leo ut interdum tincidunt, turpis arcu egestas nibh, non ultricies lectus mauris hendrerit diam.</div>
-                        <div class="clearfix">
-                          <button type="button" class="btn btn-outline-success btn-xs pull-left">
-                            <i class="zmdi zmdi-comment-text-alt"></i> Message</button>
-                          <button type="button" class="btn btn-default btn-xs pull-right m-l-10">
-                            <i class="zmdi zmdi-delete"></i>
-                          </button>
-                          <button type="button" class="btn btn-default btn-xs pull-right">
-                            <i class="zmdi zmdi-edit"></i>
-                          </button>
-                        </div>
-                      </a>
-                    </div>
-                    <div class="pc-task">
-                      <a href="#">
-                        <div class="pct-avatar">
-                          <img src="img/avatars/6.jpg" alt="" width="40" height="40">
-                        </div>
-                        <div class="pct-name">Vance Osborn
-                          <span class="label label-danger m-l-5">new</span>
-                        </div>
-                        <div class="pct-time">
-                          <i class="zmdi zmdi-alarm-check"></i> 17 Jun</div>
-                        <div class="pct-text">Nam nisl enim, elementum at dolor quis, pharetra dignissim nisl. Nunc at viverra ex. Phasellus pharetra, leo ut interdum tincidunt, turpis arcu egestas nibh, non ultricies lectus mauris hendrerit diam.</div>
-                        <div class="clearfix">
-                          <button type="button" class="btn btn-outline-success btn-xs pull-left">
-                            <i class="zmdi zmdi-comment-text-alt"></i> Message</button>
-                          <button type="button" class="btn btn-default btn-xs pull-right m-l-10">
-                            <i class="zmdi zmdi-delete"></i>
-                          </button>
-                          <button type="button" class="btn btn-default btn-xs pull-right">
-                            <i class="zmdi zmdi-edit"></i>
-                          </button>
-                        </div>
-                      </a>
-                    </div>
-                    <div class="pc-task">
-                      <a href="#">
-                        <div class="pct-avatar">
-                          <img src="img/avatars/7.jpg" alt="" width="40" height="40">
-                        </div>
-                        <div class="pct-name">Wolfe Stevie
-                          <span class="label label-info m-l-5">in progress</span>
-                        </div>
-                        <div class="pct-time">
-                          <i class="zmdi zmdi-alarm-check"></i> 14 Jun</div>
-                        <div class="pct-text">Nam nisl enim, elementum at dolor quis, pharetra dignissim nisl. Nunc at viverra ex. Phasellus pharetra, leo ut interdum tincidunt, turpis arcu egestas nibh, non ultricies lectus mauris hendrerit diam.</div>
-                        <div class="clearfix">
-                          <button type="button" class="btn btn-outline-success btn-xs pull-left">
-                            <i class="zmdi zmdi-comment-text-alt"></i> Message</button>
-                          <button type="button" class="btn btn-default btn-xs pull-right m-l-10">
-                            <i class="zmdi zmdi-delete"></i>
-                          </button>
-                          <button type="button" class="btn btn-default btn-xs pull-right">
-                            <i class="zmdi zmdi-edit"></i>
-                          </button>
-                        </div>
-                      </a>
-                    </div>
-                    <div class="pc-task">
-                      <a href="#">
-                        <div class="pct-avatar">
-                          <img src="img/avatars/8.jpg" alt="" width="40" height="40">
-                        </div>
-                        <div class="pct-name">Carleton Josiah
-                          <span class="label label-success m-l-5">done</span>
-                        </div>
-                        <div class="pct-time">
-                          <i class="zmdi zmdi-alarm-check"></i> 25 Jun</div>
-                        <div class="pct-text">Nam nisl enim, elementum at dolor quis, pharetra dignissim nisl. Nunc at viverra ex. Phasellus pharetra, leo ut interdum tincidunt, turpis arcu egestas nibh, non ultricies lectus mauris hendrerit diam.</div>
-                        <div class="clearfix">
-                          <button type="button" class="btn btn-outline-success btn-xs pull-left">
-                            <i class="zmdi zmdi-comment-text-alt"></i> Message</button>
-                          <button type="button" class="btn btn-default btn-xs pull-right m-l-10">
-                            <i class="zmdi zmdi-delete"></i>
-                          </button>
-                          <button type="button" class="btn btn-default btn-xs pull-right">
-                            <i class="zmdi zmdi-edit"></i>
-                          </button>
-                        </div>
-                      </a>
-                    </div>
-                    <div class="pc-task">
-                      <a href="#">
-                        <div class="pct-avatar">
-                          <img src="img/avatars/9.jpg" alt="" width="40" height="40">
-                        </div>
-                        <div class="pct-name">Lucius Skyler
-                          <span class="label label-danger m-l-5">new</span>
-                        </div>
-                        <div class="pct-time">
-                          <i class="zmdi zmdi-alarm-check"></i> 17 Jun</div>
-                        <div class="pct-text">Nam nisl enim, elementum at dolor quis, pharetra dignissim nisl. Nunc at viverra ex. Phasellus pharetra, leo ut interdum tincidunt, turpis arcu egestas nibh, non ultricies lectus mauris hendrerit diam.</div>
-                        <div class="clearfix">
-                          <button type="button" class="btn btn-outline-success btn-xs pull-left">
-                            <i class="zmdi zmdi-comment-text-alt"></i> Message</button>
-                          <button type="button" class="btn btn-default btn-xs pull-right m-l-10">
-                            <i class="zmdi zmdi-delete"></i>
-                          </button>
-                          <button type="button" class="btn btn-default btn-xs pull-right">
-                            <i class="zmdi zmdi-edit"></i>
-                          </button>
-                        </div>
-                      </a>
-                    </div>
-                    <div class="pc-task">
-                      <a href="#">
-                        <div class="pct-avatar">
-                          <img src="img/avatars/10.jpg" alt="" width="40" height="40">
-                        </div>
-                        <div class="pct-name">Landon Graham
-                          <span class="label label-info m-l-5">in progress</span>
-                        </div>
-                        <div class="pct-time">
-                          <i class="zmdi zmdi-alarm-check"></i> 14 Jun</div>
-                        <div class="pct-text">Nam nisl enim, elementum at dolor quis, pharetra dignissim nisl. Nunc at viverra ex. Phasellus pharetra, leo ut interdum tincidunt, turpis arcu egestas nibh, non ultricies lectus mauris hendrerit diam.</div>
-                        <div class="clearfix">
-                          <button type="button" class="btn btn-outline-success btn-xs pull-left">
-                            <i class="zmdi zmdi-comment-text-alt"></i> Message</button>
-                          <button type="button" class="btn btn-default btn-xs pull-right m-l-10">
-                            <i class="zmdi zmdi-delete"></i>
-                          </button>
-                          <button type="button" class="btn btn-default btn-xs pull-right">
-                            <i class="zmdi zmdi-edit"></i>
-                          </button>
-                        </div>
-                      </a>
-                    </div>
-                    <div class="pc-task">
-                      <a href="#">
-                        <div class="pct-avatar">
-                          <img src="img/avatars/3.jpg" alt="" width="40" height="40">
-                        </div>
-                        <div class="pct-name">Jonathan Mel
-                          <span class="label label-danger m-l-5">new</span>
-                        </div>
-                        <div class="pct-time">
-                          <i class="zmdi zmdi-alarm-check"></i> 17 Jun</div>
-                        <div class="pct-text">Nam nisl enim, elementum at dolor quis, pharetra dignissim nisl. Nunc at viverra ex. Phasellus pharetra, leo ut interdum tincidunt, turpis arcu egestas nibh, non ultricies lectus mauris hendrerit diam.</div>
-                        <div class="clearfix">
-                          <button type="button" class="btn btn-outline-success btn-xs pull-left">
-                            <i class="zmdi zmdi-comment-text-alt"></i> Message</button>
-                          <button type="button" class="btn btn-default btn-xs pull-right m-l-10">
-                            <i class="zmdi zmdi-delete"></i>
-                          </button>
-                          <button type="button" class="btn btn-default btn-xs pull-right">
-                            <i class="zmdi zmdi-edit"></i>
-                          </button>
-                        </div>
-                      </a>
+                      </div>
                     </div>
                   </div>
                 </div>

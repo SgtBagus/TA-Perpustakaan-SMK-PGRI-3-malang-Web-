@@ -4,19 +4,42 @@
   // --                 a.bahasa FROM buku AS a INNER JOIN jenis_buku AS b WHERE a.id_jenis_buku = b.id_jenis_buku" ;
                   
   $query_login = "SELECT a.*, b.* FROM varifikasi AS a INNER JOIN 
-                  pegawai AS b WHERE a.id_user = b.id_pegawai AND email_user ='$_SESSION[email]'";
+                  pegawai AS b WHERE a.id_user = b.id_user AND email_user ='$_SESSION[email]'";
   $result_login = mysqli_query($con, $query_login);
   if(!$result_login){
     die ("Query Error: ".mysqli_errno($con).
     " - ".mysqli_error($con));
   }
-  $data_login = mysqli_fetch_assoc($result_login);
-  $username   = $data_login["username_user"];
-  $email      = $data_login["email_user"];
-  $foto_user  = $data_login["foto_user"];
-  $jabatan    = $data_login["jabatan_pegawai"];
-  $role       = $data_login["role_user"];
-  $no_hp      = $data_login["no_hp_pegawai"];
+
+  $data_login   = mysqli_fetch_assoc($result_login);
+  $username     = $data_login["username_user"];
+  $email        = $data_login["email_user"];
+  $nama         = $data_login["nama"];
+  $foto_user    = $data_login["foto_user"];
+  $jabatan      = $data_login["jabatan"];
+  $role         = $data_login["role_user"];
+  $no_hp        = $data_login["no_hp"];
+  $alamat       = $data_login["alamat"];
+  $masuk        = $data_login["tgl_masuk"];
+  $entri        = $data_login["tgl_entri"];
+  
+    function tanggal_indo($tanggal){
+        $bulan = array (1 =>   'Januari',
+                'Februari',
+                'Maret',
+                'April',
+                'Mei',
+                'Juni',
+                'Juli',
+                'Agustus',
+                'September',
+                'Oktober',
+                'November',
+                'Desember'
+        );
+        $split = explode('-', $tanggal);
+        return $split[2] . ' ' . $bulan[ (int)$split[1] ] . ' ' . $split[0];
+    }
 ?>
 
 <div class="site-header">
@@ -56,8 +79,6 @@
             </a>
             <ul class="dropdown-menu">
               <li><a href="profil.php">Profil</a></li>
-              <li><a href="#">Help</a></li>
-              <li role="separator" class="divider"></li>
               <li><a href="system/logout.php">Logout</a></li>
             </ul>
           </li>
@@ -119,11 +140,6 @@
                 <a href="profil.php">
                   <i class="zmdi zmdi-account-o m-r-10"></i> Profil</a>
               </li>
-              <li>
-                <a href="#">
-                  <i class="zmdi zmdi-help-outline m-r-10"></i> Help</a>
-              </li>
-              <li role="separator" class="divider"></li>
               <li>
                 <a href="system/logout.php">
                   <i class="zmdi zmdi-power m-r-10"></i> Logout</a>

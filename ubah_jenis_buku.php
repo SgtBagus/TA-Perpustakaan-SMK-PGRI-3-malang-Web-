@@ -36,7 +36,6 @@
                 <form class="form-horizontal" method="post" action="system/proses_ubah_jenis_buku.php">
                   <div class="form-group">
                     <input hidden="true" name="id" value="<?php echo $id_jenis_buku ?>">
-                    <input hidden="true" name="no_dewery" value="<?php echo $no_dewery ?>">
                     <label class="col-sm-3 control-label" for="form-control-5">Subyek</label>
                     <div class="col-sm-9">
                       <input class="form-control" type="text" name="subyek" placeholder="Subyek" value="<?php echo $subyek ?>">

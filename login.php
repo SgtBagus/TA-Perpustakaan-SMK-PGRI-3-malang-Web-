@@ -38,9 +38,9 @@
   <?php include('script/footer_script.php') ?>
   <script type="text/javascript">
   <?php
-      if (isset($_GET['alret'])) {
-          $alret = ($_GET["alret"]);
-          if($alret == "error"){
+      if (isset($_GET['alert'])) {
+          $alert = ($_GET["alert"]);
+          if($alert == "error"){
               echo 'swal({
                 title: "Mohon Maaf!",
                 text: "Email Atau Password Anda Salah",
@@ -48,7 +48,7 @@
                 showConfirmButton: true,
               })';
           }
-          else if($alret == "login"){
+          else if($alert == "login"){
               echo 'swal({
                 title: "Mohon Maaf!",
                 text: "Login Terlebih Dahulu",

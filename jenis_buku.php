@@ -57,7 +57,7 @@
     $query_jenis_buku = "SELECT * FROM jenis_buku WHERE no_dewery like '%$cari%' OR subyek like '%$cari%'" ;
   }
   else{
-    $query_jenis_buku = "SELECT * FROM jenis_buku";
+    $query_jenis_buku = "SELECT * FROM jenis_buku"; 
   }
 
   $result_jenis_buku = mysqli_query($con, $query_jenis_buku);
