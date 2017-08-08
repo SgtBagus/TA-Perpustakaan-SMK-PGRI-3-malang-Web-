@@ -21,7 +21,6 @@
   $role         = $data_login["role_user"];
   $no_hp        = $data_login["no_hp"];
   $alamat       = $data_login["alamat"];
-  $masuk        = $data_login["tgl_masuk"];
   $entri        = $data_login["tgl_entri"];
   
     function tanggal_indo($tanggal){

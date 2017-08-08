@@ -24,14 +24,13 @@
                   <div class="form-group">
                     <label class="col-sm-3 control-label" for="form-control-5">Nama Pegawai</label>
                     <div class="col-sm-9">
-                      <input class="form-control" type="text" name="nama_pegawai" placeholder="Subyek">
+                      <input class="form-control" type="text" name="nama" placeholder="Nama Pegawai">
                     </div>
                   </div>
                   <div class="form-group">
-                    <label class="col-sm-3 control-label" for="form-control-21">Jabatan</label>
+                    <label class="col-sm-3 control-label" for="form-control-21">Jabatan Pegawai</label>
                     <div class="col-sm-9">
                       <select name="jabatan" class="form-control">
-                        <option value="" selected="selected">- Jabatan -</option>
                         <option value="Guru Pengajar">Guru Pengajar</option>
                         <option value="Kesiswaan">Kesiswaan</option>
                         <option value="Pustakawan">Pustakawan</option>
@@ -41,46 +40,25 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <label class="col-sm-3 control-label" for="form-control-21">Perwalian Kelas</label>
-                    <div class="col-sm-3">
-                      <select name="kelas" class="form-control">
-                        <option value="" selected="selected">- Kelas -</option>
-                        <option value="X">X - Sepuluh</option>
-                        <option value="XI">XI - Sebelas</option>
-                        <option value="XII">XII - Dua Belas</option>
-                      </select>
-                    </div>
-                    <div class="col-sm-6">
-                      <select name="jurusan" class="form-control">
-                        <option value="" selected="selected">- Jurusan -</option>
-                        <option value="RPL">TI - Rekayasa Perangkat Lunak</option>
-                        <option value="TKJ">TI - Teknik Komputer Jaringan</option>
-                        <option value="MM">TI - Multimedia</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div class="form-group row gutter-xs">
-                    <label class="col-md-3 control-label" for="form-control-3">Phone</label>
-                    <div class="col-md-6">
-                      <input id="form-control-3" class="form-control" type="text" data-inputmask="'alias': '(999) 999-9999'">
-                      <p class="text-muted help-block">(___) ___-____</p>
+                    <label class="col-sm-3 control-label" for="form-control-5">No Hp</label>
+                    <div class="col-sm-9">
+                      <input class="form-control" type="number" name="no_hp" placeholder="No Hp">
                     </div>
                   </div>
                   <div class="form-group">
-                    <label class="col-sm-3 control-label" for="form-control-8">Deskripsi</label>
+                    <label class="col-sm-3 control-label" for="form-control-8">Alamat</label>
                     <div class="col-sm-9">
-                      <textarea class="form-control" rows="3" name="deskripsi" placeholder="Deskripsi"></textarea>
+                      <textarea class="form-control" rows="3" name="alamat" placeholder="Alamat"></textarea>
                     </div>
                   </div>
                   <div align="right">
-                      <a href="jenis_buku.php">
-                          <button type="button" rel="tooltip" class="btn btn-info btn-fill">
-                                      <i class="zmdi zmdi-arrow-left"></i> Kembali
-                          </button>
+                      <a href="pegawai.php">
+                        <button type="button" rel="tooltip" class="btn btn-info btn-fill">
+                          <i class="zmdi zmdi-arrow-left"></i> Kembali
+                        </button>
                       </a>
                       <button type="submit" name="input" rel="tooltip" class="btn btn-primary btn-fill">
-                              <i class="zmdi zmdi-plus-circle"></i> Tambah
+                        <i class="zmdi zmdi-plus-circle"></i> Tambah
                       </button>
                   </div>
                 </form>
@@ -100,7 +78,7 @@
           if($pesan == "error"){
               echo 'swal({
                 title: "Kesalahan!",
-                text: "Jenis buku telah ada.",
+                text: "Pengguna Sudah Terdaftar",
                 type: "error",
                 showConfirmButton: true,
               })';

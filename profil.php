@@ -6,7 +6,6 @@
     <?php include('menu/header.php') ?>
     <div class="site-main">
       <?php include('menu/sidebar.php') ?>
-
       <div class="site-content">
         <div class="profile">
           <div class="row gutter-sm">
@@ -46,12 +45,6 @@
                     <i class="zmdi zmdi-home"></i>
                   </div>
                   <div class="pii-value"><?php echo $alamat ?></div>
-                </div>
-                <div class="pi-item">
-                  <div class="pii-icon">
-                    <i class="zmdi zmdi-assignment-account"></i>
-                  </div>
-                  <div class="pii-value"><?php echo tanggal_indo(''.$masuk.'')?></div>
                 </div>
                 <div class="pi-item">
                   <div class="pii-icon">
