@@ -9,7 +9,7 @@
       <div class="site-content">
         <div class="panel panel-default panel-table">
           <div class="panel-heading">
-            <h3 class="m-t-0 m-b-5">Tabel Data Siswa SMK PGRI 3</h3>
+            <h3 class="m-t-0 m-b-5">Siswa</h3>
           </div>
           <div class="panel-body">
             <div align="right">
@@ -21,83 +21,64 @@
             </div>
             <br>
             <div class="table-responsive">
-              <table class="table table-striped table-bordered dataTable" id="dataTable">
+<?php
+  if (isset($_GET['cari'])) {
+    $cari = ($_GET["cari"]);  
+  $query_user = "SELECT id_user,no_induk,nama,jabatan, tgl_entri,
+                  varifikasi FROM user WHERE no_induk like '%$cari%' OR nama like '%$cari%'";
+    }
+  else{
+  $query_user = "SELECT id_user,no_induk,nama,jabatan, tgl_entri,
+                  varifikasi FROM user WHERE jabatan like 'Siswa%'";
+  }
+  $result_user = mysqli_query($con, $query_user);
+?>
+              <table class="table">
                 <thead>
                   <tr>
                     <th>No</th>
                     <th>NIS</th>
                     <th>Nama Siswa</th>
-                    <th>Kelas</th>
-                    <th>Jurusan</th>
-                    <th>Perwalian</th>
+                    <th>Jabatan</th>
+                    <th>Tanggal Terdaftar</th>
                     <th>Varifikasi</th>
                     <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>17154/1595.063</td>
-                    <td>Bagus Andika</td>
-                    <td>12</td>
-                    <td>RPL</td>
-                    <td>Dwi Ayu Noventi Kartika Sari, S. Pd</td>
-                    <td>Belum Tervarifikasi</td>
-                    <td>
-                      <a href="detail_siswa.php">
+<?php
+  $no_user = 1;
+  while($data_user = mysqli_fetch_assoc($result_user)){
+                 echo '<tr>
+                    <td>'.$no_user.'</td>
+                    <td>'.$data_user['no_induk'].'</td>
+                    <td>'.$data_user['nama'].'</td>
+                    <td>'.$data_user['jabatan'].'</td>
+                    <td>'.tanggal_indo(''.$data_user['tgl_entri'].'').'</td>
+                    <td>'.$data_user['varifikasi'].'</td>
+                    <td align="center">';
+  if($id_login == $data_user['id_user']){
+                      echo '<a href="Profil.php">
+                        <button type="button" class="btn btn-primary">
+                          <i class="zmdi zmdi-account"></i> Profil
+                        </button>
+                      </a>';
+  }
+  else{
+                      echo '<a href="detail_user.php?no_induk='.$data_user['no_induk'].'">
                         <button type="button" class="btn btn-primary">
                           <i class="zmdi zmdi-eye"></i> Detail
                         </button>
                       </a>
-                      <a href="proses/hapus_siswa.php">
-                        <button type="button" class="btn btn-danger">
-                          <i class="zmdi zmdi-delete"></i> Hapus
-                        </button>
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>17154/1595.067</td>
-                    <td>Santoso Ahmat</td>
-                    <td>10</td>
-                    <td>RPL</td>
-                    <td>Siska Farizah Mauludiah, S. Kom</td>
-                    <td>Tervarifikasi</td>
-                    <td>
-                      <a href="detail_siswa.php">
-                        <button type="button" class="btn btn-primary">
-                          <i class="zmdi zmdi-eye"></i> Detail
-                        </button>
-                      </a>
-                      <a href="proses/hapus_siswa.php">
-                        <button type="button" class="btn btn-danger">
-                          <i class="zmdi zmdi-delete"></i> Hapus
-                        </button>
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>17184/1525.057</td>
-                    <td>Koirul Mamat</td>
-                    <td>10</td>
-                    <td>TKJ</td>
-                    <td>Dwi Ayu Noventi Kartika Sari, S. Pd</td>
-                    <td>Belum Tervarifikasi</td>
-                    <td>
-                      <a href="detail_siswa.php">
-                        <button type="button" class="btn btn-primary">
-                          <i class="zmdi zmdi-eye"></i> Detail
-                        </button>
-                      </a>
-                      <a href="proses/hapus_siswa.php">
-                        <button type="button" class="btn btn-danger">
-                          <i class="zmdi zmdi-delete"></i> Hapus
-                        </button>
-                      </a>
-                    </td>
-                  </tr>
+                      <button onclick="hapus('.$data_user['id_user'].')" type="button" class="btn btn-danger">
+                        <i class="zmdi zmdi-delete"></i> Hapus
+                      </button>';
+  }
+                    echo '</td>
+                  </tr>';
+                  $no_user++;
+                }
+  ?>
                 </tbody>
               </table>
             </div>
@@ -108,23 +89,39 @@
     </div>
   </body>
   <?php include('script/footer_script.php') ?>
-  <script src="asstes/js/tables-datatables.min.js"></script>
-  <script>
-  $(document).ready(function() {
-    $('#dataTable').DataTable({
-      "language": {
-        "lengthMenu"  : "Tampilkan _MENU_ Siswa Perhalaman",
-        "zeroRecords" : "Data Siswa Tidak Ditemukan",
-        "info"        : "Data Siswa Sebanyak _TOTAL_ Dengan Halaman <b>_START_</b> sampai <b>_END_</b>",
-        "infoEmpty"   : "Data Siswa Tidak Ada",
-        "infoFiltered": "(Pencarian dari _MAX_ Total Data)",
-        "search"      : "Pencarian : ",
-        "paginate"    : {
-                        "next"      : "Selanjutnya",
-                        "previous"  : "Sebelumnya"
-        }
+  <script type="text/javascript">
+  function hapus(id) {
+    swal({
+      title: 'Apakah anda yakin?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Iya!, Hapus Data'
+      }).then(function () {
+          document.location="system/hapus_siswa.php?id="+id;
+    })
+  }
+  <?php
+      if (isset($_GET['aksi'])) {
+          $aksi = ($_GET["aksi"]);
+          if($aksi == "hapus"){
+              echo 'swal({
+                title: "Terhapus!",
+                text: "Pegawai Telah Dihapus.",
+                type: "success",
+                showConfirmButton: true,
+              })';
+          }
+          else if($aksi == "tambah"){
+              echo 'swal({
+                title: "Tertambah!",
+                text: "Pegawai Telah Ditambah.",
+                type: "success",
+                showConfirmButton: true,
+              })';
+          }
       }
-    });
-  });
+  ?>
   </script>
 </html>

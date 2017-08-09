@@ -55,15 +55,14 @@
   if (isset($_GET['cari'])) {
     $cari = ($_GET["cari"]);  
   $query_pegawai = "SELECT id_user,no_induk,nama,jabatan, tgl_entri,
-                  varifikasi FROM user WHERE no_induk like '%$cari%' OR nama like '%$cari%'";
+                  varifikasi FROM user WHERE no_induk like '%$cari%' OR nama like '%$cari%'
+                  AND jabatan NOT LIKE 'Siswa'";
     }
   else{
   $query_pegawai = "SELECT id_user,no_induk,nama,jabatan, tgl_entri,
-                  varifikasi FROM user";
+                  varifikasi FROM user WHERE jabatan NOT LIKE 'Siswa' ";
   }
-                  
   $result_pegawai = mysqli_query($con, $query_pegawai);
-
 ?>
               <table class="table">
                 <thead>
@@ -97,7 +96,7 @@
                       </a>';
   }
   else{
-                      echo '<a href="detail_pegawai.php?NIP='.$data_pegawai['no_induk'].'">
+                      echo '<a href="detail_user.php?no_induk='.$data_pegawai['no_induk'].'">
                         <button type="button" class="btn btn-primary">
                           <i class="zmdi zmdi-eye"></i> Detail
                         </button>
@@ -131,7 +130,7 @@
       cancelButtonColor: '#d33',
       confirmButtonText: 'Iya!, Hapus Data'
       }).then(function () {
-          document.location="system/hapus_user.php?id="+id;
+          document.location="system/hapus_pegawai.php?id="+id;
     })
   }
   <?php
