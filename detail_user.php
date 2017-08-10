@@ -71,7 +71,7 @@
                   <div class="pii-icon">
                     <i class="zmdi zmdi-phone"></i>
                   </div>
-                  <div class="pii-value">+<?php echo $no_hp_user?></div>
+                  <div class="pii-value"><?php echo $no_hp_user?></div>
                 </div>
                 <div class="pi-item">
                   <div class="pii-icon">

@@ -14,37 +14,38 @@
           <div class="panel-body">
             <div class="row">
               <div class="col-md-8">
-                <form class="form-horizontal" method="post" action="system/proses_tambah_siswa.php">
+                <form id="inputmasks" class="form-horizontal" method="post" action="system/proses_tambah_siswa.php">    
                   <div class="form-group">
-                    <label class="col-sm-3 control-label" for="form-control-5">NIS</label>
-                    <div class="col-sm-9">
-                      <input class="form-control" type="number" name="nis" placeholder="NIS">
+                    <label class="col-md-3 control-label" for="form-control-3">NIS</label>
+                    <div class="col-md-9">
+                      <input id="form-control-3" class="form-control" type="text" 
+                      data-inputmask="'alias': '99999/9999.999'" placeholder="NIS" name="nis" required>
                     </div>
                   </div>
                   <div class="form-group">
                     <label class="col-sm-3 control-label" for="form-control-5">Nama Siswa</label>
                     <div class="col-sm-9">
-                      <input class="form-control" type="text" name="nama" placeholder="Nama Pegawai">
+                      <input class="form-control" type="text" name="nama" placeholder="Nama Pegawai" required>
                     </div>
                   </div>
                   <div class="form-group">
                     <label class="col-sm-3 control-label" for="form-control-21">Kelas</label>
                     <div class="col-sm-3">
-                      <select name="kelas" class="form-control">
+                      <select name="kelas" class="form-control" required>
                         <option value="X">X</option>
                         <option value="XI">XI</option>
                         <option value="XII">XII</option>
                       </select>
                     </div>
                     <div class="col-sm-3">
-                      <select name="jurusan" class="form-control">
+                      <select name="jurusan" class="form-control" required>
                         <option value="RPL">RPL</option>
                         <option value="TKJ">TKJ</option>
                         <option value="MM">MM</option>
                       </select>
                     </div>
                     <div class="col-sm-3">
-                      <select name="sub_kelas" class="form-control">
+                      <select name="sub_kelas" class="form-control" required>
                         <option value="A">A</option>
                         <option value="B">B</option>
                         <option value="C">C</option>
@@ -55,12 +56,13 @@
                   </div>
                   <div class="form-group">
                     <label class="col-sm-3 control-label" for="form-control-5">No Hp</label>
-                    <div class="col-sm-9">
-                      <input class="form-control" type="number" name="no_hp" placeholder="No Hp">
+                    <div class="col-md-9">
+                      <input id="form-control-3" class="form-control" type="text" 
+                      data-inputmask="'alias': '+089999999999'" placeholder="No Hp" name="no_hp">
                     </div>
                   </div>
                   <div class="form-group">
-                    <label class="col-sm-3 control-label" for="form-control-8">Alamat</label>
+                    <label class="col-sm-3 control-label" for="form-control-8" required>Alamat</label>
                     <div class="col-sm-9">
                       <textarea class="form-control" rows="3" name="alamat" placeholder="Alamat"></textarea>
                     </div>

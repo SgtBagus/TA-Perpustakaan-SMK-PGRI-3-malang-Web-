@@ -16,7 +16,7 @@ if (isset($_POST['input'])) {
   if (mysqli_num_rows($prosescek)>0) {
     header("location:../tambah_siswa.php?pesan=error");
   }
-  else {
+  else { 
     $query = "INSERT INTO user SET no_induk='$nip', nama='$nama', foto_user='thumbnail.jpg',
               jabatan='Siswa', kelas='$kelas - $jurusan - $sub_kelas',no_hp='$no_hp', alamat='$alamat', 
               tgl_entri = '$entri', varifikasi='Belum'";

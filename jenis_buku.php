@@ -65,10 +65,10 @@
               <table class="table">
                 <thead>
                   <tr>
-                    <th>No</th>
-                    <th>Nomor Dewery</th>
+                    <th>No</th> 
+                    <th>Dewery</th>
                     <th>Subyek</th>
-                    <th width="500px">Dekripsi</th>
+                    <th>Dekripsi</th>
                     <th>Aksi</th>
                   </tr>
                 </thead>
@@ -84,14 +84,16 @@
                       '.$data_jenis_buku['deskripsi_jenis_buku'].'
                     </td>
                     <td align="right">
-                      <a href="ubah_jenis_buku.php?no_dewery='.$data_jenis_buku['no_dewery'].'">
-                        <button type="button" class="btn btn-primary">
-                          <i class="zmdi zmdi-edit"></i> Edit
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Aksi
+                          <span class="caret"></span>
                         </button>
-                      </a>
-                        <button onclick="hapus('.$data_jenis_buku['id_jenis_buku'].')" type="button" class="btn btn-danger">
-                          <i class="zmdi zmdi-delete"></i> Hapus
-                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                          <li><a href="ubah_jenis_buku.php?no_dewery='.$data_jenis_buku['no_dewery'].'">Edit</a></li>
+                          <li><a href="#" onclick="hapus('.$data_jenis_buku['id_jenis_buku'].')">Hapus</a></li>
+                        </ul>
+                      </div>
                     </td>
                   </tr>';
                   $no_jenis_buku++;

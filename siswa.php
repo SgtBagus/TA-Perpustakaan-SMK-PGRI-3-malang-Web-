@@ -12,12 +12,42 @@
             <h3 class="m-t-0 m-b-5">Siswa</h3>
           </div>
           <div class="panel-body">
-            <div align="right">
-              <a href="tambah_siswa.php">
-                <button type="button" class="btn btn-primary">
-                  <i class="zmdi zmdi-account-add"></i> Tambah Data Siswa
-                </button>
-              </a>
+            <div class="row">
+              <div class="col-sm-6">
+                <form class="form-horizontal" method="get" action="?">
+                  <div class="form-group">
+                    <div class="col-sm-8">
+                      <div class="input-group">
+                        <input type="text" name="cari" class="form-control" placeholder="Pencarian....">
+                        <span class="input-group-btn">
+                <?php
+                  if (isset($_GET['cari'])) {
+                    echo '<a href="siswa.php">
+                      <button class="btn btn-default" type="button">
+                        Reset
+                      </button>
+                    </a>';
+                  }else{
+                    echo '<button class="btn btn-default" type="submit">
+                      <i class="zmdi zmdi-search"></i>
+                    </button>';
+                  }
+                ?>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="col-sm-6">
+                <div align="right">
+                  <a href="tambah_siswa.php">
+                    <button type="button" class="btn btn-primary">
+                      <i class="zmdi zmdi-account-add"></i> Tambah Data Pegawai
+                    </button>
+                  </a>
+                </div>
+              </div>
             </div>
             <br>
             <div class="table-responsive">
@@ -25,7 +55,8 @@
   if (isset($_GET['cari'])) {
     $cari = ($_GET["cari"]);  
   $query_user = "SELECT id_user,no_induk,nama,jabatan, tgl_entri,
-                  varifikasi FROM user WHERE no_induk like '%$cari%' OR nama like '%$cari%'";
+                  varifikasi FROM user WHERE no_induk like '%$cari%' OR nama like '%$cari%' 
+                  AND jabatan like 'Siswa%'";
     }
   else{
   $query_user = "SELECT id_user,no_induk,nama,jabatan, tgl_entri,

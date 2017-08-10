@@ -1,4 +1,4 @@
-<?php $page="BUKU" ?>
+<?php $page="PEMINJAMAN" ?>
 <!DOCTYPE html>
 <html lang="en">
   <?php include('script/head_script.php') ?>
@@ -9,17 +9,9 @@
       <div class="site-content">
         <div class="panel panel-default panel-table">
           <div class="panel-heading">
-            <h3 class="m-t-0 m-b-5">BUKU</h3>
+            <h3 class="m-t-0 m-b-5">PEMINJAMAN</h3>
           </div>
           <div class="panel-body">
-            <div align="right">
-              <a href="tambah_siswa.php">
-                <button type="button" class="btn btn-primary">
-                  <i class="zmdi zmdi-account-add"></i> Tambah Buku
-                </button>
-              </a>
-            </div>
-            <br>
             <div class="table-responsive">
 <?php
   $query_buku = "SELECT a.id_buku, a.judul_buku, a.id_jenis_buku, b.subyek, a.jenis_media,
