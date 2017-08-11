@@ -11,7 +11,7 @@
           <div class="panel-heading">
             <h3 class="m-y-0">Tambah Pegawai</h3>
           </div>
-          <div class="panel-body">
+          <div class="panel-body"> 
             <div class="row">
               <div class="col-md-8">
                 <form id="inputmasks" class="form-horizontal" method="post" action="system/proses_tambah_siswa.php">    

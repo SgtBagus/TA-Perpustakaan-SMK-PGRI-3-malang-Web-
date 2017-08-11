@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 11 Agu 2017 pada 14.09
+-- Generation Time: 11 Agu 2017 pada 14.18
 -- Versi Server: 10.1.16-MariaDB
 -- PHP Version: 7.0.9
 
@@ -141,7 +141,7 @@ CREATE TABLE `peminjaman` (
 --
 
 INSERT INTO `peminjaman` (`id_peminjaman`, `id_user`, `tanggal_peminjaman`, `tanggal_pengembalian`, `status_pinjaman`) VALUES
-(1, 6, '2017-08-11', '2017-08-23', 'Menunggu');
+(1, 2, '2017-08-11', '2017-08-23', 'Menunggu');
 
 -- --------------------------------------------------------
 
@@ -168,7 +168,7 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id_user`, `no_induk`, `nama`, `foto_user`, `jabatan`, `kelas`, `no_hp`, `alamat`, `tgl_entri`, `verifikasi`) VALUES
 (1, '17154/1595.063', 'Bagus Andika', 'thumbnail.jpg', 'Pustakawan', '-', '+067384234123', 'Perumahan Bumi Asti Tahap-II Blok J-15', '2017-08-07', 'Sudah'),
-(6, '17172/1613.063', 'Kharisma Yunior Suryatama', 'thumbnail.jpg', 'Siswa', 'XII - RPL - A', '+087859388413', 'Vinolia Gg.3 No.27a RT. 2 RW 5 Kelurahan JATIMULYO Kecamatan LOWOKWARU KOTA', '2017-08-10', 'Sudah');
+(2, '17172/1613.063', 'Kharisma Yunior Suryatama', 'thumbnail.jpg', 'Siswa', 'XII - RPL - A', '+087859388413', 'Vinolia Gg.3 No.27a RT. 2 RW 5 Kelurahan JATIMULYO Kecamatan LOWOKWARU KOTA', '2017-08-10', 'Sudah');
 
 -- --------------------------------------------------------
 
@@ -191,7 +191,7 @@ CREATE TABLE `verifikasi` (
 
 INSERT INTO `verifikasi` (`id_verifikasi`, `id_user`, `username_user`, `email_user`, `password_user`, `role_user`) VALUES
 (1, 1, 'Admin', 'admin@gmail.com', '21232f297a57a5a743894a0e4a801fc3', 'Admin'),
-(2, 6, 'Kharisma-564', 'kharisma@gmail.com', '8d54d98edb4b4ebdb4a2cc0cffe6eb1f', 'User');
+(2, 2, 'Kharisma-564', 'kharisma@gmail.com', '8d54d98edb4b4ebdb4a2cc0cffe6eb1f', 'User');
 
 --
 -- Indexes for dumped tables
@@ -272,7 +272,7 @@ ALTER TABLE `peminjaman`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_user` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `verifikasi`
 --

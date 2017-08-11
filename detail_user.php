@@ -22,10 +22,10 @@
             $tgl_entri_user  = $data_user["tgl_entri"];
             $verifikasi_user = $data_user["verifikasi"];
 
-            $query_verifikasi = "SELECT * FROM varifikasi WHERE id_user = '$id_user'";
-            $result_verifikasi = mysqli_query($con, $query_varifikasi);
+            $query_verifikasi = "SELECT * FROM verifikasi WHERE id_user = '$id_user'";
+            $result_verifikasi = mysqli_query($con, $query_verifikasi);
 
-            $data_verifikasi = mysqli_fetch_assoc($result_varifikasi);
+            $data_verifikasi = mysqli_fetch_assoc($result_verifikasi);
             $email_verifikasi = $data_verifikasi["email_user"];
             $username_verifikasi = $data_verifikasi["username_user"];
         } 
@@ -86,11 +86,11 @@
                   </div>
                   <div class="pii-value">
                     <?php
-                    if($varifikasi_user == "Belum"){
-                        echo ' - Belum Tervarifikasi - ';
+                    if($verifikasi_user == "Belum"){
+                        echo ' - Belum Terverifikasi - ';
                     }
                     else{
-                        echo '<div class="pii-value">'.$email_varifikasi.'</div>';
+                        echo '<div class="pii-value">'.$email_verifikasi.'</div>';
                     }
                     ?>
                   </div>
@@ -109,7 +109,7 @@
                 </div>
                 <div class="row">
                   <button type="button" class="btn btn-warning">
-                    <i class="zmdi zmdi-alert-triangle"></i> Reset Varifikasi
+                    <i class="zmdi zmdi-alert-triangle"></i> Reset Verifikasi
                   </button>
                 </div>
                 <br>
@@ -142,8 +142,8 @@
                       <div class="tab-content">
                         <div role="tabpanel" class="tab-pane fade  active in" id="kegiatan">
                             <?php
-                            if($varifikasi_user == "Belum"){
-                                echo '<p> - Belum Tervarifikasi - </p>';
+                            if($verifikasi_user == "Belum"){
+                                echo '<p> - Belum Terverifikasi - </p>';
                             }
                             else{
                                 echo '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque lacinia non massa a euismod. Nam bibendum mauris mollis, ultricies orci vitae, tristique est. Mauris pellentesque justo ut est fringilla imperdiet.</p>
