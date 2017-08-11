@@ -69,7 +69,7 @@
                     <th>Dewery</th>
                     <th>Subyek</th>
                     <th>Dekripsi</th>
-                    <th>Aksi</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>

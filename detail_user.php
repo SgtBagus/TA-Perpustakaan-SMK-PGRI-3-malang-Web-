@@ -20,7 +20,14 @@
             $no_hp_user      = $data_user["no_hp"];
             $alamat_user     = $data_user["alamat"];
             $tgl_entri_user  = $data_user["tgl_entri"];
-            $varifikasi_user = $data_user["varifikasi"];
+            $verifikasi_user = $data_user["verifikasi"];
+
+            $query_verifikasi = "SELECT * FROM varifikasi WHERE id_user = '$id_user'";
+            $result_verifikasi = mysqli_query($con, $query_varifikasi);
+
+            $data_verifikasi = mysqli_fetch_assoc($result_varifikasi);
+            $email_verifikasi = $data_verifikasi["email_user"];
+            $username_verifikasi = $data_verifikasi["username_user"];
         } 
     ?>
   <body class="layout layout-header-fixed layout-left-sidebar-fixed">
@@ -41,11 +48,11 @@
                   </button>
                   <div class="pa-name">
                   <?php
-                  if($varifikasi_user == "Belum"){
-                    echo ' - Belum Tervarifikasi - ';
+                  if($verifikasi_user == "Belum"){
+                    echo ' - Belum Terverifikasi - ';
                   }
                   else{
-                    echo 'Tervarifikasi';
+                    echo $username_verifikasi;
                   }
                   ?>
                     <div class="pa-text"><?php echo $nama_user ?> · <?php echo $jabatan_user ?></div>                  </div>
@@ -83,7 +90,7 @@
                         echo ' - Belum Tervarifikasi - ';
                     }
                     else{
-                        echo 'Tervarifikasi';
+                        echo '<div class="pii-value">'.$email_varifikasi.'</div>';
                     }
                     ?>
                   </div>

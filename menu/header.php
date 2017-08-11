@@ -3,7 +3,7 @@
   // $query_buku = "SELECT a.id_buku, a.judul_buku, a.id_jenis_buku, b.subyek, a.jenis_media,
   // --                 a.bahasa FROM buku AS a INNER JOIN jenis_buku AS b WHERE a.id_jenis_buku = b.id_jenis_buku" ;
                   
-  $query_login = "SELECT a.*, b.* FROM varifikasi AS a INNER JOIN 
+  $query_login = "SELECT a.*, b.* FROM verifikasi AS a INNER JOIN 
                   user AS b WHERE a.id_user = b.id_user AND email_user ='$_SESSION[email]'";
   $result_login = mysqli_query($con, $query_login);
   if(!$result_login){
@@ -18,7 +18,7 @@
   $nama         = $data_login["nama"];
   $foto_user    = $data_login["foto_user"];
   $jabatan      = $data_login["jabatan"];
-  $role         = $data_login["role_user"];
+  $role         = $data_login["role_user"]; 
   $no_hp        = $data_login["no_hp"];
   $alamat       = $data_login["alamat"];
   $entri        = $data_login["tgl_entri"];

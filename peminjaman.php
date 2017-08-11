@@ -12,55 +12,53 @@
             <h3 class="m-t-0 m-b-5">PEMINJAMAN</h3>
           </div>
           <div class="panel-body">
-            <div class="table-responsive">
+            <div class="table-responsive">          
 <?php
-  $query_buku = "SELECT a.id_buku, a.judul_buku, a.id_jenis_buku, b.subyek, a.jenis_media,
-                  a.bahasa FROM buku AS a INNER JOIN jenis_buku AS b WHERE a.id_jenis_buku = b.id_jenis_buku" ;
-
-  $result_buku = mysqli_query($con, $query_buku);
+  $query = "SELECT a.*, b.*, c.* FROM peminjaman AS a INNER JOIN user  
+                 AS b INNER JOIN verifikasi AS c WHERE a.id_user = b.id_user 
+                 AND a.id_user = c.id_user" ;
+  $result = mysqli_query($con, $query);
 ?>
               <table class="table">
                 <thead>
                   <tr>
                     <th>No</th>
-                    <th>Judul buku</th>
-                    <th>Jenis Buku</th>
-                    <th>Media</th>
-                    <th>Bahasa</th>
+                    <th colspan="2">Peminjam</th>
+                    <th>Tanggal Pinjaman</th>
+                    <th>Tanggal Pengmbalian</th>
+                    <th>Sanksi</th>
                     <th></th>
                   </tr>
                 </thead>
                 <tbody>
-<?php
-  $no_buku = 1;
-  while($data_buku = mysqli_fetch_assoc($result_buku)){
-                  echo '<tr>
-                    <td>'.$no_buku.'</td>
-                    <td>'.$data_buku['judul_buku'].'</td>
-                    <td>'.$data_buku['subyek'].'</td>
-                    <td>'.$data_buku['jenis_media'].'</td>
-                    <td>'.$data_buku['bahasa'].'</td>
-                    <td align="right">
-                      <a href="detail_buku.php?id_buku='.$data_buku['id_buku'].'">
+                <?php
+  $no = 1;
+  while($data = mysqli_fetch_assoc($result)){
+                  echo '
+                  <tr>
+                    <td>'.$no.'</td>
+                    <td>'.$data['username_user'].'</td>
+                    <td>
+                      <a href="detail_user.php?no_induk='.$data['no_induk'].'">
                         <button type="button" class="btn btn-primary">
-                          <i class="zmdi zmdi-eye"></i> Detail
+                          <i class="zmdi zmdi-eye"></i> Profil Peminjamn
                         </button>
                       </a>
-                      <a href="ubah_buku.php">
+                    </td>
+                    <td>'.tanggal_indo(''.$data['tanggal_peminjaman'].'').'</td>
+                    <td>'.tanggal_indo(''.$data['tanggal_pengembalian'].'').'</td>
+                    <td></td>
+                    <td>
+                      <a href="detail_peminjaman.php?no_peminjaman='.$data['id_peminjaman'].'">
                         <button type="button" class="btn btn-primary">
-                          <i class="zmdi zmdi-edit"></i> Ubah
-                        </button>
-                      </a>
-                      <a href="proses/hapus_buku.php">
-                        <button type="button" class="btn btn-danger">
-                          <i class="zmdi zmdi-delete"></i> Hapus
+                          <i class="zmdi zmdi-eye"></i> Detail Peminjaman
                         </button>
                       </a>
                     </td>
                   </tr>';
-                  $no_buku++;
-                }
-?>
+                  $no;
+  }
+  ?>
                 </tbody>
               </table>
             </div>

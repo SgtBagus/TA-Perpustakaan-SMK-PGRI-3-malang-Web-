@@ -7,7 +7,7 @@ $hash=md5($password);
 
 $op=$_GET['op'];
 if($op=="in"){
-	$sql=mysqli_query( $con, "SELECT * FROM varifikasi WHERE email_user='$email' 
+	$sql=mysqli_query( $con, "SELECT * FROM verifikasi WHERE email_user='$email' 
 					   AND password_user = '$hash' AND role_user = 'admin'");
 	if(mysqli_num_rows($sql)==1){
 		$qry = mysqli_fetch_array($sql);

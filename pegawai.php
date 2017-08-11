@@ -55,12 +55,12 @@
   if (isset($_GET['cari'])) {
     $cari = ($_GET["cari"]);  
   $query_pegawai = "SELECT id_user,no_induk,nama,jabatan, tgl_entri,
-                  varifikasi FROM user WHERE no_induk like '%$cari%' OR nama like '%$cari%'
+                  verifikasi FROM user WHERE no_induk like '%$cari%' OR nama like '%$cari%'
                   AND jabatan NOT LIKE 'Siswa'";
     }
   else{
   $query_pegawai = "SELECT id_user,no_induk,nama,jabatan, tgl_entri,
-                  varifikasi FROM user WHERE jabatan NOT LIKE 'Siswa' ";
+                  verifikasi FROM user WHERE jabatan NOT LIKE 'Siswa' ";
   }
   $result_pegawai = mysqli_query($con, $query_pegawai);
 ?>
@@ -72,7 +72,7 @@
                     <th>Nama Pegawai</th>
                     <th>Jabatan</th>
                     <th>Tanggal Terdaftar</th>
-                    <th>Varifikasi</th>
+                    <th>Verifikasi</th>
                     <th>Aksi</th>
                   </tr>
                 </thead>
@@ -86,7 +86,7 @@
                     <td>'.$data_pegawai['nama'].'</td>
                     <td>'.$data_pegawai['jabatan'].'</td>
                     <td>'.tanggal_indo(''.$data_pegawai['tgl_entri'].'').'</td>
-                    <td>'.$data_pegawai['varifikasi'].'</td>
+                    <td>'.$data_pegawai['verifikasi'].'</td>
                     <td align="center">';
   if($id_login == $data_pegawai['id_user']){
                       echo '<a href="Profil.php">
