@@ -17,7 +17,7 @@ if (isset($_POST['input'])) {
     header("location:../tambah_pegawai.php?pesan=error");
   }
   else {
-    $query = "INSERT INTO user SET no_induk='$nip', nama='$nama', foto_user='thumbnail.jpg',
+    $query = "INSERT INTO user SET no_induk='$nip', nama='$nama', username='-', email='-', password='-', foto_user='thumbnail.jpg',
               jabatan='$jabatan', kelas='-',no_hp='$no_hp', alamat='$alamat', tgl_entri = '$entri', varifikasi='Belum'";
     $result = mysqli_query($con, $query);
     if(!$result){

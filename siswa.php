@@ -17,8 +17,15 @@
                 <form class="form-horizontal" method="get" action="?">
                   <div class="form-group">
                     <div class="col-sm-8">
-                      <div class="input-group">
-                        <input type="text" name="cari" class="form-control" placeholder="Pencarian....">
+                      <div class="input-group">    
+                <?php
+                  if (isset($_GET['cari'])) {
+                    $cari = ($_GET["cari"]);  
+                    echo '<input type="text" name="cari" class="form-control" value="'.$cari.'" placeholder="Pencarian....">';
+                  }else{
+                    echo '<input type="text" name="cari" class="form-control" placeholder="Pencarian....">';
+                  }
+                ?>
                         <span class="input-group-btn">
                 <?php
                   if (isset($_GET['cari'])) {

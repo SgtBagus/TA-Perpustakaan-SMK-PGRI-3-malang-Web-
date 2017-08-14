@@ -85,19 +85,21 @@
                           <p>Cras varius vehicula lorem sollicitudin ullamcorper. Sed nec purus eget velit elementum posuere. Aliquam et orci tincidunt, vulputate tortor quis, iaculis sapien. Praesent semper dui at porta consequat. In quis turpis mollis, rutrum erat tincidunt, tincidunt ipsum. Suspendisse feugiat bibendum faucibus.</p>
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="biodata">
-                          <form class="form-horizontal" method="post" action="system/proses_ubah_biodata.php">
+                          <form id="inputmasks" class="form-horizontal"  method="post" action="system/proses_ubah_biodata.php" enctype="multipart/form-data">
                             <div class="form-group">
                               <label class="col-sm-3 control-label" for="form-control-5">Foto Profil</label>
                               <div class="col-sm-9">
                                 <img id="preview_gambar" src="img/avatars/<?php echo $foto_user ?>" alt="Foto Profil" width="100" height="100">
-                                <input id="preview" style="visibility:hidden;" type="file" accept="image/png, image/jpeg, image/jpg" name="foto" onchange="readURL(this);" onclick="myFunction()"/>
-                                <label for="preview" class="btn btn-primary btn-fill"><i class="zmdi zmdi-edit"> </i> Ubah Foto Profil</label>
+                                <input id="preview" style="visibility:hidden;" type="file" accept="image/png, image/jpeg, image/jpg" name="foto" onchange="readURL(this);" onclick="myFunction()" />
+                                <label for="preview" class="btn btn-primary btn-fill">Ubah Gambar</label>
+                                <!-- <label for="preview" class="btn btn-primary btn-fill"><i class="zmdi zmdi-edit"> </i> Ubah Foto Profil</label> -->
                               </div>
                             </div>
                             <div class="form-group">
                               <label class="col-sm-3 control-label" for="form-control-5">Nama</label>
                               <div class="col-sm-9">
-                                <input class="form-control" type="text" name="subyek" placeholder="name" value="<?php echo $nama ?>">
+                                <input type="hidden" name="id" value="<?php echo $id_login ?>">
+                                <input class="form-control" type="text" name="nama" placeholder="name" value="<?php echo $nama ?>">
                               </div>
                             </div>
                             <div class="form-group">
@@ -154,8 +156,9 @@
                             </div>
                             <div class="form-group">
                               <label class="col-sm-3 control-label" for="form-control-5">No Hp</label>
-                              <div class="col-sm-9">
-                                <input class="form-control" type="text" name="no_hp" placeholder="no_hp" value="<?php echo $no_hp ?>">
+                              <div class="col-md-9">
+                                <input id="form-control-3" class="form-control" type="text" 
+                                data-inputmask="'alias': '+089999999999'" placeholder="No Hp" name="no_hp" value="<?php echo $no_hp?>">
                               </div>
                             </div>
                             <div class="form-group">
@@ -178,7 +181,7 @@
                           </form>
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="email">
-                          <form class="form-horizontal" method="post" action="system/proses_ubah_email.php">
+                          <form class="form-horizontal" id="inputmasks"  method="post" action="system/proses_ubah_email.php">
                             <div class="form-group">
                               <label class="col-sm-3 control-label" for="form-control-5">Email</label>
                               <div class="col-sm-9">
@@ -188,7 +191,7 @@
                             <div class="form-group">
                               <label class="col-sm-3 control-label" for="form-control-5">Password Anda</label>
                               <div class="col-sm-9">
-                                <input class="form-control" type="password" name="konfirmasi" placeholder="Konfirmasi Anda">
+                                <input class="form-control" type="password" name="konfirmasi" placeholder="Konfirmasi Anda" required>
                               </div>
                             </div>
                             <div align="right">

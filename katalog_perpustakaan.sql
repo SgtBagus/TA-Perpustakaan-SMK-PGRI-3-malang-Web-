@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 11 Agu 2017 pada 14.18
+-- Generation Time: 14 Agu 2017 pada 13.56
 -- Versi Server: 10.1.16-MariaDB
 -- PHP Version: 7.0.9
 
@@ -153,11 +153,15 @@ CREATE TABLE `user` (
   `id_user` int(12) NOT NULL,
   `no_induk` varchar(225) NOT NULL,
   `nama` varchar(225) NOT NULL,
+  `username` varchar(225) NOT NULL,
+  `email` varchar(225) NOT NULL,
+  `password` varchar(225) NOT NULL,
   `foto_user` varchar(225) NOT NULL,
   `jabatan` varchar(225) NOT NULL,
   `kelas` varchar(225) NOT NULL,
   `no_hp` varchar(15) NOT NULL,
   `alamat` text NOT NULL,
+  `role` enum('Admin','User') NOT NULL,
   `tgl_entri` date NOT NULL,
   `verifikasi` enum('Sudah','Belum') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -166,32 +170,10 @@ CREATE TABLE `user` (
 -- Dumping data untuk tabel `user`
 --
 
-INSERT INTO `user` (`id_user`, `no_induk`, `nama`, `foto_user`, `jabatan`, `kelas`, `no_hp`, `alamat`, `tgl_entri`, `verifikasi`) VALUES
-(1, '17154/1595.063', 'Bagus Andika', 'thumbnail.jpg', 'Pustakawan', '-', '+067384234123', 'Perumahan Bumi Asti Tahap-II Blok J-15', '2017-08-07', 'Sudah'),
-(2, '17172/1613.063', 'Kharisma Yunior Suryatama', 'thumbnail.jpg', 'Siswa', 'XII - RPL - A', '+087859388413', 'Vinolia Gg.3 No.27a RT. 2 RW 5 Kelurahan JATIMULYO Kecamatan LOWOKWARU KOTA', '2017-08-10', 'Sudah');
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `verifikasi`
---
-
-CREATE TABLE `verifikasi` (
-  `id_verifikasi` int(12) NOT NULL,
-  `id_user` int(12) NOT NULL,
-  `username_user` varchar(225) NOT NULL,
-  `email_user` varchar(225) NOT NULL,
-  `password_user` varchar(225) NOT NULL,
-  `role_user` enum('Admin','User') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `verifikasi`
---
-
-INSERT INTO `verifikasi` (`id_verifikasi`, `id_user`, `username_user`, `email_user`, `password_user`, `role_user`) VALUES
-(1, 1, 'Admin', 'admin@gmail.com', '21232f297a57a5a743894a0e4a801fc3', 'Admin'),
-(2, 2, 'Kharisma-564', 'kharisma@gmail.com', '8d54d98edb4b4ebdb4a2cc0cffe6eb1f', 'User');
+INSERT INTO `user` (`id_user`, `no_induk`, `nama`, `username`, `email`, `password`, `foto_user`, `jabatan`, `kelas`, `no_hp`, `alamat`, `role`, `tgl_entri`, `verifikasi`) VALUES
+(1, '17154/1595.063', 'Bagus Andika', 'Admin', 'admin@gmail.com', '21232f297a57a5a743894a0e4a801fc3', '1408201706512610549749_1386017861654352_297314416_n.jpg', 'Pustakawan', '-', '+086738423415', 'Perumahan Bumi Asti Tahap-II Blok J-15 Sengkaling', 'Admin', '2017-08-07', 'Sudah'),
+(2, '17172/1613.063', 'Kharisma Yunior Suryatama', 'Kharisma-564', 'kharisma@gmail.com', '8d54d98edb4b4ebdb4a2cc0cffe6eb1f', 'thumbnail.jpg', 'Siswa', 'XII - RPL - A', '+087859388413', 'Vinolia Gg.3 No.27a RT. 2 RW 5 Kelurahan JATIMULYO Kecamatan LOWOKWARU KOTA', 'User', '2017-08-10', 'Sudah'),
+(3, '17672/1273.929', 'Tanpa Nama', '-', '-', '-', 'thumbnail.jpg', 'Siswa', 'X - RPL - D', '+082231241234', 'Disini', 'Admin', '2017-08-11', 'Belum');
 
 --
 -- Indexes for dumped tables
@@ -234,12 +216,6 @@ ALTER TABLE `user`
   ADD PRIMARY KEY (`id_user`);
 
 --
--- Indexes for table `verifikasi`
---
-ALTER TABLE `verifikasi`
-  ADD PRIMARY KEY (`id_verifikasi`);
-
---
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -272,12 +248,7 @@ ALTER TABLE `peminjaman`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT for table `verifikasi`
---
-ALTER TABLE `verifikasi`
-  MODIFY `id_verifikasi` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_user` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

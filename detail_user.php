@@ -11,23 +11,18 @@
                     " - ".mysqli_error($con));
                 }
 
-            $data_user       = mysqli_fetch_assoc($result_user);
-            $id_user         = $data_user["id_user"];
-            $nama_user       = $data_user["nama"];
-            $foto_user       = $data_user["foto_user"];
-            $jabatan_user    = $data_user["jabatan"];
-            $kelas_user      = $data_user["kelas"];
-            $no_hp_user      = $data_user["no_hp"];
-            $alamat_user     = $data_user["alamat"];
-            $tgl_entri_user  = $data_user["tgl_entri"];
-            $verifikasi_user = $data_user["verifikasi"];
-
-            $query_verifikasi = "SELECT * FROM verifikasi WHERE id_user = '$id_user'";
-            $result_verifikasi = mysqli_query($con, $query_verifikasi);
-
-            $data_verifikasi = mysqli_fetch_assoc($result_verifikasi);
-            $email_verifikasi = $data_verifikasi["email_user"];
-            $username_verifikasi = $data_verifikasi["username_user"];
+            $data_user        = mysqli_fetch_assoc($result_user);
+            $id_user          = $data_user["id_user"];
+            $nama_user        = $data_user["nama"];
+            $foto_user        = $data_user["foto_user"];
+            $jabatan_user     = $data_user["jabatan"];
+            $email_user       = $data_user["email"];
+            $username_user    = $data_user["username"];
+            $kelas_user       = $data_user["kelas"];
+            $no_hp_user       = $data_user["no_hp"];
+            $alamat_user      = $data_user["alamat"];
+            $tgl_entri_user   = $data_user["tgl_entri"];
+            $verifikasi_user  = $data_user["verifikasi"];
         } 
     ?>
   <body class="layout layout-header-fixed layout-left-sidebar-fixed">
@@ -52,7 +47,7 @@
                     echo ' - Belum Terverifikasi - ';
                   }
                   else{
-                    echo $username_verifikasi;
+                    echo $username_user;
                   }
                   ?>
                     <div class="pa-text"><?php echo $nama_user ?> · <?php echo $jabatan_user ?></div>                  </div>
@@ -90,7 +85,7 @@
                         echo ' - Belum Terverifikasi - ';
                     }
                     else{
-                        echo '<div class="pii-value">'.$email_verifikasi.'</div>';
+                        echo '<div class="pii-value">'.$email_user.'</div>';
                     }
                     ?>
                   </div>

@@ -7,11 +7,11 @@ $hash=md5($password);
 
 $op=$_GET['op'];
 if($op=="in"){
-	$sql=mysqli_query( $con, "SELECT * FROM verifikasi WHERE email_user='$email' 
-					   AND password_user = '$hash' AND role_user = 'admin'");
+	$sql=mysqli_query( $con, "SELECT * FROM user WHERE email='$email' 
+					   AND password = '$hash' AND role = 'admin'");
 	if(mysqli_num_rows($sql)==1){
 		$qry = mysqli_fetch_array($sql);
-		$_SESSION['email'] = $qry['email_user'];
+		$_SESSION['email'] = $qry['email'];
 			header("location:../index.php");
 	}
 }
