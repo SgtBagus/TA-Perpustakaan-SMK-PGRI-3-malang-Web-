@@ -14,9 +14,8 @@
           <div class="panel-body">
             <div class="table-responsive">          
 <?php
-  $query = "SELECT a.*, b.*, c.* FROM peminjaman AS a INNER JOIN user  
-                 AS b INNER JOIN verifikasi AS c WHERE a.id_user = b.id_user 
-                 AND a.id_user = c.id_user" ;
+  $query = "SELECT a.*, b.* FROM peminjaman AS a INNER JOIN user  
+                 AS b WHERE a.id_user = b.id_user";
   $result = mysqli_query($con, $query);
 ?>
               <table class="table">
@@ -37,7 +36,7 @@
                   echo '
                   <tr>
                     <td>'.$no.'</td>
-                    <td>'.$data['username_user'].'</td>
+                    <td>'.$data['username'].'</td>
                     <td>
                       <a href="detail_user.php?no_induk='.$data['no_induk'].'">
                         <button type="button" class="btn btn-primary">

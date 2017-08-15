@@ -13,15 +13,15 @@
               <div class="p-about m-b-20">
                 <div class="pa-padding">
                   <div class="pa-avatar">
-                    <img src="img/avatars/<?php echo $foto_user ?>" alt="Foto Profil" width="100" height="100">
+                    <img src="img/avatars/<?php echo $foto_login ?>" alt="Foto Profil" width="100" height="100">
                   </div>
-                  <div class="pa-name"><?php echo $username ?>
+                  <div class="pa-name"><?php echo $username_login ?>
                     <?php
-                    if($role == "Admin"){
+                    if($role_login == "Admin"){
                       echo '<i class="zmdi zmdi-check-circle text-success m-l-5"></i>';
                     }
                     ?>
-                    <div class="pa-text"><?php echo $nama ?> · <?php echo $jabatan ?></div>
+                    <div class="pa-text"><?php echo $nama_login ?> · <?php echo $jabatan_login ?></div>
                   </div>
                 </div>
               </div>
@@ -32,25 +32,25 @@
                   <div class="pii-icon">
                     <i class="zmdi zmdi-phone"></i>
                   </div>
-                  <div class="pii-value">+<?php echo $no_hp?></div>
+                  <div class="pii-value"><?php echo $no_hp_login?></div>
                 </div>
                 <div class="pi-item">
                   <div class="pii-icon">
                     <i class="zmdi zmdi-email"></i>
                   </div>
-                  <div class="pii-value"><?php echo $email ?></div>
+                  <div class="pii-value"><?php echo $email_login ?></div>
                 </div>
                 <div class="pi-item">
                   <div class="pii-icon">
                     <i class="zmdi zmdi-home"></i>
                   </div>
-                  <div class="pii-value"><?php echo $alamat ?></div>
+                  <div class="pii-value"><?php echo $alamat_login ?></div>
                 </div>
                 <div class="pi-item">
                   <div class="pii-icon">
                     <i class="zmdi zmdi-accounts-add"></i>
                   </div>
-                  <div class="pii-value"><?php echo tanggal_indo(''.$entri.'')?></div>
+                  <div class="pii-value"><?php echo tanggal_indo(''.$entri_login.'')?></div>
                 </div>
               </div>
             </div>
@@ -89,17 +89,22 @@
                             <div class="form-group">
                               <label class="col-sm-3 control-label" for="form-control-5">Foto Profil</label>
                               <div class="col-sm-9">
-                                <img id="preview_gambar" src="img/avatars/<?php echo $foto_user ?>" alt="Foto Profil" width="100" height="100">
+                                <img id="preview_gambar" src="img/avatars/<?php echo $foto_login ?>" alt="Foto Profil" width="100" height="100">
                                 <input id="preview" style="visibility:hidden;" type="file" accept="image/png, image/jpeg, image/jpg" name="foto" onchange="readURL(this);" onclick="myFunction()" />
-                                <label for="preview" class="btn btn-primary btn-fill">Ubah Gambar</label>
-                                <!-- <label for="preview" class="btn btn-primary btn-fill"><i class="zmdi zmdi-edit"> </i> Ubah Foto Profil</label> -->
+                                <label for="preview" class="btn btn-primary btn-fill"><i class="zmdi zmdi-edit"> </i> Ubah Foto Profil</label> 
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="col-sm-3 control-label" for="form-control-5">Username</label>
+                              <div class="col-sm-9">
+                                <input type="hidden" name="id" value="<?php echo $id_login ?>">
+                                <input class="form-control" type="text" name="username" placeholder="Username" value="<?php echo $username_login ?>">
                               </div>
                             </div>
                             <div class="form-group">
                               <label class="col-sm-3 control-label" for="form-control-5">Nama</label>
                               <div class="col-sm-9">
-                                <input type="hidden" name="id" value="<?php echo $id_login ?>">
-                                <input class="form-control" type="text" name="nama" placeholder="name" value="<?php echo $nama ?>">
+                                <input class="form-control" type="text" name="nama" placeholder="Nama" value="<?php echo $nama_login ?>">
                               </div>
                             </div>
                             <div class="form-group">
@@ -107,35 +112,35 @@
                               <div class="col-sm-9">
                                 <select name="jabatan" class="form-control">
                                 <?php
-                                  if($jabatan == "Guru Pengajar"){
+                                  if($jabatan_login == "Guru Pengajar"){
                                     echo '<option value="Guru Pengajar" selected="selected">Guru Pengajar</option>
                                     <option value="Kesiswaan">Kesiswaan</option>
                                     <option value="Pustakawan">Pustakawan</option>
                                     <option value="Karyawan">Karyawan</option>
                                     <option value="Administrasi">Administrasi</option>
                                     <option value="Siswa">Siswa</option>';
-                                  }else if ($jabatan == "Kesiswaan"){
+                                  }else if ($jabatan_login == "Kesiswaan"){
                                     echo '<option value="Guru Pengajar">Guru Pengajar</option>
                                     <option value="Kesiswaan"  selected="selected">Kesiswaan</option>
                                     <option value="Pustakawan">Pustakawan</option>
                                     <option value="Karyawan">Karyawan</option>
                                     <option value="Administrasi">Administrasi</option>
                                     <option value="Siswa">Siswa</option>';
-                                  }else if ($jabatan == "Pustakawan"){
+                                  }else if ($jabatan_login == "Pustakawan"){
                                     echo '<option value="Guru Pengajar">Guru Pengajar</option>
                                     <option value="Kesiswaan">Kesiswaan</option>
                                     <option value="Pustakawan" selected="selected">Pustakawan</option>
                                     <option value="Karyawan">Karyawan</option>
                                     <option value="Administrasi">Administrasi</option>
                                     <option value="Siswa">Siswa</option>';
-                                  }else if ($jabatan == "Karyawan"){
+                                  }else if ($jabatan_login == "Karyawan"){
                                     echo '<option value="Guru Pengajar">Guru Pengajar</option>
                                     <option value="Kesiswaan">Kesiswaan</option>
                                     <option value="Pustakawan">Pustakawan</option>
                                     <option value="Karyawan" selected="selected">Karyawan</option>
                                     <option value="Administrasi">Administrasi</option>
                                     <option value="Siswa">Siswa</option>';
-                                  }else if ($jabatan == "Administrasi"){
+                                  }else if ($jabatan_login == "Administrasi"){
                                     echo '<option value="Guru Pengajar">Guru Pengajar</option>
                                     <option value="Kesiswaan">Kesiswaan</option>
                                     <option value="Pustakawan">Pustakawan</option>
@@ -158,13 +163,13 @@
                               <label class="col-sm-3 control-label" for="form-control-5">No Hp</label>
                               <div class="col-md-9">
                                 <input id="form-control-3" class="form-control" type="text" 
-                                data-inputmask="'alias': '+089999999999'" placeholder="No Hp" name="no_hp" value="<?php echo $no_hp?>">
+                                data-inputmask="'alias': '+089999999999'" placeholder="No Hp" name="no_hp" value="<?php echo $no_hp_login?>">
                               </div>
                             </div>
                             <div class="form-group">
                               <label class="col-sm-3 control-label" for="form-control-8">Alamat</label>
                               <div class="col-sm-9">
-                                <textarea class="form-control" rows="3" name="alamat" placeholder="Alamat"><?php echo $alamat ?></textarea>
+                                <textarea class="form-control" rows="3" name="alamat" placeholder="Alamat"><?php echo $alamat_login ?></textarea>
                               </div>
                             </div>
                             <div class="form-group">
@@ -185,7 +190,8 @@
                             <div class="form-group">
                               <label class="col-sm-3 control-label" for="form-control-5">Email</label>
                               <div class="col-sm-9">
-                                <input class="form-control" type="text" name="email" placeholder="email" value="<?php echo $email ?>">
+                                <input type="hidden" name="id" value="<?php echo $id_login ?>">
+                                <input class="form-control" type="email" name="email" placeholder="email" value="<?php echo $email_login ?>">
                               </div>
                             </div>
                             <div class="form-group">
@@ -206,6 +212,7 @@
                             <div class="form-group">
                               <label class="col-sm-3 control-label" for="form-control-5">Password Baru</label>
                               <div class="col-sm-9">
+                                <input type="hidden" name="id" value="<?php echo $id_login ?>">
                                 <input class="form-control" type="text" name="password_baru" placeholder="Password Baru">
                               </div>
                             </div>
@@ -241,4 +248,59 @@
     </div>
   </body>
       <?php include('script/footer_script.php') ?>
+  <script type="text/javascript">
+  <?php
+      if (isset($_GET['aksi'])) {
+          $aksi = ($_GET["aksi"]);
+          if($aksi == "terubah"){
+              echo 'swal({
+                title: "Terubah!",
+                text: "Profil Telah Diubah.",
+                type: "success",
+                showConfirmButton: true,
+              })';
+          }
+          else if($aksi == "error"){
+              echo 'swal({
+                title: "Kesalahan!",
+                text: "Mohon maaf terjadi Kesalahan.",
+                type: "error",
+                showConfirmButton: true,
+              })';
+          }
+          else if($aksi == "size"){
+              echo 'swal({
+                title: "Kesalahan!",
+                text: "Mohon maaf ukruan file terlalu besar.",
+                type: "error",
+                showConfirmButton: true,
+              })';
+          }
+          else if($aksi == "format"){
+              echo 'swal({
+                title: "Kesalahan!",
+                text: "Mohon maaf file tidak sesuai.",
+                type: "error",
+                showConfirmButton: true,
+              })';
+          }
+          else if($aksi == "password"){
+              echo 'swal({
+                title: "Kesalahan!",
+                text: "Mohon maaf password tidak sesuai.",
+                type: "error",
+                showConfirmButton: true,
+              })';
+          }
+          else if($aksi == "konfirmasi"){
+              echo 'swal({
+                title: "Kesalahan!",
+                text: "Mohon maaf konfirmasi password tidak sama.",
+                type: "error",
+                showConfirmButton: true,
+              })';
+          }
+      }
+  ?>
+  </script>
 </html>

@@ -10,17 +10,17 @@
     " - ".mysqli_error($con)); 
   }
 
-  $data_login   = mysqli_fetch_assoc($result_login);
-  $username     = $data_login["username"]; 
-  $id_login     = $data_login["id_user"];
-  $email        = $data_login["email"];
-  $nama         = $data_login["nama"];
-  $foto_user    = $data_login["foto_user"];
-  $jabatan      = $data_login["jabatan"];
-  $role         = $data_login["role"]; 
-  $no_hp        = $data_login["no_hp"];
-  $alamat       = $data_login["alamat"];
-  $entri        = $data_login["tgl_entri"];
+  $data_login         = mysqli_fetch_assoc($result_login);
+  $username_login     = $data_login["username"]; 
+  $id_login           = $data_login["id_user"];
+  $email_login        = $data_login["email"];
+  $nama_login    = $data_login["nama"];
+  $foto_login         = $data_login["foto_user"];
+  $jabatan_login      = $data_login["jabatan"];
+  $role_login         = $data_login["role"]; 
+  $no_hp_login        = $data_login["no_hp"];
+  $alamat_login       = $data_login["alamat"];
+  $entri_login        = $data_login["tgl_entri"];
   
     function tanggal_indo($tanggal){
         $bulan = array (1 =>   'Januari',
@@ -63,9 +63,9 @@
         <ul class="nav navbar-nav">
           <li class="visible-xs-block">
             <div class="nav-avatar">
-              <img class="img-circle" src="img/avatars/<?php echo $foto_user ?>" alt="" width="48" height="48">
+              <img class="img-circle" src="img/avatars/<?php echo $foto_login ?>" alt="" width="48" height="48">
             </div>
-            <h4 class="navbar-text text-center"><?php echo $username; ?></h4>
+            <h4 class="navbar-text text-center"><?php echo $username_login ?></h4>
           </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
@@ -128,9 +128,9 @@
           <li class="nav-table dropdown hidden-sm-down">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
               <span class="nav-cell p-r-10">
-                <img class="img-circle" src="img/avatars/<?php echo $foto_user ?>" alt="" width="32" height="32">
+                <img class="img-circle" src="img/avatars/<?php echo $foto_login ?>" alt="" width="32" height="32">
               </span>
-              <span class="nav-cell"><?php echo $username; ?>
+              <span class="nav-cell"><?php echo $username_login ?>
                 <span class="caret"></span>
               </span>
             </a>

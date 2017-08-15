@@ -4,9 +4,9 @@
     <?php include('script/head_script.php'); 
         if (isset($_GET['no_peminjaman'])) { 
             $no_peminjaman = ($_GET["no_peminjaman"]);
-            $query = "SELECT a.id_user, b.id_user, b.nama, b.jabatan, b.foto_user, c.id_user, c.username_user FROM 
-                             peminjaman AS a INNER JOIN user AS b  INNER JOIN verifikasi AS c
-                             WHERE a.id_user = b.id_user AND a.id_user = c.id_user AND a.id_peminjaman = '$no_peminjaman'";
+            $query = "SELECT a.id_user, b.id_user, b.nama, b.jabatan, b.foto_user, b.username FROM 
+                             peminjaman AS a INNER JOIN user AS b
+                             WHERE a.id_user = b.id_user AND a.id_peminjaman = '$no_peminjaman'";
                              
             $result = mysqli_query($con, $query);
                 if(!$result){
@@ -17,7 +17,7 @@
             $data      = mysqli_fetch_assoc($result);
             $id_profil         = $data["id_user"];
             $nama_profil       = $data["nama"];
-            $username_profil   = $data["username_user"];
+            $username_profil   = $data["username"];
             $foto_profil       = $data["foto_user"];
             $jabatan_profil    = $data["jabatan"];
         } 
