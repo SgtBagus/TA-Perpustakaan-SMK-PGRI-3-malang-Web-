@@ -2,7 +2,7 @@
 <?php $page = "LOGIN" ?>
 <html lang="en">
   <?php include('script/head_script.php') ?>
-  <link rel="stylesheet" href="asstes/css/login.css">
+  <link rel="stylesheet" href="assets/css/login.css">
   <body class="authentication-body bg">
     <div class="container-fluid">
       <div class="authentication-header m-b-30">

@@ -13,7 +13,7 @@
           </div>
           <div class="panel-body">
             <div align="right">
-              <a href="tambah_siswa.php">
+              <a href="tambah_buku.php">
                 <button type="button" class="btn btn-primary">
                   <i class="zmdi zmdi-account-add"></i> Tambah Buku
                 </button>

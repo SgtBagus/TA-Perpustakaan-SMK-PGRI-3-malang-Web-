@@ -50,7 +50,7 @@
                 <div align="right">
                   <a href="tambah_siswa.php">
                     <button type="button" class="btn btn-primary">
-                      <i class="zmdi zmdi-account-add"></i> Tambah Data Pegawai
+                      <i class="zmdi zmdi-account-add"></i> Tambah Data Siswa
                     </button>
                   </a>
                 </div>

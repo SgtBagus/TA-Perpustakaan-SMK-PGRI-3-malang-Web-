@@ -1,9 +1,9 @@
-<script src="asstes/js/vendor.min.js"></script>
-<script src="asstes/js/cosmos.min.js"></script>
-<script src="asstes/js/application.min.js"></script> 
-<script src="asstes/js/index.min.js"></script>
-<script src="asstes/js/forms-form-masks.min.js"></script>
-<script src="asstes/js/jquery.min.js"></script>
+<script src="assets/js/vendor.min.js"></script>
+<script src="assets/js/cosmos.min.js"></script>
+<script src="assets/js/application.min.js"></script> 
+<script src="assets/js/index.min.js"></script>
+<script src="assets/js/forms-form-masks.min.js"></script>
+<script src="assets/js/jquery.min.js"></script>
 <script>
     function readURL(input) { // Mulai membaca inputan gambar
         if (input.files && input.files[0]) {
@@ -13,7 +13,6 @@
             $('#preview_gambar') // Tampilkan gambar yang dibaca ke area id #preview_gambar
             .attr('src', e.target.result)
             .width(100); // Menentukan lebar gambar preview (dalam pixel)
-            // .height(100); // Jika ingin menentukan lebar gambar silahkan aktifkan perintah pada baris ini
             };
         reader.readAsDataURL(input.files[0]);
         }
