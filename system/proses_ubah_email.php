@@ -1,5 +1,6 @@
 <?php
 include 'koneksi.php';
+if (isset($_POST['input'])) {
     $id             = $_POST['id'];
     $email          = $_POST['email'];
     $password       = $_POST['konfirmasi'];
@@ -22,4 +23,8 @@ include 'koneksi.php';
       header("location:../profil.php?aksi=password"); 
     }
 
+}
+else{
+      header("location:../404.php"); 
+}
 ?>

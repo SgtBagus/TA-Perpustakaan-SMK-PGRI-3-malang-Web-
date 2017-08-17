@@ -1,6 +1,7 @@
 <?php
 include 'koneksi.php';
 
+if (isset($_POST['input'])) {
     $id             = $_POST['id'];
     $foto           = $_FILES['foto']['name'];
     $tmp            = $_FILES['foto']['tmp_name'];
@@ -114,4 +115,8 @@ include 'koneksi.php';
     else{
       header("location:../profil.php?aksi=password"); 
     }
+}
+else{
+      header("location:../404.php"); 
+}
 ?>
