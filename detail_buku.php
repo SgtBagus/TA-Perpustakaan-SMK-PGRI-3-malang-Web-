@@ -16,6 +16,7 @@
 
             $data_buku          = mysqli_fetch_assoc($result_buku);
             $judul_buku         = $data_buku['judul_buku'];
+            $judul_singkat      = $data_buku['judul_singkat'];
             $gambar_buku        = $data_buku['gambar_buku'];
             $jenis_buku         = $data_buku['subyek'];
             $jenis_media        = $data_buku['jenis_media'];
@@ -38,7 +39,8 @@
                                 <div class="row">
                                     <img src="img/book/<?php echo $gambar_buku?>" alt="Foto Profil" width="200" height="300">
                                 </div>
-                                <div class="pa-name"><?php echo $judul_buku?>
+                                <div class="pa-name"><?php echo $judul_buku?> <br>
+                                    <small>( <?php echo $judul_singkat ?> )</small>
                                     <div class="pa-text">   
                                         <?php echo $jenis_buku ?> · <?php echo $jenis_media ?>
                                     </div>
@@ -71,6 +73,18 @@
                                             Biografi
                                         </div>
                                         <div class="pii-value"><?php echo $biografi ?></div>
+                                    </div>
+                                    <div align="right">
+                                        <a href="ubah_buku.php?id_buku=<?php echo $id_buku ?>">
+                                            <button type="button" class="btn btn-primary">
+                                            <i class="zmdi zmdi-edit"></i> Ubah Buku
+                                            </button>
+                                        </a>
+                                        <a href="proses/hapus_buku.php">
+                                            <button type="button" class="btn btn-danger">
+                                            <i class="zmdi zmdi-delete"></i> Hapus 
+                                            </button>
+                                        </a>
                                     </div>
                                 </div>
                             </div>

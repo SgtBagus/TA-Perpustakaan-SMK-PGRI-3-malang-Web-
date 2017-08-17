@@ -20,6 +20,8 @@
         $no_dewery = $data["no_dewery"];
         $subyek = $data["subyek"];
         $deskripsi = $data["deskripsi_jenis_buku"];
+    }else{
+			header("location:../404.php");
     }
     ?>
 

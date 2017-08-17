@@ -54,7 +54,7 @@
                           <i class="zmdi zmdi-eye"></i> Detail
                         </button>
                       </a>
-                      <a href="ubah_buku.php">
+                      <a href="ubah_buku.php?id_buku='.$data_buku['id_buku'].'">
                         <button type="button" class="btn btn-primary">
                           <i class="zmdi zmdi-edit"></i> Ubah
                         </button>
