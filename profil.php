@@ -111,50 +111,19 @@
                               <label class="col-sm-3 control-label" for="form-control-21">Jabatan</label>
                               <div class="col-sm-9">
                                 <select name="jabatan" class="form-control">
-                                <?php
-                                  if($jabatan_login == "Guru Pengajar"){
-                                    echo '<option value="Guru Pengajar" selected="selected">Guru Pengajar</option>
-                                    <option value="Kesiswaan">Kesiswaan</option>
-                                    <option value="Pustakawan">Pustakawan</option>
-                                    <option value="Karyawan">Karyawan</option>
-                                    <option value="Administrasi">Administrasi</option>
-                                    <option value="Siswa">Siswa</option>';
-                                  }else if ($jabatan_login == "Kesiswaan"){
-                                    echo '<option value="Guru Pengajar">Guru Pengajar</option>
-                                    <option value="Kesiswaan"  selected="selected">Kesiswaan</option>
-                                    <option value="Pustakawan">Pustakawan</option>
-                                    <option value="Karyawan">Karyawan</option>
-                                    <option value="Administrasi">Administrasi</option>
-                                    <option value="Siswa">Siswa</option>';
-                                  }else if ($jabatan_login == "Pustakawan"){
-                                    echo '<option value="Guru Pengajar">Guru Pengajar</option>
-                                    <option value="Kesiswaan">Kesiswaan</option>
-                                    <option value="Pustakawan" selected="selected">Pustakawan</option>
-                                    <option value="Karyawan">Karyawan</option>
-                                    <option value="Administrasi">Administrasi</option>
-                                    <option value="Siswa">Siswa</option>';
-                                  }else if ($jabatan_login == "Karyawan"){
-                                    echo '<option value="Guru Pengajar">Guru Pengajar</option>
-                                    <option value="Kesiswaan">Kesiswaan</option>
-                                    <option value="Pustakawan">Pustakawan</option>
-                                    <option value="Karyawan" selected="selected">Karyawan</option>
-                                    <option value="Administrasi">Administrasi</option>
-                                    <option value="Siswa">Siswa</option>';
-                                  }else if ($jabatan_login == "Administrasi"){
-                                    echo '<option value="Guru Pengajar">Guru Pengajar</option>
-                                    <option value="Kesiswaan">Kesiswaan</option>
-                                    <option value="Pustakawan">Pustakawan</option>
-                                    <option value="Karyawan">Karyawan</option>
-                                    <option value="Administrasi" selected="selected">Administrasi</option>
-                                    <option value="Siswa">Siswa</option>';
-                                  }else {
-                                    echo '<option value="Guru Pengajar">Guru Pengajar</option>
-                                    <option value="Kesiswaan">Kesiswaan</option>
-                                    <option value="Pustakawan">Pustakawan</option>
-                                    <option value="Karyawan">Karyawan</option>
-                                    <option value="Administrasi">Administrasi</option>
-                                    <option value="Siswa" selected="selected">Siswa</option>';
-                                  }
+                                <?php                        
+$semua_jabatan = array("Guru Pengajar", "Kesiswaan", "Pustakawan", "Karyawan", 
+                     "Administrasi", "Siswa");
+
+foreach ($semua_jabatan as $jabatan) 
+{
+  if($jabatan == $jabatan_login) {
+    echo "<option value=".$jabatan." SELECTED>$jabatan</option>";
+  } 
+  else{
+    echo "<option value=".$jabatan.">$jabatan</option>";
+  }
+}
                                 ?>
                                 </select>
                               </div>
