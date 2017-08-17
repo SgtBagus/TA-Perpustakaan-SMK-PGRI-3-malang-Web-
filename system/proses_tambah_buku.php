@@ -12,7 +12,7 @@ if (isset($_POST['input'])) {
   $jenis_media      = $_POST['jenis_media'];
   $kota             = $_POST['kota'];
   $penerbit         = $_POST['penerbit'];
-  $terbit           = $_POST['terbit'];
+  $terbit           = date('Y-m-d', strtotime($_POST['terbit']));
   $jenis_buku       = $_POST['jenis_buku'];
   $koleksi          = $_POST['koleksi'];
   $bahasa           = $_POST['bahasa'];

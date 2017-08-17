@@ -14,7 +14,7 @@
           <div class="panel-body"> 
             <div class="row">
               <div class="col-md-8">
-                <form id="inputmasks" class="form-horizontal" method="post" action="system/proses_tambah_buku.php" 
+                <form class="form-horizontal" method="post" action="system/proses_tambah_buku.php" 
                 enctype="multipart/form-data">    
                   <div class="form-group">
                     <label class="col-sm-3 control-label" for="form-control-5">Judul Buku</label>
@@ -58,7 +58,7 @@
                   <div class="form-group">
                     <label class="col-md-3 control-label" for="form-control-1">Tanggal Terbit</label>
                     <div class="col-md-9">
-                        <input id="form-control-1" class="form-control" type="text"  name="terbit" data-inputmask="'alias': 'yyyy-mm-dd'">
+                        <input id="datepicker" class="form-control" type="text"  name="terbit" data-inputmask="'alias': 'yyyy-mm-dd'">
                     </div>
                   </div>
                   <div class="form-group">
