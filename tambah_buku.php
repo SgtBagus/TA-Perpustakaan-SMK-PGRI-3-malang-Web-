@@ -14,7 +14,8 @@
           <div class="panel-body"> 
             <div class="row">
               <div class="col-md-8">
-                <form id="inputmasks" class="form-horizontal" method="post" action="system/proses_tambah_buku.php" enctype="multipart/form-data">    
+                <form id="inputmasks" class="form-horizontal" method="post" action="system/proses_tambah_buku.php" 
+                enctype="multipart/form-data">    
                   <div class="form-group">
                     <label class="col-sm-3 control-label" for="form-control-5">Judul Buku</label>
                     <div class="col-sm-6">
@@ -26,11 +27,10 @@
                   </div> 
                   <div class="form-group">
                     <label class="col-sm-3 control-label" for="form-control-5">Gambar Sampul</label>
-                    <div class="col-sm-9">
-                        <img id="preview_gambar" src="img/book/thumbnail.png" alt="Foto Profil" width="100" height="150">
-                        <input id="preview" style="visibility:hidden;" type="file" accept="image/png, image/jpeg, image/jpg" name="foto" 
-                        onchange="readURL(this);" onclick="myFunction()" />
-                        <label for="preview" class="btn btn-primary btn-fill"><i class="zmdi zmdi-edit"> </i> Pilih Gambar</label> 
+                    <div class="col-sm-9">                  
+                      <img id="preview_gambar" src="img/book/thumbnail.png" alt="Foto Profil" width="150" height="200">
+                      <input id="preview" style="visibility:hidden;" type="file" accept="image/png, image/jpeg, image/jpg" name="foto" onchange="readURL(this);" onclick="myFunction()" />
+                      <label for="preview" class="btn btn-primary btn-fill"><i class="zmdi zmdi-edit"> </i> Pilih File</label> 
                     </div>
                   </div>
                   <div class="form-group">
@@ -58,7 +58,7 @@
                   <div class="form-group">
                     <label class="col-md-3 control-label" for="form-control-1">Tanggal Terbit</label>
                     <div class="col-md-9">
-                        <input id="form-control-1" class="form-control" type="text"  name="tahun_terbit" data-inputmask="'alias': 'dd-mm-yyyy'">
+                        <input id="form-control-1" class="form-control" type="text"  name="terbit" data-inputmask="'alias': 'yyyy-mm-dd'">
                     </div>
                   </div>
                   <div class="form-group">
@@ -74,7 +74,7 @@
                     </div>
                     <div class="col-sm-3">
                     <label class="control-label" for="form-control-21">Jenis Buku</label>
-                        <select name="jenis_media" class="form-control" required>                                                     
+                        <select name="jenis_buku" class="form-control" required>                                                     
     <?php
         while($data = mysqli_fetch_assoc($result))
         {
@@ -115,7 +115,7 @@
                   <div class="form-group">
                     <label class="col-sm-3 control-label" for="form-control-8" required>Biografi</label>
                     <div class="col-sm-9">
-                      <textarea class="form-control" rows="3" name="alamat" placeholder="Biografi"></textarea>
+                      <textarea class="form-control" rows="3" name="biografi" placeholder="Biografi"></textarea>
                     </div>
                   </div>
                   <div align="right">

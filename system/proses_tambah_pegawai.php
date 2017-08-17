@@ -26,5 +26,7 @@ if (isset($_POST['input'])) {
     }
     header("location:../pegawai.php?aksi=tambah");
   }
+}else{
+    header("location:../404.php");
 }
 ?>

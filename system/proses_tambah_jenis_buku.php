@@ -12,7 +12,7 @@ if (isset($_POST['input'])) {
   if (mysqli_num_rows($prosescek)>0) {
     header("location:../tambah_jenis_buku.php?pesan=error");
   }
-  else {
+  else { 
 
     $query = "INSERT INTO jenis_buku SET no_dewery='$Nomor_Dewery',
               subyek='$Subyek', deskripsi_jenis_buku='$Deskripsi'";
@@ -23,5 +23,7 @@ if (isset($_POST['input'])) {
     }
   header("location:../jenis_buku.php?aksi=tambah");
   }
+}else{
+  header("location:../404.php");
 }
 ?>

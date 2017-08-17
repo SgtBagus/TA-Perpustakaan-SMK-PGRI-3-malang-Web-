@@ -98,14 +98,14 @@
                 <div class="custom-scrollbar">
                   <div class="n-item">
                     <div class="ni-img">
-                      <img class="img-circle" src="img/avatars/1.jpg" alt="" width="40" height="40">
+                      <img class="img-circle" src="img/avatars/1.png" alt="" width="40" height="40">
                     </div>
                     <div class="ni-text"><a href="#">John Doe</a> is now following <a href="#">Kate Morris</a>.</div>
                     <div class="ni-time">10 min</div>
                   </div>
                   <div class="n-item">
                     <div class="ni-img">
-                      <img class="img-circle" src="img/avatars/2.jpg" alt="" width="40" height="40">
+                      <img class="img-circle" src="img/avatars/2.png" alt="" width="40" height="40">
                     </div>
                     <div class="ni-text"><a href="#">Alexander Olsen</a> liked post <a href="#">Getting Started with SASS</a>.</div>
                     <div class="ni-time">40 min</div>

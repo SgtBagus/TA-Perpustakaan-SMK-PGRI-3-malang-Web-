@@ -14,3 +14,7 @@ proses riwayat blm ada
 Laporan Ditambah penjelasan ERD 
 + ERD untuk rancangan Sistem 
 Bahasa Inggris pakai italic
+
+-
+
+Buat 404 Page pada Halaman yg tidak bisa atau boleh di akses

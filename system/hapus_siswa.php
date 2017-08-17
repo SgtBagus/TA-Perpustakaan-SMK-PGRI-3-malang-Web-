@@ -9,6 +9,8 @@
         die ("Gagal menghapus data: ".mysqli_errno($con).
             " - ".mysqli_error($con));
       }
+    header("location:../siswa.php?aksi=hapus");
+  }else{
+    header("location:../404.php");
   }
-  header("location:../siswa.php?aksi=hapus");
 ?>
