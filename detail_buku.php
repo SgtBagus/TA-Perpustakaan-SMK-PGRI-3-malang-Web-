@@ -90,7 +90,7 @@
                             </div>
                         </div>
                         <div class="p-info m-b-20">
-                        <h4 class="m-y-0">Total Buku</h4>
+                            <h4 class="m-y-0">Total Buku</h4>
                             <hr>
                             <div class="table-responsive">
                             <?php
@@ -136,6 +136,13 @@
                     ?>
                                     </tbody>
                                 </table>
+                                <div align="right">
+                                    <a href="buku.php">
+                                       <button type="button" rel="tooltip" class="btn btn-info btn-fill">
+                                            <i class="zmdi zmdi-arrow-left"></i> Kembali
+                                        </button>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>

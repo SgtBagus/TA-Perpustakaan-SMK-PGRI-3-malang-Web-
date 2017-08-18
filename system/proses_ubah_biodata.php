@@ -48,10 +48,10 @@ if (isset($_POST['input'])) {
             }
 
                 if($eror == "format"){
-                header("location: ../tambah_pengajuan?aksi=format"); 
+                header("location: ../profil.php?aksi=format"); 
                 }
                 else if ($eror == "size"){
-                header("location: ../tambah_pengajuan?aksi=size"); 
+                header("location: ../profil.php?aksi=size"); 
                 }
                 else{
                     $query_cek_gambar = "SELECT foto_user FROM user WHERE id_user='$id'";

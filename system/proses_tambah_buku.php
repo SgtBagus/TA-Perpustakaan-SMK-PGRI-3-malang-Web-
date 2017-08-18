@@ -43,15 +43,15 @@ if (isset($_POST['input'])) {
             }
         }   
         else{
-            $file_type	= array('jpg','jpeg','png' ); 
+            $file_type	= array('jpg','jpeg','png', 'JPG', 'JPEG', 'PNG' ); 
             $fotobaru = date('dmYHis').$foto;
             $path = "../img/book/".$fotobaru; 
 
                 if(!in_array($extensi,$file_type)){
-                header("location: ../tambah_buku.php?aksi=error"); 
+                    header("location: ../tambah_buku.php?aksi=format"); 
                 }
                 else if ($size > 1000000){
-                header("location: ../tambah_buku.php?aksi=error"); 
+                    header("location: ../tambah_buku.php?aksi=size"); 
                 }
                 else{
                         if(move_uploaded_file($tmp, $path)){ 
@@ -66,15 +66,15 @@ if (isset($_POST['input'])) {
                             }
 
                             if($result){ 
-                header("location: ../buku.php?aksi=tertambah"); 
+                                header("location: ../buku.php?aksi=tertambah"); 
                             }
                             else{
-                header("location: ../tambah_buku.php?aksi=error"); 
+                                header("location: ../tambah_buku.php?aksi=error"); 
                             }
                         }
                         else{
-                header("location: ../tambah_buku.php?aksi=error"); 
-                        }
+                                header("location: ../tambah_buku.php?aksi=error"); 
+                    }
                 }
                   
         }

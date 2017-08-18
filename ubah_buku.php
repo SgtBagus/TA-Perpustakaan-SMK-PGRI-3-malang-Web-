@@ -144,7 +144,7 @@ foreach ($semua_koleksi as $koleksi)
     echo "<option value=".$koleksi." SELECTED>$koleksi</option>";
   } 
   else{
-    echo "<option value=".$koleksi.">$koleksi</option>";
+    echo "<option value=".$koleksi.">$koleksi</option>"; 
   }
 }
 ?>  
@@ -183,7 +183,7 @@ foreach ($semua_bahasa as $bahasa)
                         </button>
                       </a>
                       <button type="submit" name="input" rel="tooltip" class="btn btn-primary btn-fill">
-                        <i class="zmdi zmdi-plus-circle"></i> Tambah
+                        <i class="zmdi zmdi-edit"></i> Ubah
                       </button>
                   </div>
                 </form>
