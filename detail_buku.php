@@ -85,19 +85,28 @@
                                             <i class="zmdi zmdi-delete"></i> Hapus 
                                             </button>
                                         </a>
-                                    </div>
+                                    </div> 
                                 </div>
                             </div>
                         </div>
                         <div class="p-info m-b-20">
                             <h4 class="m-y-0">Total Buku</h4>
                             <hr>
+                                <div class="panel-body">
+                                    <div align="right">
+                                        <a href="tambah_data_buku.php">
+                                        <button type="button" class="btn btn-primary">
+                                            <i class="zmdi zmdi-plus"></i> Tambah Data Buku
+                                        </button>
+                                        </a>
+                                    </div>
+                                </div>
                             <div class="table-responsive">
                             <?php
                                 $query_detail = "SELECT * FROM detail_buku WHERE id_buku LIKE '$id_buku' ";
                                 $result_detail = mysqli_query($con, $query_detail);
                             ?>
-                                <table class="table">
+                                <table class="table" id="myTable">
                                     <thead>
                                     <tr>
                                         <th>No</th>

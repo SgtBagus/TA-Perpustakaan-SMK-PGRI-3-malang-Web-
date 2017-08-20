@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 14 Agu 2017 pada 13.56
+-- Generation Time: 20 Agu 2017 pada 14.42
 -- Versi Server: 10.1.16-MariaDB
 -- PHP Version: 7.0.9
 
@@ -46,8 +46,8 @@ CREATE TABLE `buku` (
 --
 
 INSERT INTO `buku` (`id_buku`, `judul_buku`, `judul_singkat`, `gambar_buku`, `jenis_media`, `id_jenis_buku`, `jenis_koleksi`, `kota_terbit`, `penerbit`, `tahun_terbit`, `biografi`, `bahasa`) VALUES
-(1, 'Matematika Kelas XII SMKA/MA/SMK/MAK', 'Matematika Kelas XII', '1.jpg', 'Buku', 4, 'Pelajaran', 'Jakarta', 'Kementerian Pendidikan dan Kebudayaan', '2015-01-01', 'Buku ini merupakan buku guru yang dipersiapkan Pemerintahan dalam rangka implementasi Kurikulum 2013', 'Indonesia'),
-(2, 'Gochuumon Wa Usagi Desu Ka', 'Comic', 'comic.png', 'Komik', 5, 'Penghibur', 'Japan', 'Konbawa', '2015-02-01', '-', 'Inggris');
+(1, 'Matematika Kelas XII SMKA/MA/SMK/MAK', 'Matematika Kelas XII', '1.jpg', 'Media Cetak', 4, 'Biasa', 'Jakarta', 'Kementerian Pendidikan dan Kebudayaan', '2015-01-01', 'Buku ini merupakan buku guru yang dipersiapkan Pemerintahan dalam rangka implementasi Kurikulum 2013', 'Indonesia'),
+(2, 'Gochuumon Wa Usagi Desu Ka', 'Comic', '18082017041731tumblr_onw09nI5hw1u0xk60o1_500.png', 'Media', 5, 'Referensi', 'Japan', 'Konbawa', '2015-02-01', '-', 'Inggris');
 
 -- --------------------------------------------------------
 
@@ -71,12 +71,12 @@ CREATE TABLE `detail_buku` (
 --
 
 INSERT INTO `detail_buku` (`id_detail_buku`, `id_buku`, `jilid`, `cetakan`, `edisi`, `ISBN`, `tgl_entri_buku`, `status_buku`) VALUES
-(1, 2, '01', '0053', '02', '978-089-786-098-90', '2017-08-10', 'Siap Terpinjam'),
+(1, 2, '01', '13', '8976', '978-089-786-098-90', '2017-08-10', 'Siap Terpinjam'),
 (2, 2, '07', '05', '2342', '978-089-786-098-91\n', '2017-08-10', 'Dipesan'),
-(3, 2, '05', '08', '123124123', '978-089-786-098-94\r\n', '2017-08-10', 'Dipesan'),
-(4, 2, '08', '15', '12315124', '978-089-786-098-96\r\n', '2017-08-10', 'Siap Terpinjam'),
-(5, 2, '08', '67', '67', '978-089-786-098-67\r\n', '2017-08-10', 'Siap Terpinjam'),
-(6, 1, '02', '01', 'Pertama', '978-602-282-479-4', '2017-08-10', 'Dipesan');
+(3, 2, '05', '08', '5674', '978-089-786-098-94\r\n', '2017-08-10', 'Dipesan'),
+(4, 2, '08', '15', '2534', '978-089-786-098-96\r\n', '2017-08-10', 'Siap Terpinjam'),
+(5, 2, '08', '67', '6787', '978-089-786-098-67\r\n', '2017-08-10', 'Siap Terpinjam'),
+(6, 1, '02', '01', '2934', '978-602-282-479-4', '2017-08-10', 'Dipesan');
 
 -- --------------------------------------------------------
 
@@ -171,8 +171,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `no_induk`, `nama`, `username`, `email`, `password`, `foto_user`, `jabatan`, `kelas`, `no_hp`, `alamat`, `role`, `tgl_entri`, `verifikasi`) VALUES
-(1, '17154/1595.063', 'Bagus Andika', 'Admin', 'admin@gmail.com', '21232f297a57a5a743894a0e4a801fc3', '1408201706512610549749_1386017861654352_297314416_n.jpg', 'Pustakawan', '-', '+086738423415', 'Perumahan Bumi Asti Tahap-II Blok J-15 Sengkaling', 'Admin', '2017-08-07', 'Sudah'),
-(2, '17172/1613.063', 'Kharisma Yunior Suryatama', 'Kharisma-564', 'kharisma@gmail.com', '8d54d98edb4b4ebdb4a2cc0cffe6eb1f', 'thumbnail.jpg', 'Siswa', 'XII - RPL - A', '+087859388413', 'Vinolia Gg.3 No.27a RT. 2 RW 5 Kelurahan JATIMULYO Kecamatan LOWOKWARU KOTA', 'User', '2017-08-10', 'Sudah'),
+(1, '17154/1595.063', 'Bagus Andika', 'Admin', 'admin@gmail.com', 'admin', '180820170222071219800149560579432soldier aiming.svg.hi.png', 'Pustakawan', '-', '+086738423415', 'Perumahan Bumi Asti Tahap-II Blok J-15 Sengkaling', 'Admin', '2017-08-07', 'Sudah'),
+(2, '17172/1613.063', 'Kharisma Yunior Suryatama', 'Kharisma-564', 'kharisma@gmail.com', 'kharisma', 'thumbnail.jpg', 'Siswa', 'XII - RPL - A', '+087859388413', 'Vinolia Gg.3 No.27a RT. 2 RW 5 Kelurahan JATIMULYO Kecamatan LOWOKWARU KOTA', 'User', '2017-08-10', 'Sudah'),
 (3, '17672/1273.929', 'Tanpa Nama', '-', '-', '-', 'thumbnail.jpg', 'Siswa', 'X - RPL - D', '+082231241234', 'Disini', 'Admin', '2017-08-11', 'Belum');
 
 --
