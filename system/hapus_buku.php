@@ -15,7 +15,7 @@ $query2 = "DELETE FROM buku WHERE id_buku='".$id."'";
 $sql2 = mysqli_query($con, $query2);
 
     if($sql2){ 
-	    header("location:../buku.php?aksi=terhapus"); 
+	    header("location:../buku.php?aksi=hapus"); 
     }
     else{
 	    header("location:../buku.php?aksi=error"); 

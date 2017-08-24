@@ -61,10 +61,6 @@
                     <div class="col-md-12">
                       <ul class="nav nav-tabs nav-tabs-custom nav-justified m-b-15">
                         <li class="active">
-                          <a href="#kegiatan" role="tab" data-toggle="tab" >
-                            <i class="zmdi zmdi-time-restore-setting"></i> Kegiatan</a>
-                        </li>
-                        <li>
                           <a href="#biodata" role="tab" data-toggle="tab">
                             <i class="zmdi zmdi-account"></i> Biodata</a>
                         </li>
@@ -80,11 +76,7 @@
                         </li>
                       </ul>
                       <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane fade  active in" id="kegiatan">
-                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque lacinia non massa a euismod. Nam bibendum mauris mollis, ultricies orci vitae, tristique est. Mauris pellentesque justo ut est fringilla imperdiet.</p>
-                          <p>Cras varius vehicula lorem sollicitudin ullamcorper. Sed nec purus eget velit elementum posuere. Aliquam et orci tincidunt, vulputate tortor quis, iaculis sapien. Praesent semper dui at porta consequat. In quis turpis mollis, rutrum erat tincidunt, tincidunt ipsum. Suspendisse feugiat bibendum faucibus.</p>
-                        </div>
-                        <div role="tabpanel" class="tab-pane fade" id="biodata">
+                        <div role="tabpanel" class="tab-pane fade active in" id="biodata">
                           <form id="inputmasks" class="form-horizontal"  method="post" action="system/proses_ubah_biodata.php" enctype="multipart/form-data">
                             <div class="form-group">
                               <label class="col-sm-3 control-label" for="form-control-5">Foto Profil</label>

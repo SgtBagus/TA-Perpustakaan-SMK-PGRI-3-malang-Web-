@@ -20,7 +20,18 @@ if (isset($_POST['input'])) {
     $bahasa           = $_POST['bahasa'];
     $biografi         = $_POST['biografi'];
 
-        if($foto == NULL){
+            $query_buku = "SELECT no_register, gambar_buku FROM buku WHERE id_buku = '$id_buku'";
+            $result_buku = mysqli_query($con, $query_buku);
+                if(!$result_buku){
+                die ("Query Error: ".mysqli_errno($con).
+                    " - ".mysqli_error($con));
+                }
+
+            $data_buku          = mysqli_fetch_assoc($result_buku);
+            $no_register        = $data_buku['no_register'];
+            $gambar             = $data_buku['gambar_buku'];
+
+        if($foto == $gambar){ 
             $query = "UPDATE buku SET judul_buku='$judul', judul_singkat='$judul_singkat', gambar_buku='thumbnail.png'
                       , jenis_media='$jenis_media', id_jenis_buku='$jenis_buku', jenis_koleksi='$koleksi', kota_terbit='$kota'
                       , penerbit='$penerbit', tahun_terbit='$terbit', biografi='$biografi'
@@ -32,7 +43,7 @@ if (isset($_POST['input'])) {
                         " - ".mysqli_error($con)); 
             }
             if($result){ 
-                header("location: ../detail_buku.php?id_buku=$id_buku&aksi=tertambah"); 
+                header("location: ../detail_buku.php?no_register=$no_register&aksi=ubah"); 
             }else{
                 header("location: ../ubah_buku.php?aksi=error"); 
             }
@@ -71,7 +82,7 @@ if (isset($_POST['input'])) {
                             }
 
                             if($result){ 
-                                header("location: ../detail_buku.php?id_buku=$id_buku&aksi=tertambah"); 
+                                header("location: ../detail_buku.php?no_register=$no_register&aksi=ubah"); 
                             }
                             else{
                                 header("location: ../ubah_buku.php?aksi=error"); 
@@ -97,7 +108,7 @@ if (isset($_POST['input'])) {
                             }
 
                             if($result){ 
-                                header("location: ../detail_buku.php?id_buku=$id_buku&aksi=tertambah"); 
+                                header("location: ../detail_buku.php?no_register=$no_register&aksi=ubah"); 
                             }
                             else{
                                 header("location: ../ubah_buku.php?aksi=error"); 

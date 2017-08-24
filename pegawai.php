@@ -60,7 +60,7 @@
     }
   else{
   $query_pegawai = "SELECT id_user,no_induk,nama,jabatan, tgl_entri,
-                  verifikasi FROM user WHERE jabatan NOT LIKE 'Siswa' ";
+                  verifikasi FROM user WHERE jabatan NOT LIKE 'Siswa'";
   }
   $result_pegawai = mysqli_query($con, $query_pegawai);
 ?>

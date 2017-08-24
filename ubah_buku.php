@@ -5,10 +5,10 @@
   <body class="layout layout-header-fixed layout-left-sidebar-fixed">
     <?php include('menu/header.php');
 
-    if (isset($_GET['id_buku'])) {
-        $id_buku = ($_GET["id_buku"]);
+    if (isset($_GET['no_register'])) {
+        $no_register = ($_GET["no_register"]);
         $query = "SELECT a.*, b.* FROM buku AS a INNER JOIN 
-                 jenis_buku AS b WHERE a.id_buku ='$id_buku' 
+                 jenis_buku AS b WHERE a.no_register ='$no_register' 
                  AND a.id_jenis_buku = b.id_jenis_buku";
         $result = mysqli_query($con, $query);
 

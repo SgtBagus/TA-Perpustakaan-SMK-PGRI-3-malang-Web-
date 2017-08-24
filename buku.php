@@ -12,60 +12,57 @@
             <h3 class="m-t-0 m-b-5">BUKU</h3>
           </div>
           <div class="panel-body">
-            <div class="col-sm-6">
-              <form class="form-horizontal" method="get" action="?">
-                <div class="form-group">
-                  <div class="col-sm-8">
-                    <div class="input-group">    
-                <?php
-                  if (isset($_GET['cari'])) {
-                    $cari = ($_GET["cari"]);  
-                    echo '<input type="text" name="cari" class="form-control" value="'.$cari.'" placeholder="Pencarian....">';
-                  }else{
-                    echo '<input type="text" name="cari" class="form-control" placeholder="Pencarian....">';
-                  }
-                ?>
-                      <span class="input-group-btn">
-                <?php
-                  if (isset($_GET['cari'])) {
-                    echo '<a href="buku.php">
-                      <button class="btn btn-default" type="button">
-                        Reset
-                      </button>
-                    </a>';
-                  }else{
-                    echo '<button class="btn btn-default" type="submit">
+            <div class="row">
+              <div class="col-sm-6">
+                <form class="form-horizontal" method="get" action="?">
+                  <div class="form-group">
+                    <div class="col-sm-8">
+                      <div class="input-group">
+              <?php
+                if (isset($_GET['cari'])) {
+                  $cari = $_GET['cari'];
+                  echo '<input type="text" name="cari" class="form-control" placeholder="Pencarian...." value="'.$cari.'">
+                  <span class="input-group-btn">
+                  <a href="buku.php">
+                    <button class="btn btn-default" type="button">
+                      Reset
+                    </button>
+                  </a>';
+                }else{
+                  echo '<input type="text" name="cari" class="form-control" placeholder="Pencarian....">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit">
                       <i class="zmdi zmdi-search"></i>
                     </button>';
-                  }
-                ?>
-                      </span>
+                }
+              ?>
+                        </span>
+                      </div>
                     </div>
                   </div>
+                </form>
+              </div>
+              <div class="col-sm-6">
+                <div align="right">
+                  <a href="tambah_buku.php">
+                    <button type="button" class="btn btn-primary">
+                      <i class="zmdi zmdi-plus-circle"></i> Tambah Jenis Buku
+                    </button>
+                  </a>
                 </div>
-              </form>
-            </div>
-            <div class="col-sm-6">  
-              <div align="right">
-                <a href="tambah_buku.php">
-                  <button type="button" class="btn btn-primary">
-                    <i class="zmdi zmdi-account-add"></i> Tambah Buku
-                  </button>
-                </a>
               </div>
             </div>
-          </div>
-          <br>
+            <br>
           <div class="table-responsive">
 <?php
 
   if (isset($_GET['cari'])) {
     $cari = ($_GET["cari"]);  
-  $query_buku = "SELECT a.id_buku, a.judul_buku, a.id_jenis_buku, b.subyek, a.jenis_media,
-                  a.bahasa FROM buku AS a INNER JOIN jenis_buku AS b WHERE a.id_jenis_buku = b.id_jenis_buku
-                  AND a.judul_buku LIKE '%$cari%'" ;
+  $query_buku = "SELECT a.id_buku, a.no_register, a.judul_buku, a.id_jenis_buku, b.subyek, a.jenis_media,
+                  a.bahasa FROM buku AS a INNER JOIN jenis_buku AS b WHERE a.judul_buku LIKE '%$cari%'
+                  AND a.id_jenis_buku = b.id_jenis_buku" ;
   }else{
-  $query_buku = "SELECT a.id_buku, a.judul_buku, a.id_jenis_buku, b.subyek, a.jenis_media,
+  $query_buku = "SELECT a.id_buku, a.no_register, a.judul_buku, a.id_jenis_buku, b.subyek, a.jenis_media,
                   a.bahasa FROM buku AS a INNER JOIN jenis_buku AS b WHERE a.id_jenis_buku = b.id_jenis_buku" ;
   }
   $result_buku = mysqli_query($con, $query_buku);
@@ -74,6 +71,7 @@
               <thead>
                 <tr>
                   <th>No</th>
+                  <th>No Register</th>
                   <th>Judul buku</th>
                   <th>Jenis Buku</th>
                   <th>Media</th>
@@ -87,17 +85,18 @@
   while($data_buku = mysqli_fetch_assoc($result_buku)){
                 echo '<tr>
                   <td>'.$no_buku.'</td>
+                  <td>'.$data_buku['no_register'].'</td>
                   <td>'.$data_buku['judul_buku'].'</td>
                   <td>'.$data_buku['subyek'].'</td>
                   <td>'.$data_buku['jenis_media'].'</td>
                   <td>'.$data_buku['bahasa'].'</td>
                   <td align="right">
-                    <a href="detail_buku.php?id_buku='.$data_buku['id_buku'].'">
+                    <a href="detail_buku.php?no_register='.$data_buku['no_register'].'">
                       <button type="button" class="btn btn-primary">
                         <i class="zmdi zmdi-eye"></i> Detail
                       </button>
                     </a>
-                    <a href="ubah_buku.php?id_buku='.$data_buku['id_buku'].'">
+                    <a href="ubah_buku.php?no_register='.$data_buku['no_register'].'">
                       <button type="button" class="btn btn-primary">
                         <i class="zmdi zmdi-edit"></i> Ubah
                       </button>
@@ -133,5 +132,34 @@
             document.location="system/hapus_buku.php?id="+id;
       })
     }
+  <?php
+      if (isset($_GET['aksi'])) {
+          $aksi = ($_GET["aksi"]);
+          if($aksi == "hapus"){
+              echo 'swal({
+                title: "Terhapus!",
+                text: "Buku telah dihapus.",
+                type: "success",
+                showConfirmButton: true,
+              })';
+          }
+          else if($aksi == "tambah"){
+              echo 'swal({
+                title: "Tertambah!",
+                text: "Buku telah ditambah.",
+                type: "success",
+                showConfirmButton: true,
+              })';
+          }
+          else if($aksi == "detail_hapus"){
+              echo 'swal({
+                title: "Terhapus!",
+                text: "Data buku telah Dihapus.",
+                type: "success",
+                showConfirmButton: true,
+              })';
+          }
+      }
+  ?>
   </script>
 </html>

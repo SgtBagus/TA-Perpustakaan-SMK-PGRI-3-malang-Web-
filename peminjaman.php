@@ -22,10 +22,11 @@
                 <thead>
                   <tr>
                     <th>No</th>
+                    <th>Nomor Peminjaman</th>
                     <th colspan="2">Peminjam</th>
                     <th>Tanggal Pinjaman</th>
                     <th>Tanggal Pengmbalian</th>
-                    <th>Sanksi</th>
+                    <th>Sisa Hari</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -36,21 +37,20 @@
                   echo '
                   <tr>
                     <td>'.$no.'</td>
+                    <td> - comming soon - </td>
                     <td>'.$data['username'].'</td>
                     <td>
                       <a href="detail_user.php?no_induk='.$data['no_induk'].'">
-                        <button type="button" class="btn btn-primary">
-                          <i class="zmdi zmdi-eye"></i> Profil Peminjamn
-                        </button>
+                        <i class="zmdi zmdi-eye"></i>
                       </a>
                     </td>
                     <td>'.tanggal_indo(''.$data['tanggal_peminjaman'].'').'</td>
                     <td>'.tanggal_indo(''.$data['tanggal_pengembalian'].'').'</td>
-                    <td></td>
+                    <td> - comming soon - </td>
                     <td>
                       <a href="detail_peminjaman.php?no_peminjaman='.$data['id_peminjaman'].'">
                         <button type="button" class="btn btn-primary">
-                          <i class="zmdi zmdi-eye"></i> Detail Peminjaman
+                          <i class="zmdi zmdi-eye"></i> Detail
                         </button>
                       </a>
                     </td>

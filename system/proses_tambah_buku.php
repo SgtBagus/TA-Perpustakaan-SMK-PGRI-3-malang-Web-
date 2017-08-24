@@ -37,7 +37,7 @@ if (isset($_POST['input'])) {
                         " - ".mysqli_error($con)); 
             }
             if($result){ 
-                header("location: ../buku.php?aksi=tertambah"); 
+                header("location: ../buku.php?aksi= tambah"); 
             }else{
                 header("location: ../tambah_buku.php?aksi=error"); 
             }
@@ -66,7 +66,7 @@ if (isset($_POST['input'])) {
                             }
 
                             if($result){ 
-                                header("location: ../buku.php?aksi=tertambah"); 
+                                header("location: ../buku.php?aksi=tambah"); 
                             }
                             else{
                                 header("location: ../tambah_buku.php?aksi=error"); 

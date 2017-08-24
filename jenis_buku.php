@@ -18,19 +18,22 @@
                   <div class="form-group">
                     <div class="col-sm-8">
                       <div class="input-group">
-                        <input type="text" name="cari" class="form-control" placeholder="Pencarian....">
-                        <span class="input-group-btn">
               <?php
                 if (isset($_GET['cari'])) {
-                  echo '<a href="jenis_buku.php">
+                  $cari = $_GET['cari'];
+                  echo '<input type="text" name="cari" class="form-control" placeholder="Pencarian...." value="'.$cari.'">
+                  <span class="input-group-btn">
+                  <a href="jenis_buku.php">
                     <button class="btn btn-default" type="button">
                       Reset
                     </button>
                   </a>';
                 }else{
-                  echo '<button class="btn btn-default" type="submit">
-                    <i class="zmdi zmdi-search"></i>
-                  </button>';
+                  echo '<input type="text" name="cari" class="form-control" placeholder="Pencarian....">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit">
+                      <i class="zmdi zmdi-search"></i>
+                    </button>';
                 }
               ?>
                         </span>
@@ -74,6 +77,13 @@
                 </thead>
                 <tbody>
 <?php
+
+            if($result_jenis_buku->num_rows == 0){
+              echo '<tr>
+                <td colspan="5" align="center">Tidak Ada Data</td>
+              </tr>';
+            }
+            else{
   $no_jenis_buku = 1;
   while($data_jenis_buku = mysqli_fetch_assoc($result_jenis_buku)){
                   echo '<tr>
@@ -98,6 +108,7 @@
                   </tr>';
                   $no_jenis_buku++;
   }
+            }
 ?>
                 </tbody>
               </table>

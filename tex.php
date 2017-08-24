@@ -23,6 +23,23 @@
   </tr>
 </table>
 
+<?php
+include 'system/koneksi.php';
+$yeah = date("Y");
+$mount = date("m");
+$days = date("d");
+$query_buku = "SELECT max(no_register) FROM buku ";
+$result_buku = mysqli_query($con, $query_buku);
+$data_buku = mysqli_fetch_assoc($result_buku);
+echo $data_buku['max(no_register)'].'<br>';
+
+$format = "0000";
+echo '' .$yeah. '<br>';
+echo '' .$mount. '<br>';
+echo '' .$days. '<br>';
+echo '' .$format. '<br>';
+
+?>
 
 <script>
 function myFunction() {
