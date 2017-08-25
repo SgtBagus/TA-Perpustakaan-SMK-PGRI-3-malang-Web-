@@ -1,13 +1,13 @@
 <?php $page="BUKU"; ?>
 <!DOCTYPE html>
 <html lang="en">
-    <?php include('script/head_script.php'); 
-        if (isset($_GET['no_register'])) { 
+    <?php include('script/head_script.php');
+        if (isset($_GET['no_register'])) {
             $no_register= ($_GET["no_register"]);
-            $query_buku = "SELECT a.*, b.* 
+            $query_buku = "SELECT a.*, b.*
                            FROM buku AS a INNER JOIN
-                           jenis_buku AS b WHERE a.id_jenis_buku = b.id_jenis_buku 
-                           AND a.no_register = '$no_register'"; 
+                           jenis_buku AS b WHERE a.id_jenis_buku = b.id_jenis_buku
+                           AND a.no_register = '$no_register'";
             $result_buku = mysqli_query($con, $query_buku);
                 if(!$result_buku){
                 die ("Query Error: ".mysqli_errno($con).
@@ -26,7 +26,7 @@
             $penerbit           = $data_buku['penerbit'];
             $tahun_terbit       = $data_buku['tahun_terbit'];
             $biografi           = $data_buku['biografi'];
-        } 
+        }
     ?>
 <body class="layout layout-header-fixed layout-left-sidebar-fixed">
     <?php include('menu/header.php') ?>
@@ -39,42 +39,42 @@
                         <div class="p-about m-b-20">
                             <div class="pa-padding">
                                 <div class="row">
-                                    <div class="pa-name">  
+                                    <div class="pa-name">
                                         <small> - <?php echo $no_register ?> - </small>
                                     </div>
                                     <img src="img/book/<?php echo $gambar_buku?>" alt="Foto Profil" width="200" height="300">
                                 </div>
                                 <div class="pa-name"><?php echo $judul_buku?> <br>
                                     <small>( <?php echo $judul_singkat ?> )</small>
-                                    <div class="pa-text">   
+                                    <div class="pa-text">
                                         <?php echo $jenis_buku ?> · <?php echo $jenis_media ?>
                                     </div>
                                 </div>
                                 <div class="p-info">
                                     <div class="pi-item">
                                         <div class="pii-icon">
-                                            <i class="zmdi zmdi-city"></i> 
+                                            <i class="zmdi zmdi-city"></i>
                                             Kota Terbit
                                         </div>
                                         <div class="pii-value"><?php echo $kota_terbit?></div>
                                     </div>
                                     <div class="pi-item">
                                         <div class="pii-icon">
-                                            <i class="zmdi zmdi-account-box"></i> 
+                                            <i class="zmdi zmdi-account-box"></i>
                                             Penerbit
                                         </div>
                                         <div class="pii-value"><?php echo $penerbit ?></div>
                                     </div>
                                     <div class="pi-item">
                                         <div class="pii-icon">
-                                            <i class="zmdi zmdi-calendar"></i> 
+                                            <i class="zmdi zmdi-calendar"></i>
                                             Tahun Terbit
                                         </div>
                                         <div class="pii-value"><?php echo tanggal_indo(''.$tahun_terbit.'')?></div>
                                     </div>
                                     <div class="pi-item">
                                         <div class="pii-icon">
-                                            <i class="zmdi zmdi-file"></i> 
+                                            <i class="zmdi zmdi-file"></i>
                                             Biografi
                                         </div>
                                         <div class="pii-value"><?php echo $biografi ?></div>
@@ -86,9 +86,9 @@
                                             </button>
                                         </a>
                                         <button onclick="hapus(<?php echo $id_buku?>)" type="button" class="btn btn-danger">
-                                            <i class="zmdi zmdi-delete"></i> Hapus 
+                                            <i class="zmdi zmdi-delete"></i> Hapus
                                         </button>
-                                    </div> 
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -253,7 +253,7 @@
                                         <div role="tabpanel" class="tab-pane fade" id="lainya">
                                             <div class="table-responsive">
                                             <?php
-                                                $query_lainya = "SELECT * FROM detail_buku WHERE id_buku LIKE '$id_buku' 
+                                                $query_lainya = "SELECT * FROM detail_buku WHERE id_buku LIKE '$id_buku'
                                                                  AND status_buku NOT LIKE 'Siap Terpinjam' AND status_buku NOT LIKE 'Dipesan'
                                                                  AND status_buku NOT LIKE 'Dipinjam'";
                                                 $result_lainya = mysqli_query($con, $query_lainya);
@@ -303,7 +303,7 @@
                                         </a>
                                     </div>
                                 </div>
-                            </div> 
+                            </div>
                         </div>
                     </div>
                 </div>

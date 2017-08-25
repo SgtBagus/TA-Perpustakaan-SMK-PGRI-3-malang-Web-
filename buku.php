@@ -13,36 +13,22 @@
           </div>
           <div class="panel-body">
             <div class="row">
-              <div class="col-sm-6">
-                <form class="form-horizontal" method="get" action="?">
+              <div class="col-sm-9">
+                <form class="form-horizontal">
                   <div class="form-group">
-                    <div class="col-sm-8">
-                      <div class="input-group">
-              <?php
-                if (isset($_GET['cari'])) {
-                  $cari = $_GET['cari'];
-                  echo '<input type="text" name="cari" class="form-control" placeholder="Pencarian...." value="'.$cari.'">
-                  <span class="input-group-btn">
-                  <a href="buku.php">
-                    <button class="btn btn-default" type="button">
-                      Reset
-                    </button>
-                  </a>';
-                }else{
-                  echo '<input type="text" name="cari" class="form-control" placeholder="Pencarian....">
-                  <span class="input-group-btn">
-                    <button class="btn btn-default" type="submit">
-                      <i class="zmdi zmdi-search"></i>
-                    </button>';
-                }
-              ?>
-                        </span>
-                      </div>
+                    <label class="col-sm-2 control-label" for="form-control-2">
+                      Pencarian
+                    </label>
+                    <div class="col-sm-3">
+                      <input id="noRegister" onkeyup="no_register()" placeholder="No Register" class="form-control input-pill" type="text">
+                    </div>
+                    <div class="col-sm-7">
+                      <input id="judulBuku" onkeyup="buku()" placeholder="Judul Buku" class="form-control input-pill" type="text">
                     </div>
                   </div>
                 </form>
               </div>
-              <div class="col-sm-6">
+              <div class="col-sm-3">
                 <div align="right">
                   <a href="tambah_buku.php">
                     <button type="button" class="btn btn-primary">
@@ -55,19 +41,12 @@
             <br>
           <div class="table-responsive">
 <?php
-
-  if (isset($_GET['cari'])) {
-    $cari = ($_GET["cari"]);  
   $query_buku = "SELECT a.id_buku, a.no_register, a.judul_buku, a.id_jenis_buku, b.subyek, a.jenis_media,
-                  a.bahasa FROM buku AS a INNER JOIN jenis_buku AS b WHERE a.judul_buku LIKE '%$cari%'
-                  AND a.id_jenis_buku = b.id_jenis_buku" ;
-  }else{
-  $query_buku = "SELECT a.id_buku, a.no_register, a.judul_buku, a.id_jenis_buku, b.subyek, a.jenis_media,
-                  a.bahasa FROM buku AS a INNER JOIN jenis_buku AS b WHERE a.id_jenis_buku = b.id_jenis_buku" ;
-  }
+                  a.bahasa FROM buku AS a INNER JOIN jenis_buku AS b WHERE a.id_jenis_buku = b.id_jenis_buku 
+                  ORDER BY a.id_buku DESC" ;
   $result_buku = mysqli_query($con, $query_buku);
 ?>
-            <table class="table">
+            <table class="table" id="myTable">
               <thead>
                 <tr>
                   <th>No</th>
@@ -131,6 +110,42 @@
         }).then(function () {
             document.location="system/hapus_buku.php?id="+id;
       })
+    }
+        
+    function no_register() {
+      var input, filter, table, tr, td, i;
+      input = document.getElementById("noRegister");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[1];
+        if (td) {
+          if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }       
+      }
+    }
+    
+    function buku() {
+      var input, filter, table, tr, td, i;
+      input = document.getElementById("judulBuku");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[2];
+        if (td) {
+          if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }       
+      }
     }
   <?php
       if (isset($_GET['aksi'])) {

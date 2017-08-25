@@ -1,6 +1,6 @@
-<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
+<!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.."> -->
 
-<table id="myTable">
+<!-- <table id="myTable">
   <tr class="header">
     <th style="width:60%;">Name</th>
     <th style="width:40%;">Country</th>
@@ -21,23 +21,32 @@
     <td>Koniglich Essen</td>
     <td>Germany</td>
   </tr>
-</table>
+</table> -->
 
 <?php
 include 'system/koneksi.php';
-$yeah = date("Y");
-$mount = date("m");
-$days = date("d");
-$query_buku = "SELECT max(no_register) FROM buku ";
-$result_buku = mysqli_query($con, $query_buku);
-$data_buku = mysqli_fetch_assoc($result_buku);
-echo $data_buku['max(no_register)'].'<br>';
+$yeah = date("Ymd");
 
-$format = "0000";
-echo '' .$yeah. '<br>';
-echo '' .$mount. '<br>';
-echo '' .$days. '<br>';
-echo '' .$format. '<br>';
+$query = "SELECT no_register FROM buku WHERE id_buku IN (SELECT max(id_buku) FROM buku ) ";
+$result = mysqli_query($con, $query);
+$data = mysqli_fetch_assoc($result);
+$no_register = floatval($data['no_register']) + 1;
+
+$query_hari= "SELECT SUBSTRING(no_register, 1, 8) AS no_register FROM buku WHERE id_buku IN (SELECT max(id_buku) FROM buku ) ";
+$result_hari = mysqli_query($con, $query_hari);
+$data_hari = mysqli_fetch_assoc($result_hari);
+$no_register_hari = $data_hari['no_register'];
+
+echo $no_register.'<br>';
+echo $no_register_hari.'<br>';
+echo $yeah.'<br>';
+
+if($no_register_hari == $yeah){
+  echo 'hari ini buku bertambah dengan tampilan <b>'.$no_register.'</b>';
+}else{
+  echo $no_register_hari.'0001';
+  
+}
 
 ?>
 
@@ -56,7 +65,7 @@ function myFunction() {
       } else {
         tr[i].style.display = "none";
       }
-    }       
+    }
   }
 }
 </script>

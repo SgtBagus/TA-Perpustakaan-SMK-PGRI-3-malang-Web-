@@ -18,7 +18,7 @@ if (isset($_POST['input'])) {
   }
   else {
     $query = "INSERT INTO user SET no_induk='$nip', nama='$nama', username='-', email='-', password='-', foto_user='thumbnail.jpg',
-              jabatan='$jabatan', kelas='-',no_hp='$no_hp', alamat='$alamat', tgl_entri = '$entri', varifikasi='Belum'";
+              jabatan='$jabatan', kelas='-',no_hp='$no_hp', alamat='$alamat', tgl_entri = '$entri', verifikasi='Belum'";
     $result = mysqli_query($con, $query);
     if(!$result){
         die ("Query gagal dijalankan: ".mysqli_errno($con).

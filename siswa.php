@@ -13,40 +13,22 @@
           </div>
           <div class="panel-body">
             <div class="row">
-              <div class="col-sm-6">
-                <form class="form-horizontal" method="get" action="?">
+              <div class="col-sm-9">
+                <form class="form-horizontal">
                   <div class="form-group">
-                    <div class="col-sm-8">
-                      <div class="input-group">    
-                <?php
-                  if (isset($_GET['cari'])) {
-                    $cari = ($_GET["cari"]);  
-                    echo '<input type="text" name="cari" class="form-control" value="'.$cari.'" placeholder="Pencarian....">';
-                  }else{
-                    echo '<input type="text" name="cari" class="form-control" placeholder="Pencarian....">';
-                  }
-                ?>
-                        <span class="input-group-btn">
-                <?php
-                  if (isset($_GET['cari'])) {
-                    echo '<a href="siswa.php">
-                      <button class="btn btn-default" type="button">
-                        Reset
-                      </button>
-                    </a>';
-                  }else{
-                    echo '<button class="btn btn-default" type="submit">
-                      <i class="zmdi zmdi-search"></i>
-                    </button>';
-                  }
-                ?>
-                        </span>
-                      </div>
+                    <label class="col-sm-2 control-label" for="form-control-2">
+                      Pencarian
+                    </label>
+                    <div class="col-sm-3">
+                      <input id="noNIS" onkeyup="noInduk()" placeholder="NIS" class="form-control input-pill" type="text">
+                    </div>
+                    <div class="col-sm-7">
+                      <input id="namaSiswa" onkeyup="nama()" placeholder="Nama Siswa" class="form-control input-pill" type="text">
                     </div>
                   </div>
                 </form>
               </div>
-              <div class="col-sm-6">
+              <div class="col-sm-3">
                 <div align="right">
                   <a href="tambah_siswa.php">
                     <button type="button" class="btn btn-primary">
@@ -59,25 +41,17 @@
             <br>
             <div class="table-responsive">
 <?php
-  if (isset($_GET['cari'])) {
-    $cari = ($_GET["cari"]);  
-  $query_user = "SELECT id_user,no_induk,nama,jabatan, tgl_entri,
-                  verifikasi FROM user WHERE no_induk like '%$cari%' OR nama like '%$cari%' 
-                  AND jabatan like 'Siswa%'";
-    }
-  else{
-  $query_user = "SELECT id_user,no_induk,nama,jabatan, tgl_entri,
+  $query_user = "SELECT id_user,no_induk,nama, kelas, tgl_entri,
                   verifikasi FROM user WHERE jabatan like 'Siswa%'";
-  }
   $result_user = mysqli_query($con, $query_user);
 ?>
-              <table class="table">
+              <table class="table" id="myTable">
                 <thead>
                   <tr>
                     <th>No</th>
                     <th>NIS</th>
                     <th>Nama Siswa</th>
-                    <th>Jabatan</th>
+                    <th>Kelas</th>
                     <th>Tanggal Terdaftar</th>
                     <th>Verifikasi</th>
                     <th>Aksi</th>
@@ -91,7 +65,7 @@
                     <td>'.$no_user.'</td>
                     <td>'.$data_user['no_induk'].'</td>
                     <td>'.$data_user['nama'].'</td>
-                    <td>'.$data_user['jabatan'].'</td>
+                    <td>'.$data_user['kelas'].'</td>
                     <td>'.tanggal_indo(''.$data_user['tgl_entri'].'').'</td>
                     <td>'.$data_user['verifikasi'].'</td>
                     <td align="center">';
@@ -140,6 +114,40 @@
           document.location="system/hapus_siswa.php?id="+id;
     })
   }
+  function noInduk() {
+      var input, filter, table, tr, td, i;
+      input = document.getElementById("noNIS");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[1];
+        if (td) {
+          if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }       
+      }
+    }
+    function nama() {
+      var input, filter, table, tr, td, i;
+      input = document.getElementById("namaSiswa");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[2];
+        if (td) {
+          if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }       
+      }
+    }
   <?php
       if (isset($_GET['aksi'])) {
           $aksi = ($_GET["aksi"]);

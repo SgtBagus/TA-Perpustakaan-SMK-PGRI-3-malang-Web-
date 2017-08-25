@@ -14,30 +14,13 @@
           <div class="panel-body">
             <div class="row">
               <div class="col-sm-6">
-                <form class="form-horizontal" method="get" action="?">
+                <form class="form-horizontal">
                   <div class="form-group">
+                    <label class="col-sm-2 control-label" for="form-control-2">
+                      Pencarian
+                    </label>
                     <div class="col-sm-8">
-                      <div class="input-group">
-              <?php
-                if (isset($_GET['cari'])) {
-                  $cari = $_GET['cari'];
-                  echo '<input type="text" name="cari" class="form-control" placeholder="Pencarian...." value="'.$cari.'">
-                  <span class="input-group-btn">
-                  <a href="jenis_buku.php">
-                    <button class="btn btn-default" type="button">
-                      Reset
-                    </button>
-                  </a>';
-                }else{
-                  echo '<input type="text" name="cari" class="form-control" placeholder="Pencarian....">
-                  <span class="input-group-btn">
-                    <button class="btn btn-default" type="submit">
-                      <i class="zmdi zmdi-search"></i>
-                    </button>';
-                }
-              ?>
-                        </span>
-                      </div>
+                      <input id="namaSubyek" onkeyup="subyek()" placeholder="Subyek" class="form-control input-pill" type="text">
                     </div>
                   </div>
                 </form>
@@ -55,17 +38,10 @@
             <br>
             <div class="table-responsive">
 <?php
-  if (isset($_GET['cari'])) {
-    $cari = ($_GET["cari"]);
-    $query_jenis_buku = "SELECT * FROM jenis_buku WHERE no_dewery like '%$cari%' OR subyek like '%$cari%'" ;
-  }
-  else{
     $query_jenis_buku = "SELECT * FROM jenis_buku"; 
-  }
-
   $result_jenis_buku = mysqli_query($con, $query_jenis_buku);
 ?>
-              <table class="table">
+              <table class="table" id="myTable">
                 <thead>
                   <tr>
                     <th>No</th> 
@@ -133,6 +109,23 @@
       }).then(function () {
           document.location="system/hapus_jenis_buku.php?id="+id;
     })
+  }
+  function subyek() {
+    var input, filter, table, tr, td, i;
+    input = document.getElementById("namaSubyek");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("myTable");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[2];
+      if (td) {
+        if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }       
+    }
   }
   <?php
       if (isset($_GET['aksi'])) {
