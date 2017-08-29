@@ -2,12 +2,12 @@
 <!DOCTYPE html>
 <html lang="en">
     <?php include('script/head_script.php');
-        if (isset($_GET['no_register'])) {
-            $no_register= ($_GET["no_register"]);
+        if (isset($_GET['ISBN'])) {
+            $ISBN= ($_GET["ISBN"]);
             $query_buku = "SELECT a.*, b.*
                            FROM buku AS a INNER JOIN
                            jenis_buku AS b WHERE a.id_jenis_buku = b.id_jenis_buku
-                           AND a.no_register = '$no_register'";
+                           AND a.ISBN = '$ISBN'";
             $result_buku = mysqli_query($con, $query_buku);
                 if(!$result_buku){
                 die ("Query Error: ".mysqli_errno($con).
@@ -16,7 +16,6 @@
 
             $data_buku          = mysqli_fetch_assoc($result_buku);
             $id_buku            = $data_buku['id_buku'];
-            $no_register        = $data_buku['no_register'];
             $judul_buku         = $data_buku['judul_buku'];
             $judul_singkat      = $data_buku['judul_singkat'];
             $gambar_buku        = $data_buku['gambar_buku'];
@@ -26,6 +25,11 @@
             $penerbit           = $data_buku['penerbit'];
             $tahun_terbit       = $data_buku['tahun_terbit'];
             $biografi           = $data_buku['biografi'];
+            $jilid              = $data_buku['jilid'];
+            $ISBN               = $data_buku['ISBN'];
+            $cetakan            = $data_buku['cetakan'];
+            $edisi              = $data_buku['edisi'];
+            $tanggal_entri      = $data_buku['tgl_entri_buku'];
         }
     ?>
 <body class="layout layout-header-fixed layout-left-sidebar-fixed">
@@ -39,9 +43,6 @@
                         <div class="p-about m-b-20">
                             <div class="pa-padding">
                                 <div class="row">
-                                    <div class="pa-name">
-                                        <small> - <?php echo $no_register ?> - </small>
-                                    </div>
                                     <img src="img/book/<?php echo $gambar_buku?>" alt="Foto Profil" width="200" height="300">
                                 </div>
                                 <div class="pa-name"><?php echo $judul_buku?> <br>
@@ -74,13 +75,43 @@
                                     </div>
                                     <div class="pi-item">
                                         <div class="pii-icon">
-                                            <i class="zmdi zmdi-file"></i>
+                                            <i class="zmdi zmdi-info"></i>
                                             Biografi
                                         </div>
                                         <div class="pii-value"><?php echo $biografi ?></div>
                                     </div>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered m-b-0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Jilid</th>
+                                                    <th>Cetakan</th>
+                                                    <th>Edisi</th>
+                                                    <th>ISBN</th>
+                                                    <th>Tanggal entri</th>
+                                                    <th>Total Buku</th>
+                                                </tr>
+                                            </thead>
+                                        <?php
+        $query_banyak = "SELECT id_detail_buku FROM detail_buku WHERE id_buku LIKE '$id_buku'";
+        $result_banyak = mysqli_query($con, $query_banyak);
+        $banyakdata_banyak = $result_banyak->num_rows;
+                                        ?>
+                                            <tbody>
+                                                <tr>
+                                                    <td><?php echo $jilid ?></td>
+                                                    <td><?php echo $cetakan ?></th>
+                                                    <td><?php echo $edisi ?></td>
+                                                    <td><?php echo $ISBN ?></td>
+                                                    <td><?php echo tanggal_indo(''.$tanggal_entri.'') ?></td>
+                                                    <td><b><?php echo $banyakdata_banyak ?></b></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <br>
                                     <div align="right">
-                                        <a href="ubah_buku.php?no_register=<?php echo $no_register ?>">
+                                        <a href="ubah_buku.php?ISBN=<?php echo $ISBN ?>">
                                             <button type="button" class="btn btn-primary">
                                             <i class="zmdi zmdi-edit"></i> Ubah Buku
                                             </button>
@@ -96,13 +127,6 @@
                             <h4 class="m-y-0">Status Buku</h4>
                             <hr>
                             <div class="panel-body">
-                                <div align="right">
-                                    <a href="tambah_data_buku.php?no_register=<?php echo $no_register ?>">
-                                    <button type="button" class="btn btn-primary">
-                                        <i class="zmdi zmdi-plus"></i> Tambah Data Buku
-                                    </button>
-                                    </a>
-                                </div>
                                 <div class="row">
                                     <div class="col-md-12">
                                     <ul class="nav nav-tabs nav-tabs-custom nav-justified m-b-15">
@@ -127,18 +151,16 @@
                                         <div role="tabpanel" class="tab-pane fade  active in" id="siapterpinjam">
                                             <div class="table-responsive">
                                             <?php
-                                                $query_siap_terpinjam = "SELECT * FROM detail_buku WHERE id_buku LIKE '$id_buku' AND status_buku = 'Siap Terpinjam'";
+                                                $query_siap_terpinjam = "SELECT * FROM detail_buku WHERE id_buku 
+                                                                         LIKE '$id_buku' AND status_buku = 'Siap Terpinjam'";
                                                 $result_siap_terpinjam = mysqli_query($con, $query_siap_terpinjam);
                                             ?>
-                                                <table class="table" id="myTable">
+                                                <table class="table">
                                                     <thead>
                                                     <tr>
                                                         <th>No</th>
-                                                        <th>Cetakan</th>
-                                                        <th>Edisi</th>
-                                                        <th>ISBN</th>
-                                                        <th>Tanggal Entri</th>
-                                                        <th>Status</th>
+                                                        <th>Kode</th>
+                                                        <th>Status Buku</th>
                                                         <th>Aksi</th>
                                                     </tr>
                                                     </thead>
@@ -148,39 +170,45 @@
                                     while($data_siap_terpinjam = mysqli_fetch_assoc($result_siap_terpinjam)){
                                                     echo '<tr>
                                                         <td>'.$no_siap_terpinjam.'</td>
-                                                        <td>'.$data_siap_terpinjam['cetakan'].'</td>
-                                                        <td>'.$data_siap_terpinjam['edisi'].'</td>
-                                                        <td>'.$data_siap_terpinjam['ISBN'].'</td>
-                                                        <td>'.tanggal_indo(''.$data_siap_terpinjam['tgl_entri_buku'].'').'</td>
+                                                        <td>'.$data_siap_terpinjam['kode_buku'].'</td>
                                                         <td>'.$data_siap_terpinjam['status_buku'].'</td>
                                                         <td align="center">
-                                                            <button onclick="hapus_data('.$data_siap_terpinjam['id_detail_buku'].')" type="button" class="btn btn-danger">
+                                                            <button onclick="hapus_data('.$data_siap_terpinjam['id_buku'].')" type="button" class="btn btn-danger">
                                                                 <i class="zmdi zmdi-delete"></i> Hapus
                                                             </button>
                                                         </td>
-                                                    </tr>';
+                                                    </tr>
+                                                    ';
                                                     $no_siap_terpinjam++;
                                                     }
+                                                    echo '</tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th colspan="4">
+                                                                <div align="right">
+                                                                    Total Buku : '.$result_siap_terpinjam->num_rows.' <small> " Siap Terpinjam " </small>
+                                                                </div>
+                                                            </th>
+                                                        </tr>
+                                                    </tfoot>';
                                     ?>
-                                                    </tbody>
                                                 </table>
                                             </div>
                                         </div>
                                         <div role="tabpanel" class="tab-pane fade" id="dipesan">
                                             <div class="table-responsive">
                                             <?php
-                                                $query_dipesan = "SELECT * FROM detail_buku WHERE id_buku LIKE '$id_buku' AND status_buku = 'Dipesan'";
+                                                $query_dipesan = "SELECT * FROM detail_buku WHERE id_buku 
+                                                                         LIKE '$id_buku' AND status_buku = 'Dipesan'";
                                                 $result_dipesan = mysqli_query($con, $query_dipesan);
                                             ?>
                                                 <table class="table" id="myTable">
                                                     <thead>
                                                     <tr>
                                                         <th>No</th>
-                                                        <th>Cetakan</th>
-                                                        <th>Edisi</th>
-                                                        <th>ISBN</th>
-                                                        <th>Tanggal Entri</th>
-                                                        <th>Status</th>
+                                                        <th>Kode</th>
+                                                        <th>Sumber</th>
+                                                        <th>Status Buku</th>
                                                         <th>Aksi</th>
                                                     </tr>
                                                     </thead>
@@ -190,39 +218,45 @@
                                     while($data_dipesan = mysqli_fetch_assoc($result_dipesan)){
                                                     echo '<tr>
                                                         <td>'.$no_dipesan.'</td>
-                                                        <td>'.$data_dipesan['cetakan'].'</td>
-                                                        <td>'.$data_dipesan['edisi'].'</td>
-                                                        <td>'.$data_dipesan['ISBN'].'</td>
-                                                        <td>'.tanggal_indo(''.$data_dipesan['tgl_entri_buku'].'').'</td>
+                                                        <td>'.$data_dipesan['no_register'].'</td>
+                                                        <td>'.$data_dipesan['sumber'].'</td>
                                                         <td>'.$data_dipesan['status_buku'].'</td>
                                                         <td align="center">
-                                                            <button onclick="hapus_data('.$data_dipesan['id_detail_buku'].')" type="button" class="btn btn-danger">
+                                                            <button onclick="hapus_data('.$data_dipesan['id_buku'].')" type="button" class="btn btn-danger">
                                                                 <i class="zmdi zmdi-delete"></i> Hapus
                                                             </button>
                                                         </td>
                                                     </tr>';
                                                     $no_dipesan++;
                                                     }
+                                                    echo '</tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th colspan="4">
+                                                                <div align="right">
+                                                                    Total Buku : '.$result_dipesan->num_rows.' <small> " Dipesan " </small>
+                                                                </div>
+                                                            </th>
+                                                        </tr>
+                                                    </tfoot>';
                                     ?>
-                                                    </tbody>
                                                 </table>
                                             </div>
                                         </div>
                                         <div role="tabpanel" class="tab-pane fade" id="dipinjam">
                                             <div class="table-responsive">
                                             <?php
-                                                $query_dipinjam = "SELECT * FROM detail_buku WHERE id_buku LIKE '$id_buku' AND status_buku = 'Dipinjam'";
+                                                $query_dipinjam = "SELECT * FROM detail_buku WHERE id_buku 
+                                                                         LIKE '$id_buku' AND status_buku = 'Dipinjam'";
                                                 $result_dipinjam = mysqli_query($con, $query_dipinjam);
                                             ?>
                                                 <table class="table" id="myTable">
                                                     <thead>
                                                     <tr>
                                                         <th>No</th>
-                                                        <th>Cetakan</th>
-                                                        <th>Edisi</th>
-                                                        <th>ISBN</th>
-                                                        <th>Tanggal Entri</th>
-                                                        <th>Status</th>
+                                                        <th>Kode</th>
+                                                        <th>Sumber</th>
+                                                        <th>Status Buku</th>
                                                         <th>Aksi</th>
                                                     </tr>
                                                     </thead>
@@ -232,28 +266,35 @@
                                     while($data_dipinjam = mysqli_fetch_assoc($result_dipinjam)){
                                                     echo '<tr>
                                                         <td>'.$no_dipinjam.'</td>
-                                                        <td>'.$data_dipinjam['cetakan'].'</td>
-                                                        <td>'.$data_dipinjam['edisi'].'</td>
-                                                        <td>'.$data_dipinjam['ISBN'].'</td>
-                                                        <td>'.tanggal_indo(''.$data_dipinjam['tgl_entri_buku'].'').'</td>
+                                                        <td>'.$data_dipinjam['no_register'].'</td>
+                                                        <td>'.$data_dipinjam['sumber'].'</td>
                                                         <td>'.$data_dipinjam['status_buku'].'</td>
                                                         <td align="center">
-                                                            <button onclick="hapus_data('.$data_dipinjam['id_detail_buku'].')" type="button" class="btn btn-danger">
+                                                            <button onclick="hapus_data('.$data_dipinjam['id_buku'].')" type="button" class="btn btn-danger">
                                                                 <i class="zmdi zmdi-delete"></i> Hapus
                                                             </button>
                                                         </td>
                                                     </tr>';
                                                     $no_dipinjam++;
                                                     }
+                                                    echo '</tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th colspan="4">
+                                                                <div align="right">
+                                                                    Total Buku : '.$result_dipinjam->num_rows.' <small> " Dipinjam " </small>
+                                                                </div>
+                                                            </th>
+                                                        </tr>
+                                                    </tfoot>';
                                     ?>
-                                                    </tbody>
                                                 </table>
                                             </div>
                                         </div>
                                         <div role="tabpanel" class="tab-pane fade" id="lainya">
                                             <div class="table-responsive">
                                             <?php
-                                                $query_lainya = "SELECT * FROM detail_buku WHERE id_buku LIKE '$id_buku'
+                                                $query_lainya = "SELECT * FROM detail_buku WHERE id_buku LIKE '$id_buku' 
                                                                  AND status_buku NOT LIKE 'Siap Terpinjam' AND status_buku NOT LIKE 'Dipesan'
                                                                  AND status_buku NOT LIKE 'Dipinjam'";
                                                 $result_lainya = mysqli_query($con, $query_lainya);
@@ -262,11 +303,9 @@
                                                     <thead>
                                                     <tr>
                                                         <th>No</th>
-                                                        <th>Cetakan</th>
-                                                        <th>Edisi</th>
-                                                        <th>ISBN</th>
-                                                        <th>Tanggal Entri</th>
-                                                        <th>Status</th>
+                                                        <th>Kode</th>
+                                                        <th>Sumber</th>
+                                                        <th>Status Buku</th>
                                                         <th>Aksi</th>
                                                     </tr>
                                                     </thead>
@@ -276,21 +315,28 @@
                                     while($data_lainya = mysqli_fetch_assoc($result_lainya)){
                                                     echo '<tr>
                                                         <td>'.$no_lainya.'</td>
-                                                        <td>'.$data_lainya['cetakan'].'</td>
-                                                        <td>'.$data_lainya['edisi'].'</td>
-                                                        <td>'.$data_lainya['ISBN'].'</td>
-                                                        <td>'.tanggal_indo(''.$data_lainya['tgl_entri_buku'].'').'</td>
+                                                        <td>'.$data_lainya['no_register'].'</td>
+                                                        <td>'.$data_lainya['sumber'].'</td>
                                                         <td>'.$data_lainya['status_buku'].'</td>
                                                         <td align="center">
-                                                            <button onclick="hapus_data('.$data_lainya['id_detail_buku'].')" type="button" class="btn btn-danger">
+                                                            <button onclick="hapus_data('.$data_lainya['id_buku'].')" type="button" class="btn btn-danger">
                                                                 <i class="zmdi zmdi-delete"></i> Hapus
                                                             </button>
                                                         </td>
                                                     </tr>';
                                                     $no_lainya++;
                                                     }
+                                                    echo '</tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th colspan="4">
+                                                                <div align="right">
+                                                                    Total Buku : '.$result_lainya->num_rows.' <small> " Lainya " </small>
+                                                                </div>
+                                                            </th>
+                                                        </tr>
+                                                    </tfoot>';
                                     ?>
-                                                    </tbody>
                                                 </table>
                                             </div>
                                         </div>

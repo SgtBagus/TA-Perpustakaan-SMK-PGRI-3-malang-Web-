@@ -5,10 +5,10 @@
   <body class="layout layout-header-fixed layout-left-sidebar-fixed">
     <?php include('menu/header.php');
 
-    if (isset($_GET['no_register'])) {
-        $no_register = ($_GET["no_register"]);
+    if (isset($_GET['ISBN'])) {
+        $ISBN = ($_GET["ISBN"]);
         $query = "SELECT a.*, b.* FROM buku AS a INNER JOIN 
-                 jenis_buku AS b WHERE a.no_register ='$no_register' 
+                 jenis_buku AS b WHERE a.ISBN ='$ISBN' 
                  AND a.id_jenis_buku = b.id_jenis_buku";
         $result = mysqli_query($con, $query);
 
@@ -22,15 +22,20 @@
         $judul_buku     = $data["judul_buku"];
         $judul_singkat  = $data["judul_singkat"];
         $gambar_buku    = $data["gambar_buku"];
+        $jilid          = $data["jilid"];
+        $cetakan        = $data["cetakan"];
+        $edisi          = $data["edisi"];
+        $ISBN           = $data["ISBN"];
         $jenis_media    = $data["jenis_media"];
         $id_jenis_buku  = $data["id_jenis_buku"];
+        $sumber_buku    = $data["sumber"];
         $subyek         = $data["subyek"];
         $jenis_koleksi  = $data["jenis_koleksi"];
         $kota_terbit    = $data["kota_terbit"];
         $penerbit       = $data["penerbit"];
         $tahun_terbit   = date('d-m-Y', strtotime($data["tahun_terbit"]));
         $biografi       = $data["biografi"];
-        $bahasa_buku         = $data["bahasa"];
+        $bahasa_buku    = $data["bahasa"];
 
     }else{
 			header("location:../404.php");
@@ -47,7 +52,7 @@
           <div class="panel-body"> 
             <div class="row">
               <div class="col-md-8">
-                <form class="form-horizontal" method="post" action="system/proses_ubah_buku.php" 
+                <form id="inputmasks" class="form-horizontal" method="post" action="system/proses_ubah_buku.php" 
                 enctype="multipart/form-data">    
                   <div class="form-group">
                     <label class="col-sm-3 control-label" for="form-control-5">Judul Buku</label>
@@ -65,6 +70,25 @@
                       <img id="preview_gambar" src="img/book/<?php echo $gambar_buku ?>" alt="Foto Profil" width="150" height="200">
                       <input id="preview" style="visibility:hidden;" type="file" accept="image/png, image/jpeg, image/jpg" name="foto" onchange="readURL(this);" onclick="myFunction()" />
                       <label for="preview" class="btn btn-primary btn-fill"><i class="zmdi zmdi-edit"> </i> Pilih File</label> 
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label" for="form-control-5">Pelengkap</label>
+                    <div class="col-sm-3">
+                      <input name="jilid" class="form-control" type="text" placeholder="Jilid" value="<?php echo $jilid ?>">  
+                    </div>
+                    <div class="col-sm-3">
+                      <input name="cetakan" class="form-control" type="text" placeholder="Cetakan" value="<?php echo $cetakan ?>">  
+                    </div>
+                    <div class="col-sm-3">
+                      <input name="edisi" class="form-control" type="text" placeholder="Edisi" value="<?php echo $edisi ?>" >  
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label" for="form-control-5">ISBN</label>
+                    <div class="col-sm-9">
+                      <input id="form-control-4" name="ISBN" class="form-control" type="text" 
+                      data-inputmask="'alias': '999-999-999-999-99'" placeholder="ISBN" value="<?php echo $ISBN ?>">  
                     </div>
                   </div>
                   <div class="form-group">
@@ -103,33 +127,7 @@ foreach ($semua_media as $media)
                     </div>
                   </div>
                   <div class="form-group">
-                    <div class="col-sm-3">
-    <?php
-        $query = "SELECT * FROM jenis_buku";     
-        $result = mysqli_query($con, $query);
-        if(!$result){
-            die ("Query Error: ".mysqli_errno($con).
-            " - ".mysqli_error($con));
-        }
-    ?>
-                    </div>
-                    <div class="col-sm-3">
-                    <label class="control-label" for="form-control-21">Jenis Buku</label>
-                        <select name="jenis_buku" class="form-control" required>                                                     
-    <?php
-        $jenis_buku_sekarang = $subyek;
-        while($data = mysqli_fetch_assoc($result))
-        {
-            if($data[subyek] == $jenis_buku_sekarang) {
-            echo '<option value="'.$data[id_jenis_buku].'" title="Diskripsi : '.$data[deskripsi_jenis_buku].'" SELECTED>'.$data[subyek].'</option>';
-            } else
-            {
-            echo '<option value="'.$data[id_jenis_buku].'" title="Diskripsi : '.$data[deskripsi_jenis_buku].'">'.$data[subyek].'</option>';
-            }
-        }
-    ?>
-                      </select>
-                    </div>
+                    <div class="col-sm-3"></div>
                     <div class="col-sm-3">
                     <label class="control-label" for="form-control-21">Jenis Koleksi</label>
                         <select name="koleksi" class="form-control" required>
@@ -168,6 +166,51 @@ foreach ($semua_bahasa as $bahasa)
 }
 ?>                   
                         </select>
+                    </div>
+                    <div class="col-sm-3">
+                    <label class="control-label" for="form-control-21">Sumber Buku</label>
+                        <select name="bahasa" class="form-control" required>                           
+<?php
+$semua_sumber = array("Pembelian", "Hadiah", "Penggantian", "Penggandaan", "Tidak Diketahui");
+
+foreach ($semua_sumber as $sumber) 
+{
+  if($sumber == $sumber_buku) {
+    echo "<option value=".$sumber." SELECTED>$sumber</option>";
+  } 
+  else{
+    echo "<option value=".$sumber.">$sumber</option>";
+  }
+}
+?>                   
+                        </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-md-3 control-label" for="form-control-1">Jenis Buku</label>
+                    <div class="col-md-9">
+    <?php
+        $query = "SELECT * FROM jenis_buku";     
+        $result = mysqli_query($con, $query);
+        if(!$result){
+            die ("Query Error: ".mysqli_errno($con).
+            " - ".mysqli_error($con));
+        }
+    ?>
+                      <select name="jenis_buku" class="form-control" required>                                                     
+    <?php
+        $jenis_buku_sekarang = $subyek;
+        while($data = mysqli_fetch_assoc($result))
+        {
+            if($data[subyek] == $jenis_buku_sekarang) {
+            echo '<option value="'.$data[id_jenis_buku].'" title="Diskripsi : '.$data[deskripsi_jenis_buku].'" SELECTED>'.$data[subyek].'</option>';
+            } else
+            {
+            echo '<option value="'.$data[id_jenis_buku].'" title="Diskripsi : '.$data[deskripsi_jenis_buku].'">'.$data[subyek].'</option>';
+            }
+        }
+    ?>
+                      </select>
                     </div>
                   </div>
                   <div class="form-group">

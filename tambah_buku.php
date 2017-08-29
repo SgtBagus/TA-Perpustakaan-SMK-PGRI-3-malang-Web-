@@ -14,7 +14,7 @@
           <div class="panel-body"> 
             <div class="row">
               <div class="col-md-8">
-                <form class="form-horizontal" method="post" action="system/proses_tambah_buku.php" 
+                <form id="inputmasks" class="form-horizontal" method="post" action="system/proses_tambah_buku.php" 
                 enctype="multipart/form-data">    
                   <div class="form-group">
                     <label class="col-sm-3 control-label" for="form-control-5">Judul Buku</label>
@@ -31,6 +31,25 @@
                       <img id="preview_gambar" src="img/book/thumbnail.png" alt="Foto Profil" width="150" height="200">
                       <input id="preview" style="visibility:hidden;" type="file" accept="image/png, image/jpeg, image/jpg" name="foto" onchange="readURL(this);" onclick="myFunction()" />
                       <label for="preview" class="btn btn-primary btn-fill"><i class="zmdi zmdi-edit"> </i> Pilih File</label> 
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label" for="form-control-5">Pelengkap</label>
+                    <div class="col-sm-3">
+                      <input name="jilid" class="form-control" type="text" placeholder="Jilid">  
+                    </div>
+                    <div class="col-sm-3">
+                      <input name="cetakan" class="form-control" type="text" placeholder="Cetakan">  
+                    </div>
+                    <div class="col-sm-3">
+                      <input name="edisi" class="form-control" type="text" placeholder="Edisi">  
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label" for="form-control-5">ISBN</label>
+                    <div class="col-sm-9">
+                      <input id="form-control-4" name="ISBN" class="form-control" type="text" 
+                      data-inputmask="'alias': '999-999-999-999-99'" placeholder="ISBN">  
                     </div>
                   </div>
                   <div class="form-group">
@@ -58,31 +77,11 @@
                   <div class="form-group">
                     <label class="col-md-3 control-label" for="form-control-1">Tanggal Terbit</label>
                     <div class="col-md-9">
-                        <input id="datepicker" class="form-control" type="text"  name="terbit" data-inputmask="'alias': 'yyyy-mm-dd'">
+                        <input id="datepicker" class="form-control" type="text"  name="terbit">
                     </div>
                   </div>
                   <div class="form-group">
-                    <div class="col-sm-3">
-    <?php
-        $query = "SELECT * FROM jenis_buku";     
-        $result = mysqli_query($con, $query);
-        if(!$result){
-            die ("Query Error: ".mysqli_errno($con).
-            " - ".mysqli_error($con));
-        }
-    ?>
-                    </div>
-                    <div class="col-sm-3">
-                    <label class="control-label" for="form-control-21">Jenis Buku</label>
-                        <select name="jenis_buku" class="form-control" required>                                                     
-    <?php
-        while($data = mysqli_fetch_assoc($result))
-        {
-            echo '<option value="'.$data[id_jenis_buku].'" title="Diskripsi : '.$data[deskripsi_jenis_buku].'">'.$data[subyek].'</option>';
-        }
-    ?>
-                      </select>
-                    </div>
+                    <div class="col-sm-3"></div>
                     <div class="col-sm-3">
                     <label class="control-label" for="form-control-21">Jenis Koleksi</label>
                         <select name="koleksi" class="form-control" required>  
@@ -111,11 +110,49 @@
                             <option value="Lain-lain">Lain-lain</option>                      
                         </select>
                     </div>
+                    <div class="col-sm-3">
+                    <label class="control-label" for="form-control-21">Sumber Buku</label>
+                        <select name="sumber" class="form-control" required>
+                            <option value="Pembelian">Pembelian</option>
+                            <option value="Hadiah">Hadiah</option>
+                            <option value="Penggantian">Penggantian</option>
+                            <option value="Penggandaan">Penggandaan</option>
+                            <option value="Tidak Diketahui">Tidak Diketahui</option>
+                        </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-md-3 control-label" for="form-control-1">Jenis Buku</label>
+                    <div class="col-md-9">
+                    
+    <?php
+        $query = "SELECT * FROM jenis_buku";     
+        $result = mysqli_query($con, $query);
+        if(!$result){
+            die ("Query Error: ".mysqli_errno($con).
+            " - ".mysqli_error($con));
+        }
+    ?>
+                      <select name="jenis_buku" class="form-control" required>                                                     
+    <?php
+        while($data = mysqli_fetch_assoc($result))
+        {
+            echo '<option value="'.$data[id_jenis_buku].'" title="Diskripsi : '.$data[deskripsi_jenis_buku].'">'.$data[subyek].'</option>';
+        }
+    ?>
+                      </select>
+                    </div>
                   </div>
                   <div class="form-group">
                     <label class="col-sm-3 control-label" for="form-control-8" required>Biografi</label>
                     <div class="col-sm-9">
                       <textarea class="form-control" rows="3" name="biografi" placeholder="Biografi"></textarea>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label" for="form-control-21">Total Buku</label>
+                    <div class="col-sm-9">
+                      <input class="form-control" type="number" name="total_buku" placeholder="Total Buku" required>
                     </div>
                   </div>
                   <div align="right">

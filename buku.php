@@ -19,9 +19,6 @@
                     <label class="col-sm-2 control-label" for="form-control-2">
                       Pencarian
                     </label>
-                    <div class="col-sm-3">
-                      <input id="noRegister" onkeyup="no_register()" placeholder="No Register" class="form-control input-pill" type="text">
-                    </div>
                     <div class="col-sm-7">
                       <input id="judulBuku" onkeyup="buku()" placeholder="Judul Buku" class="form-control input-pill" type="text">
                     </div>
@@ -41,20 +38,20 @@
             <br>
           <div class="table-responsive">
 <?php
-  $query_buku = "SELECT a.id_buku, a.no_register, a.judul_buku, a.id_jenis_buku, b.subyek, a.jenis_media,
+  $query_buku = "SELECT a.id_buku, a.judul_buku, a.ISBN, a.id_jenis_buku, b.subyek, a.jenis_media,
                   a.bahasa FROM buku AS a INNER JOIN jenis_buku AS b WHERE a.id_jenis_buku = b.id_jenis_buku 
-                  ORDER BY a.id_buku DESC" ;
+                  GROUP BY a.judul_buku ORDER BY a.id_buku  DESC" ;
   $result_buku = mysqli_query($con, $query_buku);
 ?>
             <table class="table" id="myTable">
               <thead>
                 <tr>
                   <th>No</th>
-                  <th>No Register</th>
                   <th>Judul buku</th>
                   <th>Jenis Buku</th>
                   <th>Media</th>
                   <th>Bahasa</th>
+                  <th>Total Buku</th>
                   <th></th>
                 </tr>
               </thead>
@@ -64,18 +61,24 @@
   while($data_buku = mysqli_fetch_assoc($result_buku)){
                 echo '<tr>
                   <td>'.$no_buku.'</td>
-                  <td>'.$data_buku['no_register'].'</td>
                   <td>'.$data_buku['judul_buku'].'</td>
                   <td>'.$data_buku['subyek'].'</td>
                   <td>'.$data_buku['jenis_media'].'</td>
                   <td>'.$data_buku['bahasa'].'</td>
+                  <td><b><div align="center">';
+        $query_banyak = "SELECT id_detail_buku 
+                         FROM detail_buku WHERE id_buku LIKE '$data_buku[id_buku]'";
+        $result_banyak = mysqli_query($con, $query_banyak);
+        $banyakdata_banyak = $result_banyak->num_rows;
+                  echo $banyakdata_banyak.'
+                  </div></b></td>
                   <td align="right">
-                    <a href="detail_buku.php?no_register='.$data_buku['no_register'].'">
+                    <a href="detail_buku.php?ISBN='.$data_buku['ISBN'].'">
                       <button type="button" class="btn btn-primary">
                         <i class="zmdi zmdi-eye"></i> Detail
                       </button>
                     </a>
-                    <a href="ubah_buku.php?no_register='.$data_buku['no_register'].'">
+                    <a href="ubah_buku.php?ISBN='.$data_buku['ISBN'].'">
                       <button type="button" class="btn btn-primary">
                         <i class="zmdi zmdi-edit"></i> Ubah
                       </button>
@@ -111,24 +114,6 @@
             document.location="system/hapus_buku.php?id="+id;
       })
     }
-        
-    function no_register() {
-      var input, filter, table, tr, td, i;
-      input = document.getElementById("noRegister");
-      filter = input.value.toUpperCase();
-      table = document.getElementById("myTable");
-      tr = table.getElementsByTagName("tr");
-      for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[1];
-        if (td) {
-          if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-            tr[i].style.display = "";
-          } else {
-            tr[i].style.display = "none";
-          }
-        }       
-      }
-    }
     
     function buku() {
       var input, filter, table, tr, td, i;
@@ -137,7 +122,7 @@
       table = document.getElementById("myTable");
       tr = table.getElementsByTagName("tr");
       for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[2];
+        td = tr[i].getElementsByTagName("td")[1];
         if (td) {
           if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
             tr[i].style.display = "";
