@@ -169,7 +169,7 @@ foreach ($semua_bahasa as $bahasa)
                     </div>
                     <div class="col-sm-3">
                     <label class="control-label" for="form-control-21">Sumber Buku</label>
-                        <select name="bahasa" class="form-control" required>                           
+                        <select name="sumber" class="form-control" required>                           
 <?php
 $semua_sumber = array("Pembelian", "Hadiah", "Penggantian", "Penggandaan", "Tidak Diketahui");
 

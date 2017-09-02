@@ -207,7 +207,6 @@
                                                     <tr>
                                                         <th>No</th>
                                                         <th>Kode</th>
-                                                        <th>Sumber</th>
                                                         <th>Status Buku</th>
                                                         <th>Aksi</th>
                                                     </tr>
@@ -218,8 +217,7 @@
                                     while($data_dipesan = mysqli_fetch_assoc($result_dipesan)){
                                                     echo '<tr>
                                                         <td>'.$no_dipesan.'</td>
-                                                        <td>'.$data_dipesan['no_register'].'</td>
-                                                        <td>'.$data_dipesan['sumber'].'</td>
+                                                        <td>'.$data_dipesan['kode_buku'].'</td>
                                                         <td>'.$data_dipesan['status_buku'].'</td>
                                                         <td align="center">
                                                             <button onclick="hapus_data('.$data_dipesan['id_buku'].')" type="button" class="btn btn-danger">
@@ -255,7 +253,6 @@
                                                     <tr>
                                                         <th>No</th>
                                                         <th>Kode</th>
-                                                        <th>Sumber</th>
                                                         <th>Status Buku</th>
                                                         <th>Aksi</th>
                                                     </tr>
@@ -266,8 +263,7 @@
                                     while($data_dipinjam = mysqli_fetch_assoc($result_dipinjam)){
                                                     echo '<tr>
                                                         <td>'.$no_dipinjam.'</td>
-                                                        <td>'.$data_dipinjam['no_register'].'</td>
-                                                        <td>'.$data_dipinjam['sumber'].'</td>
+                                                        <td>'.$data_dipinjam['kode_buku'].'</td>
                                                         <td>'.$data_dipinjam['status_buku'].'</td>
                                                         <td align="center">
                                                             <button onclick="hapus_data('.$data_dipinjam['id_buku'].')" type="button" class="btn btn-danger">
@@ -305,7 +301,6 @@
                                                         <th>No</th>
                                                         <th>Kode</th>
                                                         <th>Sumber</th>
-                                                        <th>Status Buku</th>
                                                         <th>Aksi</th>
                                                     </tr>
                                                     </thead>
@@ -315,8 +310,7 @@
                                     while($data_lainya = mysqli_fetch_assoc($result_lainya)){
                                                     echo '<tr>
                                                         <td>'.$no_lainya.'</td>
-                                                        <td>'.$data_lainya['no_register'].'</td>
-                                                        <td>'.$data_lainya['sumber'].'</td>
+                                                        <td>'.$data_lainya['kode_buku'].'</td>
                                                         <td>'.$data_lainya['status_buku'].'</td>
                                                         <td align="center">
                                                             <button onclick="hapus_data('.$data_lainya['id_buku'].')" type="button" class="btn btn-danger">

@@ -22,11 +22,20 @@ if (isset($_POST['input'])) {
   $sumber           = $_POST['sumber'];
   $jenis_buku       = $_POST['jenis_buku'];
   $biografi         = $_POST['biografi'];
+  $total_buku       = $_POST['total_buku'];
 
     $date = date("Ymd");
 
         $cekdulu= "SELECT * FROM buku WHERE judul_buku='$judul'";
         $prosescek= mysqli_query($con, $cekdulu);
+
+                    
+
+    $query_pertama = "SELECT kode_buku FROM detail_buku WHERE id_buku IN (SELECT max(id_buku) FROM buku ) ";
+    $query_kedua= "SELECT SUBSTRING(kode_buku, 1, 8) AS no_register FROM detail_buku WHERE id_buku IN (SELECT max(id_buku) FROM buku ) ";
+    $query_id = "SELECT max(id_buku) AS id_buku FROM buku";
+    
+    //// Untuk Membuat no_register automatis
 
     if(mysqli_num_rows($prosescek)>0){
       header("location:../tambah_buku.php?aksi=duplicate"); 
@@ -45,7 +54,65 @@ if (isset($_POST['input'])) {
                         " - ".mysqli_error($con)); 
             }
             if($result){ 
-                header("location: ../buku.php?aksi= tambah"); 
+                if($total_buku < 0){
+                    header("location:../tambah_buku.php?aksi=mana"); 
+                }
+                else{
+    $result_pertama = mysqli_query($con, $query_pertama);
+    $data_pertama = mysqli_fetch_assoc($result_pertama);
+    $id_buku_plus = $data_pertama['id_buku'];
+    $kode_pertama = $data_pertama['kode_buku'];
+
+    $result_kedua = mysqli_query($con, $query_kedua);
+    $data_kedua = mysqli_fetch_assoc($result_kedua);
+    $kode_kedua = $data_kedua['no_register'];
+
+    $result_id = mysqli_query($con, $query_id);
+    $data_id = mysqli_fetch_assoc($result_id);
+    $id_buku_plus = $data_id['id_buku'];
+
+                    $x = 1;
+                    while($x <= $total_buku) {
+                        if($kode_kedua == $date){
+                            $no_kode = floatval($kode_pertama)+$x;
+                        }else{
+                            if($total_buku < 10){
+                                $no_kode = $date."00".$x;
+                            }else if ($total_buku < 100){
+                                    if($x < 10)
+                                    {
+                                        $no_kode = $date."00".$x;
+                                    }
+                                    else{
+                                        $no_kode = $date."0".$x;
+                                    };
+                            }else if ($total_buku < 1000){
+                                    if($x < 10)
+                                    {
+                                        $no_kode = $date."00".$x;
+                                    }
+                                    else if ($x < 100){
+                                        $no_kode = $date."0".$x;
+                                    }
+                                    else {
+                                        $no_kode = $date.$x;
+                                    }
+                            }else if ($total_buku >= 1000){
+                                header("location:../tambah_buku.php?aksi=kebanyakan"); 
+                            }
+                        }
+                                    
+                            $query_detail = "INSERT INTO detail_buku SET id_buku = '$id_buku_plus', kode_buku = '$no_kode', status_buku = 'Siap Terpinjam'";
+                            $result_detail = mysqli_query($con, $query_detail);
+                            
+            if(!$result_detail){
+            die ("Query gagal dijalankan: ".mysqli_errno($con).
+                        " - ".mysqli_error($con)); 
+            }
+                            $x++;
+                    }
+                    header("location: ../buku.php?aksi=tambah"); 
+                }
             }else{
                 header("location: ../tambah_buku.php?aksi=error"); 
             }
@@ -75,9 +142,66 @@ if (isset($_POST['input'])) {
                             }
 
                             if($result){ 
-                                header("location: ../buku.php?aksi=tambah"); 
+                                if($total_buku < 0){
+                                    header("location:../tambah_buku.php?aksi=mana"); 
+                                }
+                                else{
+                    $result_pertama = mysqli_query($con, $query_pertama);
+                    $data_pertama = mysqli_fetch_assoc($result_pertama);
+                    $id_buku_plus = $data_pertama['id_buku'];
+                    $kode_pertama = $data_pertama['kode_buku'];
+
+                    $result_kedua = mysqli_query($con, $query_kedua);
+                    $data_kedua = mysqli_fetch_assoc($result_kedua);
+                    $kode_kedua = $data_kedua['no_register'];
+
+                    $result_id = mysqli_query($con, $query_id);
+                    $data_id = mysqli_fetch_assoc($result_id);
+                    $id_buku_plus = $data_id['id_buku'];
+
+                                    $x = 1;
+                                    while($x <= $total_buku) {
+                                        if($kode_kedua == $date){
+                                            $no_kode = floatval($kode_pertama)+$x;
+                                        }else{
+                                            if($total_buku < 10){
+                                                $no_kode = $date."00".$x;
+                                            }else if ($total_buku < 100){
+                                                    if($x < 10)
+                                                    {
+                                                        $no_kode = $date."00".$x;
+                                                    }
+                                                    else{
+                                                        $no_kode = $date."0".$x;
+                                                    };
+                                            }else if ($total_buku < 1000){
+                                                    if($x < 10)
+                                                    {
+                                                        $no_kode = $date."00".$x;
+                                                    }
+                                                    else if ($x < 100){
+                                                        $no_kode = $date."0".$x;
+                                                    }
+                                                    else {
+                                                        $no_kode = $date.$x;
+                                                    }
+                                            }else if ($total_buku >= 1000){
+                                                header("location:../tambah_buku.php?aksi=kebanyakan"); 
+                                            }
+                                        }
+                                                    
+                                            $query_detail = "INSERT INTO detail_buku SET id_buku = '$id_buku_plus', kode_buku = '$no_kode', status_buku = 'Siap Terpinjam'";
+                                            $result_detail = mysqli_query($con, $query_detail);
+                                            
+                            if(!$result_detail){
+                            die ("Query gagal dijalankan: ".mysqli_errno($con).
+                                        " - ".mysqli_error($con)); 
                             }
-                            else{
+                                            $x++;
+                                    }
+                                    header("location: ../buku.php?aksi=tambah"); 
+                                }
+                            }else{
                                 header("location: ../tambah_buku.php?aksi=error"); 
                             }
                         }

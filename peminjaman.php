@@ -14,8 +14,9 @@
           <div class="panel-body">
             <div class="table-responsive">          
 <?php
-  $query = "SELECT a.*, b.* FROM peminjaman AS a INNER JOIN user  
-                 AS b WHERE a.id_user = b.id_user";
+  $query = "SELECT a.id_peminjaman, a.no_peminjaman, b.username, b.no_induk, a.tanggal_peminjaman, 
+            a.tanggal_pengembalian, a.status_pinjaman FROM peminjaman 
+            AS a INNER JOIN user AS b WHERE a.id_user = b.id_user";
   $result = mysqli_query($con, $query);
 ?>
               <table class="table">
@@ -24,9 +25,11 @@
                     <th>No</th>
                     <th>Nomor Peminjaman</th>
                     <th colspan="2">Peminjam</th>
+                    <th>Banyak Buku</th>
                     <th>Tanggal Pinjaman</th>
                     <th>Tanggal Pengmbalian</th>
                     <th>Sisa Hari</th>
+                    <th>Status</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -34,28 +37,48 @@
                 <?php
   $no = 1;
   while($data = mysqli_fetch_assoc($result)){
+                  $date1 = new DateTime(''.$data['tanggal_pengembalian'].'');
+                  $date2 = new DateTime(''.$data['tanggal_peminjaman'].'');
+                  $diff = $date2->diff($date1)->format("%a");
                   echo '
                   <tr>
                     <td>'.$no.'</td>
-                    <td> - comming soon - </td>
+                    <td>'.$data['no_peminjaman'].'</td>
                     <td>'.$data['username'].'</td>
                     <td>
                       <a href="detail_user.php?no_induk='.$data['no_induk'].'">
                         <i class="zmdi zmdi-eye"></i>
                       </a>
                     </td>
+                    <td>
+                      <div align="center"><b>';
+
+        $query_banyak = "SELECT id_detail_peminjaman
+                         FROM detail_peminjaman WHERE id_peminjaman LIKE '$data[id_peminjaman]'";
+        $result_banyak = mysqli_query($con, $query_banyak);
+        $banyakdata_banyak = $result_banyak->num_rows;
+                  echo $banyakdata_banyak ;
+                      echo '</b></div>
+                    </td>
                     <td>'.tanggal_indo(''.$data['tanggal_peminjaman'].'').'</td>
                     <td>'.tanggal_indo(''.$data['tanggal_pengembalian'].'').'</td>
-                    <td> - comming soon - </td>
+                    <td>';
+                    if ($data['status_pinjaman'] == "Menunggu"){
+                      echo '- Belum di verifikasi -';
+                    }else{
+                      echo '<b>'.$diff.'</b>';
+                    }
+                    echo '</td>
+                    <td>'.$data['status_pinjaman'].'</td>
                     <td>
-                      <a href="detail_peminjaman.php?no_peminjaman='.$data['id_peminjaman'].'">
+                      <a href="detail_peminjaman.php?no_peminjaman='.$data['no_peminjaman'].'">
                         <button type="button" class="btn btn-primary">
                           <i class="zmdi zmdi-eye"></i> Detail
                         </button>
                       </a>
                     </td>
                   </tr>';
-                  $no;
+                  $no++;
   }
   ?>
                 </tbody>

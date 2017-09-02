@@ -25,7 +25,7 @@
                   <div class="form-group">
                     <label class="col-sm-3 control-label" for="form-control-5">Nama Siswa</label>
                     <div class="col-sm-9">
-                      <input class="form-control" type="text" name="nama" placeholder="Nama Pegawai" required>
+                      <input class="form-control" type="text" name="nama" placeholder="Nama Siswa" required>
                     </div>
                   </div>
                   <div class="form-group">

@@ -20,7 +20,7 @@
                       Pencarian
                     </label>
                     <div class="col-sm-3">
-                      <input id="noNIS" onkeyup="noInduk()" placeholder="NIS" class="form-control input-pill" type="text">
+                      <input id="noNIS" onkeyup="noInduk()" placeholder="NIP" class="form-control input-pill" type="text">
                     </div>
                     <div class="col-sm-7">
                       <input id="namaSiswa" onkeyup="nama()" placeholder="Nama Pegawai" class="form-control input-pill" type="text">

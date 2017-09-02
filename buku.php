@@ -29,7 +29,7 @@
                 <div align="right">
                   <a href="tambah_buku.php">
                     <button type="button" class="btn btn-primary">
-                      <i class="zmdi zmdi-plus-circle"></i> Tambah Jenis Buku
+                      <i class="zmdi zmdi-plus-circle"></i> Buku
                     </button>
                   </a>
                 </div>
@@ -38,8 +38,8 @@
             <br>
           <div class="table-responsive">
 <?php
-  $query_buku = "SELECT a.id_buku, a.judul_buku, a.ISBN, a.id_jenis_buku, b.subyek, a.jenis_media,
-                  a.bahasa FROM buku AS a INNER JOIN jenis_buku AS b WHERE a.id_jenis_buku = b.id_jenis_buku 
+  $query_buku = "SELECT a.*, b.* 
+                  FROM buku AS a INNER JOIN jenis_buku AS b WHERE a.id_jenis_buku = b.id_jenis_buku 
                   GROUP BY a.judul_buku ORDER BY a.id_buku  DESC" ;
   $result_buku = mysqli_query($con, $query_buku);
 ?>
@@ -71,8 +71,9 @@
         $result_banyak = mysqli_query($con, $query_banyak);
         $banyakdata_banyak = $result_banyak->num_rows;
                   echo $banyakdata_banyak.'
-                  </div></b></td>
-                  <td align="right">
+                  </div></b>
+                  </td>
+                  <td>
                     <a href="detail_buku.php?ISBN='.$data_buku['ISBN'].'">
                       <button type="button" class="btn btn-primary">
                         <i class="zmdi zmdi-eye"></i> Detail
