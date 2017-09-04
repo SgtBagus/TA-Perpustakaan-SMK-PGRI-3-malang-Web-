@@ -50,7 +50,7 @@
                   ?>
                     <div class="pa-text"><?php echo $nama_profil ?> · <?php echo $jabatan_profil ?></div>  
                     <br>
-                    <div class="pa-name">Tanggal Perjanjian</div>  
+                    <div class="pa-name">Tanggal Peminjaman</div>  
                     <div class="pa-text"><?php echo tanggal_indo(''.$tanggal_peminjaman.'') ?> - <?php echo tanggal_indo(''.$tanggal_pengembalian.'') ?></div>                   </div>
                 </div>
               </div>
@@ -117,8 +117,8 @@
                         <div role="tabpanel" class="tab-pane fade  active in">
                           <div class="table-responsive">
                           <?php
-            $query_buku_pemesanan = "SELECT a.no_peminjaman, b.id_detail_buku, c.kode_buku,  
-                                    c.status_buku, d.judul_singkat
+            $query_buku_pemesanan = "SELECT a.no_peminjaman, b.id_detail_buku, c.kode_buku,
+                                    c.status_buku, d.judul_singkat, d.ISBN
                                     FROM peminjaman AS a INNER JOIN detail_peminjaman AS b 
                                     INNER JOIN detail_buku AS c INNER JOIN buku AS d
                                     WHERE a.id_peminjaman = b.id_peminjaman AND b.id_detail_buku = c.id_detail_buku AND
@@ -145,7 +145,7 @@
                                         <td>'.$data_buku_pemesanan['kode_buku'].'</td>
                                         <td>'.$data_buku_pemesanan['status_buku'].'</td>
                                         <td>
-                                          <a href="detail_buku.php?no_register='.$data_buku_pemesanan['id_detail_buku'].'">
+                                          <a href="detail_buku.php?ISBN='.$data_buku_pemesanan['ISBN'].'">
                                             <i class="zmdi zmdi-eye"></i>
                                           </a>
                                         </td>

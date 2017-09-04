@@ -41,8 +41,7 @@
             <br>
             <div class="table-responsive">
 <?php
-  $query_user = "SELECT id_user,no_induk,nama, kelas, tgl_entri,
-                  verifikasi FROM user WHERE jabatan like 'Siswa%'";
+  $query_user = "SELECT id_siswa, NIS, nama_siswa, kelas, tgl_entri_siswa FROM siswa";
   $result_user = mysqli_query($con, $query_user);
 ?>
               <table class="table" id="myTable">
@@ -53,7 +52,6 @@
                     <th>Nama Siswa</th>
                     <th>Kelas</th>
                     <th>Tanggal Terdaftar</th>
-                    <th>Verifikasi</th>
                     <th>Aksi</th>
                   </tr>
                 </thead>
@@ -63,30 +61,20 @@
   while($data_user = mysqli_fetch_assoc($result_user)){
                  echo '<tr>
                     <td>'.$no_user.'</td>
-                    <td>'.$data_user['no_induk'].'</td>
-                    <td>'.$data_user['nama'].'</td>
+                    <td>'.$data_user['NIS'].'</td>
+                    <td>'.$data_user['nama_siswa'].'</td>
                     <td>'.$data_user['kelas'].'</td>
-                    <td>'.tanggal_indo(''.$data_user['tgl_entri'].'').'</td>
-                    <td>'.$data_user['verifikasi'].'</td>
-                    <td align="center">';
-  if($id_login == $data_user['id_user']){
-                      echo '<a href="Profil.php">
-                        <button type="button" class="btn btn-primary">
-                          <i class="zmdi zmdi-account"></i> Profil
-                        </button>
-                      </a>';
-  }
-  else{
-                      echo '<a href="detail_user.php?no_induk='.$data_user['no_induk'].'">
+                    <td>'.tanggal_indo(''.$data_user['tgl_entri_siswa'].'').'</td>
+                    <td align="center">
+                      <a href="detail_siswa.php?no_induk='.$data_user['NIS'].'">
                         <button type="button" class="btn btn-primary">
                           <i class="zmdi zmdi-eye"></i> Detail
                         </button>
                       </a>
-                      <button onclick="hapus('.$data_user['id_user'].')" type="button" class="btn btn-danger">
+                      <button onclick="hapus('.substr($data_user['NIS'],0,5).')" type="button" class="btn btn-danger">
                         <i class="zmdi zmdi-delete"></i> Hapus
-                      </button>';
-  }
-                    echo '</td>
+                      </button>
+                    </td>
                   </tr>';
                   $no_user++;
                 }
@@ -102,7 +90,7 @@
   </body>
   <?php include('script/footer_script.php') ?>
   <script type="text/javascript">
-  function hapus(id) {
+  function hapus(NIS) {
     swal({
       title: 'Apakah anda yakin?',
       type: 'warning',
@@ -111,7 +99,7 @@
       cancelButtonColor: '#d33',
       confirmButtonText: 'Iya!, Hapus Data'
       }).then(function () {
-          document.location="system/hapus_siswa.php?id="+id;
+          document.location="system/hapus_siswa.php?NIS="+NIS;
     })
   }
   function noInduk() {

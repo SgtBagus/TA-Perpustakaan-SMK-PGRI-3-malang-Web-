@@ -43,6 +43,14 @@
           <span class="menu-text">Sanksi</span>
         </a>
       </li>
+      <li>
+        <a href="user.php">
+          <span class="menu-icon">
+            <i class="zmdi zmdi-account"></i>
+          </span>
+          <span class="menu-text">User</span>
+        </a>
+      </li>
       <li class="with-sub">
         <a href="#" aria-haspopup="true">
           <span class="menu-icon">

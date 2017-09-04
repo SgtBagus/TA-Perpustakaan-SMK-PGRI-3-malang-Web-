@@ -2,7 +2,7 @@
 include 'koneksi.php';
 
 if (isset($_POST['input'])) {
-  $nip          = $_POST['nis'];
+  $nis          = $_POST['nis'];
   $nama         = $_POST['nama'];
   $kelas        = $_POST['kelas'];
   $no_hp        = $_POST['no_hp'];
@@ -17,16 +17,27 @@ if (isset($_POST['input'])) {
     header("location:../tambah_siswa.php?pesan=error");
   }
   else { 
-    $query = "INSERT INTO user SET no_induk='$nip', nama='$nama', username='-', email='-', password='-', foto_user='thumbnail.jpg',
-              jabatan='Siswa', kelas='$kelas - $jurusan - $sub_kelas',no_hp='$no_hp', alamat='$alamat', 
-              tgl_entri = '$entri', verifikasi='Belum'";
-      $result = mysqli_query($con, $query);
-      if(!$result){
+    $query = "INSERT INTO siswa SET NIS='$nis', nama_siswa='$nama', foto_siswa='thumbnail.jpg',
+              kelas='$kelas - $jurusan - $sub_kelas', no_hp_siswa='$no_hp', alamat_siswa='$alamat', 
+              tgl_entri_siswa = '$entri'";
+    $result = mysqli_query($con, $query);
+      
+    if(!$result){
+        die ("Query gagal dijalankan: ".mysqli_errno($con).
+            " - ".mysqli_error($con));
+    }
+    else{ 
+
+    $query_user = "INSERT INTO user SET NIP_NIS='$nis' username='-', email='-', password='-', verifikasi='Belum'";
+      $result_user = mysqli_query($con, $query_user);
+      if(!$result_user){
           die ("Query gagal dijalankan: ".mysqli_errno($con).
               " - ".mysqli_error($con));
       }
-
-    header("location:../siswa.php?aksi=tambah");
+      else{
+        header("location:../siswa.php?aksi=tambah");
+      }
+    }
   }
 }else {
   header("location:../404.php");

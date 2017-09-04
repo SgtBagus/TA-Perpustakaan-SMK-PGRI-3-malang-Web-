@@ -27,7 +27,7 @@
                     <div class="col-sm-9">
                       <input class="form-control" type="text" name="nama" placeholder="Nama Siswa" required>
                     </div>
-                  </div>
+                  </div> 
                   <div class="form-group">
                     <label class="col-sm-3 control-label" for="form-control-21">Kelas</label>
                     <div class="col-sm-3">

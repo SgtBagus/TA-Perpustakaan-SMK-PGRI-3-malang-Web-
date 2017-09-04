@@ -1,5 +1,6 @@
 <?php include('system/session.php');
-  $query_login = "SELECT * FROM user WHERE email ='$_SESSION[email]'";
+  $query_login = "SELECT a.*, b.* FROM pegawai AS a INNER JOIN 
+                  user AS b WHERE email ='$_SESSION[email]' AND a.NIP = b.NIP_NIS";
   $result_login = mysqli_query($con, $query_login);
   if(!$result_login){
     die ("Query Error: ".mysqli_errno($con).
@@ -9,14 +10,15 @@
   $data_login         = mysqli_fetch_assoc($result_login);
   $username_login     = $data_login["username"]; 
   $id_login           = $data_login["id_user"];
+  $no_induk_login     = $data_login["NIP_NIS"];
   $email_login        = $data_login["email"];
-  $nama_login         = $data_login["nama"];
-  $foto_login         = $data_login["foto_user"];
-  $jabatan_login      = $data_login["jabatan"];
+  $nama_login         = $data_login["nama_pegawai"];
+  $foto_login         = $data_login["foto_pegawai"];
+  $jabatan_login      = $data_login["jabatan_pegawai"];
   $role_login         = $data_login["role"]; 
-  $no_hp_login        = $data_login["no_hp"];
-  $alamat_login       = $data_login["alamat"];
-  $entri_login        = $data_login["tgl_entri"];
+  $no_hp_login        = $data_login["no_hp_pegawai"];
+  $alamat_login       = $data_login["alamat_pegawai"];
+  $entri_login        = $data_login["tgl_entri_pegawai"];
   
     function tanggal_indo($tanggal){
         $bulan = array (1 =>   'Januari',

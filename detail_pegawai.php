@@ -1,28 +1,28 @@
-<?php $page="PENGGUNA"; ?>
+<?php $page="PEGAWAI"; ?>
 <!DOCTYPE html>
 <html lang="en">
     <?php include('script/head_script.php'); 
         if (isset($_GET['no_induk'])) { 
-            $no_induk = ($_GET["no_induk"]);
-            $query_user = "SELECT * FROM user WHERE no_induk = '$no_induk'";
-            $result_user = mysqli_query($con, $query_user);
-                if(!$result_user){
+            $no = ($_GET["no_induk"]);
+            $query = "SELECT a.*, b.* FROM pegawai AS a INNER JOIN user AS b 
+                      WHERE a.NIP = '$no' AND a.NIP = b.NIP_NIS";
+            $result = mysqli_query($con, $query);
+                if(!$result){
                 die ("Query Error: ".mysqli_errno($con).
                     " - ".mysqli_error($con));
                 }
 
-            $data_user        = mysqli_fetch_assoc($result_user);
-            $id_user          = $data_user["id_user"];
-            $nama_user        = $data_user["nama"];
-            $foto_user        = $data_user["foto_user"];
-            $jabatan_user     = $data_user["jabatan"];
-            $email_user       = $data_user["email"];
-            $username_user    = $data_user["username"];
-            $kelas_user       = $data_user["kelas"];
-            $no_hp_user       = $data_user["no_hp"];
-            $alamat_user      = $data_user["alamat"];
-            $tgl_entri_user   = $data_user["tgl_entri"];
-            $verifikasi_user  = $data_user["verifikasi"];
+            $data        = mysqli_fetch_assoc($result);
+            $id          = $data["id_pegawai"];
+            $nama        = $data["nama_pegawai"];
+            $foto        = $data["foto_pegawai"];
+            $jabatan     = $data["jabatan_pegawai"];
+            $email       = $data["email"];
+            $username    = $data["username"];
+            $no_hp       = $data["no_hp_pegawai"];
+            $alamat      = $data["alamat_pegawai"];
+            $tgl_entri   = $data["tgl_entri_pegawai"];
+            $verifikasi  = $data["verifikasi"];
         } 
     ?>
   <body class="layout layout-header-fixed layout-left-sidebar-fixed">
@@ -36,44 +36,28 @@
               <div class="p-about m-b-20">
                 <div class="pa-padding">
                   <div class="pa-avatar">
-                    <img src="img/avatars/<?php echo $foto_user ?>" alt="Foto Profil" width="100" height="100">
+                    <img src="img/avatars/<?php echo $foto ?>" alt="Foto Profil" width="100" height="100">
                   </div>
-                  <button type="button" class="btn btn-warning">
-                    <i class="zmdi zmdi-alert-triangle"></i> Angkat Admin
-                  </button>
                   <div class="pa-name">
                   <?php
-                  if($verifikasi_user == "Belum"){
+                  if($verifikasi == "Belum"){
                     echo ' - Belum Terverifikasi - ';
                   }
                   else{
-                    echo $username_user;
+                    echo $username;
                   }
                   ?>
-                    <div class="pa-text"><?php echo $nama_user ?> · <?php echo $jabatan_user ?></div>                  </div>
+                    <div class="pa-text"><?php echo $nama ?> · <?php echo $jabatan ?></div>                  </div>
                 </div>
               </div>
               <div class="p-info m-b-20">
                 <h4 class="m-y-0">Info</h4>
                 <hr>
-  
-                <?php
-                if ($jabatan_user == "Siswa"){
-                echo '<div class="pi-item">
-                  <div class="pii-icon">
-                    <i class="zmdi zmdi-account-box"></i>
-                  </div>
-                  <div class="pii-value">'.$kelas_user.'</div>
-                </div>';
-                }else{
-
-                }
-                ?>
                 <div class="pi-item">
                   <div class="pii-icon">
                     <i class="zmdi zmdi-phone"></i>
                   </div>
-                  <div class="pii-value"><?php echo $no_hp_user?></div>
+                  <div class="pii-value"><?php echo $no_hp?></div>
                 </div>
                 <div class="pi-item">
                   <div class="pii-icon">
@@ -81,11 +65,11 @@
                   </div>
                   <div class="pii-value">
                     <?php
-                    if($verifikasi_user == "Belum"){
+                    if($verifikasi == "Belum"){
                         echo ' - Belum Terverifikasi - ';
                     }
                     else{
-                        echo '<div class="pii-value">'.$email_user.'</div>';
+                        echo '<div class="pii-value">'.$email.'</div>';
                     }
                     ?>
                   </div>
@@ -94,13 +78,13 @@
                   <div class="pii-icon">
                     <i class="zmdi zmdi-home"></i>
                   </div>
-                  <div class="pii-value"><?php echo $alamat_user ?></div>
+                  <div class="pii-value"><?php echo $alamat ?></div>
                 </div>
                 <div class="pi-item">
                   <div class="pii-icon">
                     <i class="zmdi zmdi-accounts-add"></i>
                   </div>
-                  <div class="pii-value"><?php echo tanggal_indo(''.$tgl_entri_user.'')?></div>
+                  <div class="pii-value"><?php echo tanggal_indo(''.$tgl_entri.'')?></div>
                 </div>
                 <div class="row">
                   <button type="button" class="btn btn-warning">
@@ -109,16 +93,10 @@
                 </div>
                 <br>
                 <div align="right">
-                  <?php
-                  if($jabatan_user == "Siswa"){
-                    echo'<a href="siswa.php">';
-                  }else{
-                    echo'<a href="pegawai.php">';
-                  }
-                  ?>
-                  <button type="button" class="btn btn-primary">
-                    <i class="zmdi zmdi-arrow-left"></i> Kembali
-                  </button>
+                  <a href="pegawai.php">
+                    <button type="button" class="btn btn-primary">
+                      <i class="zmdi zmdi-arrow-left"></i> Kembali
+                    </button>
                   </a>
                 </div>
               </div>
@@ -137,7 +115,7 @@
                       <div class="tab-content">
                         <div role="tabpanel" class="tab-pane fade  active in" id="kegiatan">
                             <?php
-                            if($verifikasi_user == "Belum"){
+                            if($verifikasi == "Belum"){
                                 echo '<p> - Belum Terverifikasi - </p>';
                             }
                             else{

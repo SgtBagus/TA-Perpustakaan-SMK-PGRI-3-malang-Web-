@@ -3,12 +3,12 @@ include 'koneksi.php';
 
 if (isset($_POST['input'])) {
     $id             = $_POST['id'];
+    $NIP            = $_POST['NIP'];
     $foto           = $_FILES['foto']['name'];
     $tmp            = $_FILES['foto']['tmp_name'];
     $size           = $_FILES['foto']['size'];
     $explode	    = explode('.',$foto);
     $extensi	    = $explode[count($explode)-1];
-    $username       = $_POST['username'];
     $nama           = $_POST['nama'];
     $jabatan        = $_POST['jabatan'];
     $no_hp          = $_POST['no_hp'];
@@ -20,8 +20,9 @@ if (isset($_POST['input'])) {
 
     if(mysqli_num_rows($prosescek)>0){
         if($foto == NULL){
-            $query = "UPDATE user SET nama='$nama', username='$username', 
-                     jabatan='$jabatan', no_hp='$no_hp', alamat='$alamat' WHERE id_user ='$id'";
+            $query = "UPDATE pegawai SET nama_pegawai='$nama', 
+                     jabatan_pegawai='$jabatan', no_hp_pegawai='$no_hp', 
+                     alamat_pegawai='$alamat' WHERE NIP ='$NIP'";
             $result = mysqli_query($con, $query);
 
             if(!$result){
@@ -54,7 +55,7 @@ if (isset($_POST['input'])) {
                 header("location: ../profil.php?aksi=size"); 
                 }
                 else{
-                    $query_cek_gambar = "SELECT foto_user FROM user WHERE id_user='$id'";
+                    $query_cek_gambar = "SELECT foto_pegawai FROM pegawai WHERE NIP='$NIP'";
                     $result_cek_gambar = mysqli_query($con, $query_cek_gambar);
                         if(!$result_cek_gambar){
                         die ("Query Error: ".mysqli_errno($con).
@@ -62,10 +63,11 @@ if (isset($_POST['input'])) {
                         }
                     $data_cek_gambar  = mysqli_fetch_assoc($result_cek_gambar);
 
-                    if($data_cek_gambar["foto_user"] == "thumbnail.jpg"){
+                    if($data_cek_gambar["foto_pegawai"] == "thumbnail.jpg"){
                         if(move_uploaded_file($tmp, $path)){ 
-                            $query = "UPDATE user SET nama='$nama',  username='$username',  foto_user='$fotobaru'
-                                    , jabatan='$jabatan', no_hp='$no_hp', alamat='$alamat' WHERE id_user = '$id'";
+                            $query = "UPDATE pegawai SET nama_pegawai='$nama', foto_pegawai='$fotobaru'
+                                    , jabatan_pegawai='$jabatan', no_hp_pegawai='$no_hp'
+                                    , alamat_pegawai='$alamat' WHERE NIP = '$NIP'";
                             $result = mysqli_query($con, $query);
 
                             if(!$result){
@@ -85,12 +87,13 @@ if (isset($_POST['input'])) {
                     }
 
                     else{
-                        if(is_file("../img/avatars/".$data_cek_gambar['foto_user'])) 
-						    unlink("../img/avatars/".$data_cek_gambar['foto_user']); 
+                        if(is_file("../img/avatars/".$data_cek_gambar['foto_pegawai'])) 
+						    unlink("../img/avatars/".$data_cek_gambar['foto_pegawai']); 
                             
                             if(move_uploaded_file($tmp, $path)){ 
-                            $query = "UPDATE user SET nama='$nama',  username='$username',  foto_user='$fotobaru'
-                                    , jabatan='$jabatan', no_hp='$no_hp', alamat='$alamat' WHERE id_user = '$id'";
+                            $query = "UPDATE pegawai SET nama_pegawai='$nama', foto_pegawai='$fotobaru'
+                                    , jabatan_pegawai='$jabatan', no_hp_pegawai='$no_hp'
+                                    , alamat_pegawai='$alamat' WHERE NIP = '$NIP'";
                             $result = mysqli_query($con, $query);
 
                             if(!$result){

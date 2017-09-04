@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 31, 2017 at 04:27 AM
+-- Generation Time: Sep 04, 2017 at 03:09 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 7.0.9
 
@@ -29,14 +29,14 @@ SET time_zone = "+00:00";
 CREATE TABLE `buku` (
   `id_buku` int(15) NOT NULL,
   `judul_buku` varchar(225) NOT NULL,
-  `gambar_buku` text,
+  `gambar_buku` text NOT NULL,
   `jilid` varchar(225) NOT NULL,
   `cetakan` varchar(225) NOT NULL,
   `edisi` varchar(225) NOT NULL,
   `ISBN` varchar(225) NOT NULL,
-  `jenis_media` varchar(225) DEFAULT NULL,
-  `bahasa` varchar(225) DEFAULT NULL,
-  `jenis_koleksi` varchar(225) DEFAULT NULL,
+  `jenis_media` varchar(225) NOT NULL,
+  `bahasa` varchar(225) NOT NULL,
+  `jenis_koleksi` varchar(225) NOT NULL,
   `id_jenis_buku` int(15) DEFAULT NULL,
   `judul_singkat` varchar(225) NOT NULL,
   `sumber` varchar(225) NOT NULL,
@@ -44,7 +44,7 @@ CREATE TABLE `buku` (
   `penerbit` varchar(225) NOT NULL,
   `tahun_terbit` date NOT NULL,
   `biografi` text NOT NULL,
-  `tgl_entri_buku` date NOT NULL
+  `tgl_entri_buku` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -98,9 +98,7 @@ CREATE TABLE `detail_peminjaman` (
 
 INSERT INTO `detail_peminjaman` (`id_detail_peminjaman`, `id_peminjaman`, `id_detail_buku`) VALUES
 (1, 1, 2),
-(2, 1, 3),
-(3, 2, 1),
-(4, 2, 5);
+(2, 1, 3);
 
 -- --------------------------------------------------------
 
@@ -141,6 +139,31 @@ CREATE TABLE `keterlambatan` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `pegawai`
+--
+
+CREATE TABLE `pegawai` (
+  `id_pegawai` int(11) NOT NULL,
+  `NIP` varchar(225) NOT NULL,
+  `nama_pegawai` varchar(225) NOT NULL,
+  `foto_pegawai` text NOT NULL,
+  `jabatan_pegawai` varchar(225) NOT NULL,
+  `no_hp_pegawai` varchar(225) NOT NULL,
+  `alamat_pegawai` text,
+  `tgl_entri_pegawai` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pegawai`
+--
+
+INSERT INTO `pegawai` (`id_pegawai`, `NIP`, `nama_pegawai`, `foto_pegawai`, `jabatan_pegawai`, `no_hp_pegawai`, `alamat_pegawai`, `tgl_entri_pegawai`) VALUES
+(1, '17154/1595.063', 'Bagus Andika', '040920171458291219800149560579432soldier aiming.svg.hi.png', 'Pustakawan', '+086738423415', 'Perumahan Bumi Asti Tahap-II Blok J-15 Sengkaling', '2017-08-07'),
+(2, '67382/0939.230', 'I Just Robbe A BANK', 'thumbnail.jpg', 'Administrasi', '+082314353232', 'Disana', '2017-08-25');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `peminjaman`
 --
 
@@ -158,8 +181,7 @@ CREATE TABLE `peminjaman` (
 --
 
 INSERT INTO `peminjaman` (`id_peminjaman`, `no_peminjaman`, `id_user`, `tanggal_peminjaman`, `tanggal_pengembalian`, `status_pinjaman`) VALUES
-(1, '20170831063001', 2, '2017-08-31', '2017-09-02', 'Menunggu'),
-(2, '20170831929002', 3, '2017-08-31', '2017-09-07', 'Diterima');
+(1, '20170831063001', 2, '2017-08-31', '2017-09-02', 'Menunggu');
 
 -- --------------------------------------------------------
 
@@ -191,36 +213,53 @@ CREATE TABLE `sanksi` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `siswa`
+--
+
+CREATE TABLE `siswa` (
+  `id_siswa` int(12) NOT NULL,
+  `NIS` varchar(225) NOT NULL,
+  `nama_siswa` varchar(225) NOT NULL,
+  `foto_siswa` text NOT NULL,
+  `kelas` varchar(225) NOT NULL,
+  `no_hp_siswa` varchar(225) NOT NULL,
+  `alamat_siswa` text,
+  `tgl_entri_siswa` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `siswa`
+--
+
+INSERT INTO `siswa` (`id_siswa`, `NIS`, `nama_siswa`, `foto_siswa`, `kelas`, `no_hp_siswa`, `alamat_siswa`, `tgl_entri_siswa`) VALUES
+(1, '17172/1613.063', 'Kharisma Yunior Suryatama', 'thumbnail.jpg', 'XII - RPL - A', '+087859388413', 'Vinolia Gg.3 No.27a RT. 2 RW 5 Kelurahan JATIMULYO Kecamatan LOWOKWARU KOTA', '2017-08-10'),
+(2, '17672/1273.929', 'Tanpa Nama', 'thumbnail.jpg', 'X - RPL - D', '+082231241234', 'Disini', '2017-08-11');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user`
 --
 
 CREATE TABLE `user` (
   `id_user` int(12) NOT NULL,
-  `no_induk` varchar(225) NOT NULL,
-  `nama` varchar(225) NOT NULL,
+  `NIP_NIS` varchar(225) NOT NULL,
   `username` varchar(225) NOT NULL,
   `email` varchar(225) NOT NULL,
   `password` varchar(225) NOT NULL,
-  `foto_user` varchar(225) NOT NULL,
-  `jabatan` varchar(225) NOT NULL,
-  `kelas` varchar(225) NOT NULL,
-  `no_hp` varchar(15) NOT NULL,
-  `alamat` text NOT NULL,
-  `role` enum('Admin','User') NOT NULL,
-  `tgl_entri` date NOT NULL,
-  `verifikasi` enum('Sudah','Belum') NOT NULL
+  `verifikasi` enum('Sudah','Belum') NOT NULL,
+  `role` enum('Admin','User') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id_user`, `no_induk`, `nama`, `username`, `email`, `password`, `foto_user`, `jabatan`, `kelas`, `no_hp`, `alamat`, `role`, `tgl_entri`, `verifikasi`) VALUES
-(1, '17154/1595.063', 'Bagus Andika', 'Admin', 'admin@gmail.com', 'admin', '180820170222071219800149560579432soldier aiming.svg.hi.png', 'Pustakawan', '-', '+086738423415', 'Perumahan Bumi Asti Tahap-II Blok J-15 Sengkaling', 'Admin', '2017-08-07', 'Sudah'),
-(2, '17172/1613.063', 'Kharisma Yunior Suryatama', 'Kharisma-564', 'kharisma@gmail.com', 'kharisma', 'thumbnail.jpg', 'Siswa', 'XII - RPL - A', '+087859388413', 'Vinolia Gg.3 No.27a RT. 2 RW 5 Kelurahan JATIMULYO Kecamatan LOWOKWARU KOTA', 'User', '2017-08-10', 'Sudah'),
-(3, '17672/1273.929', 'Tanpa Nama', 'Tanpa Nama', 'tanpanama@gmail.com', 'tanpanama', 'thumbnail.jpg', 'Siswa', 'X - RPL - D', '+082231241234', 'Disini', 'Admin', '2017-08-11', 'Sudah'),
-(4, '67382/0939.230', 'I Just Robbe A BANK', '-', '-', '-', 'thumbnail.jpg', 'Administrasi', '-', '+082314353232', 'Disana', 'Admin', '2017-08-25', 'Belum'),
-(5, '17156/1456.024', 'Saya', '-', '-', '-', 'thumbnail.jpg', 'Siswa', 'XII - TKJ - B', '+080893859232', 'Disini', 'Admin', '2017-08-30', 'Belum');
+INSERT INTO `user` (`id_user`, `NIP_NIS`, `username`, `email`, `password`, `verifikasi`, `role`) VALUES
+(1, '17154/1595.063', 'Admin', 'admin@gmail.com', 'admin', 'Sudah', 'Admin'),
+(2, '17172/1613.063', 'Kharisma-564', 'kharisma@gmail.com', 'kharisma', 'Sudah', 'User'),
+(3, '17672/1273.929', '-', '-', '-', 'Belum', 'User'),
+(4, '67382/0939.230', '-', '-', '-', 'Belum', 'User');
 
 --
 -- Indexes for dumped tables
@@ -263,6 +302,12 @@ ALTER TABLE `keterlambatan`
   ADD KEY `id_buku` (`id_detail_buku`);
 
 --
+-- Indexes for table `pegawai`
+--
+ALTER TABLE `pegawai`
+  ADD PRIMARY KEY (`id_pegawai`);
+
+--
 -- Indexes for table `peminjaman`
 --
 ALTER TABLE `peminjaman`
@@ -285,10 +330,17 @@ ALTER TABLE `sanksi`
   ADD KEY `id_buku` (`id_detail_buku`);
 
 --
+-- Indexes for table `siswa`
+--
+ALTER TABLE `siswa`
+  ADD PRIMARY KEY (`id_siswa`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`id_user`);
+  ADD PRIMARY KEY (`id_user`),
+  ADD KEY `NIP_NIS` (`NIP_NIS`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -320,6 +372,11 @@ ALTER TABLE `jenis_buku`
 ALTER TABLE `keterlambatan`
   MODIFY `id_keterlambatan` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `pegawai`
+--
+ALTER TABLE `pegawai`
+  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
 -- AUTO_INCREMENT for table `peminjaman`
 --
 ALTER TABLE `peminjaman`
@@ -335,10 +392,15 @@ ALTER TABLE `riwayat_kegiatan`
 ALTER TABLE `sanksi`
   MODIFY `id_sanksi` int(12) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `siswa`
+--
+ALTER TABLE `siswa`
+  MODIFY `id_siswa` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_user` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- Constraints for dumped tables
 --

@@ -70,6 +70,7 @@
                             <span class="caret"></span>
                           </a>
                           <ul class="dropdown-menu">
+                            <li><a href="#username"  role="tab" data-toggle="tab" >Username</a></li>
                             <li><a href="#email"  role="tab" data-toggle="tab" >Email</a></li>
                             <li><a href="#password"  role="tab" data-toggle="tab" >Password</a></li>
                           </ul>
@@ -86,16 +87,17 @@
                                 <label for="preview" class="btn btn-primary btn-fill"><i class="zmdi zmdi-edit"> </i> Ubah Foto Profil</label> 
                               </div>
                             </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                               <label class="col-sm-3 control-label" for="form-control-5">Username</label>
                               <div class="col-sm-9">
-                                <input type="hidden" name="id" value="<?php echo $id_login ?>">
                                 <input class="form-control" type="text" name="username" placeholder="Username" value="<?php echo $username_login ?>">
                               </div>
-                            </div>
+                            </div> -->
                             <div class="form-group">
                               <label class="col-sm-3 control-label" for="form-control-5">Nama</label>
                               <div class="col-sm-9">
+                                <input type="hidden" name="id" value="<?php echo $id_login ?>">
+                                <input type="hidden" name="NIP" value="<?php echo $no_induk_login ?>">
                                 <input class="form-control" type="text" name="nama" placeholder="Nama" value="<?php echo $nama_login ?>">
                               </div>
                             </div>
@@ -146,6 +148,28 @@ foreach ($semua_jabatan as $jabatan)
                             </div>
                           </form>
                         </div>
+                        <div role="tabpanel" class="tab-pane fade" id="username">
+                          <form class="form-horizontal" id="inputmasks"  method="post" action="system/proses_ubah_username.php">
+                            <div class="form-group">
+                              <label class="col-sm-3 control-label" for="form-control-5">Username</label>
+                              <div class="col-sm-9">
+                                <input type="hidden" name="id" value="<?php echo $id_login ?>">
+                                <input class="form-control" type="text" name="username" placeholder="username" value="<?php echo $username_login ?>">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="col-sm-3 control-label" for="form-control-5">Password Anda</label>
+                              <div class="col-sm-9">
+                                <input class="form-control" type="password" name="konfirmasi" placeholder="Konfirmasi Anda" required>
+                              </div>
+                            </div>
+                            <div align="right">
+                                <button type="submit" name="input" rel="tooltip" class="btn btn-primary btn-fill">
+                                  <i class="zmdi zmdi-edit"></i> Ubah Username
+                                </button>
+                            </div>
+                          </form>
+                        </div>
                         <div role="tabpanel" class="tab-pane fade" id="email">
                           <form class="form-horizontal" id="inputmasks"  method="post" action="system/proses_ubah_email.php">
                             <div class="form-group">
@@ -174,13 +198,13 @@ foreach ($semua_jabatan as $jabatan)
                               <label class="col-sm-3 control-label" for="form-control-5">Password Baru</label>
                               <div class="col-sm-9">
                                 <input type="hidden" name="id" value="<?php echo $id_login ?>">
-                                <input class="form-control" type="text" name="password_baru" placeholder="Password Baru">
+                                <input class="form-control" type="password" name="password_baru" placeholder="Password Baru">
                               </div>
                             </div>
                             <div class="form-group">
                               <label class="col-sm-3 control-label" for="form-control-5">Konfirmasi Password</label>
                               <div class="col-sm-9">
-                                <input class="form-control" type="text" name="konfirmasi_password_baru" placeholder="Konfimasi Password">
+                                <input class="form-control" type="password" name="konfirmasi_password_baru" placeholder="Konfimasi Password">
                               </div>
                             </div>
                             <div class="form-group">

@@ -41,8 +41,8 @@
             <br>
             <div class="table-responsive">
 <?php
-  $query_pegawai = "SELECT id_user,no_induk,nama,jabatan, tgl_entri,
-                  verifikasi FROM user WHERE jabatan NOT LIKE 'Siswa'";
+  $query_pegawai = "SELECT id_pegawai, NIP, nama_pegawai, jabatan_pegawai, tgl_entri_pegawai
+                    FROM pegawai";
   $result_pegawai = mysqli_query($con, $query_pegawai);
 ?>
               <table class="table" id="myTable">
@@ -53,7 +53,6 @@
                     <th>Nama Pegawai</th>
                     <th>Jabatan</th>
                     <th>Tanggal Terdaftar</th>
-                    <th>Verifikasi</th>
                     <th>Aksi</th>
                   </tr>
                 </thead>
@@ -63,13 +62,12 @@
   while($data_pegawai = mysqli_fetch_assoc($result_pegawai)){
                   echo '<tr>
                     <td>'.$no_pegawai.'</td>
-                    <td>'.$data_pegawai['no_induk'].'</td>
-                    <td>'.$data_pegawai['nama'].'</td>
-                    <td>'.$data_pegawai['jabatan'].'</td>
-                    <td>'.tanggal_indo(''.$data_pegawai['tgl_entri'].'').'</td>
-                    <td>'.$data_pegawai['verifikasi'].'</td>
+                    <td>'.$data_pegawai['NIP'].'</td>
+                    <td>'.$data_pegawai['nama_pegawai'].'</td>
+                    <td>'.$data_pegawai['jabatan_pegawai'].'</td>
+                    <td>'.tanggal_indo(''.$data_pegawai['tgl_entri_pegawai'].'').'</td>
                     <td align="center">';
-  if($id_login == $data_pegawai['id_user']){
+  if($no_induk_login == $data_pegawai['NIP']){
                       echo '<a href="Profil.php">
                         <button type="button" class="btn btn-primary">
                           <i class="zmdi zmdi-account"></i> Profil
@@ -77,12 +75,12 @@
                       </a>';
   }
   else{
-                      echo '<a href="detail_user.php?no_induk='.$data_pegawai['no_induk'].'">
+                      echo '<a href="detail_pegawai.php?no_induk='.$data_pegawai['NIP'].'">
                         <button type="button" class="btn btn-primary">
                           <i class="zmdi zmdi-eye"></i> Detail
                         </button>
                       </a>
-                      <button onclick="hapus('.$data_pegawai['id_user'].')" type="button" class="btn btn-danger">
+                      <button onclick="hapus('.substr($data_pegawai['NIP'],0,5).')" type="button" class="btn btn-danger">
                         <i class="zmdi zmdi-delete"></i> Hapus
                       </button>';
   }
@@ -102,7 +100,7 @@
   </body>
   <?php include('script/footer_script.php') ?>
   <script type="text/javascript">
-  function hapus(id) {
+  function hapus(NIP) {
     swal({
       title: 'Apakah anda yakin?',
       type: 'warning',
@@ -111,7 +109,7 @@
       cancelButtonColor: '#d33',
       confirmButtonText: 'Iya!, Hapus Data'
       }).then(function () {
-          document.location="system/hapus_pegawai.php?id="+id;
+          document.location="system/hapus_pegawai.php?NIP="+NIP;
     })
   }
   
