@@ -87,17 +87,11 @@
                                 <label for="preview" class="btn btn-primary btn-fill"><i class="zmdi zmdi-edit"> </i> Ubah Foto Profil</label> 
                               </div>
                             </div>
-                            <!-- <div class="form-group">
-                              <label class="col-sm-3 control-label" for="form-control-5">Username</label>
-                              <div class="col-sm-9">
-                                <input class="form-control" type="text" name="username" placeholder="Username" value="<?php echo $username_login ?>">
-                              </div>
-                            </div> -->
                             <div class="form-group">
                               <label class="col-sm-3 control-label" for="form-control-5">Nama</label>
                               <div class="col-sm-9">
                                 <input type="hidden" name="id" value="<?php echo $id_login ?>">
-                                <input type="hidden" name="NIP" value="<?php echo $no_induk_login ?>">
+                                <input type="hidden" name="id_pegawai" value="<?php echo $no_induk_login ?>">
                                 <input class="form-control" type="text" name="nama" placeholder="Nama" value="<?php echo $nama_login ?>">
                               </div>
                             </div>

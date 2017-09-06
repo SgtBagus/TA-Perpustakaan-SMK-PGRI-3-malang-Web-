@@ -9,11 +9,13 @@ if (isset($_POST['input'])) {
   $alamat       = $_POST['alamat'];
   $entri    = date("Y-m-d");
 
+  $random = rand(0,1000);
+
   $cekdulu= "SELECT no_induk,nama FROM user WHERE no_induk='$nip' OR nama='$nama'";
   $prosescek= mysqli_query($con, $cekdulu);
   if (mysqli_num_rows($prosescek)>0) {
     header("location:../tambah_pegawai.php?pesan=error"); 
-  }
+  } 
   else {
     $query = "INSERT INTO pegawai SET NIP='$nip', nama_pegawai ='$nama', 
               foto_pegawai = 'thumbnail.jpg', jabatan_pegawai='$jabatan', 
@@ -24,7 +26,7 @@ if (isset($_POST['input'])) {
              " - ".mysqli_error($con));
     }
     else{
-      $query_user = "INSERT INTO user SET NIP_NIS='$nip', username='-', email='-', password='-', verifikasi='Belum'";
+      $query_user = "INSERT INTO user SET NIP_NIS='$nip', username='-', email='-', password='$random', verifikasi='Belum'";
       $result_user = mysqli_query($con, $query_user);
       if(!$result_user){
           die ("Query gagal dijalankan: ".mysqli_errno($con).

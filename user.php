@@ -55,44 +55,71 @@
                   <td>'.$data['NIP_NIS'].'</td>
                   <td>'.$data['username'].'</td>
                   <td>'.$data['email'].'</td>
-                  <td>';
+                  <td>
+                    <div align="center">';
                     $query_siswa = "SELECT NIS FROM SISWA WHERE NIS = '$data[NIP_NIS]'";
                     $result_siswa = mysqli_query($con, $query_siswa);
                         if($result_siswa->num_rows == 1){
-                            echo "Siswa";
+                            echo '<span class="badge badge-success">Siswa</span>';
                         }else{
-                            echo "Pegawai";
+                            echo '<span class="badge badge-primary">Pegawai</span>';
                         }
-                  echo'</td>
-                  <td>'.$data['role'].'</td>
-                  <td>';
+                    echo'</div>
+                    </td>
+                  <td>
+                    <div align="center">';
+                    if($data['role'] == "Admin"){
+                      echo '<span class="label label-outline-info">Admin</span>';
+                    }else{
+                      echo '<span class="label label-outline-success">User</span>';
+                    }
+                    echo '</div>
+                  </td>
+                  <td>
+                    <div align="center">';
                     $query_siswa = "SELECT NIS FROM SISWA WHERE NIS = '$data[NIP_NIS]'";
                     $result_siswa = mysqli_query($con, $query_siswa);
                         if($result_siswa->num_rows == 1){
-                            echo "Bukan Pegawai";
+                          echo '<span class="badge badge-danger">Bukan Pegawai</span>';
                         }else{
                             if($data['NIP_NIS'] == $no_induk_login){
                                 echo '<button onclick="role('.$data['NIP_NIS'].')" type="button" class="btn btn-warning" disabled>
-                                <i class="zmdi zmdi-long-arrow-down"></i> Deactive
+                                  <i class="zmdi zmdi-long-arrow-down"></i> Deactive
                                 </button>';
                             }
                             else{
-                                echo '<button onclick="role_aktife('.$data['NIP_NIS'].')" type="button" class="btn btn-warning">
-                                <i class="zmdi zmdi-long-arrow-up"></i> Active
+                              if($data['role'] == "Admin"){
+                                echo '<button onclick="deactive('.$data['id_user'].')" type="button" class="btn btn-warning">
+                                  <i class="zmdi zmdi-long-arrow-down"></i> Deactive
                                 </button>';
+                              }
+                              else{
+                                echo '<button onclick="active('.$data['id_user'].')" type="button" class="btn btn-warning">
+                                  <i class="zmdi zmdi-long-arrow-up"></i> Active
+                                </button>';
+                              }
                             }
-                        }
+                        } 
+                    echo '</div>
+                    </td>
+                  <td>';
+                  if($data['verifikasi'] == "Sudah"){
+                      echo '<span class="badge badge-success">Sudah</span>';
+                  }else{
+                      echo '<span class="badge badge-warning">Belum</span>';
+                  }
                   echo '</td>
-                  <td>
-                    <a href="#">
-                      <button type="button" class="btn btn-warning">
-                        <i class="zmdi zmdi-alert-triangle"></i> Reset Akun User
-                      </button>
-                    </a>
-                    <button onclick="hapus()" type="button" class="btn btn-danger">
-                      <i class="zmdi zmdi-delete"></i> Hapus Akun 
-                    </button>
-                  </td>
+                  <td>';
+                  if($data['NIP_NIS'] == $no_induk_login){
+                    echo '<button onclick="reset('.$data['id_user'].')" type="button" class="btn btn-warning" disabled>
+                      <i class="zmdi zmdi-alert-triangle"></i> Reset Akun User
+                    </button>';
+                  }else{
+                    echo '<button onclick="reset('.$data['id_user'].')" type="button" class="btn btn-warning">
+                      <i class="zmdi zmdi-alert-triangle"></i> Reset Akun User
+                    </button>';
+                  }
+                  echo '</td>
                 </tr>';
                 $no++;
               }
@@ -120,20 +147,48 @@
             document.location="system/hapus_buku.php?id="+id;
       })
     }
-    
-    function role_aktife(id) {
+  
+    function reset(id) {
       swal({
         title: 'Konfirmasi?',
+        text : 'Anda yain mereset user tersebut menjadi Default ?',
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         confirmButtonText: 'Iya!'
         }).then(function () {
-            document.location="system/proses_aktif_role.php?id="+id;
+            document.location="system/proses_reset_user.php?id="+id;
+      })
+    }
+
+    function active(id) {
+      swal({
+        title: 'Konfirmasi?',
+        text : 'Anda yain merubah role user tersebut menjadi Admin ?',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Iya!'
+        }).then(function () {
+            document.location="system/proses_active_role.php?id="+id;
       })
     }
     
+    function deactive(id) {
+      swal({
+        title: 'Konfirmasi?',
+        text : 'Anda yain merubah role user tersebut menjadi User ?',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Iya!'
+        }).then(function () {
+            document.location="system/proses_deactive_role.php?id="+id;
+      })
+    }
     function buku() {
       var input, filter, table, tr, td, i;
       input = document.getElementById("judulBuku");

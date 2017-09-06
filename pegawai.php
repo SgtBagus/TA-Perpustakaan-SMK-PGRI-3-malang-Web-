@@ -67,7 +67,7 @@
                     <td>'.$data_pegawai['jabatan_pegawai'].'</td>
                     <td>'.tanggal_indo(''.$data_pegawai['tgl_entri_pegawai'].'').'</td>
                     <td align="center">';
-  if($no_induk_login == $data_pegawai['NIP']){
+  if($no_induk_login == $data_pegawai['id_pegawai']){
                       echo '<a href="Profil.php">
                         <button type="button" class="btn btn-primary">
                           <i class="zmdi zmdi-account"></i> Profil

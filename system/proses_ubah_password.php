@@ -27,7 +27,7 @@ if (isset($_POST['input'])) {
     else{
       header("location:../profil.php?aksi=password"); 
     }
-}
+} 
 else{
       header("location:../404.php"); 
 }

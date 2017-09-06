@@ -1,6 +1,6 @@
 <?php include('system/session.php');
   $query_login = "SELECT a.*, b.* FROM pegawai AS a INNER JOIN 
-                  user AS b WHERE email ='$_SESSION[email]' AND a.NIP = b.NIP_NIS";
+                  user AS b WHERE email ='$_SESSION[email]' AND a.id_pegawai = b.id_siswa_pegawai";
   $result_login = mysqli_query($con, $query_login);
   if(!$result_login){
     die ("Query Error: ".mysqli_errno($con).
@@ -10,7 +10,7 @@
   $data_login         = mysqli_fetch_assoc($result_login);
   $username_login     = $data_login["username"]; 
   $id_login           = $data_login["id_user"];
-  $no_induk_login     = $data_login["NIP_NIS"];
+  $no_induk_login     = $data_login["id_siswa_pegawai"];
   $email_login        = $data_login["email"];
   $nama_login         = $data_login["nama_pegawai"];
   $foto_login         = $data_login["foto_pegawai"];

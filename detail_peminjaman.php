@@ -2,11 +2,11 @@
 <!DOCTYPE html>
 <html lang="en">
     <?php include('script/head_script.php'); 
-        if (isset($_GET['no_peminjaman'])) { 
-            $no_peminjaman = ($_GET["no_peminjaman"]);
+        if (isset($_GET['id_peminjaman'])) { 
+            $id_peminjaman = ($_GET["id_peminjaman"]);
             $query = "SELECT a.*, b.* FROM 
                             peminjaman AS a INNER JOIN user AS b
-                            WHERE a.id_user = b.id_user AND a.no_peminjaman = '$no_peminjaman'"; 
+                            WHERE a.id_user = b.id_user AND a.id_peminjaman = '$id_peminjaman'"; 
             $result = mysqli_query($con, $query);
                 if(!$result){
                 die ("Query Error: ".mysqli_errno($con).
@@ -14,15 +14,10 @@
                 }
 
             $data      = mysqli_fetch_assoc($result);
-            $tanggal_peminjaman = $data["tanggal_peminjaman"];
+            $tanggal_peminjaman   = $data["tanggal_peminjaman"];
             $tanggal_pengembalian = $data["tanggal_pengembalian"];
-            $id_profil         = $data["id_user"];
-            $no_induk          = $data["no_induk"];
-            $nama_profil       = $data["nama"];
-            $username_profil   = $data["username"];
-            $foto_profil       = $data["foto_user"];
-            $jabatan_profil    = $data["jabatan"];
-            $status_pemesanan  = $data["status_pinjaman"];
+            $username_profil      = $data["username"];
+            $status_pemesanan     = $data["status_pinjaman"];
             
             $date1 = new DateTime($tanggal_peminjaman);
             $date2 = new DateTime($tanggal_pengembalian);
@@ -39,16 +34,25 @@
             <div class="col-md-4 col-sm-5">
               <div class="p-about m-b-20">
                 <div class="pa-padding">
-                  <div class="pa-avatar">
-                    <img src="img/avatars/<?php echo $foto_profil ?>" alt="Foto Profil" width="100" height="100">
-                  </div>
                   <div class="pa-name">
                   <?php
-                    echo '<a href="detail_user.php?no_induk='.$no_induk.'">'
-                      .$username_profil.
-                    '</a>';
+                    echo $username_profil.'<br>';
+                    $query_siswa = "SELECT NIS FROM SISWA WHERE NIS = '$data[NIP_NIS]'";
+                    $result_siswa = mysqli_query($con, $query_siswa);
+                        if($result_siswa->num_rows == 1){
+                            echo '<a href="detail_siswa.php?no_induk='.$data['NIP_NIS'].'">
+                              <button type="button" class="btn btn-primary">
+                                <i class="zmdi zmdi-account"></i> Profil Peminjam
+                              </button>
+                            </a>';
+                          }else{
+                            echo '<a href="detail_pegawai.php?no_induk='.$data['NIP_NIS'].'">
+                              <button type="button" class="btn btn-primary">
+                                <i class="zmdi zmdi-account"></i> Profil Peminjam
+                              </button>
+                            </a>';
+                          }
                   ?>
-                    <div class="pa-text"><?php echo $nama_profil ?> · <?php echo $jabatan_profil ?></div>  
                     <br>
                     <div class="pa-name">Tanggal Peminjaman</div>  
                     <div class="pa-text"><?php echo tanggal_indo(''.$tanggal_peminjaman.'') ?> - <?php echo tanggal_indo(''.$tanggal_pengembalian.'') ?></div>                   </div>
@@ -117,12 +121,12 @@
                         <div role="tabpanel" class="tab-pane fade  active in">
                           <div class="table-responsive">
                           <?php
-            $query_buku_pemesanan = "SELECT a.no_peminjaman, b.id_detail_buku, c.kode_buku,
+            $query_buku_pemesanan = "SELECT a.id_peminjaman, b.id_detail_buku, c.kode_buku,
                                     c.status_buku, d.judul_singkat, d.ISBN
                                     FROM peminjaman AS a INNER JOIN detail_peminjaman AS b 
                                     INNER JOIN detail_buku AS c INNER JOIN buku AS d
                                     WHERE a.id_peminjaman = b.id_peminjaman AND b.id_detail_buku = c.id_detail_buku AND
-                                    c.id_buku = d.id_buku AND a.no_peminjaman = '$no_peminjaman'";
+                                    c.id_buku = d.id_buku AND a.id_peminjaman = '$id_peminjaman'";
             $result_buku_pemesanan = mysqli_query($con, $query_buku_pemesanan);
                           ?>
                                 <table class="table">

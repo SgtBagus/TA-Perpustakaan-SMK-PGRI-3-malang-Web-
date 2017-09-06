@@ -14,7 +14,7 @@
           <div class="panel-body">
             <div class="table-responsive">          
 <?php
-  $query = "SELECT a.id_peminjaman, a.no_peminjaman, b.username, b.no_induk, a.tanggal_peminjaman, 
+  $query = "SELECT a.id_peminjaman, b.username, b.NIP_NIS, a.tanggal_peminjaman, 
             a.tanggal_pengembalian, a.status_pinjaman FROM peminjaman 
             AS a INNER JOIN user AS b WHERE a.id_user = b.id_user";
   $result = mysqli_query($con, $query);
@@ -23,7 +23,6 @@
                 <thead>
                   <tr>
                     <th>No</th>
-                    <th>Nomor Peminjaman</th>
                     <th colspan="2">Peminjam</th>
                     <th>Banyak Buku</th>
                     <th>Tanggal Pinjaman</th>
@@ -43,15 +42,24 @@
                   echo '
                   <tr>
                     <td>'.$no.'</td>
-                    <td>'.$data['no_peminjaman'].'</td>
                     <td>'.$data['username'].'</td>
-                    <td>
-                      <a href="detail_user.php?no_induk='.$data['no_induk'].'">
+                    <td>';
+                      $query_siswa = "SELECT NIS FROM SISWA WHERE NIS = '$data[NIP_NIS]'";
+                      $result_siswa = mysqli_query($con, $query_siswa);
+                          if($result_siswa->num_rows == 1){
+                              echo '
+                      <a href="detail_siswa.php?no_induk='.$data['NIP_NIS'].'">
                         <i class="zmdi zmdi-eye"></i>
-                      </a>
-                    </td>
+                      </a>';
+                          }else{
+                              echo '
+                      <a href="detail_pegawai.php?no_induk='.$data['NIP_NIS'].'">
+                        <i class="zmdi zmdi-eye"></i>
+                      </a>';
+                          }
+                    echo'</td>
                     <td>
-                      <div align="center"><b>';
+                      <div align="center"><b>'; 
 
         $query_banyak = "SELECT id_detail_peminjaman
                          FROM detail_peminjaman WHERE id_peminjaman LIKE '$data[id_peminjaman]'";
@@ -71,7 +79,7 @@
                     echo '</td>
                     <td>'.$data['status_pinjaman'].'</td>
                     <td>
-                      <a href="detail_peminjaman.php?no_peminjaman='.$data['no_peminjaman'].'">
+                      <a href="detail_peminjaman.php?id_peminjaman='.$data['id_peminjaman'].'">
                         <button type="button" class="btn btn-primary">
                           <i class="zmdi zmdi-eye"></i> Detail
                         </button>
