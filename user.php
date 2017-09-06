@@ -36,7 +36,6 @@
               <thead>
                 <tr>
                   <th>No</th>
-                  <th>No Induk</th>
                   <th>Username</th>
                   <th>Email</th>
                   <th>Jabatan</th>
@@ -52,12 +51,11 @@
   while($data = mysqli_fetch_assoc($result)){
                 echo '<tr>
                   <td>'.$no.'</td>
-                  <td>'.$data['NIP_NIS'].'</td>
                   <td>'.$data['username'].'</td>
                   <td>'.$data['email'].'</td>
                   <td>
                     <div align="center">';
-                    $query_siswa = "SELECT NIS FROM SISWA WHERE NIS = '$data[NIP_NIS]'";
+                    $query_siswa = "SELECT id_siswa FROM siswa WHERE id_siswa = '$data[id_siswa_pegawai]'";
                     $result_siswa = mysqli_query($con, $query_siswa);
                         if($result_siswa->num_rows == 1){
                             echo '<span class="badge badge-success">Siswa</span>';
@@ -77,13 +75,13 @@
                   </td>
                   <td>
                     <div align="center">';
-                    $query_siswa = "SELECT NIS FROM SISWA WHERE NIS = '$data[NIP_NIS]'";
+                    $query_siswa = "SELECT NIS FROM SISWA WHERE NIS = '$data[id_siswa_pegawai]'";
                     $result_siswa = mysqli_query($con, $query_siswa);
                         if($result_siswa->num_rows == 1){
                           echo '<span class="badge badge-danger">Bukan Pegawai</span>';
                         }else{
-                            if($data['NIP_NIS'] == $no_induk_login){
-                                echo '<button onclick="role('.$data['NIP_NIS'].')" type="button" class="btn btn-warning" disabled>
+                            if($data['id_siswa_pegawai'] == $no_induk_login){
+                                echo '<button onclick="role('.$data['id_siswa_pegawai'].')" type="button" class="btn btn-warning" disabled>
                                   <i class="zmdi zmdi-long-arrow-down"></i> Deactive
                                 </button>';
                             }
@@ -110,7 +108,7 @@
                   }
                   echo '</td>
                   <td>';
-                  if($data['NIP_NIS'] == $no_induk_login){
+                  if($data['id_siswa_pegawai'] == $no_induk_login){
                     echo '<button onclick="reset('.$data['id_user'].')" type="button" class="btn btn-warning" disabled>
                       <i class="zmdi zmdi-alert-triangle"></i> Reset Akun User
                     </button>';

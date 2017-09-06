@@ -59,6 +59,7 @@
 <?php
   $no_user = 1;
   while($data_user = mysqli_fetch_assoc($result_user)){
+    $data_id = (int) substr($data_user['id_siswa'], 1);
                  echo '<tr>
                     <td>'.$no_user.'</td>
                     <td>'.$data_user['NIS'].'</td>
@@ -71,7 +72,7 @@
                           <i class="zmdi zmdi-eye"></i> Detail
                         </button>
                       </a>
-                      <button onclick="hapus('.substr($data_user['NIS'],0,5).')" type="button" class="btn btn-danger">
+                      <button onclick="hapus('.$data_id.')" type="button" class="btn btn-danger">
                         <i class="zmdi zmdi-delete"></i> Hapus
                       </button>
                     </td>
@@ -90,7 +91,7 @@
   </body>
   <?php include('script/footer_script.php') ?>
   <script type="text/javascript">
-  function hapus(NIS) {
+  function hapus(id) {
     swal({
       title: 'Apakah anda yakin?',
       type: 'warning',
@@ -99,7 +100,7 @@
       cancelButtonColor: '#d33',
       confirmButtonText: 'Iya!, Hapus Data'
       }).then(function () {
-          document.location="system/hapus_siswa.php?NIS="+NIS;
+          document.location="system/hapus_siswa.php?id_siswa="+id;
     })
   }
   function noInduk() {
