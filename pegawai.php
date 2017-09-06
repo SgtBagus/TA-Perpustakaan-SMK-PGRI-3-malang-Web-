@@ -60,6 +60,7 @@
 <?php
   $no_pegawai = 1;
   while($data_pegawai = mysqli_fetch_assoc($result_pegawai)){
+    $data_id = (int) substr($data_pegawai['id_pegawai'], 1);
                   echo '<tr>
                     <td>'.$no_pegawai.'</td>
                     <td>'.$data_pegawai['NIP'].'</td>
@@ -80,7 +81,7 @@
                           <i class="zmdi zmdi-eye"></i> Detail
                         </button>
                       </a>
-                      <button onclick="hapus('.substr($data_pegawai['NIP'],0,5).')" type="button" class="btn btn-danger">
+                      <button onclick="hapus('.$data_id.')" type="button" class="btn btn-danger">
                         <i class="zmdi zmdi-delete"></i> Hapus
                       </button>';
   }
@@ -100,7 +101,7 @@
   </body>
   <?php include('script/footer_script.php') ?>
   <script type="text/javascript">
-  function hapus(NIP) {
+  function hapus(id) {
     swal({
       title: 'Apakah anda yakin?',
       type: 'warning',
@@ -109,7 +110,7 @@
       cancelButtonColor: '#d33',
       confirmButtonText: 'Iya!, Hapus Data'
       }).then(function () {
-          document.location="system/hapus_pegawai.php?NIP="+NIP;
+          document.location="system/hapus_pegawai.php?id_pegawai="+id;
     })
   }
   
