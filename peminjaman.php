@@ -70,27 +70,27 @@
                     </td>
                     <td>'.tanggal_indo(''.$data['tanggal_peminjaman'].'').'</td>
                     <td>'.tanggal_indo(''.$data['tanggal_pengembalian'].'').'</td>
-                    <td> 
-                      <div align="center">';
-                    if ($data['status_pinjaman'] == "Menunggu"){
-                      echo '<span class="badge badge-warning">Belum Diverifikasi</span>';
-                    }else if($data['status_pinjaman'] == "Ditolak"){
-                      echo '<span class="badge badge-danger">Ditolak</span>';
-                    }
-                    else{
-                      echo '<b>'.$diff.'</b> - Hari Lagi';
-                    }
-                      echo '</div>
-                    </td>
-                    <td>
-                      <div align="center">';
-                    if ($data['status_pinjaman'] == "Ditolak"){
-                        echo '<span class="label label-outline-warning">'.$data['status_pinjaman'].'</span>';
-                    }else{
-                        echo '<span class="label label-outline-info">'.$data['status_pinjaman'].'</span>';
-                    }
-                      echo '</div>
-                    </td>
+                    <td> -Comming Soon- ';
+                    //   <div align="center">';
+                    // if ($data['status_pinjaman'] == "Menunggu"){
+                    //   echo '<span class="badge badge-warning">Belum Diverifikasi</span>';
+                    // }else if($data['status_pinjaman'] == "Ditolak"){
+                    //   echo '<span class="badge badge-danger">Ditolak</span>';
+                    // }
+                    // else{
+                    //   echo '<b>'.$diff.'</b> - Hari Lagi';
+                    // }
+                    //   echo '</div>
+                    // </td>
+                    // <td>
+                    //   <div align="center">';
+                    // if ($data['status_pinjaman'] == "Ditolak"){
+                    //     echo '<span class="label label-outline-warning">'.$data['status_pinjaman'].'</span>';
+                    // }else{
+                    //     echo '<span class="label label-outline-info">'.$data['status_pinjaman'].'</span>';
+                    // }
+                    //   echo '</div>
+                    echo'</td>
                     <td>
                       <a href="detail_peminjaman.php?id_peminjaman='.$data['id_peminjaman'].'">
                         <button type="button" class="btn btn-primary">

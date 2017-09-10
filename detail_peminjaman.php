@@ -24,7 +24,6 @@
             $date2 = new DateTime($tanggal_pengembalian);
 
             $date3 = new DateTime($tanggal);
-            $diff = $date2->diff($date3)->format("%a");
             $totalhari_100persen = $date2->diff($date1)->format("%a");
         } 
     ?>
@@ -88,7 +87,7 @@
                   </div> 
                 </div>'; 
               }
-              else {
+              else if ($status_pemesanan == "Diterima") {
                 echo '<div class="p-info m-b-20">
                   <h4 class="m-y-0">Sisa Hari</h4>
                   <hr>
@@ -98,24 +97,42 @@
                       <small class="pull-right">'.tanggal_indo(''.$tanggal_pengembalian.'').'</small>
                     </div>';
                     echo'<div class="progress progress-xs">';
-                    $persen = $diff/$totalhari_100persen * 100;
-                    $proses = 100 - $persen;
+                    $diff = $date2->diff($date3)->format("%a");
+                    $persen = $diff/$totalhari_100persen;
+                    $kali100 = $persen * 100;
+                    $proses = 100 - $kali100;
+                    if($date3 > $date2){
+                      echo '<div class="progress-bar progress-bar-danger" role="progressbar" 
+                      aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+                      </div>
+                    </div>
+                    <span class="label label-outline-danger m-w-60"><h4>PENGEMBALIAN TERLAMBAT</h4></span><br><br>
+                      <a href="keterlambatan.php">
+                        <button type="button" class="btn btn-warning">
+                          <i class="zmdi zmdi-file"></i> Data Keterlambatan
+                        </button>
+                      </a>';
+                    }
+                    else if ($date3 == $date2){
+                      echo '<div class="progress-bar progress-bar-danger" role="progressbar" 
+                      aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+                      </div>
+                    </div>
+                    <span class="label label-outline-warning m-w-60"><h4>PENGEMBALIAN HARI INI</h4></span><br><br>
+                      <a href="#.php">
+                        <button type="button" class="btn btn-primary">
+                          <i class="zmdi zmdi-check"></i> Pengembalian di terima
+                        </button>
+                      </a>';
+                    }
+                    else{
                       echo '<div class="progress-bar progress-bar-danger" role="progressbar" 
                       aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:'.$proses.'%">
                       </div>
                     </div>
-                    <h2>'.$diff.' - Hari Lagi</H2>
-                    <a href="#">
-                      <button type="button" class="btn btn-primary">
-                        <i class="zmdi zmdi-check"></i> Kembali
-                      </button>
-                    </a>
-                    <a href="#">
-                      <button type="button" class="btn btn-danger">
-                        <i class="zmdi zmdi-close"></i> Tarik Kembali 
-                      </button>
-                    </a>
-                  </div> 
+                    <span class="label label-outline-primary m-w-60"><h4><b>'.$diff.'<b> - HARI LAGI</h4></span><br><br>';
+                    }
+                  echo '</div> 
                 </div>';
               }
               ?>
