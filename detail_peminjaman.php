@@ -3,6 +3,7 @@
 <html lang="en">
     <?php include('script/head_script.php'); 
         if (isset($_GET['id_peminjaman'])) { 
+            $tanggal = date('Y-m-d');
             $id_peminjaman = ($_GET["id_peminjaman"]);
             $query = "SELECT a.*, b.* FROM 
                             peminjaman AS a INNER JOIN user AS b
@@ -21,7 +22,10 @@
             
             $date1 = new DateTime($tanggal_peminjaman);
             $date2 = new DateTime($tanggal_pengembalian);
-            $diff = $date2->diff($date1)->format("%a");
+
+            $date3 = new DateTime($tanggal);
+            $diff = $date2->diff($date3)->format("%a");
+            $totalhari_100persen = $date2->diff($date1)->format("%a");
         } 
     ?>
   <body class="layout layout-header-fixed layout-left-sidebar-fixed">
@@ -37,16 +41,16 @@
                   <div class="pa-name">
                   <?php
                     echo $username_profil.'<br>';
-                    $query_siswa = "SELECT NIS FROM SISWA WHERE NIS = '$data[NIP_NIS]'";
+                    $query_siswa = "SELECT NIS FROM SISWA WHERE NIS = '$data[id_siswa_pegawai]'";
                     $result_siswa = mysqli_query($con, $query_siswa);
                         if($result_siswa->num_rows == 1){
-                            echo '<a href="detail_siswa.php?no_induk='.$data['NIP_NIS'].'">
+                            echo '<a href="detail_siswa.php?no_induk='.$data['id_siswa_pegawai'].'">
                               <button type="button" class="btn btn-primary">
                                 <i class="zmdi zmdi-account"></i> Profil Peminjam
                               </button>
                             </a>';
                           }else{
-                            echo '<a href="detail_pegawai.php?no_induk='.$data['NIP_NIS'].'">
+                            echo '<a href="detail_pegawai.php?no_induk='.$data['id_siswa_pegawai'].'">
                               <button type="button" class="btn btn-primary">
                                 <i class="zmdi zmdi-account"></i> Profil Peminjam
                               </button>
@@ -64,19 +68,27 @@
                   <h4 class="m-y-0">Varifikasi</h4>
                   <hr>
                   <div align="center">
-                    <a href="#">
-                      <button type="button" class="btn btn-primary">
-                        <i class="zmdi zmdi-edit"></i> Disetujui
-                      </button>
-                    </a>
-                    <a href="#">
-                      <button type="button" class="btn btn-danger">
-                        <i class="zmdi zmdi-close"></i> Ditolak 
-                      </button>
-                    </a>
+                    <button onclick="terima('.$data['id_peminjaman'].')" type="button" class="btn btn-primary" name="input">
+                      <i class="zmdi zmdi-edit"></i> Disetujui
+                    </button>
+                    <button onclick="tolak('.$data['id_peminjaman'].')" type="button" class="btn btn-danger" name="input">
+                      <i class="zmdi zmdi-close"></i> Ditolak 
+                    </button>
                   </div> 
                 </div>';
-              }else {
+              } else if ($status_pemesanan == "Ditolak"){
+                echo '<div class="p-info m-b-20">
+                  <h4 class="m-y-0">Aksi</h4>
+                  <hr>
+                  <div align="center">
+                    <h4>Peminjaman ini Ditolak</H4>
+                    <button onclick="hapus('.$data['id_peminjaman'].')" type="button" class="btn btn-danger" name="input">
+                      <i class="zmdi zmdi-delete"></i> Hapus
+                    </button>
+                  </div> 
+                </div>'; 
+              }
+              else {
                 echo '<div class="p-info m-b-20">
                   <h4 class="m-y-0">Sisa Hari</h4>
                   <hr>
@@ -84,10 +96,12 @@
                     <div class="clearfix m-b-5">
                       <small class="pull-left">'.tanggal_indo(''.$tanggal_peminjaman.'').'</small>
                       <small class="pull-right">'.tanggal_indo(''.$tanggal_pengembalian.'').'</small>
-                    </div>
-                    <div class="progress progress-xs">
-                      <div class="progress-bar progress-bar-danger" role="progressbar" 
-                      aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 30%">
+                    </div>';
+                    echo'<div class="progress progress-xs">';
+                    $persen = $diff/$totalhari_100persen * 100;
+                    $proses = 100 - $persen;
+                      echo '<div class="progress-bar progress-bar-danger" role="progressbar" 
+                      aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:'.$proses.'%">
                       </div>
                     </div>
                     <h2>'.$diff.' - Hari Lagi</H2>
@@ -181,4 +195,49 @@
     </div>
   </body>
       <?php include('script/footer_script.php') ?>
+      <script>
+
+      function terima(id) {
+        swal({
+          title: 'Konfirmasi?',
+          text : 'Anda yakin menerima peminjaman ini ?',
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Iya!'
+          }).then(function () {
+              document.location="system/peminjaman_terima.php?id="+id;
+        })
+      }
+
+      function tolak(id) {
+        swal({
+          title: 'Konfirmasi?',
+          text : 'Anda yakin menolak peminjaman ini ?',
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Iya!'
+          }).then(function () {
+              document.location="system/peminjaman_tolak.php?id="+id;
+        })
+      }
+
+      
+      function hapus(id) {
+        swal({
+          title: 'Konfirmasi?',
+          text : 'Anda yakin menolak peminjaman ini ?',
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Iya!'
+          }).then(function () {
+              document.location="system/peminjaman_hapus.php?id="+id;
+        })
+      }
+      </script>
 </html>

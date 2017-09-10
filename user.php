@@ -29,7 +29,7 @@
             <br>
           <div class="table-responsive">
 <?php
-  $query = "SELECT * FROM user" ;
+  $query = "SELECT * FROM user ORDER BY Username DESC" ;
   $result = mysqli_query($con, $query);
 ?>
             <table class="table" id="myTable">
@@ -102,9 +102,9 @@
                     </td>
                   <td>';
                   if($data['verifikasi'] == "Sudah"){
-                      echo '<span class="badge badge-success">Sudah</span>';
+                      echo '<span class="badge badge-success">Sudah Diverifikasi</span>';
                   }else{
-                      echo '<span class="badge badge-warning">Belum</span>';
+                      echo '<span class="badge badge-warning">Belum Diverifikasi</span>';
                   }
                   echo '</td>
                   <td>';
