@@ -75,19 +75,7 @@
                     </button>
                   </div> 
                 </div>';
-              } else if ($status_pemesanan == "Ditolak"){
-                echo '<div class="p-info m-b-20">
-                  <h4 class="m-y-0">Aksi</h4>
-                  <hr>
-                  <div align="center">
-                    <h4>Peminjaman ini Ditolak</H4>
-                    <button onclick="hapus('.$data['id_peminjaman'].')" type="button" class="btn btn-danger" name="input">
-                      <i class="zmdi zmdi-delete"></i> Hapus
-                    </button>
-                  </div> 
-                </div>'; 
-              }
-              else if ($status_pemesanan == "Diterima") {
+              }else if ($status_pemesanan == "Diterima") {
                 echo '<div class="p-info m-b-20">
                   <h4 class="m-y-0">Sisa Hari</h4>
                   <hr>
@@ -134,6 +122,17 @@
                     }
                   echo '</div> 
                 </div>';
+              }else if ($status_pemesanan == "Ditolak"){
+                echo '<div class="p-info m-b-20">
+                  <h4 class="m-y-0">Aksi</h4>
+                  <hr>
+                  <div align="center">
+                    <h4>Peminjaman ini Ditolak</H4>
+                    <button onclick="hapus('.$data['id_peminjaman'].')" type="button" class="btn btn-danger" name="input">
+                      <i class="zmdi zmdi-delete"></i> Hapus
+                    </button>
+                  </div> 
+                </div>'; 
               }
               ?>
             </div>

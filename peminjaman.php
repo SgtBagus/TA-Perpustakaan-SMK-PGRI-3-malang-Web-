@@ -27,7 +27,6 @@
                     <th>Banyak Buku</th>
                     <th>Tanggal Pinjaman</th>
                     <th>Tanggal Pengmbalian</th>
-                    <th>Sisa Hari</th>
                     <th>Status</th>
                     <th></th>
                   </tr>
@@ -36,9 +35,6 @@
                 <?php
   $no = 1;
   while($data = mysqli_fetch_assoc($result)){
-                  $date1 = new DateTime(''.$data['tanggal_pengembalian'].'');
-                  $date2 = new DateTime(''.$data['tanggal_peminjaman'].'');
-                  $diff = $date2->diff($date1)->format("%a");
                   echo '
                   <tr>
                     <td>'.$no.'</td>
@@ -60,7 +56,6 @@
                     echo'</td>
                     <td>
                       <div align="center"><b>'; 
-
         $query_banyak = "SELECT id_detail_peminjaman
                          FROM detail_peminjaman WHERE id_peminjaman LIKE '$data[id_peminjaman]'";
         $result_banyak = mysqli_query($con, $query_banyak);
@@ -70,27 +65,17 @@
                     </td>
                     <td>'.tanggal_indo(''.$data['tanggal_peminjaman'].'').'</td>
                     <td>'.tanggal_indo(''.$data['tanggal_pengembalian'].'').'</td>
-                    <td> -Comming Soon- ';
-                    //   <div align="center">';
-                    // if ($data['status_pinjaman'] == "Menunggu"){
-                    //   echo '<span class="badge badge-warning">Belum Diverifikasi</span>';
-                    // }else if($data['status_pinjaman'] == "Ditolak"){
-                    //   echo '<span class="badge badge-danger">Ditolak</span>';
-                    // }
-                    // else{
-                    //   echo '<b>'.$diff.'</b> - Hari Lagi';
-                    // }
-                    //   echo '</div>
-                    // </td>
-                    // <td>
-                    //   <div align="center">';
-                    // if ($data['status_pinjaman'] == "Ditolak"){
-                    //     echo '<span class="label label-outline-warning">'.$data['status_pinjaman'].'</span>';
-                    // }else{
-                    //     echo '<span class="label label-outline-info">'.$data['status_pinjaman'].'</span>';
-                    // }
-                    //   echo '</div>
-                    echo'</td>
+                    <td>
+                      <div align="center">';
+                    if ($data['status_pinjaman'] == "Ditolak"){
+                        echo '<span class="label label-outline-danger">'.$data['status_pinjaman'].'</span>';
+                    }else if ($data['status_pinjaman'] == "Menunggu"){
+                      echo '<span class="label label-outline-warning">'.$data['status_pinjaman'].'</span>';
+                    }else{
+                        echo '<span class="label label-outline-info">'.$data['status_pinjaman'].'</span>';
+                    }
+                      echo '</div>
+                    </td>
                     <td>
                       <a href="detail_peminjaman.php?id_peminjaman='.$data['id_peminjaman'].'">
                         <button type="button" class="btn btn-primary">
