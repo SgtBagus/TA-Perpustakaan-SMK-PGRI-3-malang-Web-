@@ -19,12 +19,7 @@ if (isset($_POST['input'])) {
     header("location:../tambah_siswa.php?pesan=error");
   }
   else { 
-    $query_no_siswa= "SELECT MAX(id_siswa) AS id_siswa FROM siswa";
-    $result_no_siswa = mysqli_query($con, $query_no_siswa);
-    $no_urut = mysqli_fetch_array($result_no_siswa);
-    $id_siswa_baru = (int) substr($no_urut['id_siswa'], 1) + 1;
-
-    $query = "INSERT INTO siswa SET id_siswa='S$id_siswa_baru', NIS='$nis', nama_siswa='$nama', foto_siswa='thumbnail.jpg',
+    $query = "INSERT INTO siswa SET NIS='$nis', nama_siswa='$nama', foto_siswa='thumbnail.jpg',
               kelas='$kelas - $jurusan - $sub_kelas', no_hp_siswa='$no_hp', alamat_siswa='$alamat', 
               tgl_entri_siswa = '$entri'";
     $result = mysqli_query($con, $query);
@@ -34,7 +29,7 @@ if (isset($_POST['input'])) {
             " - ".mysqli_error($con));
     }
     else{ 
-      $query_user = "INSERT INTO user SET id_siswa_pegawai='S$id_siswa_baru', username='-', email='-', password='$random', verifikasi='Belum'";
+      $query_user = "INSERT INTO user SET id_siswa_pegawai = '$nis', username='-', email='-', password='$random', verifikasi='Belum', role='User'";
       $result_user = mysqli_query($con, $query_user);
       if(!$result_user){
           die ("Query gagal dijalankan: ".mysqli_errno($con).

@@ -15,17 +15,17 @@
                 }
 
             $data      = mysqli_fetch_assoc($result);
-            $tanggal_peminjaman   = $data["tanggal_peminjaman"];
-            $tanggal_pengembalian = $data["tanggal_pengembalian"];
+            $tanggal_peminjaman   = $data["tgl_peminjaman"];
+            $tanggal_pengembalian = $data["tgl_pengembalian"];
             $username_profil      = $data["username"];
             $status_pemesanan     = $data["status_pinjaman"];
             
             $date1 = new DateTime($tanggal_peminjaman);
             $date2 = new DateTime($tanggal_pengembalian);
 
-            $date3 = new DateTime($tanggal);
+            $date3 = new DateTime($tanggal); 
             $totalhari_100persen = $date2->diff($date1)->format("%a");
-        } 
+        }  
     ?>
   <body class="layout layout-header-fixed layout-left-sidebar-fixed">
     <?php include('menu/header.php') ?>
@@ -43,13 +43,25 @@
                     $query_siswa = "SELECT NIS FROM SISWA WHERE NIS = '$data[id_siswa_pegawai]'";
                     $result_siswa = mysqli_query($con, $query_siswa);
                         if($result_siswa->num_rows == 1){
-                            echo '<a href="detail_siswa.php?no_induk='.$data['id_siswa_pegawai'].'">
+                          $query_foto_siswa = "SELECT foto_siswa FROM siswa WHERE NIS = '$data[id_siswa_pegawai]'";
+                          $result_foto_siswa = mysqli_query($con, $query_foto_siswa);
+                          $data_foto_siswa = mysqli_fetch_assoc($result_foto_siswa);
+                          echo '<div class="pa-avatar">
+                            <img src="img/avatars/'.$data_foto_siswa['foto_siswa'].'" alt="Foto Profil" width="100" height="100">
+                          </div>
+                          <a href="detail_siswa.php?no_induk='.$data['id_siswa_pegawai'].'">
                               <button type="button" class="btn btn-primary">
                                 <i class="zmdi zmdi-account"></i> Profil Peminjam
                               </button>
                             </a>';
                           }else{
-                            echo '<a href="detail_pegawai.php?no_induk='.$data['id_siswa_pegawai'].'">
+                            $query_foto_pegawai = "SELECT foto_pegawai FROM pegawai WHERE NIP = '$data[id_siswa_pegawai]'";
+                            $result_foto_pegawai = mysqli_query($con, $query_foto_pegawai);
+                            $data_foto_pegawai = mysqli_fetch_assoc($result_foto_pegawai);
+                            echo '<div class="pa-avatar">
+                              <img src="img/avatars/'.$data_foto_pegawai['foto_pegawai'].'" alt="Foto Profil" width="100" height="100">
+                            </div>
+                            <a href="detail_pegawai.php?no_induk='.$data['id_siswa_pegawai'].'">
                               <button type="button" class="btn btn-primary">
                                 <i class="zmdi zmdi-account"></i> Profil Peminjam
                               </button>
@@ -118,7 +130,7 @@
                       aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:'.$proses.'%">
                       </div>
                     </div>
-                    <span class="label label-outline-primary m-w-60"><h4><b>'.$diff.'<b> - HARI LAGI</h4></span><br><br>';
+                    <span class="label label-outline-primary m-w-60"><h4><b>'.$diff.'</b> - HARI LAGI</h4></span><br><br>';
                     }
                   echo '</div> 
                 </div>';
@@ -151,7 +163,7 @@
                         <div role="tabpanel" class="tab-pane fade  active in">
                           <div class="table-responsive">
                           <?php
-            $query_buku_pemesanan = "SELECT a.id_peminjaman, b.id_detail_buku, c.kode_buku,
+            $query_buku_pemesanan = "SELECT a.id_peminjaman, b.id_detail_buku, c.kode_buku, d.gambar_buku,
                                     c.status_buku, d.judul_singkat, d.ISBN
                                     FROM peminjaman AS a INNER JOIN detail_peminjaman AS b 
                                     INNER JOIN detail_buku AS c INNER JOIN buku AS d
@@ -163,6 +175,7 @@
                                     <thead>
                                     <tr>
                                         <th>No</th>
+                                        <th></th>
                                         <th>Buku</th>
                                         <th>Kode Buku</th>
                                         <th>Status</th>
@@ -170,11 +183,12 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                    <?php
+                    <?php 
                     $no_buku_pemesanan = 1;
                     while($data_buku_pemesanan = mysqli_fetch_assoc($result_buku_pemesanan)){
                                     echo '<tr>
                                         <td>'.$no_buku_pemesanan.'</td>
+                                        <td><img class="img-rounded" src="img/book/'.$data_buku_pemesanan['gambar_buku'].'" alt="" width="40" height="60"></td>
                                         <td>'.$data_buku_pemesanan['judul_singkat'].'</td>
                                         <td>'.$data_buku_pemesanan['kode_buku'].'</td>
                                         <td>'.$data_buku_pemesanan['status_buku'].'</td>

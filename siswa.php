@@ -41,15 +41,16 @@
             <br>
             <div class="table-responsive">
 <?php
-  $query_user = "SELECT id_siswa, NIS, nama_siswa, kelas, tgl_entri_siswa FROM siswa";
+  $query_user = "SELECT NIS, foto_siswa, nama_siswa, kelas, tgl_entri_siswa FROM siswa";
   $result_user = mysqli_query($con, $query_user);
 ?>
               <table class="table" id="myTable">
                 <thead>
                   <tr>
                     <th>No</th>
+                    <th></th>
                     <th>NIS</th>
-                    <th>Nama Siswa</th>
+                    <th>Nama Pegawai</th>
                     <th>Kelas</th>
                     <th>Tanggal Terdaftar</th>
                     <th>Aksi</th>
@@ -59,9 +60,10 @@
 <?php
   $no_user = 1;
   while($data_user = mysqli_fetch_assoc($result_user)){
-    $data_id = (int) substr($data_user['id_siswa'], 1);
+    $data_NIS = (int) substr($data_user['NIS'], 0, 5);
                  echo '<tr>
                     <td>'.$no_user.'</td>
+                    <td><img class="img-circle" src="img/avatars/'.$data_user['foto_siswa'].'" alt="" width="50" height="50"></td>
                     <td>'.$data_user['NIS'].'</td>
                     <td>'.$data_user['nama_siswa'].'</td>
                     <td>'.$data_user['kelas'].'</td>
@@ -72,7 +74,7 @@
                           <i class="zmdi zmdi-eye"></i> Detail
                         </button>
                       </a>
-                      <button onclick="hapus('.$data_id.')" type="button" class="btn btn-danger">
+                      <button onclick="hapus('.$data_NIS.')" type="button" class="btn btn-danger">
                         <i class="zmdi zmdi-delete"></i> Hapus
                       </button>
                     </td>
@@ -100,7 +102,7 @@
       cancelButtonColor: '#d33',
       confirmButtonText: 'Iya!, Hapus Data'
       }).then(function () {
-          document.location="system/hapus_siswa.php?id_siswa="+id;
+          document.location="system/hapus_siswa.php?NIS="+id;
     })
   }
   function noInduk() {
@@ -110,7 +112,7 @@
       table = document.getElementById("myTable");
       tr = table.getElementsByTagName("tr");
       for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[1];
+        td = tr[i].getElementsByTagName("td")[1][2];
         if (td) {
           if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
             tr[i].style.display = "";

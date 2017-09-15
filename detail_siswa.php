@@ -5,7 +5,7 @@
         if (isset($_GET['no_induk'])) { 
             $no = ($_GET["no_induk"]);
             $query = "SELECT a.*, b.* FROM siswa AS a INNER JOIN user AS b 
-                      WHERE a.NIS = '$no' AND a.id_siswa = b.id_siswa_pegawai";
+                      WHERE a.NIS = '$no' AND a.NIS = b.id_siswa_pegawai";
             $result = mysqli_query($con, $query);
                 if(!$result){
                 die ("Query Error: ".mysqli_errno($con).
@@ -13,7 +13,7 @@
                 }
 
             $data        = mysqli_fetch_assoc($result);
-            $id          = $data["id_siswa"];
+            $id          = $data["NIS"];
             $nama        = $data["nama_siswa"];
             $foto        = $data["foto_siswa"];
             $jabatan     = $data["kelas"];

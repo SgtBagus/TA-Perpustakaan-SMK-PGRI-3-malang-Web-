@@ -47,6 +47,7 @@
               <thead>
                 <tr>
                   <th>No</th>
+                  <th></th>
                   <th>Judul buku</th>
                   <th>Jenis Buku</th>
                   <th>Media</th>
@@ -61,6 +62,7 @@
   while($data_buku = mysqli_fetch_assoc($result_buku)){
                 echo '<tr>
                   <td>'.$no_buku.'</td>
+                  <td><img class="img-rounded" src="img/book/'.$data_buku['gambar_buku'].'" alt="" width="40" height="60"></td>
                   <td>'.$data_buku['judul_buku'].'</td>
                   <td>'.$data_buku['subyek'].'</td>
                   <td>'.$data_buku['jenis_media'].'</td>

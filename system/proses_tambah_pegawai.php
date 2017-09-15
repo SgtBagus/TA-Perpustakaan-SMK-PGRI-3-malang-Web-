@@ -16,22 +16,17 @@ if (isset($_POST['input'])) {
   if (mysqli_num_rows($prosescek)>0) {
     header("location:../tambah_pegawai.php?pesan=error"); 
   } 
-  else {
-    $query_no_pegawai= "SELECT MAX(id_siswa) AS id_siswa FROM siswa";
-    $result_no_pegawai = mysqli_query($con, $query_no_pegawai);
-    $no_urut = mysqli_fetch_array($result_no_pegawai);
-    $id_pegawai_baru = (int) substr($no_urut['id_siswa'], 1) + 1;
-
-    $query = "INSERT INTO pegawai SET id_pegawai='P$id_pegawai_baru', NIP='$nip', nama_pegawai ='$nama', 
+  else { 
+    $query = "INSERT INTO pegawai SET NIP='$nip', nama_pegawai ='$nama', 
               foto_pegawai = 'thumbnail.jpg', jabatan_pegawai='$jabatan', 
               no_hp_pegawai = '$no_hp', alamat_pegawai='$alamat', tgl_entri_pegawai = '$entri'";
     $result = mysqli_query($con, $query);
-    if(!$result){
+    if(!$result){ 
         die ("Query gagal dijalankan: ".mysqli_errno($con).
              " - ".mysqli_error($con));
     }
     else{
-      $query_user = "INSERT INTO user SET id_siswa_pegawai='P$id_pegawai_baru', username='-', email='-', password='$random', verifikasi='Belum'";
+      $query_user = "INSERT INTO user SET id_siswa_pegawai='$nip', username='-', email='-', password='$random', verifikasi='Belum', role='User'";
       $result_user = mysqli_query($con, $query_user);
       if(!$result_user){
           die ("Query gagal dijalankan: ".mysqli_errno($con).

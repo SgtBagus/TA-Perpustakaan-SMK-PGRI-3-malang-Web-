@@ -173,7 +173,7 @@
                                                         <td>'.$data_siap_terpinjam['kode_buku'].'</td>
                                                         <td>'.$data_siap_terpinjam['status_buku'].'</td>
                                                         <td align="center">
-                                                            <button onclick="hapus_data('.$data_siap_terpinjam['id_buku'].')" type="button" class="btn btn-danger">
+                                                            <button onclick="hapus_data('.$data_siap_terpinjam['id_detail_buku'].')" type="button" class="btn btn-danger">
                                                                 <i class="zmdi zmdi-delete"></i> Hapus
                                                             </button>
                                                         </td>
@@ -220,7 +220,7 @@
                                                         <td>'.$data_dipesan['kode_buku'].'</td>
                                                         <td>'.$data_dipesan['status_buku'].'</td>
                                                         <td align="center">
-                                                            <button onclick="hapus_data('.$data_dipesan['id_buku'].')" type="button" class="btn btn-danger">
+                                                            <button onclick="hapus_data('.$data_dipesan['id_detail_buku'].')" type="button" class="btn btn-danger">
                                                                 <i class="zmdi zmdi-delete"></i> Hapus
                                                             </button>
                                                         </td>
@@ -266,7 +266,7 @@
                                                         <td>'.$data_dipinjam['kode_buku'].'</td>
                                                         <td>'.$data_dipinjam['status_buku'].'</td>
                                                         <td align="center">
-                                                            <button onclick="hapus_data('.$data_dipinjam['id_buku'].')" type="button" class="btn btn-danger">
+                                                            <button onclick="hapus_data('.$data_dipinjam['id_detail_buku'].')" type="button" class="btn btn-danger">
                                                                 <i class="zmdi zmdi-delete"></i> Hapus
                                                             </button>
                                                         </td>
@@ -313,7 +313,7 @@
                                                         <td>'.$data_lainya['kode_buku'].'</td>
                                                         <td>'.$data_lainya['status_buku'].'</td>
                                                         <td align="center">
-                                                            <button onclick="hapus_data('.$data_lainya['id_buku'].')" type="button" class="btn btn-danger">
+                                                            <button onclick="hapus_data('.$data_lainya['id_detail_buku'].')" type="button" class="btn btn-danger">
                                                                 <i class="zmdi zmdi-delete"></i> Hapus
                                                             </button>
                                                         </td>

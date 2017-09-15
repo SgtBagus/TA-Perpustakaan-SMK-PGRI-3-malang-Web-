@@ -1,6 +1,6 @@
 <?php include('system/session.php');
   $query_login = "SELECT a.*, b.* FROM pegawai AS a INNER JOIN 
-                  user AS b WHERE email ='$_SESSION[email]' AND a.id_pegawai = b.id_siswa_pegawai";
+                  user AS b WHERE email ='$_SESSION[email]' AND a.NIP = b.id_siswa_pegawai";
   $result_login = mysqli_query($con, $query_login);
   if(!$result_login){
     die ("Query Error: ".mysqli_errno($con).

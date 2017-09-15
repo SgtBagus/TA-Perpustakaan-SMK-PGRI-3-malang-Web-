@@ -29,13 +29,16 @@
             <br>
           <div class="table-responsive">
 <?php
-  $query = "SELECT * FROM user ORDER BY Username DESC" ;
+  $query = "SELECT * FROM user ORDER BY Username ASC" ;
   $result = mysqli_query($con, $query);
 ?>
             <table class="table" id="myTable">
               <thead>
                 <tr>
                   <th>No</th>
+                  <th></th>
+                  <th>Nama</th>
+                  <th></th>
                   <th>Username</th>
                   <th>Email</th>
                   <th>Jabatan</th>
@@ -49,14 +52,59 @@
 <?php
   $no = 1; 
   while($data = mysqli_fetch_assoc($result)){
+    $query_siswa = "SELECT NIS FROM siswa WHERE NIS = '$data[id_siswa_pegawai]'";
+    $result_siswa = mysqli_query($con, $query_siswa);  
                 echo '<tr>
                   <td>'.$no.'</td>
+                  <td>';
+                    if($result_siswa->num_rows == 1){                                      
+                    $query_foto_siswa = "SELECT foto_siswa FROM siswa WHERE NIS = '$data[id_siswa_pegawai]'";
+                    $result_foto_siswa = mysqli_query($con, $query_foto_siswa);
+                    $data_foto_siswa = mysqli_fetch_assoc($result_foto_siswa);
+                        echo '<img class="img-circle" src="img/avatars/'.$data_foto_siswa['foto_siswa'].'" alt="" width="50" height="50">';
+                    }else{
+                      $query_foto_pegawai = "SELECT foto_pegawai FROM pegawai WHERE NIP = '$data[id_siswa_pegawai]'";
+                      $result_foto_pegawai = mysqli_query($con, $query_foto_pegawai);
+                      $data_foto_pegawai = mysqli_fetch_assoc($result_foto_pegawai);
+                          echo '<img class="img-circle" src="img/avatars/'.$data_foto_pegawai['foto_pegawai'].'" alt="" width="50" height="50">';
+                    }
+                  echo '</td>
+                  
+                  <td>';
+                  if($result_siswa->num_rows == 1){                                      
+                    $query_nama_siswa = "SELECT NIS, nama_siswa FROM siswa WHERE NIS = '$data[id_siswa_pegawai]'";
+                    $result_nama_siswa = mysqli_query($con, $query_nama_siswa);
+                    $data_nama_siswa = mysqli_fetch_assoc($result_nama_siswa);
+                      echo $data_nama_siswa['nama_siswa'];
+                      echo '<td>
+                      <a href="detail_siswa.php?no_induk='.$data_nama_siswa['NIS'].'">
+                        <i class="zmdi zmdi-eye" data-toggle="tooltip" data-placement="top" title="" data-original-title="Profil Siswa"></i>
+                      </a>
+                      </td>';
+                  }else{
+                    $query_nama_pegawai = "SELECT NIP, nama_pegawai FROM pegawai WHERE NIP = '$data[id_siswa_pegawai]'";
+                    $result_nama_pegawai = mysqli_query($con, $query_nama_pegawai);
+                    $data_nama_pegawai = mysqli_fetch_assoc($result_nama_pegawai);
+                        echo $data_nama_pegawai['nama_pegawai'];
+                        if($data['id_siswa_pegawai'] == $no_induk_login){
+                          echo '<td>
+                          <a href="profil.php">
+                            <i class="zmdi zmdi-eye" data-toggle="tooltip" data-placement="top" title="" data-original-title="Profil"></i>
+                          </a>
+                          </td>';
+                        }else{
+                        echo '<td>
+                        <a href="detail_pegawai.php?no_induk='.$data_nama_pegawai['NIP'].'">
+                          <i class="zmdi zmdi-eye"  data-toggle="tooltip" data-placement="top" title="" data-original-title="Profil Pegawai"></i>
+                        </a>
+                        </td>';
+                        }
+                  }
+                echo '</td>
                   <td>'.$data['username'].'</td>
                   <td>'.$data['email'].'</td>
                   <td>
                     <div align="center">';
-                    $query_siswa = "SELECT id_siswa FROM siswa WHERE id_siswa = '$data[id_siswa_pegawai]'";
-                    $result_siswa = mysqli_query($con, $query_siswa);
                         if($result_siswa->num_rows == 1){
                             echo '<span class="badge badge-success">Siswa</span>';
                         }else{
@@ -100,21 +148,23 @@
                         } 
                     echo '</div>
                     </td>
-                  <td>';
+                  <td>
+                    <div align="center">';
                   if($data['verifikasi'] == "Sudah"){
-                      echo '<span class="badge badge-success">Sudah Diverifikasi</span>';
+                      echo '<i class="zmdi zmdi-check-circle zmdi-hc-fw" style="color:#1d87e4"></i>';
                   }else{
-                      echo '<span class="badge badge-warning">Belum Diverifikasi</span>';
+                      echo '<i class="zmdi zmdi-close-circle zmdi-hc-fw" style="color:#faa800"></i>';
                   }
-                  echo '</td>
+                    echo '</div>
+                  </td>
                   <td>';
                   if($data['id_siswa_pegawai'] == $no_induk_login){
                     echo '<button onclick="reset('.$data['id_user'].')" type="button" class="btn btn-warning" disabled>
-                      <i class="zmdi zmdi-alert-triangle"></i> Reset Akun User
+                      <i class="zmdi zmdi-alert-triangle"></i>
                     </button>';
                   }else{
-                    echo '<button onclick="reset('.$data['id_user'].')" type="button" class="btn btn-warning">
-                      <i class="zmdi zmdi-alert-triangle"></i> Reset Akun User
+                    echo '<button onclick="reset('.$data['id_user'].')" type="button" class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="" data-original-title="Reset Akun User">
+                      <i class="zmdi zmdi-alert-triangle"></i>
                     </button>';
                   }
                   echo '</td>

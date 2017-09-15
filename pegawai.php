@@ -41,7 +41,7 @@
             <br>
             <div class="table-responsive">
 <?php
-  $query_pegawai = "SELECT id_pegawai, NIP, nama_pegawai, jabatan_pegawai, tgl_entri_pegawai
+  $query_pegawai = "SELECT NIP, foto_pegawai, nama_pegawai, jabatan_pegawai, tgl_entri_pegawai
                     FROM pegawai";
   $result_pegawai = mysqli_query($con, $query_pegawai);
 ?>
@@ -49,6 +49,7 @@
                 <thead>
                   <tr>
                     <th>No</th>
+                    <th></th>
                     <th>NIP</th>
                     <th>Nama Pegawai</th>
                     <th>Jabatan</th>
@@ -60,15 +61,16 @@
 <?php
   $no_pegawai = 1;
   while($data_pegawai = mysqli_fetch_assoc($result_pegawai)){
-    $data_id = (int) substr($data_pegawai['id_pegawai'], 1);
+    $data_id = (int) substr($data_pegawai['NIP'], 0, 5);
                   echo '<tr>
                     <td>'.$no_pegawai.'</td>
+                    <td><img class="img-circle" src="img/avatars/'.$data_pegawai['foto_pegawai'].'" alt="" width="50" height="50"></td>
                     <td>'.$data_pegawai['NIP'].'</td>
                     <td>'.$data_pegawai['nama_pegawai'].'</td>
                     <td>'.$data_pegawai['jabatan_pegawai'].'</td>
                     <td>'.tanggal_indo(''.$data_pegawai['tgl_entri_pegawai'].'').'</td>
                     <td align="center">';
-  if($no_induk_login == $data_pegawai['id_pegawai']){
+  if($no_induk_login == $data_pegawai['NIP']){
                       echo '<a href="Profil.php">
                         <button type="button" class="btn btn-primary">
                           <i class="zmdi zmdi-account"></i> Profil
@@ -110,7 +112,7 @@
       cancelButtonColor: '#d33',
       confirmButtonText: 'Iya!, Hapus Data'
       }).then(function () {
-          document.location="system/hapus_pegawai.php?id_pegawai="+id;
+          document.location="system/hapus_pegawai.php?NIP="+id;
     })
   }
   

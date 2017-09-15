@@ -1,9 +1,9 @@
 <?php
 include 'koneksi.php';
 
-if (isset($_POST['input'])) {
+if (isset($_POST['input'])) { 
     $id             = $_POST['id'];
-    $id_pegawai     = $_POST['id_pegawai'];
+    $NIP            = $_POST['NIP'];
     $foto           = $_FILES['foto']['name'];
     $tmp            = $_FILES['foto']['tmp_name'];
     $size           = $_FILES['foto']['size'];
@@ -22,7 +22,7 @@ if (isset($_POST['input'])) {
         if($foto == NULL){
             $query = "UPDATE pegawai SET nama_pegawai='$nama', 
                      jabatan_pegawai='$jabatan', no_hp_pegawai='$no_hp', 
-                     alamat_pegawai='$alamat' WHERE id_pegawai ='$id_pegawai'";
+                     alamat_pegawai='$alamat' WHERE NIP ='$NIP'";
             $result = mysqli_query($con, $query);
 
             if(!$result){
@@ -55,7 +55,7 @@ if (isset($_POST['input'])) {
                 header("location: ../profil.php?aksi=size"); 
                 }
                 else{
-                    $query_cek_gambar = "SELECT foto_pegawai FROM pegawai WHERE id_pegawai ='$id_pegawai'";
+                    $query_cek_gambar = "SELECT foto_pegawai FROM pegawai WHERE NIP ='$NIP'";
                     $result_cek_gambar = mysqli_query($con, $query_cek_gambar);
                         if(!$result_cek_gambar){
                         die ("Query Error: ".mysqli_errno($con).
@@ -67,7 +67,7 @@ if (isset($_POST['input'])) {
                         if(move_uploaded_file($tmp, $path)){ 
                             $query = "UPDATE pegawai SET nama_pegawai='$nama', foto_pegawai='$fotobaru'
                                     , jabatan_pegawai='$jabatan', no_hp_pegawai='$no_hp'
-                                    , alamat_pegawai='$alamat' WHERE id_pegawai ='$id_pegawai'";
+                                    , alamat_pegawai='$alamat' WHERE NIP ='$NIP'";
                             $result = mysqli_query($con, $query);
 
                             if(!$result){
