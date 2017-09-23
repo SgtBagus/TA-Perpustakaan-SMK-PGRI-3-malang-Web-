@@ -2,9 +2,9 @@
 include 'koneksi.php';
 if (isset($_POST['input'])) {
     $id                 = $_POST['id'];
-    $password           = $_POST['password_baru'];
-    $konfimasi_password = $_POST['konfirmasi_password_baru'];
-    $password_lama      = $_POST['password_lama'];
+    $password           = md5($_POST['password_baru']);
+    $konfimasi_password = md5($_POST['konfirmasi_password_baru']);
+    $password_lama      = md5($_POST['password_lama']);
 
         $cekdulu= "SELECT password FROM user WHERE id_user = '$id' AND password = '$password_lama'";
         $prosescek= mysqli_query($con, $cekdulu);

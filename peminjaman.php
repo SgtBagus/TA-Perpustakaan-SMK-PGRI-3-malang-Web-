@@ -25,12 +25,13 @@
                     <th>No</th>
                     <th></th>
                     <th colspan="2">Peminjam</th>
-                    <th>Banyak Buku</th>
+                    <th>Jumlah Buku</th>
                     <th>Tanggal Pinjaman</th>
                     <th></th>
                     <th>Tanggal Pengmbalian</th>
                     <th>Sisa Hari</th>
                     <th>Status</th>
+                    <th></th>
                     <th></th>
                   </tr>
                 </thead>
@@ -89,7 +90,11 @@
                     <div align="center">';
                     $diff = $date3->diff($date2)->format("%a");
                     if($data['status_pinjaman'] == "Menunggu"){
-                      echo '<span class="label label-danger label-pill m-w-60">Belum Tersedia</span>';
+                      if($date3 > $date2){
+                        echo '<span class="label label-danger label-pill m-w-60">Kadarluasa</span>';
+                      }else{
+                        echo '<span class="label label-warning label-pill m-w-60">Belum Tersedia</span>';
+                      }
                     }
                     else if ($data['status_pinjaman'] == "Ditolak"){
                       echo '<span class="label label-danger label-pill m-w-60">Di Tolak</span>';
@@ -117,11 +122,39 @@
                           echo '<span class="label label-outline-info">'.$data['status_pinjaman'].'</span>';
                       }
                       echo '</div>
+                      </td>
+                      <td>
+                        <div align="center">';
+                      if ($data['status_pinjaman'] == "Ditolak"){
+                        echo '<button onclick="hapus('.$data['id_peminjaman'].')" type="button" data-toggle="tooltip" data-placement="top" title="" data-original-title="Hapus Permintaan" class="btn btn-danger" name="input">
+                          <i class="zmdi zmdi-delete"></i>
+                        </button>';
+                      }else if ($data['status_pinjaman'] == "Menunggu"){
+                        if($date3 > $date2){
+                          echo '<button onclick="hapus('.$data['id_peminjaman'].')" type="button" data-toggle="tooltip" data-placement="top" title="" data-original-title="Hapus Permintaan" class="btn btn-danger" name="input">
+                            <i class="zmdi zmdi-delete"></i>
+                          </button>';
+                        }else{
+                        echo '<button onclick="terima('.$data['id_peminjaman'].')" type="button" class="btn btn-primary" name="input" data-toggle="tooltip" data-placement="top" title="" data-original-title="Terima">
+                          <i class="zmdi zmdi-check"></i>
+                        </button>
+                        <button onclick="tolak('.$data['id_peminjaman'].')" type="button" class="btn btn-danger" name="input" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tolak">
+                          <i class="zmdi zmdi-close"></i>
+                        </button>';
+                        }
+                      }else{
+                        echo '<div class="btn-group" role="group">
+                        <button onclick="kembali('.$data['id_peminjaman'].')" type="button" data-toggle="tooltip" data-placement="top" title="" data-original-title="Buku Kembali" class="btn btn-warning" name="input">
+                          <i class="zmdi zmdi-check-circle"></i>
+                        </button>
+                      </div>';
+                      }
+                      echo '</div>
                     </td>
                     <td>
                       <a href="detail_peminjaman.php?id_peminjaman='.$data['id_peminjaman'].'">
-                        <button type="button" class="btn btn-primary">
-                          <i class="zmdi zmdi-eye"></i> Detail
+                        <button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Detail Peminjaman">
+                          <i class="zmdi zmdi-eye"></i>
                         </button>
                       </a>
                     </td>
@@ -139,4 +172,50 @@
     </div>
   </body>
   <?php include('script/footer_script.php') ?>
+  
+  <script>
+
+      function terima(id) {
+        swal({
+          title: 'Konfirmasi?',
+          text : 'Anda yakin menerima peminjaman ini ?',
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Iya!'
+          }).then(function () {
+              document.location="system/peminjaman_terima.php?id="+id;
+        })
+      }
+
+      function tolak(id) {
+        swal({
+          title: 'Konfirmasi?',
+          text : 'Anda yakin menolak peminjaman ini ?',
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Iya!'
+          }).then(function () {
+              document.location="system/peminjaman_tolak.php?id="+id;
+        })
+      }
+
+      
+      function hapus(id) {
+        swal({
+          title: 'Konfirmasi?',
+          text : 'Anda yakin menolak peminjaman ini ?',
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Iya!'
+          }).then(function () {
+              document.location="system/peminjaman_hapus.php?id="+id;
+        })
+      }
+      </script>
 </html>

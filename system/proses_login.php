@@ -2,7 +2,7 @@
 session_start();
 include "koneksi.php";
 $email=$_POST['email'];
-$password=$_POST['password'];
+$password=md5($_POST['password']);
 
 $op=$_GET['op'];
 if($op=="in"){

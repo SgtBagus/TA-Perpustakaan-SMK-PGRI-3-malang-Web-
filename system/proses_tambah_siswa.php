@@ -29,7 +29,7 @@ if (isset($_POST['input'])) {
             " - ".mysqli_error($con));
     }
     else{ 
-      $query_user = "INSERT INTO user SET id_siswa_pegawai = '$nis', username='-', email='-', password='$random', verifikasi='Belum', role='User'";
+      $query_user = "INSERT INTO user SET id_siswa_pegawai = '$nis', username='-', email='-', password=md5('$random'), verifikasi='Belum', role='User'";
       $result_user = mysqli_query($con, $query_user);
       if(!$result_user){
           die ("Query gagal dijalankan: ".mysqli_errno($con).

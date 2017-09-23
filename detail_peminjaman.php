@@ -77,16 +77,27 @@
               if($status_pemesanan == "Menunggu"){
                 echo '<div class="p-info m-b-20">
                   <h4 class="m-y-0">Varifikasi</h4>
-                  <hr>
-                  <div align="center">
-                    <button onclick="terima('.$data['id_peminjaman'].')" type="button" class="btn btn-primary" name="input">
-                      <i class="zmdi zmdi-edit"></i> Disetujui
-                    </button>
-                    <button onclick="tolak('.$data['id_peminjaman'].')" type="button" class="btn btn-danger" name="input">
-                      <i class="zmdi zmdi-close"></i> Ditolak 
-                    </button>
-                  </div> 
-                </div>';
+                  <hr>';
+                  if($date3 > $date2){
+                    echo '
+                    <div align="center">
+                      <h4>Permintaan ini Sudah Kadarluasa</H4>
+                      <button onclick="hapus('.$data['id_peminjaman'].')" type="button" class="btn btn-danger" name="input">
+                        <i class="zmdi zmdi-delete"></i> Hapus
+                      </button>
+                    </div> ';
+                  }
+                  else{
+                    echo'<div align="center">
+                      <button onclick="terima('.$data['id_peminjaman'].')" type="button" class="btn btn-primary" name="input">
+                        <i class="zmdi zmdi-edit"></i> Disetujui
+                      </button>
+                      <button onclick="tolak('.$data['id_peminjaman'].')" type="button" class="btn btn-danger" name="input">
+                        <i class="zmdi zmdi-close"></i> Ditolak 
+                      </button>
+                    </div>';
+                  }
+                echo '</div>';
               }else if ($status_pemesanan == "Diterima") {
                 echo '<div class="p-info m-b-20">
                   <h4 class="m-y-0">Sisa Hari</h4>

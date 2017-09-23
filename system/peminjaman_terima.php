@@ -21,4 +21,4 @@ if (isset($_GET['id'])) {
 else{
       header("location:../404.php"); 
 }
-?>
+?> 
