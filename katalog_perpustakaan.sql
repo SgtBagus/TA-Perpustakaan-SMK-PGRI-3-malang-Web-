@@ -3,8 +3,8 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 04, 2017 at 03:09 PM
--- Server version: 10.1.16-MariaDB
+-- Generation Time: 18 Sep 2017 pada 02.53
+-- Versi Server: 10.1.16-MariaDB
 -- PHP Version: 7.0.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -23,7 +23,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `buku`
+-- Struktur dari tabel `buku`
 --
 
 CREATE TABLE `buku` (
@@ -48,18 +48,19 @@ CREATE TABLE `buku` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `buku`
+-- Dumping data untuk tabel `buku`
 --
 
 INSERT INTO `buku` (`id_buku`, `judul_buku`, `gambar_buku`, `jilid`, `cetakan`, `edisi`, `ISBN`, `jenis_media`, `bahasa`, `jenis_koleksi`, `id_jenis_buku`, `judul_singkat`, `sumber`, `kota_terbit`, `penerbit`, `tahun_terbit`, `biografi`, `tgl_entri_buku`) VALUES
-(1, 'Matematika Kelas XII SMKA/MA/SMK/MAK', '240820171515271.jpg', '03', '01', 'pertama', '978-602-282-103-80', 'Media', 'Indonesia', 'Biasa', 4, 'Matematika XII', 'Pembelian', 'Jakarta', 'Kementerian Pendidikan dan Kebudayaan', '2015-01-01', 'Buku ini merupakan buku guru yang dipersiapkan Pemerintahan dalam rangka implementasi Kurikulum 2013', '2017-08-23'),
-(2, 'Comik Seru Bergambar', 'tumblr_onw09nI5hw1u0xk60o1_500.png', '01', '15', 'kedua', '978-089-786-098-90', 'Media', 'Inggris', 'Referensi', 5, 'Comik', 'Hadiah', 'Japan', 'Konbawa', '2015-02-01', 'Buku ini imut', '2017-08-29'),
-(3, 'tes', 'thumbnail.png', 'tes', 'tes', 'tes', '123-414-124-124-14', 'Media Cetak', 'Indonesia', 'Biasa', 1, 'tes', 'Pembelian', 'tes', 'tes', '2017-08-15', 'tes`', '2017-08-30');
+(1, 'Matematika Kelas XII SMKA/MA/SMK/MAK', '240820171515271.jpg', '03', '01', 'pertama', '978-602-282-103-80', 'Media Cetak', 'Indonesia', 'Biasa', 4, 'Matematika XII', 'Pembelian', 'Jakarta', 'Kementerian Pendidikan dan Kebudayaan', '2015-01-01', 'Buku ini merupakan buku guru yang dipersiapkan Pemerintahan dalam rangka implementasi Kurikulum 2013', '2017-08-23'),
+(2, 'Comik Seru Bergambar', 'tumblr_onw09nI5hw1u0xk60o1_500.png', '01', '15', 'kedua', '978-089-786-098-90', 'Media Cetak', 'Inggris', 'Referensi', 5, 'Comik', 'Hadiah', 'Japan', 'Konbawa', '2015-02-01', 'Buku ini imut', '2017-08-29'),
+(3, 'tes', 'thumbnail.png', 'tes', 'tes', 'tes', '123-414-124-124-14', 'Media Cetak', 'Indonesia', 'Biasa', 1, 'tes', 'Pembelian', 'tes', 'tes', '2017-08-15', 'tes`', '2017-08-30'),
+(4, 'Pasific  War Battle of Midway', '11092017035830World_Of_Warship_473106.jpg', 'Pertama', 'Pertama', 'Kedua', '976-839-203-102-09', 'Media Cetak', 'Inggris', 'Koleksi', 5, 'Midway Battle', 'Tidak Diketahui', 'USA', 'History Geografi Chanel', '2008-02-15', 'Buku ini menjelaskan bagaimana kejadian pertempuran Midway itu terjadi pada tahun 1942', '2017-09-11');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `detail_buku`
+-- Struktur dari tabel `detail_buku`
 --
 
 CREATE TABLE `detail_buku` (
@@ -70,20 +71,23 @@ CREATE TABLE `detail_buku` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `detail_buku`
+-- Dumping data untuk tabel `detail_buku`
 --
 
 INSERT INTO `detail_buku` (`id_detail_buku`, `id_buku`, `kode_buku`, `status_buku`) VALUES
-(1, 1, '20170823001', 'Dipinjam'),
+(1, 1, '20170823001', 'Siap Terpinjam'),
 (2, 1, '20170823002', 'Dipesan'),
 (3, 2, '20170823003', 'Dipesan'),
-(4, 3, '20170830001', 'Siap Terpinjam'),
-(5, 3, '20170830002', 'Dipinjam');
+(5, 3, '20170830002', 'Dipinjam'),
+(6, 4, '20170911001', 'Siap Terpinjam'),
+(7, 4, '20170911002', 'Siap Terpinjam'),
+(8, 4, '20170911003', 'Siap Terpinjam'),
+(9, 4, '20170911004', 'Siap Terpinjam');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `detail_peminjaman`
+-- Struktur dari tabel `detail_peminjaman`
 --
 
 CREATE TABLE `detail_peminjaman` (
@@ -93,17 +97,19 @@ CREATE TABLE `detail_peminjaman` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `detail_peminjaman`
+-- Dumping data untuk tabel `detail_peminjaman`
 --
 
 INSERT INTO `detail_peminjaman` (`id_detail_peminjaman`, `id_peminjaman`, `id_detail_buku`) VALUES
 (1, 1, 2),
-(2, 1, 3);
+(7, 3, 5),
+(12, 4, 6),
+(13, 3, 7);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jenis_buku`
+-- Struktur dari tabel `jenis_buku`
 --
 
 CREATE TABLE `jenis_buku` (
@@ -114,7 +120,7 @@ CREATE TABLE `jenis_buku` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `jenis_buku`
+-- Dumping data untuk tabel `jenis_buku`
 --
 
 INSERT INTO `jenis_buku` (`id_jenis_buku`, `no_dewery`, `subyek`, `deskripsi_jenis_buku`) VALUES
@@ -126,24 +132,10 @@ INSERT INTO `jenis_buku` (`id_jenis_buku`, `no_dewery`, `subyek`, `deskripsi_jen
 -- --------------------------------------------------------
 
 --
--- Table structure for table `keterlambatan`
---
-
-CREATE TABLE `keterlambatan` (
-  `id_keterlambatan` int(11) NOT NULL,
-  `id_user` int(11) NOT NULL,
-  `id_detail_buku` int(12) NOT NULL,
-  `tgl_penuntasan` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `pegawai`
+-- Struktur dari tabel `pegawai`
 --
 
 CREATE TABLE `pegawai` (
-  `id_pegawai` int(11) NOT NULL,
   `NIP` varchar(225) NOT NULL,
   `nama_pegawai` varchar(225) NOT NULL,
   `foto_pegawai` text NOT NULL,
@@ -154,39 +146,44 @@ CREATE TABLE `pegawai` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `pegawai`
+-- Dumping data untuk tabel `pegawai`
 --
 
-INSERT INTO `pegawai` (`id_pegawai`, `NIP`, `nama_pegawai`, `foto_pegawai`, `jabatan_pegawai`, `no_hp_pegawai`, `alamat_pegawai`, `tgl_entri_pegawai`) VALUES
-(1, '17154/1595.063', 'Bagus Andika', '040920171458291219800149560579432soldier aiming.svg.hi.png', 'Pustakawan', '+086738423415', 'Perumahan Bumi Asti Tahap-II Blok J-15 Sengkaling', '2017-08-07'),
-(2, '67382/0939.230', 'I Just Robbe A BANK', 'thumbnail.jpg', 'Administrasi', '+082314353232', 'Disana', '2017-08-25');
+INSERT INTO `pegawai` (`NIP`, `nama_pegawai`, `foto_pegawai`, `jabatan_pegawai`, `no_hp_pegawai`, `alamat_pegawai`, `tgl_entri_pegawai`) VALUES
+('12309/2394.922', 'Rize', 'rize.jpg', 'Pustakawan', '+082018370120', '*Bukan dari dunia ini', '2017-09-14'),
+('17154/1595.063', 'Bagus Andika ', '060920170257021219800149560579432soldier aiming.svg.hi.png', 'Pustakawan', '+086738423415', 'Perumahan Bumi Asti Tahap-II Blok J-15 Sengkaling', '2017-08-07'),
+('67382/0939.230', 'I Just Robbe A BANK', 'thumbnail.jpg', 'Administrasi', '+082314353232', 'Disana', '2017-08-25');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `peminjaman`
+-- Struktur dari tabel `peminjaman`
 --
 
 CREATE TABLE `peminjaman` (
   `id_peminjaman` int(12) NOT NULL,
-  `no_peminjaman` varchar(225) NOT NULL,
   `id_user` int(12) NOT NULL,
-  `tanggal_peminjaman` date NOT NULL,
-  `tanggal_pengembalian` date NOT NULL,
-  `status_pinjaman` enum('Menunggu','Diterima') NOT NULL
+  `tgl_peminjaman` date NOT NULL,
+  `tgl_pengembalian` date NOT NULL,
+  `tgl_kembali` date NOT NULL,
+  `total_terlambat` int(15) NOT NULL,
+  `denda` int(11) NOT NULL,
+  `status_pinjaman` enum('Menunggu','Diterima','Ditolak','Kembali') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `peminjaman`
+-- Dumping data untuk tabel `peminjaman`
 --
 
-INSERT INTO `peminjaman` (`id_peminjaman`, `no_peminjaman`, `id_user`, `tanggal_peminjaman`, `tanggal_pengembalian`, `status_pinjaman`) VALUES
-(1, '20170831063001', 2, '2017-08-31', '2017-09-02', 'Menunggu');
+INSERT INTO `peminjaman` (`id_peminjaman`, `id_user`, `tgl_peminjaman`, `tgl_pengembalian`, `tgl_kembali`, `total_terlambat`, `denda`, `status_pinjaman`) VALUES
+(1, 2, '2017-08-31', '2017-09-14', '0000-00-00', 0, 0, 'Menunggu'),
+(3, 4, '2017-09-13', '2017-09-20', '2017-09-20', 7, 100, 'Diterima'),
+(4, 3, '2017-09-11', '2017-09-16', '2017-09-16', 0, 0, 'Ditolak');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `riwayat_kegiatan`
+-- Struktur dari tabel `riwayat_kegiatan`
 --
 
 CREATE TABLE `riwayat_kegiatan` (
@@ -199,7 +196,7 @@ CREATE TABLE `riwayat_kegiatan` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sanksi`
+-- Struktur dari tabel `sanksi`
 --
 
 CREATE TABLE `sanksi` (
@@ -213,11 +210,10 @@ CREATE TABLE `sanksi` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `siswa`
+-- Struktur dari tabel `siswa`
 --
 
 CREATE TABLE `siswa` (
-  `id_siswa` int(12) NOT NULL,
   `NIS` varchar(225) NOT NULL,
   `nama_siswa` varchar(225) NOT NULL,
   `foto_siswa` text NOT NULL,
@@ -228,22 +224,25 @@ CREATE TABLE `siswa` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `siswa`
+-- Dumping data untuk tabel `siswa`
 --
 
-INSERT INTO `siswa` (`id_siswa`, `NIS`, `nama_siswa`, `foto_siswa`, `kelas`, `no_hp_siswa`, `alamat_siswa`, `tgl_entri_siswa`) VALUES
-(1, '17172/1613.063', 'Kharisma Yunior Suryatama', 'thumbnail.jpg', 'XII - RPL - A', '+087859388413', 'Vinolia Gg.3 No.27a RT. 2 RW 5 Kelurahan JATIMULYO Kecamatan LOWOKWARU KOTA', '2017-08-10'),
-(2, '17672/1273.929', 'Tanpa Nama', 'thumbnail.jpg', 'X - RPL - D', '+082231241234', 'Disini', '2017-08-11');
+INSERT INTO `siswa` (`NIS`, `nama_siswa`, `foto_siswa`, `kelas`, `no_hp_siswa`, `alamat_siswa`, `tgl_entri_siswa`) VALUES
+('12391/2312.049', 'Siapa', 'thumbnail.jpg', 'XI - AV - D', '+081230918230', 'Dimana', '2017-09-14'),
+('17172/1613.063', 'Kharisma Yunior Suryatama', 'amazon.png', 'XII - RPL - A', '+087859388413', 'Vinolia Gg.3 No.27a RT. 2 RW 5 Kelurahan JATIMULYO Kecamatan LOWOKWARU KOTA', '2017-08-10'),
+('17563/3423.087', 'Cocoa Hotto', 'cocoa.jpg', 'X - TKJ - C', '+081231242342', '*Bukan dari dunia sini', '2017-09-14'),
+('17672/1273.929', 'Tanpa Nama', 'thumbnail.jpg', 'X - RPL - D', '+082231241234', 'Disini', '2017-08-11'),
+('52628/3180.923', 'Aria', 'hidan.jpg', 'XII - PB - C', '+080928019284', '*bukan dunia ini', '2017-09-14');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Struktur dari tabel `user`
 --
 
 CREATE TABLE `user` (
   `id_user` int(12) NOT NULL,
-  `NIP_NIS` varchar(225) NOT NULL,
+  `id_siswa_pegawai` varchar(225) NOT NULL,
   `username` varchar(225) NOT NULL,
   `email` varchar(225) NOT NULL,
   `password` varchar(225) NOT NULL,
@@ -252,14 +251,18 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `user`
+-- Dumping data untuk tabel `user`
 --
 
-INSERT INTO `user` (`id_user`, `NIP_NIS`, `username`, `email`, `password`, `verifikasi`, `role`) VALUES
-(1, '17154/1595.063', 'Admin', 'admin@gmail.com', 'admin', 'Sudah', 'Admin'),
+INSERT INTO `user` (`id_user`, `id_siswa_pegawai`, `username`, `email`, `password`, `verifikasi`, `role`) VALUES
+(1, '17154/1595.063', 'Bagus', 'admin@gmail.com', 'admin', 'Sudah', 'Admin'),
 (2, '17172/1613.063', 'Kharisma-564', 'kharisma@gmail.com', 'kharisma', 'Sudah', 'User'),
-(3, '17672/1273.929', '-', '-', '-', 'Belum', 'User'),
-(4, '67382/0939.230', '-', '-', '-', 'Belum', 'User');
+(3, '17672/1273.929', 'Tanpa Nama', 'tanpanama@gmail.com', 'tn', 'Sudah', 'User'),
+(4, '67382/0939.230', 'I just Robe Bank', 'roberbank@gmail.com', 'rober', 'Sudah', 'User'),
+(5, '12309/2394.922', 'Rize', 'rize23@gmail.com', 'rize', 'Sudah', 'User'),
+(6, '17563/3423.087', 'Cocoa', 'Cocoa45@gmail.com', 'cocoa', 'Sudah', 'User'),
+(7, '52628/3180.923', 'Aria', 'aria23@gmail.com', 'hidan', 'Sudah', 'User'),
+(8, '12391/2312.049', '-', '-', '585', 'Belum', 'User');
 
 --
 -- Indexes for dumped tables
@@ -294,18 +297,10 @@ ALTER TABLE `jenis_buku`
   ADD PRIMARY KEY (`id_jenis_buku`);
 
 --
--- Indexes for table `keterlambatan`
---
-ALTER TABLE `keterlambatan`
-  ADD PRIMARY KEY (`id_keterlambatan`),
-  ADD KEY `id_user` (`id_user`),
-  ADD KEY `id_buku` (`id_detail_buku`);
-
---
 -- Indexes for table `pegawai`
 --
 ALTER TABLE `pegawai`
-  ADD PRIMARY KEY (`id_pegawai`);
+  ADD PRIMARY KEY (`NIP`);
 
 --
 -- Indexes for table `peminjaman`
@@ -333,14 +328,13 @@ ALTER TABLE `sanksi`
 -- Indexes for table `siswa`
 --
 ALTER TABLE `siswa`
-  ADD PRIMARY KEY (`id_siswa`);
+  ADD PRIMARY KEY (`NIS`);
 
 --
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`id_user`),
-  ADD KEY `NIP_NIS` (`NIP_NIS`);
+  ADD PRIMARY KEY (`id_user`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -350,37 +344,27 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `buku`
 --
 ALTER TABLE `buku`
-  MODIFY `id_buku` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_buku` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `detail_buku`
 --
 ALTER TABLE `detail_buku`
-  MODIFY `id_detail_buku` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_detail_buku` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `detail_peminjaman`
 --
 ALTER TABLE `detail_peminjaman`
-  MODIFY `id_detail_peminjaman` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_detail_peminjaman` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `jenis_buku`
 --
 ALTER TABLE `jenis_buku`
   MODIFY `id_jenis_buku` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
--- AUTO_INCREMENT for table `keterlambatan`
---
-ALTER TABLE `keterlambatan`
-  MODIFY `id_keterlambatan` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `pegawai`
---
-ALTER TABLE `pegawai`
-  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
---
 -- AUTO_INCREMENT for table `peminjaman`
 --
 ALTER TABLE `peminjaman`
-  MODIFY `id_peminjaman` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_peminjaman` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `riwayat_kegiatan`
 --
@@ -392,52 +376,47 @@ ALTER TABLE `riwayat_kegiatan`
 ALTER TABLE `sanksi`
   MODIFY `id_sanksi` int(12) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `siswa`
---
-ALTER TABLE `siswa`
-  MODIFY `id_siswa` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
---
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_user` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
--- Constraints for dumped tables
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
 --
--- Constraints for table `buku`
+-- Ketidakleluasaan untuk tabel `buku`
 --
 ALTER TABLE `buku`
   ADD CONSTRAINT `buku_ibfk_1` FOREIGN KEY (`id_jenis_buku`) REFERENCES `jenis_buku` (`id_jenis_buku`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `detail_buku`
+-- Ketidakleluasaan untuk tabel `detail_buku`
 --
 ALTER TABLE `detail_buku`
   ADD CONSTRAINT `detail_buku_ibfk_1` FOREIGN KEY (`id_buku`) REFERENCES `buku` (`id_buku`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `detail_peminjaman`
+-- Ketidakleluasaan untuk tabel `detail_peminjaman`
 --
 ALTER TABLE `detail_peminjaman`
   ADD CONSTRAINT `detail_peminjaman_ibfk_1` FOREIGN KEY (`id_peminjaman`) REFERENCES `peminjaman` (`id_peminjaman`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `detail_peminjaman_ibfk_2` FOREIGN KEY (`id_detail_buku`) REFERENCES `detail_buku` (`id_detail_buku`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `peminjaman`
+-- Ketidakleluasaan untuk tabel `peminjaman`
 --
 ALTER TABLE `peminjaman`
   ADD CONSTRAINT `peminjaman_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `riwayat_kegiatan`
+-- Ketidakleluasaan untuk tabel `riwayat_kegiatan`
 --
 ALTER TABLE `riwayat_kegiatan`
   ADD CONSTRAINT `riwayat_kegiatan_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `sanksi`
+-- Ketidakleluasaan untuk tabel `sanksi`
 --
 ALTER TABLE `sanksi`
   ADD CONSTRAINT `sanksi_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
