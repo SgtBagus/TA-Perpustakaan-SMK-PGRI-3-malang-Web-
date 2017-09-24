@@ -20,11 +20,11 @@
         </a>
       </li>
       <li>
-        <a href="keterlambatan.php">
+        <a href="pengembalian.php">
           <span class="menu-icon">
-            <i class="zmdi zmdi-time"></i>
+            <i class="zmdi zmdi-assignment-returned"></i>
           </span>
-          <span class="menu-text">Keterlambatan</span>
+          <span class="menu-text">Pengembalian</span>
         </a>
       </li>
       <li>
