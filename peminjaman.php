@@ -12,7 +12,7 @@
             <h3 class="m-t-0 m-b-5">PEMINJAMAN</h3>
           </div>
           <div class="panel-body">
-            <div class="table-responsive">          
+            <div class="table-responsive">           
 <?php
   $query = "SELECT a.id_peminjaman, b.username, b.id_siswa_pegawai, a.tgl_peminjaman, 
             a.tgl_pengembalian, a.status_pinjaman FROM peminjaman 
@@ -95,7 +95,7 @@
                       }else{
                         echo '<span class="label label-warning label-pill m-w-60">Belum Tersedia</span>';
                       }
-                    }
+                    } 
                     else if ($data['status_pinjaman'] == "Ditolak"){
                       echo '<span class="label label-danger label-pill m-w-60">Di Tolak</span>';
                     }
@@ -142,17 +142,23 @@
                           <i class="zmdi zmdi-close"></i>
                         </button>';
                         }
-                      }else{
-                        echo '<div class="btn-group" role="group">
-                        <button onclick="kembali('.$data['id_peminjaman'].')" type="button" data-toggle="tooltip" data-placement="top" title="" data-original-title="Buku Kembali" class="btn btn-warning" name="input">
-                          <i class="zmdi zmdi-check-circle"></i>
+                        echo '<div class="btn-group" role="group">';
+                      }else if ($data['status_pinjaman'] == "Diterima"){
+                        echo '<button onclick="kembali('.$data['id_peminjaman'].')"  type="button" class="btn btn-primary" name="input" data-toggle="tooltip" data-placement="top" title="" data-original-title="Terima Pengembalian">
+                          <i class="zmdi zmdi-check"></i>
                         </button>
-                      </div>';
+                        <button onclick="sanksi('.$data['id_peminjaman'].')" type="button" class="btn btn-warning" name="input" data-toggle="tooltip" data-placement="top" title="" data-original-title="Masukan data Sanksi">
+                          <i class="zmdi zmdi-edit"></i>
+                        </button>';
+                      }else if ($data['status_pinjaman'] == "Kembali"){
+                        echo '<button onclick="hapus('.$data['id_peminjaman'].')" type="button" data-toggle="tooltip" data-placement="top" title="" data-original-title="Hapus Permintaan" class="btn btn-danger" name="input">
+                          <i class="zmdi zmdi-delete"></i>
+                        </button>';
                       }
                       echo '</div>
                     </td>
                     <td>
-                      <a href="detail_peminjaman.php?id_peminjaman='.$data['id_peminjaman'].'">
+                      <a href="system/detail_refresh.php?id='.$data['id_peminjaman'].'">
                         <button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Detail Peminjaman">
                           <i class="zmdi zmdi-eye"></i>
                         </button>
@@ -203,7 +209,34 @@
         })
       }
 
+      function sanksi(id) {
+        swal({
+          title: 'Konfirmasi?',
+          text : 'Anda yakin menjadikanya data sanksi ini ?',
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Iya!'
+          }).then(function () {
+              document.location="system/sanksi.php?id="+id;
+        })
+      }
       
+      function kembali(id) {
+        swal({
+          title: 'Konfirmasi?',
+          text : 'Anda yakin menerika pengembalian ini ?',
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Iya!'
+          }).then(function () {
+              document.location="system/pengembalian.php?id="+id;
+        })
+      }
+
       function hapus(id) {
         swal({
           title: 'Konfirmasi?',
