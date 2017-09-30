@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.7.4
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 18 Sep 2017 pada 02.53
--- Versi Server: 10.1.16-MariaDB
--- PHP Version: 7.0.9
+-- Generation Time: 30 Sep 2017 pada 12.36
+-- Versi Server: 10.1.26-MariaDB
+-- PHP Version: 7.1.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -78,11 +80,11 @@ INSERT INTO `detail_buku` (`id_detail_buku`, `id_buku`, `kode_buku`, `status_buk
 (1, 1, '20170823001', 'Siap Terpinjam'),
 (2, 1, '20170823002', 'Dipesan'),
 (3, 2, '20170823003', 'Dipesan'),
-(5, 3, '20170830002', 'Dipinjam'),
+(5, 3, '20170830002', 'Siap Terpinjam'),
 (6, 4, '20170911001', 'Siap Terpinjam'),
 (7, 4, '20170911002', 'Siap Terpinjam'),
 (8, 4, '20170911003', 'Siap Terpinjam'),
-(9, 4, '20170911004', 'Siap Terpinjam');
+(9, 4, '20170911004', 'Dipinjam');
 
 -- --------------------------------------------------------
 
@@ -101,10 +103,10 @@ CREATE TABLE `detail_peminjaman` (
 --
 
 INSERT INTO `detail_peminjaman` (`id_detail_peminjaman`, `id_peminjaman`, `id_detail_buku`) VALUES
-(1, 1, 2),
 (7, 3, 5),
 (12, 4, 6),
-(13, 3, 7);
+(13, 3, 7),
+(14, 5, 9);
 
 -- --------------------------------------------------------
 
@@ -176,9 +178,9 @@ CREATE TABLE `peminjaman` (
 --
 
 INSERT INTO `peminjaman` (`id_peminjaman`, `id_user`, `tgl_peminjaman`, `tgl_pengembalian`, `tgl_kembali`, `total_terlambat`, `denda`, `status_pinjaman`) VALUES
-(1, 2, '2017-08-31', '2017-09-14', '0000-00-00', 0, 0, 'Menunggu'),
-(3, 4, '2017-09-13', '2017-09-20', '2017-09-20', 7, 100, 'Diterima'),
-(4, 3, '2017-09-11', '2017-09-16', '2017-09-16', 0, 0, 'Ditolak');
+(3, 4, '2017-09-30', '2017-10-07', '2017-09-30', 0, 0, 'Kembali'),
+(4, 6, '2017-09-11', '2017-09-16', '0000-00-00', 0, 0, 'Ditolak'),
+(5, 7, '2017-09-25', '2017-10-03', '0000-00-00', 0, 0, 'Diterima');
 
 -- --------------------------------------------------------
 
@@ -255,14 +257,14 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `id_siswa_pegawai`, `username`, `email`, `password`, `verifikasi`, `role`) VALUES
-(1, '17154/1595.063', 'Bagus', 'admin@gmail.com', 'admin', 'Sudah', 'Admin'),
-(2, '17172/1613.063', 'Kharisma-564', 'kharisma@gmail.com', 'kharisma', 'Sudah', 'User'),
-(3, '17672/1273.929', 'Tanpa Nama', 'tanpanama@gmail.com', 'tn', 'Sudah', 'User'),
-(4, '67382/0939.230', 'I just Robe Bank', 'roberbank@gmail.com', 'rober', 'Sudah', 'User'),
-(5, '12309/2394.922', 'Rize', 'rize23@gmail.com', 'rize', 'Sudah', 'User'),
-(6, '17563/3423.087', 'Cocoa', 'Cocoa45@gmail.com', 'cocoa', 'Sudah', 'User'),
-(7, '52628/3180.923', 'Aria', 'aria23@gmail.com', 'hidan', 'Sudah', 'User'),
-(8, '12391/2312.049', '-', '-', '585', 'Belum', 'User');
+(1, '17154/1595.063', 'Bagus', 'admin@gmail.com', '21232f297a57a5a743894a0e4a801fc3', 'Sudah', 'Admin'),
+(2, '17172/1613.063', 'Kharisma-564', 'kharisma@gmail.com', '8d54d98edb4b4ebdb4a2cc0cffe6eb1f', 'Sudah', 'User'),
+(3, '17672/1273.929', 'Tanpa Nama', 'tanpanama@gmail.com', 'aafb96b2fa8806be307c4496867bad56', 'Sudah', 'User'),
+(4, '67382/0939.230', 'I just Robe Bank', 'roberbank@gmail.com', '525118da19b674308b971936e29baa30', 'Sudah', 'User'),
+(5, '12309/2394.922', 'Rize', 'rize23@gmail.com', '6ec4c790851c9054c8875ccc55c88c10', 'Sudah', 'User'),
+(6, '17563/3423.087', 'Cocoa', 'Cocoa45@gmail.com', '1ed76d35f95379c2c1b160c2154c5c42', 'Sudah', 'User'),
+(7, '52628/3180.923', 'Aria', 'aria23@gmail.com', 'ad090bae5286ffcebb5de90d543cea9a', 'Sudah', 'User'),
+(8, '12391/2312.049', '-', '-', 'a9a1d5317a33ae8cef33961c34144f84', 'Belum', 'User');
 
 --
 -- Indexes for dumped tables
@@ -345,41 +347,49 @@ ALTER TABLE `user`
 --
 ALTER TABLE `buku`
   MODIFY `id_buku` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT for table `detail_buku`
 --
 ALTER TABLE `detail_buku`
   MODIFY `id_detail_buku` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
 --
 -- AUTO_INCREMENT for table `detail_peminjaman`
 --
 ALTER TABLE `detail_peminjaman`
-  MODIFY `id_detail_peminjaman` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_detail_peminjaman` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
 --
 -- AUTO_INCREMENT for table `jenis_buku`
 --
 ALTER TABLE `jenis_buku`
   MODIFY `id_jenis_buku` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `peminjaman`
 --
 ALTER TABLE `peminjaman`
-  MODIFY `id_peminjaman` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_peminjaman` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `riwayat_kegiatan`
 --
 ALTER TABLE `riwayat_kegiatan`
   MODIFY `id_riwayat_kegiatan` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `sanksi`
 --
 ALTER TABLE `sanksi`
   MODIFY `id_sanksi` int(12) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
   MODIFY `id_user` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
@@ -420,6 +430,7 @@ ALTER TABLE `riwayat_kegiatan`
 --
 ALTER TABLE `sanksi`
   ADD CONSTRAINT `sanksi_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
