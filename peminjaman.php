@@ -23,16 +23,14 @@
                 <thead>
                   <tr>
                     <th>No</th>
-                    <th></th>
-                    <th colspan="2">Peminjam</th>
+                    <th colspan="3">Peminjam</th>
                     <th>Jumlah Buku</th>
                     <th>Tanggal Pinjaman</th>
                     <th></th>
                     <th>Tanggal Pengmbalian</th>
                     <th>Sisa Hari</th>
                     <th>Status</th>
-                    <th></th>
-                    <th></th>
+                    <th colspan="2">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -99,15 +97,18 @@
                     else if ($data['status_pinjaman'] == "Ditolak"){
                       echo '<span class="label label-danger label-pill m-w-60">Di Tolak</span>';
                     }
+                    else if ($data['status_pinjaman'] == "Kembali"){
+                      echo '<span class="label label-primary label-pill m-w-60">Kembali</span>';
+                    }
                     else{ 
                       if($date3 > $date2){
-                        echo '<span class="label label-danger label-pill m-w-60">Pengembalian Terlambat</span>';
+                        echo '<span class="label label-danger label-pill m-w-60">Terlambat</span>';
                       }
                       else if ($date3 == $date2){
-                        echo '<span class="label label-warning label-pill m-w-60">Pengembalian Hari Ini</span>';
+                        echo '<span class="label label-warning label-pill m-w-60">Hari Ini</span>';
                       }
                       else{
-                        echo '<span class="label label-primary label-pill m-w-60"><b>'.$diff.'</b> - Hari lagi</span>';
+                        echo '<b>4</b> - Hari Lagi';
                       }
                     }
                         echo'<div>

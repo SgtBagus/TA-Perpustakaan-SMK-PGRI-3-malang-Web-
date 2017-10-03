@@ -122,8 +122,8 @@
                         <table class="table">
                           <thead>
                             <tr>
-                              <th>Total hari</th>
-                              <th>Denda</th>
+                              <th>Total hari Terlambat</th>
+                              <th>Denda Terlambat</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -146,7 +146,7 @@
                           <i class="zmdi zmdi-check"></i> Terima Pengembalian
                       </button>
                       <button onclick="sanksi('.$data['id_peminjaman'].')" type="button" class="btn btn-warning" name="input">
-                        <i class="zmdi zmdi-edit"></i> Data Sanksi
+                        <i class="zmdi zmdi-edit"></i> Sanksi
                       </button>';
                     }
                     else if ($date3 == $date2){
@@ -204,7 +204,36 @@
                         aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:100%">
                       </div>
                     </div>
-                    <span class="label label-outline-primary m-w-60"><h4>PEMINJAMAN KEMBALI</h4></span><br><br>
+                    <span class="label label-outline-primary m-w-60"><h4>PEMINJAMAN KEMBALI</h4></span><br><br>';
+
+                    if($data['denda'] == "0"){
+                    }else{
+                      echo '<div class="table-responsive">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th>Total hari Terlambat</th>
+                            <th>Denda Terlambat</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>
+                              <div align="center">
+                                <h5>'.$data['total_terlambat'].'</h5>
+                              </div>
+                            </td>
+                            <td>
+                              <div align="center">
+                                <h5>Rp. <b>'.$data['denda'].'</b>,00,-</h5>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>';
+                    }
+                    echo '<br>
                     <a href="pengembalian.php">
                       <button type="button" class="btn btn-primary" name="input">
                         <i class="zmdi zmdi-assignment-returned"></i> Check Pengembalian 

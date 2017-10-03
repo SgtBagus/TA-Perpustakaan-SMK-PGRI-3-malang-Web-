@@ -145,7 +145,7 @@
           if($aksi == "hapus"){
               echo 'swal({
                 title: "Terhapus!",
-                text: "Pegawai Telah Dihapus.",
+                text: "Siswa Telah Dihapus.",
                 type: "success",
                 showConfirmButton: true,
               })';
@@ -153,7 +153,7 @@
           else if($aksi == "tambah"){
               echo 'swal({
                 title: "Tertambah!",
-                text: "Pegawai Telah Ditambah.",
+                text: "Siswa Telah Ditambah.",
                 type: "success",
                 showConfirmButton: true,
               })';
