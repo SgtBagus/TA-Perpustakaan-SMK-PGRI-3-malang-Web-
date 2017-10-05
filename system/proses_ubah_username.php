@@ -5,7 +5,7 @@ if (isset($_POST['input'])) {
     $username           = $_POST['username'];
     $konfirmasi      = $_POST['konfirmasi'];
 
-        $cekdulu= "SELECT password FROM user WHERE id_user = '$id' AND password = '$konfirmasi'";
+        $cekdulu= "SELECT password FROM user WHERE id_user = '$id' AND password = md5('$konfirmasi')";
         $prosescek= mysqli_query($con, $cekdulu);
 
     if(mysqli_num_rows($prosescek)>0){

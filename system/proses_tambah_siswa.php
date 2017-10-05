@@ -36,7 +36,18 @@ if (isset($_POST['input'])) {
               " - ".mysqli_error($con));
       }
       else{
-        header("location:../siswa.php?aksi=tambah");
+          include('session.php');
+          $query_riwayat = "INSERT INTO riwayat_kegiatan SET id_user = '$_SESSION[id_user]', 
+                          riwayat_kegiatan = 'Melakukan Penambahan Data Siswa Bernama $nama Sebagai pengguna baru ', 
+                          tgl_riwayat_kegiatan='$entri', status_riwayat='primary'";
+          $result_riwayat = mysqli_query($con, $query_riwayat);
+          if(!$result_riwayat){
+              die ("Query gagal dijalankan: ".mysqli_errno($con).
+                  " - ".mysqli_error($con));
+          }
+          else{
+            header("location:../siswa.php?aksi=tambah");
+          }
       }
     }
   }

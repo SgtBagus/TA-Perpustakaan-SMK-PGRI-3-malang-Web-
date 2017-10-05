@@ -47,7 +47,7 @@
                     <th>No</th> 
                     <th>Dewery</th>
                     <th>Subyek</th>
-                    <th>Dekripsi</th>
+                    <th width="40%">Dekripsi</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -70,16 +70,14 @@
                       '.$data_jenis_buku['deskripsi_jenis_buku'].'
                     </td>
                     <td align="right">
-                      <div class="btn-group">
-                        <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Aksi
-                          <span class="caret"></span>
+                      <a href="ubah_jenis_buku.php?no_dewery='.$data_jenis_buku['no_dewery'].'">
+                        <button type="button" class="btn btn-primary">
+                          <i class="zmdi zmdi-edit"></i> Ubah
                         </button>
-                        <ul class="dropdown-menu dropdown-menu-right">
-                          <li><a href="ubah_jenis_buku.php?no_dewery='.$data_jenis_buku['no_dewery'].'">Edit</a></li>
-                          <li><a href="#" onclick="hapus('.$data_jenis_buku['id_jenis_buku'].')">Hapus</a></li>
-                        </ul>
-                      </div>
+                      </a>
+                      <button onclick="hapus('.$data_jenis_buku['id_jenis_buku'].')" type="button" class="btn btn-danger">
+                        <i class="zmdi zmdi-delete"></i> Hapus
+                      </button>   
                     </td>
                   </tr>';
                   $no_jenis_buku++;

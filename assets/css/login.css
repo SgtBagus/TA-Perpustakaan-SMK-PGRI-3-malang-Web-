@@ -1,11 +1,12 @@
-.bg{
-  background: url(../../img/background/library.jpg) no-repeat fixed;
-  -webkit-background-size: 100% 100%;
-  -moz-background-size: 100% 100%;
-  -o-background-size: 100% 100%;
-  background-size: 100% 100%;
+.bg {
+    background: url(../../img/background/background.jpg) no-repeat fixed;
+    -webkit-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    -o-background-size: 100% 100%;
+    background-size: 100% 100%;
 }
 
-.form-login{
-  background-color:rgba(255, 255, 255, 0.69);
-}
+
+/* .form-login {
+    background-color: rgba(255, 255, 255, 0.69);
+} */

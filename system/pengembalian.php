@@ -3,6 +3,7 @@ include 'koneksi.php';
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
 
+    $date = date("Ymd");
     $status_peminjaman = "SELECT status_pinjaman, tgl_peminjaman, tgl_peminjaman, tgl_pengembalian FROM peminjaman WHERE id_peminjaman = '$id'";
     $result_status = mysqli_query($con, $status_peminjaman);
         $data      = mysqli_fetch_assoc($result_status);
@@ -18,8 +19,15 @@ if (isset($_GET['id'])) {
         $denda = $date2->diff($date1)->format("%a");
 
         if($date3 > $date2){
+
+
+            $query_banyak = "SELECT id_detail_peminjaman
+            FROM detail_peminjaman WHERE id_peminjaman LIKE '$id'";
+                $result_banyak = mysqli_query($con, $query_banyak);
+                $banyakdata_banyak = $result_banyak->num_rows;
+
             $terlambat = $date3->diff($date2)->format("%a");
-            $denda = $terlambat * 100;
+            $denda = $terlambat * 100 * $banyakdata_banyak;
             $query = "UPDATE peminjaman SET total_terlambat='$terlambat', denda='$denda' WHERE id_peminjaman = '$id'";
             $result = mysqli_query($con, $query);
             if(!$result){
@@ -42,7 +50,20 @@ if (isset($_GET['id'])) {
                                     $query_status_berubah = "UPDATE detail_buku SET status_buku = 'Siap Terpinjam' WHERE id_detail_buku = '$data_detail_buku[id_detail_buku]'";
                                     $result_status_berubah = mysqli_query($con, $query_status_berubah); 
                                 };
-                                header("location:../detail_peminjaman.php?id_peminjaman=$id&aksi=kembali"); 
+
+        include('session.php');
+        $query_riwayat = "INSERT INTO riwayat_kegiatan SET id_user = '$_SESSION[id_user]', 
+                        riwayat_kegiatan = 'Melakukan Penerimaan Pengembalian', 
+                        tgl_riwayat_kegiatan='$date', status_riwayat='primary'";
+        $result_riwayat = mysqli_query($con, $query_riwayat);
+        if(!$result_riwayat){
+            die ("Query gagal dijalankan: ".mysqli_errno($con).
+                " - ".mysqli_error($con));
+        }
+        else{
+            header("location:../detail_peminjaman.php?id_peminjaman=$id&aksi=kembali"); 
+        } 
+        
                             }
 
             }
@@ -63,7 +84,19 @@ if (isset($_GET['id'])) {
                     $query_status_berubah = "UPDATE detail_buku SET status_buku = 'Siap Terpinjam' WHERE id_detail_buku = '$data_detail_buku[id_detail_buku]'";
                     $result_status_berubah = mysqli_query($con, $query_status_berubah); 
                 };
-                header("location:../detail_peminjaman.php?id_peminjaman=$id&aksi=kembali"); 
+                
+                        include('session.php');
+                        $query_riwayat = "INSERT INTO riwayat_kegiatan SET id_user = '$_SESSION[id_user]', 
+                                        riwayat_kegiatan = 'Melakukan Penerimaan Pengembalian', 
+                                        tgl_riwayat_kegiatan='$date', status_riwayat='primary'";
+                        $result_riwayat = mysqli_query($con, $query_riwayat);
+                        if(!$result_riwayat){
+                            die ("Query gagal dijalankan: ".mysqli_errno($con).
+                                " - ".mysqli_error($con));
+                        }
+                        else{
+                            header("location:../detail_peminjaman.php?id_peminjaman=$id&aksi=kembali"); 
+                        } 
             }
         }
 }

@@ -75,7 +75,7 @@
                   echo $banyakdata_banyak.'
                   </div></b>
                   </td>
-                  <td>
+                  <td> 
                     <a href="detail_buku.php?ISBN='.$data_buku['ISBN'].'">
                       <button type="button" class="btn btn-primary">
                         <i class="zmdi zmdi-eye"></i> Detail

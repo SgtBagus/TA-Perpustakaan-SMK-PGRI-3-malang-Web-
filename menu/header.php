@@ -43,7 +43,7 @@
   <nav class="navbar navbar-default">
     <div class="navbar-header" align="center">
       <a class="navbar-brand" href="index.php">
-        <img src="img/logo.png" alt="" height="25">
+        <img src="img/icon.png" alt="" height="25">
         <span>Katalog Perpustakaan</span>
       </a>
       <button class="navbar-toggler left-sidebar-toggle pull-left visible-xs" type="button">
@@ -79,50 +79,6 @@
               <li><a href="system/logout.php">Logout</a></li>
             </ul>
           </li>
-          <li class="nav-table dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-              <span class="nav-cell nav-icon">
-                <i class="zmdi zmdi-notifications-none"></i>
-              </span>
-              <span class="hidden-md-up m-l-15">Notifications</span>
-              <span class="label label-success">3</span>
-            </a>
-            <div class="dropdown-menu custom-dropdown dropdown-notifications dropdown-menu-right">
-              <div class="dropdown-header">
-                <span>Notifications</span>
-                <a href="#" class="text-primary">Mark all as read</a>
-              </div>
-              <div class="n-items">
-                <div class="custom-scrollbar">
-                  <div class="n-item">
-                    <div class="ni-img">
-                      <img class="img-circle" src="img/avatars/1.png" alt="" width="40" height="40">
-                    </div>
-                    <div class="ni-text"><a href="#">John Doe</a> is now following <a href="#">Kate Morris</a>.</div>
-                    <div class="ni-time">10 min</div>
-                  </div>
-                  <div class="n-item">
-                    <div class="ni-img">
-                      <img class="img-circle" src="img/avatars/2.png" alt="" width="40" height="40">
-                    </div>
-                    <div class="ni-text"><a href="#">Alexander Olsen</a> liked post <a href="#">Getting Started with SASS</a>.</div>
-                    <div class="ni-time">40 min</div>
-                  </div>
-                  <div class="n-item">
-                    <div class="ni-img">
-                      <img class="img-circle" src="img/avatars/3.jpg" alt="" width="40" height="40">
-                    </div>
-                    <div class="ni-text"><a href="#">Linda Davis</a> commented post <a href="#">How to use Bower</a>.</div>
-                    <div class="ni-time">3 hours</div>
-                  </div>
-                </div>
-              </div>
-              <div class="dropdown-footer">
-                <a href="#">View all notifications</a>
-              </div>
-            </div>
-          </li>
-
           <li class="nav-table dropdown hidden-sm-down">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
               <span class="nav-cell p-r-10">

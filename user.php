@@ -29,7 +29,7 @@
             <br>
           <div class="table-responsive">
 <?php
-  $query = "SELECT * FROM user ORDER BY Username ASC" ;
+  $query = "SELECT * FROM user" ;
   $result = mysqli_query($con, $query);
 ?>
             <table class="table" id="myTable">

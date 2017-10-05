@@ -11,7 +11,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.html">
     <link rel="manifest" href="manifest.html">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700" rel="stylesheet">
-    <link rel="icon" type="image/png" href="img/logo.png">
+    <link rel="icon" type="image/png" href="img/icon.png">
     <link rel="stylesheet" href="assets/css/vendor.min.css"> 
     <link rel="stylesheet" href="assets/css/cosmos.min.css">
     <link rel="stylesheet" href="assets/css/application.min.css">

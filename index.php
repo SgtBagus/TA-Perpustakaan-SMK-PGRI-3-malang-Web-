@@ -8,7 +8,9 @@
       <?php include('menu/sidebar.php') ?>
 
       <div class="site-content">
-        Isi nya
+        <?php
+          echo $_SESSION['id_user'] ;       
+        ?>
       </div>
 
       <?php include('menu/footer.php') ?>

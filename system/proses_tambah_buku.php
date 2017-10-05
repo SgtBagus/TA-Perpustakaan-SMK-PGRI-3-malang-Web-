@@ -104,14 +104,26 @@ if (isset($_POST['input'])) {
                                     
                             $query_detail = "INSERT INTO detail_buku SET id_buku = '$id_buku_plus', kode_buku = '$no_kode', status_buku = 'Siap Terpinjam'";
                             $result_detail = mysqli_query($con, $query_detail);
-                            
-            if(!$result_detail){
-            die ("Query gagal dijalankan: ".mysqli_errno($con).
-                        " - ".mysqli_error($con)); 
-            }
+                                            
+                            if(!$result_detail){
+                            die ("Query gagal dijalankan: ".mysqli_errno($con).
+                                        " - ".mysqli_error($con)); 
+                            }
                             $x++;
                     }
-                    header("location: ../buku.php?aksi=tambah"); 
+                        include('session.php');
+                        $banyak_buku = $x - 1;
+                        $query_riwayat = "INSERT INTO riwayat_kegiatan SET id_user = '$_SESSION[id_user]', 
+                                        riwayat_kegiatan = 'Melakukan Penambahan Data Buku Berjudul $judul sebanyak $banyak_buku banyak buku', 
+                                        tgl_riwayat_kegiatan='$date', status_riwayat='primary'";
+                        $result_riwayat = mysqli_query($con, $query_riwayat);
+                        if(!$result_riwayat){
+                            die ("Query gagal dijalankan: ".mysqli_errno($con).
+                                " - ".mysqli_error($con));
+                        }
+                        else{
+                            header("location: ../buku.php?aksi=tambah"); 
+                        }
                 }
             }else{
                 header("location: ../tambah_buku.php?aksi=error"); 
@@ -199,7 +211,19 @@ if (isset($_POST['input'])) {
                             }
                                             $x++;
                                     }
-                                    header("location: ../buku.php?aksi=tambah"); 
+                                    include('session.php');
+                                    $banyak_buku = $x - 1;
+                                    $query_riwayat = "INSERT INTO riwayat_kegiatan SET id_user = '$_SESSION[id_user]', 
+                                                    riwayat_kegiatan = 'Melakukan Penambahan Data Buku Berjudul $judul sebanyak $banyak_buku banyak buku', 
+                                                    tgl_riwayat_kegiatan='$date', status_riwayat='primary'";
+                                    $result_riwayat = mysqli_query($con, $query_riwayat);
+                                    if(!$result_riwayat){
+                                        die ("Query gagal dijalankan: ".mysqli_errno($con).
+                                            " - ".mysqli_error($con));
+                                    }
+                                    else{
+                                        header("location: ../buku.php?aksi=tambah"); 
+                                    }
                                 }
                             }else{
                                 header("location: ../tambah_buku.php?aksi=error"); 

@@ -15,7 +15,7 @@
             <div class="table-responsive">           
 <?php
   $query = "SELECT a.id_peminjaman, b.username, b.id_siswa_pegawai, a.tgl_peminjaman, 
-            a.tgl_pengembalian, a.status_pinjaman FROM peminjaman 
+            a.tgl_pengembalian, a.tgl_kembali, a.status_pinjaman FROM peminjaman 
             AS a INNER JOIN user AS b WHERE a.id_user = b.id_user";
   $result = mysqli_query($con, $query);
 ?>
@@ -158,13 +158,23 @@
                       }
                       echo '</div>
                     </td>
-                    <td>
-                      <a href="system/detail_refresh.php?id='.$data['id_peminjaman'].'">
+                    <td>';
+                      if($data['tgl_kembali'] == '0000-00-00'){
+                        echo '<a href="system/detail_refresh.php?id='.$data['id_peminjaman'].'">
                         <button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Detail Peminjaman">
                           <i class="zmdi zmdi-eye"></i>
                         </button>
-                      </a>
-                    </td>
+                      </a>';
+                      }
+                      else{
+                        echo '<a href="detail_peminjaman.php?id_peminjaman='.$data['id_peminjaman'].'">
+                        <button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Detail Peminjaman">
+                          <i class="zmdi zmdi-eye"></i>
+                        </button>
+                      </a>';
+                      }
+                      
+                    echo'</td>
                   </tr>';
                   $no++;
   }

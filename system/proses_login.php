@@ -10,6 +10,7 @@ if($op=="in"){
 					   AND password = '$password' AND role = 'admin'");
 	if(mysqli_num_rows($sql)==1){
 		$qry = mysqli_fetch_array($sql);
+		$_SESSION['id_user'] = $qry['id_user'];
 		$_SESSION['email'] = $qry['email'];
 			header("location:../index.php");
 	}

@@ -21,8 +21,14 @@ if (isset($_GET['id'])) {
     }
     else if($status == "Diterima"){
         if($date3 > $date2){
+
+            $query_banyak = "SELECT id_detail_peminjaman
+            FROM detail_peminjaman WHERE id_peminjaman LIKE '$id'";
+                $result_banyak = mysqli_query($con, $query_banyak);
+                $banyakdata_banyak = $result_banyak->num_rows;
+
             $terlambat = $date3->diff($date2)->format("%a");
-            $denda = $terlambat * 100;
+            $denda = $terlambat * 100 * $banyakdata_banyak;
             $query = "UPDATE peminjaman SET total_terlambat='$terlambat', denda='$denda' WHERE id_peminjaman = '$id'";
             $result = mysqli_query($con, $query);
             if(!$result){

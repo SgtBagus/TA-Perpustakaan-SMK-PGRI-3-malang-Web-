@@ -15,7 +15,7 @@ if (isset($_POST['input'])) {
     $alamat         = $_POST['alamat'];
     $password       = $_POST['konfirmasi'];
 
-        $cekdulu= "SELECT password FROM user WHERE id_user = '$id' AND password = '$password'";
+        $cekdulu= "SELECT password FROM user WHERE id_user = '$id' AND password = md5('$password')";
         $prosescek= mysqli_query($con, $cekdulu);
 
     if(mysqli_num_rows($prosescek)>0){
@@ -67,7 +67,7 @@ if (isset($_POST['input'])) {
                         if(move_uploaded_file($tmp, $path)){ 
                             $query = "UPDATE pegawai SET nama_pegawai='$nama', foto_pegawai='$fotobaru'
                                     , jabatan_pegawai='$jabatan', no_hp_pegawai='$no_hp'
-                                    , alamat_pegawai='$alamat' WHERE NIP ='$NIP'";
+                                    , alamat_pegawai='$alamat'  WHERE NIP ='$NIP'";
                             $result = mysqli_query($con, $query);
 
                             if(!$result){
@@ -93,7 +93,7 @@ if (isset($_POST['input'])) {
                             if(move_uploaded_file($tmp, $path)){ 
                             $query = "UPDATE pegawai SET nama_pegawai='$nama', foto_pegawai='$fotobaru'
                                     , jabatan_pegawai='$jabatan', no_hp_pegawai='$no_hp'
-                                    , alamat_pegawai='$alamat' WHERE id_pegawai ='$id_pegawai'";
+                                    , alamat_pegawai='$alamat' WHERE NIP ='$NIP'";
                             $result = mysqli_query($con, $query);
 
                             if(!$result){
