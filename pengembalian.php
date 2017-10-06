@@ -87,18 +87,16 @@ while($data = mysqli_fetch_assoc($result)){
                     <div align="center">
                       <b>'.$data['denda'].'</b>
                     </div>
-                  </td>
+                  </td> 
                   <td>
                     <a href="detail_peminjaman.php?id_peminjaman='.$data['id_peminjaman'].'">
                       <button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Detail Peminjaman">
                         <i class="zmdi zmdi-eye"></i>
                       </button>
                     </a>
-                    <a href="sanksi.php">
-                      <button type="button" class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="" data-original-title="Kirim ke Data Sanksi">
-                        <i class="zmdi zmdi-edit"></i>
-                      </button>
-                    </a>
+                    <button onclick="sanksi('.$data['id_peminjaman'].')" type="button" class="btn btn-warning" name="input" data-toggle="tooltip" data-placement="top" title="" data-original-title="Masukan data Sanksi">
+                      <i class="zmdi zmdi-edit"></i>
+                    </button>
                   </td>
                 </tr>';
                 $no++;
@@ -114,4 +112,20 @@ while($data = mysqli_fetch_assoc($result)){
     </div>
   </body>
   <?php include('script/footer_script.php') ?>
+  <script>
+
+      function sanksi(id) {
+        swal({
+          title: 'Konfirmasi?',
+          text : 'Anda yakin menjadikanya data sanksi ini ?',
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Iya!'
+          }).then(function () {
+              document.location="system/sanksi.php?id="+id;
+        })
+      }
+  </script>
 </html>

@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
--- https://www.phpmyadmin.net/
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 30 Sep 2017 pada 12.36
--- Versi Server: 10.1.26-MariaDB
--- PHP Version: 7.1.9
+-- Generation Time: 06 Okt 2017 pada 07.01
+-- Versi Server: 10.1.16-MariaDB
+-- PHP Version: 7.0.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -57,7 +55,8 @@ INSERT INTO `buku` (`id_buku`, `judul_buku`, `gambar_buku`, `jilid`, `cetakan`, 
 (1, 'Matematika Kelas XII SMKA/MA/SMK/MAK', '240820171515271.jpg', '03', '01', 'pertama', '978-602-282-103-80', 'Media Cetak', 'Indonesia', 'Biasa', 4, 'Matematika XII', 'Pembelian', 'Jakarta', 'Kementerian Pendidikan dan Kebudayaan', '2015-01-01', 'Buku ini merupakan buku guru yang dipersiapkan Pemerintahan dalam rangka implementasi Kurikulum 2013', '2017-08-23'),
 (2, 'Comik Seru Bergambar', 'tumblr_onw09nI5hw1u0xk60o1_500.png', '01', '15', 'kedua', '978-089-786-098-90', 'Media Cetak', 'Inggris', 'Referensi', 5, 'Comik', 'Hadiah', 'Japan', 'Konbawa', '2015-02-01', 'Buku ini imut', '2017-08-29'),
 (3, 'tes', 'thumbnail.png', 'tes', 'tes', 'tes', '123-414-124-124-14', 'Media Cetak', 'Indonesia', 'Biasa', 1, 'tes', 'Pembelian', 'tes', 'tes', '2017-08-15', 'tes`', '2017-08-30'),
-(4, 'Pasific  War Battle of Midway', '11092017035830World_Of_Warship_473106.jpg', 'Pertama', 'Pertama', 'Kedua', '976-839-203-102-09', 'Media Cetak', 'Inggris', 'Koleksi', 5, 'Midway Battle', 'Tidak Diketahui', 'USA', 'History Geografi Chanel', '2008-02-15', 'Buku ini menjelaskan bagaimana kejadian pertempuran Midway itu terjadi pada tahun 1942', '2017-09-11');
+(4, 'Pasific  War Battle of Midway', '11092017035830World_Of_Warship_473106.jpg', 'Pertama', 'Pertama', 'Kedua', '976-839-203-102-09', 'Media Cetak', 'Inggris', 'Koleksi', 5, 'Midway Battle', 'Tidak Diketahui', 'USA', 'History Geografi Chanel', '2008-02-15', 'Buku ini menjelaskan bagaimana kejadian pertempuran Midway itu terjadi pada tahun 1942', '2017-09-11'),
+(5, '6th Destroyer Division History', '0510201702172939407706.png', 'Pertama ', 'Kedua', '01', '676-859-394-201-21', 'Media Cetak', 'Inggris', 'Biasa', 5, '6th Div DD', 'Hadiah', 'Japan', 'Kadokawa', '2017-10-05', 'Sejarah dari divisi penghancur ke 6 milik IJN dengan animasi animasi yang menarik', '2017-10-05');
 
 -- --------------------------------------------------------
 
@@ -78,13 +77,18 @@ CREATE TABLE `detail_buku` (
 
 INSERT INTO `detail_buku` (`id_detail_buku`, `id_buku`, `kode_buku`, `status_buku`) VALUES
 (1, 1, '20170823001', 'Siap Terpinjam'),
-(2, 1, '20170823002', 'Dipesan'),
+(2, 1, '20170823002', 'Siap Terpinjam'),
 (3, 2, '20170823003', 'Dipesan'),
 (5, 3, '20170830002', 'Siap Terpinjam'),
 (6, 4, '20170911001', 'Siap Terpinjam'),
 (7, 4, '20170911002', 'Siap Terpinjam'),
 (8, 4, '20170911003', 'Siap Terpinjam'),
-(9, 4, '20170911004', 'Dipinjam');
+(9, 4, '20170911004', 'Dipinjam'),
+(10, 5, '20171005001', 'Siap Terpinjam'),
+(11, 5, '20171005002', 'Siap Terpinjam'),
+(12, 5, '20171005003', 'Dipinjam'),
+(13, 5, '20171005004', 'Siap Terpinjam'),
+(14, 5, '20171005005', 'Siap Terpinjam');
 
 -- --------------------------------------------------------
 
@@ -104,9 +108,9 @@ CREATE TABLE `detail_peminjaman` (
 
 INSERT INTO `detail_peminjaman` (`id_detail_peminjaman`, `id_peminjaman`, `id_detail_buku`) VALUES
 (7, 3, 5),
-(12, 4, 6),
 (13, 3, 7),
-(14, 5, 9);
+(14, 5, 9),
+(15, 6, 12);
 
 -- --------------------------------------------------------
 
@@ -152,9 +156,9 @@ CREATE TABLE `pegawai` (
 --
 
 INSERT INTO `pegawai` (`NIP`, `nama_pegawai`, `foto_pegawai`, `jabatan_pegawai`, `no_hp_pegawai`, `alamat_pegawai`, `tgl_entri_pegawai`) VALUES
-('12309/2394.922', 'Rize', 'rize.jpg', 'Pustakawan', '+082018370120', '*Bukan dari dunia ini', '2017-09-14'),
-('17154/1595.063', 'Bagus Andika ', '060920170257021219800149560579432soldier aiming.svg.hi.png', 'Pustakawan', '+086738423415', 'Perumahan Bumi Asti Tahap-II Blok J-15 Sengkaling', '2017-08-07'),
-('67382/0939.230', 'I Just Robbe A BANK', 'thumbnail.jpg', 'Administrasi', '+082314353232', 'Disana', '2017-08-25');
+('12309/2394.922', 'Rize', '3.jpg', 'Pustakawan', '+082018370120', '*Bukan dari dunia ini', '2017-09-14'),
+('17154/1595.063', 'Bagus Andika ', '0510201705020910549749_1386017861654352_297314416_n.jpg', 'Pustakawan', '+086738423415', 'Perumahan Bumi Asti Tahap-II Blok J-15 Sengkaling', '2017-08-07'),
+('67382/0939.230', 'I Just Robbe A BANK', '6.jpg', 'Administrasi', '+082314353232', 'Disana', '2017-08-25');
 
 -- --------------------------------------------------------
 
@@ -178,9 +182,9 @@ CREATE TABLE `peminjaman` (
 --
 
 INSERT INTO `peminjaman` (`id_peminjaman`, `id_user`, `tgl_peminjaman`, `tgl_pengembalian`, `tgl_kembali`, `total_terlambat`, `denda`, `status_pinjaman`) VALUES
-(3, 4, '2017-09-30', '2017-10-07', '2017-09-30', 0, 0, 'Kembali'),
-(4, 6, '2017-09-11', '2017-09-16', '0000-00-00', 0, 0, 'Ditolak'),
-(5, 7, '2017-09-25', '2017-10-03', '0000-00-00', 0, 0, 'Diterima');
+(3, 4, '2017-09-29', '2017-10-01', '2017-10-05', 4, 800, 'Kembali'),
+(5, 7, '2017-09-25', '2017-10-07', '0000-00-00', 0, 0, 'Diterima'),
+(6, 6, '2017-10-01', '2017-10-03', '0000-00-00', 3, 300, 'Diterima');
 
 -- --------------------------------------------------------
 
@@ -192,8 +196,25 @@ CREATE TABLE `riwayat_kegiatan` (
   `id_riwayat_kegiatan` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
   `riwayat_kegiatan` varchar(225) NOT NULL,
-  `tgl_riwayat_kegiatan` date NOT NULL
+  `tgl_riwayat_kegiatan` date NOT NULL,
+  `status_riwayat` enum('primary','warning','danger') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `riwayat_kegiatan`
+--
+
+INSERT INTO `riwayat_kegiatan` (`id_riwayat_kegiatan`, `id_user`, `riwayat_kegiatan`, `tgl_riwayat_kegiatan`, `status_riwayat`) VALUES
+(6, 1, 'Melakukan Penambahan Data Siswa Bernama basfdasdasd Sebagai pengguna baru ', '2017-10-04', 'primary'),
+(7, 1, 'Melakukan Penambahan Data Buku Berjudul 6th Destroyer Division History sebanyak 6 banyak buku', '2017-10-05', 'primary'),
+(8, 1, 'Melakukan Reset pada salah satu user', '2017-10-05', 'warning'),
+(9, 1, 'Melakukan Penghapusan Salah satu Siswa', '2017-10-05', 'danger'),
+(10, 1, 'Melakukan Penerimaan Pengembalian', '2017-10-05', 'primary'),
+(11, 1, 'Melakukan Pengaktifan Admin pada salah satu pegawai', '2017-10-05', 'warning'),
+(12, 1, 'Melakukan Pengdeaktifan Admin pada salah satu pegawai', '2017-10-05', 'warning'),
+(13, 1, 'Melakukan Pengaktifan Admin pada salah satu pegawai', '2017-10-06', 'warning'),
+(14, 1, 'Melakukan Pengdeaktifan Admin pada salah satu pegawai', '2017-10-06', 'warning'),
+(15, 1, 'Melakukan Penghapusan Pemesanan', '2017-10-06', 'danger');
 
 -- --------------------------------------------------------
 
@@ -204,8 +225,9 @@ CREATE TABLE `riwayat_kegiatan` (
 CREATE TABLE `sanksi` (
   `id_sanksi` int(12) NOT NULL,
   `id_user` int(12) NOT NULL,
-  `id_detail_buku` int(12) NOT NULL,
+  `id_peminjaman` int(12) NOT NULL,
   `sanksi` varchar(225) NOT NULL,
+  `catatan_sanksi` text NOT NULL,
   `status sanksi` enum('Belum Lunas','Lunas') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -231,10 +253,10 @@ CREATE TABLE `siswa` (
 
 INSERT INTO `siswa` (`NIS`, `nama_siswa`, `foto_siswa`, `kelas`, `no_hp_siswa`, `alamat_siswa`, `tgl_entri_siswa`) VALUES
 ('12391/2312.049', 'Siapa', 'thumbnail.jpg', 'XI - AV - D', '+081230918230', 'Dimana', '2017-09-14'),
-('17172/1613.063', 'Kharisma Yunior Suryatama', 'amazon.png', 'XII - RPL - A', '+087859388413', 'Vinolia Gg.3 No.27a RT. 2 RW 5 Kelurahan JATIMULYO Kecamatan LOWOKWARU KOTA', '2017-08-10'),
-('17563/3423.087', 'Cocoa Hotto', 'cocoa.jpg', 'X - TKJ - C', '+081231242342', '*Bukan dari dunia sini', '2017-09-14'),
-('17672/1273.929', 'Tanpa Nama', 'thumbnail.jpg', 'X - RPL - D', '+082231241234', 'Disini', '2017-08-11'),
-('52628/3180.923', 'Aria', 'hidan.jpg', 'XII - PB - C', '+080928019284', '*bukan dunia ini', '2017-09-14');
+('17172/1613.063', 'Kharisma Yunior Suryatama', '9.jpg', 'XII - RPL - A', '+087859388413', 'Vinolia Gg.3 No.27a RT. 2 RW 5 Kelurahan JATIMULYO Kecamatan LOWOKWARU KOTA', '2017-08-10'),
+('17563/3423.087', 'Cocoa Hotto', '2.jpg', 'X - TKJ - C', '+081231242342', '*Bukan dari dunia sini', '2017-09-14'),
+('17672/1273.929', 'Tanpa Nama', '10.jpg', 'X - RPL - D', '+082231241234', 'Disini', '2017-08-11'),
+('52628/3180.923', 'Aria', '5.jpg', 'XII - PB - C', '+080928019284', '*bukan dunia ini', '2017-09-14');
 
 -- --------------------------------------------------------
 
@@ -261,7 +283,7 @@ INSERT INTO `user` (`id_user`, `id_siswa_pegawai`, `username`, `email`, `passwor
 (2, '17172/1613.063', 'Kharisma-564', 'kharisma@gmail.com', '8d54d98edb4b4ebdb4a2cc0cffe6eb1f', 'Sudah', 'User'),
 (3, '17672/1273.929', 'Tanpa Nama', 'tanpanama@gmail.com', 'aafb96b2fa8806be307c4496867bad56', 'Sudah', 'User'),
 (4, '67382/0939.230', 'I just Robe Bank', 'roberbank@gmail.com', '525118da19b674308b971936e29baa30', 'Sudah', 'User'),
-(5, '12309/2394.922', 'Rize', 'rize23@gmail.com', '6ec4c790851c9054c8875ccc55c88c10', 'Sudah', 'User'),
+(5, '12309/2394.922', 'Rize', 'rize@gmail.com', '6ec4c790851c9054c8875ccc55c88c10', 'Sudah', 'User'),
 (6, '17563/3423.087', 'Cocoa', 'Cocoa45@gmail.com', '1ed76d35f95379c2c1b160c2154c5c42', 'Sudah', 'User'),
 (7, '52628/3180.923', 'Aria', 'aria23@gmail.com', 'ad090bae5286ffcebb5de90d543cea9a', 'Sudah', 'User'),
 (8, '12391/2312.049', '-', '-', 'a9a1d5317a33ae8cef33961c34144f84', 'Belum', 'User');
@@ -324,7 +346,7 @@ ALTER TABLE `riwayat_kegiatan`
 ALTER TABLE `sanksi`
   ADD PRIMARY KEY (`id_sanksi`),
   ADD KEY `id_user` (`id_user`),
-  ADD KEY `id_buku` (`id_detail_buku`);
+  ADD KEY `id_peminjaman` (`id_peminjaman`);
 
 --
 -- Indexes for table `siswa`
@@ -346,50 +368,42 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `buku`
 --
 ALTER TABLE `buku`
-  MODIFY `id_buku` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
+  MODIFY `id_buku` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `detail_buku`
 --
 ALTER TABLE `detail_buku`
-  MODIFY `id_detail_buku` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
+  MODIFY `id_detail_buku` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `detail_peminjaman`
 --
 ALTER TABLE `detail_peminjaman`
-  MODIFY `id_detail_peminjaman` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
-
+  MODIFY `id_detail_peminjaman` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `jenis_buku`
 --
 ALTER TABLE `jenis_buku`
   MODIFY `id_jenis_buku` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
 -- AUTO_INCREMENT for table `peminjaman`
 --
 ALTER TABLE `peminjaman`
-  MODIFY `id_peminjaman` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
+  MODIFY `id_peminjaman` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `riwayat_kegiatan`
 --
 ALTER TABLE `riwayat_kegiatan`
-  MODIFY `id_riwayat_kegiatan` int(11) NOT NULL AUTO_INCREMENT;
-
+  MODIFY `id_riwayat_kegiatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `sanksi`
 --
 ALTER TABLE `sanksi`
   MODIFY `id_sanksi` int(12) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
   MODIFY `id_user` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
@@ -429,8 +443,8 @@ ALTER TABLE `riwayat_kegiatan`
 -- Ketidakleluasaan untuk tabel `sanksi`
 --
 ALTER TABLE `sanksi`
-  ADD CONSTRAINT `sanksi_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
-COMMIT;
+  ADD CONSTRAINT `sanksi_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `sanksi_ibfk_2` FOREIGN KEY (`id_peminjaman`) REFERENCES `peminjaman` (`id_peminjaman`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

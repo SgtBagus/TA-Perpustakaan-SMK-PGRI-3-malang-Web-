@@ -87,16 +87,6 @@
                       </button>
                     </div> ';
                   }
-                  else{
-                    echo'<div align="center">
-                      <button onclick="terima('.$data['id_peminjaman'].')" type="button" class="btn btn-primary" name="input">
-                        <i class="zmdi zmdi-edit"></i> Disetujui
-                      </button>
-                      <button onclick="tolak('.$data['id_peminjaman'].')" type="button" class="btn btn-danger" name="input">
-                        <i class="zmdi zmdi-close"></i> Ditolak 
-                      </button>
-                    </div>';
-                  }
                 echo '</div>';
               }else if ($status_pemesanan == "Diterima") {
                 echo '<div class="p-info m-b-20">
@@ -141,39 +131,21 @@
                             </tr>
                           </tbody>
                         </table>
-                      </div>
-                      <button onclick="kembali('.$data['id_peminjaman'].')"  type="button" class="btn btn-primary" name="input" data-toggle="tooltip" data-placement="top" title="" data-original-title="Terima Pengembalian">
-                          <i class="zmdi zmdi-check"></i> Terima Pengembalian
-                      </button>
-                      <button onclick="sanksi('.$data['id_peminjaman'].')" type="button" class="btn btn-warning" name="input">
-                        <i class="zmdi zmdi-edit"></i> Sanksi
-                      </button>';
+                      </div>';
                     }
                     else if ($date3 == $date2){
                       echo '<div class="progress-bar progress-bar-danger" role="progressbar" 
                       aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:100%">
                       </div>
                     </div>
-                    <span class="label label-outline-warning m-w-60"><h4>PENGEMBALIAN HARI INI</h4></span><br><br>
-                    <button onclick="kembali('.$data['id_peminjaman'].')"  type="button" class="btn btn-primary" name="input" data-toggle="tooltip" data-placement="top" title="" data-original-title="Terima Pengembalian">
-                        <i class="zmdi zmdi-check"></i> Terima Pengembalian
-                    </button>
-                    <button onclick="sanksi('.$data['id_peminjaman'].')" type="button" class="btn btn-warning" name="input">
-                      <i class="zmdi zmdi-edit"></i> Sanksi
-                    </button>';
+                    <span class="label label-outline-warning m-w-60"><h4>PENGEMBALIAN HARI INI</h4></span><br><br>';
                     }
                     else{
                       echo '<div class="progress-bar progress-bar-danger" role="progressbar" 
                       aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:'.$proses.'%">
                       </div>
                     </div>
-                    <span class="label label-outline-primary m-w-60"><h4><b>'.$diff.'</b> - HARI LAGI</h4></span><br><br>
-                    <button onclick="kembali('.$data['id_peminjaman'].')"  type="button" class="btn btn-primary" name="input" data-toggle="tooltip" data-placement="top" title="" data-original-title="Terima Pengembalian">
-                      <i class="zmdi zmdi-check"></i> Terima Pengembalian
-                    </button>
-                    <button onclick="sanksi('.$data['id_peminjaman'].')" type="button" class="btn btn-warning" name="input">
-                      <i class="zmdi zmdi-edit"></i> Sanksi
-                    </button>';
+                    <span class="label label-outline-primary m-w-60"><h4><b>'.$diff.'</b> - HARI LAGI</h4></span><br><br>';
                     }
                   echo '</div> 
                 </div>';
@@ -184,9 +156,6 @@
                   <hr>
                   <div align="center">
                     <h4>Peminjaman ini Ditolak</H4>
-                    <button onclick="hapus('.$data['id_peminjaman'].')" type="button" class="btn btn-danger" name="input">
-                      <i class="zmdi zmdi-delete"></i> Hapus
-                    </button>
                   </div> 
                 </div>'; 
               }
@@ -233,13 +202,7 @@
                       </table>
                     </div>';
                     }
-                    echo '<br>
-                    <a href="pengembalian.php">
-                      <button type="button" class="btn btn-primary" name="input">
-                        <i class="zmdi zmdi-assignment-returned"></i> Check Pengembalian 
-                      </button>
-                    </a>
-                  </div> 
+                  echo '</div> 
                 </div>';
               }
               ?>
@@ -300,15 +263,74 @@
                               </tbody>
                             </table>
                           </div>
-                          <div align="right">
-                            <a href="peminjaman.php">
-                              <button type="button" class="btn btn-primary">
-                                <i class="zmdi zmdi-arrow-left"></i> Data Peminjaman
-                              </button>
-                            </a>
-                          </div> 
                         </div>
                       </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-8 col-sm-7">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="m-y-0">Tambah Sanksi</h3>
+                </div>
+                <div class="panel-body">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <form class="form-horizontal" action="system/proses_sanksi.php">       
+                        <div class="form-group">
+                          <label class="col-sm-3 control-label" for="form-control-1">Sanksi</label>
+                          <div class="col-sm-9">
+                            <input id="form-control-1" class="form-control" type="text">
+                          </div>
+                        </div>     
+                        <div class="form-group">
+                          <label class="col-sm-3 control-label" for="form-control-8">Catatan Sanksi</label>
+                          <div class="col-sm-9">
+                            <textarea id="form-control-8" class="form-control" rows="3"></textarea>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-sm-3 control-label" for="form-control-8">Keadaan Buku</label>
+                          <div class="col-sm-9">
+                            <?php
+
+            $query_status_buku = "SELECT a.id_peminjaman, b.id_detail_buku, c.kode_buku,
+                                    c.status_buku, d.judul_singkat, d.ISBN
+                                    FROM peminjaman AS a INNER JOIN detail_peminjaman AS b 
+                                    INNER JOIN detail_buku AS c INNER JOIN buku AS d
+                                    WHERE a.id_peminjaman = b.id_peminjaman AND b.id_detail_buku = c.id_detail_buku AND
+                                    c.id_buku = d.id_buku AND a.id_peminjaman = '$id_peminjaman'";
+            $result_status_buku = mysqli_query($con, $query_status_buku);
+            $no_status_buku = 1;  
+            while($data_status_buku = mysqli_fetch_assoc($result_status_buku)){
+                            echo '<div class="form-group">
+                              <label class="col-sm-3 control-label" for="form-control-9">'.$data_status_buku['judul_singkat'].'</label>
+                              <div class="col-sm-9">
+                                <select id="form-control-9" class="form-control">
+                                  <option value="corporate">Rusak</option>
+                                  <option value="creative">Hilang</option>
+                                  <option value="ecommerce">Lainya</option>
+                                </select>
+                              </div>
+                            </div>';
+            $no_status_buku++;
+            }
+                    ?>  
+                          </div>
+                        </div>
+                        <div align="right">
+                          <a href="peminjaman.php">
+                            <button type="button" class="btn btn-primary">
+                              <i class="zmdi zmdi-arrow-left"></i> Data Peminjaman
+                            </button>
+                          </a>
+                          <button type="submit" class="btn btn-primary">
+                            <i class="zmdi zmdi-check"></i> Proses
+                          </button>
+                        </div> 
+                      </form>
                     </div>
                   </div>
                 </div>
@@ -320,77 +342,5 @@
       <?php include('menu/footer.php') ?>
     </div>
   </body>
-      <?php include('script/footer_script.php') ?>
-      <script>
-
-      function terima(id) {
-        swal({
-          title: 'Konfirmasi?',
-          text : 'Anda yakin menerima peminjaman ini ?',
-          type: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Iya!'
-          }).then(function () {
-              document.location="system/peminjaman_terima.php?id="+id;
-        })
-      }
-
-      function tolak(id) {
-        swal({
-          title: 'Konfirmasi?',
-          text : 'Anda yakin menolak peminjaman ini ?',
-          type: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Iya!'
-          }).then(function () {
-              document.location="system/peminjaman_tolak.php?id="+id;
-        })
-      }
-
-      function sanksi(id) {
-        swal({
-          title: 'Konfirmasi?',
-          text : 'Anda yakin menjadikanya data sanksi ini ?',
-          type: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Iya!'
-          }).then(function () {
-            document.location="system/sanksi.php?id="+id;
-        })
-      }
-      
-      function kembali(id) {
-        swal({
-          title: 'Konfirmasi?',
-          text : 'Anda yakin menerika pengembalian ini ?',
-          type: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Iya!'
-          }).then(function () {
-              document.location="system/pengembalian.php?id="+id;
-        })
-      }
-      
-      function hapus(id) {
-        swal({
-          title: 'Konfirmasi?',
-          text : 'Anda yakin menolak peminjaman ini ?',
-          type: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Iya!'
-          }).then(function () {
-              document.location="system/peminjaman_hapus.php?id="+id;
-        })
-      }
-      </script>
+    <?php include('script/footer_script.php') ?>
 </html>

@@ -108,7 +108,7 @@
                         echo '<span class="label label-warning label-pill m-w-60">Hari Ini</span>';
                       }
                       else{
-                        echo '<b>4</b> - Hari Lagi';
+                        echo '<b>'.$diff.'</b> - Hari Lagi';
                       }
                     }
                         echo'<div>
@@ -147,34 +147,37 @@
                       }else if ($data['status_pinjaman'] == "Diterima"){
                         echo '<button onclick="kembali('.$data['id_peminjaman'].')"  type="button" class="btn btn-primary" name="input" data-toggle="tooltip" data-placement="top" title="" data-original-title="Terima Pengembalian">
                           <i class="zmdi zmdi-check"></i>
+                        </button>';
+                        if( $date2 = $date3){
+                          echo'
+                          <button onclick="sanksi('.$data['id_peminjaman'].')" type="button" class="btn btn-warning" name="input" data-toggle="tooltip" data-placement="top" title="" data-original-title="Masukan data Sanksi">
+                            <i class="zmdi zmdi-edit"></i>
+                          </button>';
+                        }else if ($date2 < $date3) {
+                          echo '
+                          <button onclick="sanksi('.$data['id_peminjaman'].')" type="button" class="btn btn-warning" name="input" data-toggle="tooltip" data-placement="top" title="" data-original-title="Masukan data Sanksi">
+                            <i class="zmdi zmdi-edit"></i>
+                          </button>';
+                        }else{
+                          
+                        }
+                      }else if ($data['status_pinjaman'] == "Kembali"){
+                        echo '<button onclick="hapus('.$data['id_peminjaman'].')" type="button" data-toggle="tooltip" data-placement="top" title="" data-original-title="Hapus Permintaan" class="btn btn-danger" name="input">
+                          <i class="zmdi zmdi-delete"></i>
                         </button>
                         <button onclick="sanksi('.$data['id_peminjaman'].')" type="button" class="btn btn-warning" name="input" data-toggle="tooltip" data-placement="top" title="" data-original-title="Masukan data Sanksi">
                           <i class="zmdi zmdi-edit"></i>
                         </button>';
-                      }else if ($data['status_pinjaman'] == "Kembali"){
-                        echo '<button onclick="hapus('.$data['id_peminjaman'].')" type="button" data-toggle="tooltip" data-placement="top" title="" data-original-title="Hapus Permintaan" class="btn btn-danger" name="input">
-                          <i class="zmdi zmdi-delete"></i>
-                        </button>';
                       }
                       echo '</div>
                     </td>
-                    <td>';
-                      if($data['tgl_kembali'] == '0000-00-00'){
-                        echo '<a href="system/detail_refresh.php?id='.$data['id_peminjaman'].'">
+                    <td>
+                      <a href="system/detail_refresh.php?id='.$data['id_peminjaman'].'">
                         <button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Detail Peminjaman">
                           <i class="zmdi zmdi-eye"></i>
                         </button>
-                      </a>';
-                      }
-                      else{
-                        echo '<a href="detail_peminjaman.php?id_peminjaman='.$data['id_peminjaman'].'">
-                        <button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Detail Peminjaman">
-                          <i class="zmdi zmdi-eye"></i>
-                        </button>
-                      </a>';
-                      }
-                      
-                    echo'</td>
+                      </a>
+                    </td>
                   </tr>';
                   $no++;
   }
