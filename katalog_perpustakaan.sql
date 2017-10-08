@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.7.4
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 06 Okt 2017 pada 07.01
--- Versi Server: 10.1.16-MariaDB
--- PHP Version: 7.0.9
+-- Generation Time: 08 Okt 2017 pada 14.11
+-- Versi Server: 10.1.26-MariaDB
+-- PHP Version: 7.1.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -86,7 +88,7 @@ INSERT INTO `detail_buku` (`id_detail_buku`, `id_buku`, `kode_buku`, `status_buk
 (9, 4, '20170911004', 'Dipinjam'),
 (10, 5, '20171005001', 'Siap Terpinjam'),
 (11, 5, '20171005002', 'Siap Terpinjam'),
-(12, 5, '20171005003', 'Dipinjam'),
+(12, 5, '20171005003', 'Hilang'),
 (13, 5, '20171005004', 'Siap Terpinjam'),
 (14, 5, '20171005005', 'Siap Terpinjam');
 
@@ -133,7 +135,7 @@ INSERT INTO `jenis_buku` (`id_jenis_buku`, `no_dewery`, `subyek`, `deskripsi_jen
 (1, 400, 'Bahasa', 'Bahasa (dari bahasa Sanskerta à¤­à¤¾à¤·à¤¾, bhÄá¹£Ä) adalah kemampuan yang dimiliki manusia untuk berkomunikasi dengan manusia lainnya menggunakan tanda, misalnya kata dan gerakan. '),
 (2, 200, 'Agama', 'Agama adalah sebuah koleksi terorganisir dari kepercayaan, sistem budaya, dan pandangan dunia yang menghubungkan manusia dengan tatanan/perintah dari kehidupan.'),
 (4, 300, 'Matematika', 'Matematika (dari bahasa Yunani: Î¼Î±Î¸Î·Î¼Î±Ï„Î¹ÎºÎ¬ - mathÄ“matikÃ¡) adalah studi besaran, struktur, ruang, dan perubahan.'),
-(5, 600, 'Refreshing', 'Buku menyenangkan yang sangat disenangi oleh semua umur');
+(5, 600, 'Refreshing', 'Buku menyenangkan yang sangat disenangi');
 
 -- --------------------------------------------------------
 
@@ -183,8 +185,8 @@ CREATE TABLE `peminjaman` (
 
 INSERT INTO `peminjaman` (`id_peminjaman`, `id_user`, `tgl_peminjaman`, `tgl_pengembalian`, `tgl_kembali`, `total_terlambat`, `denda`, `status_pinjaman`) VALUES
 (3, 4, '2017-09-29', '2017-10-01', '2017-10-05', 4, 800, 'Kembali'),
-(5, 7, '2017-09-25', '2017-10-07', '0000-00-00', 0, 0, 'Diterima'),
-(6, 6, '2017-10-01', '2017-10-03', '0000-00-00', 3, 300, 'Diterima');
+(5, 7, '2017-09-25', '2017-10-07', '0000-00-00', 1, 100, 'Diterima'),
+(6, 6, '2017-10-01', '2017-10-03', '2017-10-08', 5, 500, 'Kembali');
 
 -- --------------------------------------------------------
 
@@ -214,7 +216,16 @@ INSERT INTO `riwayat_kegiatan` (`id_riwayat_kegiatan`, `id_user`, `riwayat_kegia
 (12, 1, 'Melakukan Pengdeaktifan Admin pada salah satu pegawai', '2017-10-05', 'warning'),
 (13, 1, 'Melakukan Pengaktifan Admin pada salah satu pegawai', '2017-10-06', 'warning'),
 (14, 1, 'Melakukan Pengdeaktifan Admin pada salah satu pegawai', '2017-10-06', 'warning'),
-(15, 1, 'Melakukan Penghapusan Pemesanan', '2017-10-06', 'danger');
+(15, 1, 'Melakukan Penghapusan Pemesanan', '2017-10-06', 'danger'),
+(16, 1, 'Melakukan Penerimaan Pengembalian', '2017-10-08', 'primary'),
+(17, 1, 'Melakukan pendataan sanksi', '2017-10-08', 'warning'),
+(18, 1, 'Melakukan Perubahan pada data buku', '2017-10-08', 'warning'),
+(19, 1, 'Melakukan perubahan data sanksi', '2017-10-08', 'warning'),
+(20, 1, 'Melakukan perubahan data sanksi', '2017-10-08', 'warning'),
+(21, 1, 'Melakukan perubahan data sanksi', '2017-10-08', 'warning'),
+(22, 1, 'Melakukan Pelunasan Salah satu Sanksi', '2017-10-08', 'danger'),
+(23, 1, 'Melakukan Pelunasan Salah satu Sanksi', '2017-10-08', 'primary'),
+(24, 1, 'Melakukan Penghapusan Salah satu Sanksi', '2017-10-08', 'danger');
 
 -- --------------------------------------------------------
 
@@ -228,7 +239,7 @@ CREATE TABLE `sanksi` (
   `id_peminjaman` int(12) NOT NULL,
   `sanksi` varchar(225) NOT NULL,
   `catatan_sanksi` text NOT NULL,
-  `status sanksi` enum('Belum Lunas','Lunas') NOT NULL
+  `status_sanksi` enum('Belum Lunas','Lunas') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -369,41 +380,49 @@ ALTER TABLE `user`
 --
 ALTER TABLE `buku`
   MODIFY `id_buku` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `detail_buku`
 --
 ALTER TABLE `detail_buku`
   MODIFY `id_detail_buku` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
 --
 -- AUTO_INCREMENT for table `detail_peminjaman`
 --
 ALTER TABLE `detail_peminjaman`
   MODIFY `id_detail_peminjaman` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
 --
 -- AUTO_INCREMENT for table `jenis_buku`
 --
 ALTER TABLE `jenis_buku`
   MODIFY `id_jenis_buku` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `peminjaman`
 --
 ALTER TABLE `peminjaman`
   MODIFY `id_peminjaman` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
 -- AUTO_INCREMENT for table `riwayat_kegiatan`
 --
 ALTER TABLE `riwayat_kegiatan`
-  MODIFY `id_riwayat_kegiatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_riwayat_kegiatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
 --
 -- AUTO_INCREMENT for table `sanksi`
 --
 ALTER TABLE `sanksi`
   MODIFY `id_sanksi` int(12) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
   MODIFY `id_user` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
@@ -445,6 +464,7 @@ ALTER TABLE `riwayat_kegiatan`
 ALTER TABLE `sanksi`
   ADD CONSTRAINT `sanksi_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `sanksi_ibfk_2` FOREIGN KEY (`id_peminjaman`) REFERENCES `peminjaman` (`id_peminjaman`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
