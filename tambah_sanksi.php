@@ -278,17 +278,20 @@
                 <div class="panel-body">
                   <div class="row">
                     <div class="col-md-12">
-                      <form class="form-horizontal" action="system/proses_sanksi.php">       
+                      <form id="inputmasks" class="form-horizontal" method="post" action="system/proses_sanksi.php" 
+                      enctype="multipart/form-data">     
                         <div class="form-group">
                           <label class="col-sm-3 control-label" for="form-control-1">Sanksi</label>
                           <div class="col-sm-9">
-                            <input id="form-control-1" class="form-control" type="text">
+                            <input name="id_peminjaman" type="hidden" value="<?php echo $data['id_peminjaman'] ?>">
+                            <input name="id_user" type="hidden" value="<?php echo $data['id_user'] ?>">
+                            <input id="form-control-1" name="sanksi" class="form-control" type="text" required>
                           </div>
                         </div>     
                         <div class="form-group">
                           <label class="col-sm-3 control-label" for="form-control-8">Catatan Sanksi</label>
                           <div class="col-sm-9">
-                            <textarea id="form-control-8" class="form-control" rows="3"></textarea>
+                            <textarea id="form-control-8" name="catatan" class="form-control" rows="3"></textarea>
                           </div>
                         </div>
                         <div class="form-group">
@@ -297,7 +300,7 @@
                             <?php
 
             $query_status_buku = "SELECT a.id_peminjaman, b.id_detail_buku, c.kode_buku,
-                                    c.status_buku, d.judul_singkat, d.ISBN
+                                    c.status_buku, d.id_buku, d.judul_singkat, d.ISBN
                                     FROM peminjaman AS a INNER JOIN detail_peminjaman AS b 
                                     INNER JOIN detail_buku AS c INNER JOIN buku AS d
                                     WHERE a.id_peminjaman = b.id_peminjaman AND b.id_detail_buku = c.id_detail_buku AND
@@ -308,10 +311,10 @@
                             echo '<div class="form-group">
                               <label class="col-sm-3 control-label" for="form-control-9">'.$data_status_buku['judul_singkat'].'</label>
                               <div class="col-sm-9">
-                                <select id="form-control-9" class="form-control">
-                                  <option value="corporate">Rusak</option>
-                                  <option value="creative">Hilang</option>
-                                  <option value="ecommerce">Lainya</option>
+                                <select id="form-control-9" class="form-control" name="status_buku_'.$no_status_buku.'">
+                                  <option value="Rusak">Rusak</option>
+                                  <option value="Hilang">Hilang</option>
+                                  <option value="Lainya">Lainya</option>
                                 </select>
                               </div>
                             </div>';
@@ -326,7 +329,7 @@
                               <i class="zmdi zmdi-arrow-left"></i> Data Peminjaman
                             </button>
                           </a>
-                          <button type="submit" class="btn btn-primary">
+                          <button type="submit" name="input" rel="tooltip" class="btn btn-primary btn-fill">
                             <i class="zmdi zmdi-check"></i> Proses
                           </button>
                         </div> 

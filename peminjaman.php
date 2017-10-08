@@ -162,11 +162,11 @@
                           
                         }
                       }else if ($data['status_pinjaman'] == "Kembali"){
-                        echo '<button onclick="hapus('.$data['id_peminjaman'].')" type="button" data-toggle="tooltip" data-placement="top" title="" data-original-title="Hapus Permintaan" class="btn btn-danger" name="input">
-                          <i class="zmdi zmdi-delete"></i>
-                        </button>
-                        <button onclick="sanksi('.$data['id_peminjaman'].')" type="button" class="btn btn-warning" name="input" data-toggle="tooltip" data-placement="top" title="" data-original-title="Masukan data Sanksi">
+                        echo '<button onclick="sanksi('.$data['id_peminjaman'].')" type="button" class="btn btn-warning" name="input" data-toggle="tooltip" data-placement="top" title="" data-original-title="Masukan data Sanksi">
                           <i class="zmdi zmdi-edit"></i>
+                        </button>
+                        <button onclick="hapus('.$data['id_peminjaman'].')" type="button" data-toggle="tooltip" data-placement="top" title="" data-original-title="Hapus Permintaan" class="btn btn-danger" name="input">
+                          <i class="zmdi zmdi-delete"></i>
                         </button>';
                       }
                       echo '</div>
