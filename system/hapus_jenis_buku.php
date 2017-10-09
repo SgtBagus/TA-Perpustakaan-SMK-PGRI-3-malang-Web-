@@ -1,6 +1,6 @@
 <?php
   include("koneksi.php");
-  if (isset($_GET["id"])) {
+  if (isset($_GET["id"])) { 
     $id = $_GET["id"];
     $date = date("Ymd");
     $query = "DELETE FROM jenis_buku WHERE id_jenis_buku='$id'";

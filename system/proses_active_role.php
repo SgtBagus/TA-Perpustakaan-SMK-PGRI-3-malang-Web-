@@ -2,7 +2,7 @@
 include 'koneksi.php';
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
-    $date = date("Ymd");
+    $date = date("Ymd"); 
             $query = "UPDATE user SET role='Admin' WHERE id_user = '$id'";
             $result = mysqli_query($con, $query);
 

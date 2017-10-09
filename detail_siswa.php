@@ -1,5 +1,5 @@
 <?php $page="PENGGUNA"; ?>
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
     <?php include('script/head_script.php'); 
         if (isset($_GET['no_induk'])) { 

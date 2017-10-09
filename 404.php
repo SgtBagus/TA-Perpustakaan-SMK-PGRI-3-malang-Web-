@@ -2,7 +2,7 @@
 <?php $page = "404" ?>
 <html lang="en">
   <?php include('script/head_script.php') ?>
-  <body class="error-body">
+  <body class="error-body"> 
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-6 col-sm-offset-3">
