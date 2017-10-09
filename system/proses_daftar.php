@@ -5,8 +5,8 @@ if (isset($_POST['input'])) {
   $noinduk          = $_POST['noinduk'];
   $username         = $_POST['username'];
   $email            = $_POST['email'];
-  $password         = $_POST['password'];
-  $konpass          = $_POST['konpass'];
+  $password         = md5($_POST['password']);
+  $konpass          = md5($_POST['konpass']);
 
     $cekdulu= "SELECT id_user FROM user WHERE id_siswa_pegawai='$noinduk'";
     $prosescek= mysqli_query($con, $cekdulu);
