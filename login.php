@@ -11,7 +11,7 @@
             <div align="center">
               <img src="img/icon.png" alt="" height="125">
             </div>
-            <h3 class="m-t-0 m-b-30 text-center">Katalog Perpustakaan</h3>
+            <h3 class="m-t-0 m-b-30 text-center">Katalog Perpustakaan + RIKO</h3>
             <form action="system/proses_login.php?op=in" method="POST">
               <div class="form-group">
                 <label for="form-control-1">Email</label>
