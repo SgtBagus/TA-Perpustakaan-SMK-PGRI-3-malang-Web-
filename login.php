@@ -5,15 +5,8 @@
   <link rel="stylesheet" href="assets/css/login.css">
   <body class="authentication-body bg">
     <div class="container-fluid">
-      <div class="authentication-header m-b-30">
-        <div class="clearfix">
-          <div class="pull-left">
-            <br/>
-          </div>
-        </div>
-      </div>
       <div class="row">
-        <div class="col-sm-4 col-sm-offset-4">
+        <div class="col-sm-6 col-sm-offset-3">
           <div class="authentication-content m-b-30 form-login">
             <div align="center">
               <img src="img/icon.png" alt="" height="125">
