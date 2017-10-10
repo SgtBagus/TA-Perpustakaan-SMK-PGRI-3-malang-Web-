@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 08 Okt 2017 pada 14.11
+-- Generation Time: 10 Okt 2017 pada 18.08
 -- Versi Server: 10.1.26-MariaDB
 -- PHP Version: 7.1.9
 
@@ -58,7 +58,8 @@ INSERT INTO `buku` (`id_buku`, `judul_buku`, `gambar_buku`, `jilid`, `cetakan`, 
 (2, 'Comik Seru Bergambar', 'tumblr_onw09nI5hw1u0xk60o1_500.png', '01', '15', 'kedua', '978-089-786-098-90', 'Media Cetak', 'Inggris', 'Referensi', 5, 'Comik', 'Hadiah', 'Japan', 'Konbawa', '2015-02-01', 'Buku ini imut', '2017-08-29'),
 (3, 'tes', 'thumbnail.png', 'tes', 'tes', 'tes', '123-414-124-124-14', 'Media Cetak', 'Indonesia', 'Biasa', 1, 'tes', 'Pembelian', 'tes', 'tes', '2017-08-15', 'tes`', '2017-08-30'),
 (4, 'Pasific  War Battle of Midway', '11092017035830World_Of_Warship_473106.jpg', 'Pertama', 'Pertama', 'Kedua', '976-839-203-102-09', 'Media Cetak', 'Inggris', 'Koleksi', 5, 'Midway Battle', 'Tidak Diketahui', 'USA', 'History Geografi Chanel', '2008-02-15', 'Buku ini menjelaskan bagaimana kejadian pertempuran Midway itu terjadi pada tahun 1942', '2017-09-11'),
-(5, '6th Destroyer Division History', '0510201702172939407706.png', 'Pertama ', 'Kedua', '01', '676-859-394-201-21', 'Media Cetak', 'Inggris', 'Biasa', 5, '6th Div DD', 'Hadiah', 'Japan', 'Kadokawa', '2017-10-05', 'Sejarah dari divisi penghancur ke 6 milik IJN dengan animasi animasi yang menarik', '2017-10-05');
+(5, '6th Destroyer Division History', '0510201702172939407706.png', 'Pertama ', 'Kedua', '01', '676-859-394-201-21', 'Media Cetak', 'Inggris', 'Biasa', 5, '6th Div DD', 'Hadiah', 'Japan', 'Kadokawa', '2017-10-05', 'Sejarah dari divisi penghancur ke 6 milik IJN dengan animasi animasi yang menarik', '2017-10-05'),
+(7, 'Laki Laki Cantik', '1010201718050221727974_893821527461752_5002072475130292589_n.jpg', 'Pertama', '01', 'Kedua', '227-283-912-304-12', 'Media Cetak', 'Indonesia', 'Biasa', 5, 'LLC', 'Pembelian', 'Malang', 'Bagus Andhika', '2017-10-10', 'Seorang laki laki yang memiliki penampilan perempuan sehingga membuat para lelaki lainya tertipu terhadap dia', '2017-10-10');
 
 -- --------------------------------------------------------
 
@@ -90,7 +91,9 @@ INSERT INTO `detail_buku` (`id_detail_buku`, `id_buku`, `kode_buku`, `status_buk
 (11, 5, '20171005002', 'Siap Terpinjam'),
 (12, 5, '20171005003', 'Hilang'),
 (13, 5, '20171005004', 'Siap Terpinjam'),
-(14, 5, '20171005005', 'Siap Terpinjam');
+(14, 5, '20171005005', 'Siap Terpinjam'),
+(20, 7, '20171010001', 'Siap Terpinjam'),
+(21, 7, '20171010002', 'Siap Terpinjam');
 
 -- --------------------------------------------------------
 
@@ -225,7 +228,13 @@ INSERT INTO `riwayat_kegiatan` (`id_riwayat_kegiatan`, `id_user`, `riwayat_kegia
 (21, 1, 'Melakukan perubahan data sanksi', '2017-10-08', 'warning'),
 (22, 1, 'Melakukan Pelunasan Salah satu Sanksi', '2017-10-08', 'danger'),
 (23, 1, 'Melakukan Pelunasan Salah satu Sanksi', '2017-10-08', 'primary'),
-(24, 1, 'Melakukan Penghapusan Salah satu Sanksi', '2017-10-08', 'danger');
+(24, 1, 'Melakukan Penghapusan Salah satu Sanksi', '2017-10-08', 'danger'),
+(25, 1, 'Melakukan Penambahan Data Siswa Bernama Tes Tambah Riwayat Sebagai pengguna baru ', '2017-10-09', 'primary'),
+(26, 1, 'Melakukan Penambahan Data Siswa Bernama 1234123124124 Sebagai pengguna baru ', '2017-10-09', 'primary'),
+(27, 1, 'Melakukan Penghapusan Salah satu Siswa', '2017-10-09', 'danger'),
+(28, 1, 'Melakukan Penambahan Data Buku Berjudul andro input sebanyak 5 banyak buku', '2017-10-10', 'primary'),
+(29, 1, 'Melakukan Penghapusan Salah satu Buku', '2017-10-10', 'danger'),
+(30, 1, 'Melakukan Penambahan Data Buku Berjudul Laki Laki Cantik sebanyak 2 banyak buku', '2017-10-10', 'primary');
 
 -- --------------------------------------------------------
 
@@ -264,6 +273,7 @@ CREATE TABLE `siswa` (
 
 INSERT INTO `siswa` (`NIS`, `nama_siswa`, `foto_siswa`, `kelas`, `no_hp_siswa`, `alamat_siswa`, `tgl_entri_siswa`) VALUES
 ('12391/2312.049', 'Siapa', 'thumbnail.jpg', 'XI - AV - D', '+081230918230', 'Dimana', '2017-09-14'),
+('12413/1412.441', 'Tes Tambah Riwayat', 'thumbnail.jpg', 'X - RPL - A', '+081251234124', 'eqrqwerqwe', '2017-10-09'),
 ('17172/1613.063', 'Kharisma Yunior Suryatama', '9.jpg', 'XII - RPL - A', '+087859388413', 'Vinolia Gg.3 No.27a RT. 2 RW 5 Kelurahan JATIMULYO Kecamatan LOWOKWARU KOTA', '2017-08-10'),
 ('17563/3423.087', 'Cocoa Hotto', '2.jpg', 'X - TKJ - C', '+081231242342', '*Bukan dari dunia sini', '2017-09-14'),
 ('17672/1273.929', 'Tanpa Nama', '10.jpg', 'X - RPL - D', '+082231241234', 'Disini', '2017-08-11'),
@@ -297,7 +307,8 @@ INSERT INTO `user` (`id_user`, `id_siswa_pegawai`, `username`, `email`, `passwor
 (5, '12309/2394.922', 'Rize', 'rize@gmail.com', '6ec4c790851c9054c8875ccc55c88c10', 'Sudah', 'User'),
 (6, '17563/3423.087', 'Cocoa', 'Cocoa45@gmail.com', '1ed76d35f95379c2c1b160c2154c5c42', 'Sudah', 'User'),
 (7, '52628/3180.923', 'Aria', 'aria23@gmail.com', 'ad090bae5286ffcebb5de90d543cea9a', 'Sudah', 'User'),
-(8, '12391/2312.049', '-', '-', 'a9a1d5317a33ae8cef33961c34144f84', 'Belum', 'User');
+(8, '12391/2312.049', '-', '-', 'a9a1d5317a33ae8cef33961c34144f84', 'Belum', 'User'),
+(9, '12413/1412.441', '-', '-', 'bcbe3365e6ac95ea2c0343a2395834dd', 'Belum', 'User');
 
 --
 -- Indexes for dumped tables
@@ -379,13 +390,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `buku`
 --
 ALTER TABLE `buku`
-  MODIFY `id_buku` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_buku` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `detail_buku`
 --
 ALTER TABLE `detail_buku`
-  MODIFY `id_detail_buku` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_detail_buku` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `detail_peminjaman`
@@ -409,7 +420,7 @@ ALTER TABLE `peminjaman`
 -- AUTO_INCREMENT for table `riwayat_kegiatan`
 --
 ALTER TABLE `riwayat_kegiatan`
-  MODIFY `id_riwayat_kegiatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id_riwayat_kegiatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `sanksi`
@@ -421,7 +432,7 @@ ALTER TABLE `sanksi`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_user` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)

@@ -36,7 +36,7 @@
                       </span> - <?php echo mysqli_num_rows($prosesbanyakuser) ?> - </div>
                     <br>
                     <div class="wi-text">
-                      <a href="user.php" style="color:white">
+                      <a href="user.php" style="color:white;text-decoration:none">
                         <i class="zmdi zmdi-search"></i> Lihat Data User Disini
                       </a>
                     </div>
@@ -58,7 +58,7 @@
                       </span> - <?php echo mysqli_num_rows($prosesbanyakbuku) ?> - </div>
                       <br>
                     <div class="wi-text">
-                      <a href="buku.php" style="color:white">
+                      <a href="buku.php" style="color:white;text-decoration:none">
                         <i class="zmdi zmdi-search"></i> Lihat Data Buku Disini
                       </a>
                     </div>
@@ -82,7 +82,7 @@
                       </span> - <?php echo mysqli_num_rows($prosesbanyakpeminjaman) ?> - </div>
                       <br>
                     <div class="wi-text">
-                      <a href="peminjaman.php" style="color:white">
+                      <a href="peminjaman.php" style="color:white;text-decoration:none">
                         <i class="zmdi zmdi-search"></i> Lihat Peminjaman Disini
                       </a>
                     </div>
@@ -97,10 +97,14 @@
                     <div class="wi-stat">
                       <span class="m-r-10">
                         <i class="zmdi zmdi-info"></i>
-                      </span> - SOON - </div>
+                        <?php
+                          $banyaksanksi= "SELECT id_sanksi FROM sanksi";
+                          $prosesbanyaksanksi= mysqli_query($con, $banyaksanksi);
+                        ?>
+                      </span> - <?php echo mysqli_num_rows($prosesbanyaksanksi) ?> - </div>
                       <br>
                     <div class="wi-text">
-                      <a href="sanksi.php" style="color:white">
+                      <a href="sanksi.php" style="color:white;text-decoration:none">
                         <i class="zmdi zmdi-search"></i> Lihat Data Sanksi Disini
                       </a>
                     </div>
@@ -112,57 +116,43 @@
         </div>
         <div class="panel panel-default panel-table">
           <div class="panel-heading">
-            <h3 class="panel-title">Conversions map</h3>
-            <div class="panel-subtitle">1 Feb 2017 - 17 Jul 2017</div>
+            <h3 class="panel-title">Data Sebagian Buku Baru</h3>
+            <div class="panel-subtitle">
+              <a href="sanksi.php" style="color:black;text-decoration:none">
+                <i class="zmdi zmdi-search"></i> Klik disini untuk melihat data buku lainya
+              </a>
+            </div>
           </div>
           <div class="panel-body">
             <div class="row">
-              <div class="col-sm-8">
+              <div class="col-sm-12">
+<?php
+  $buku = "SELECT * FROM buku ORDER BY id_buku DESC LIMIT 6";
+  $resultbuku = mysqli_query($con, $buku);
+                echo '<table class="table">
+                  <thead>
+                    <tr>';
+                    
+  while($data_buku = mysqli_fetch_assoc($resultbuku)){
+                      echo'<td>
+                        <div align="center">
+                          <a href="detail_buku.php?ISBN='.$data_buku['ISBN'].'" style="color:black;text-decoration:none">
+                            <img class="img-rounded" src="img/book/'.$data_buku['gambar_buku'].'" alt="" width="120" height="200">
+                            <br><b>'.$data_buku['judul_singkat'].'</b><br>';
+                            $query_banyak = "SELECT id_detail_buku
+                                             FROM detail_buku WHERE id_buku LIKE '$data_buku[id_buku]'";
+                            $result_banyak = mysqli_query($con, $query_banyak);
+                            $banyakdata_banyak = $result_banyak->num_rows;
 
-                  ISI NYA LIST DARI BUKU BUKU NYA SEBAGIAN 
-                  
-              </div>
-              <div class="col-sm-4">
-                <div class="switches-stacked m-b-30">
-                  <h3 class="panel-title">Status Buku</h3>
-                </div>
-                <p>Siap Terpinjam
-                  <span class="pull-right text-muted">80%</span>
-                </p>
-                <div class="progress progress-xs m-b-20">
-                  <div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-                    <span class="sr-only">80% Complete (success)</span>
-                  </div>
-                </div>
-                <p>Dipesan
-                  <span class="pull-right text-muted">57%</span>
-                </p>
-                <div class="progress progress-xs m-b-20">
-                  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="57" aria-valuemin="0" aria-valuemax="100" style="width: 57%">
-                    <span class="sr-only">57% Complete (success)</span>
-                  </div>
-                </div>
-                <p>Dipinjam
-                  <span class="pull-right text-muted">60%</span>
-                </p>
-                <div class="progress progress-xs m-b-20">
-                  <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                    <span class="sr-only">60% Complete (success)</span>
-                  </div>
-                </div>
-                <p>Lainya
-                  <span class="pull-right text-muted">23%</span>
-                </p>
-                <div class="progress progress-xs m-b-20">
-                  <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="23" aria-valuemin="0" aria-valuemax="100" style="width: 23%">
-                    <span class="sr-only">23% Complete (success)</span>
-                  </div>
-                </div>
-                <a href="buku.php">
-                  <button type="button" class="btn btn-primary btn-block">
-                    <i class="zmdi zmdi-search"></i> Lihat Data Buku
-                  </button>
-                </a>
+                            echo 'Total Buku : <b>'.$banyakdata_banyak.'</b>
+                          </a>
+                        </div>
+                      </td>';                   
+  }
+                    echo '</tr>
+                  </thead>
+                </table>';
+?>
               </div>
             </div>
           </div>

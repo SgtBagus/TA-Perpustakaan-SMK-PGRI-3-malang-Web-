@@ -87,7 +87,7 @@ while($data = mysqli_fetch_assoc($result)){
                     <div align="center">
                       <b>'.$data['denda'].'</b>
                     </div>
-                  </td> 
+                  </td>  
                   <td>
                     <a href="detail_peminjaman.php?id_peminjaman='.$data['id_peminjaman'].'">
                       <button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Detail Peminjaman">
