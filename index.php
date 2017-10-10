@@ -15,7 +15,7 @@
               <div class="wi-content-bottom p-a-30">
                 <div class="wi-title m-b-30">KATALOG PERPUSTAKAAN</div>
                 <div class="wi-text"><h4>SMK PGRI 3 - SKARIGA</h4></div>
-                <div class="wi-text">Solusi analisis katalog yang hebat untuk perpustakaan dengan mudah. Dapatkan hasil yang lebih spesifikasi.</div>
+                <div class="wi-text">Solusi analisis katalog yang hebat untuk perpustakaan dengan mudah. Dapatkan hasil data yang lebih spesifikasi.</div>
               </div>
             </div>
           </div>
@@ -23,14 +23,18 @@
             <div class="row">
               <div class="col-sm-6">
                 <div class="widget-infoblock wi-small m-b-30" style="background-image: url(img/photos/2.jpg)">
-                  <div class="wi-bg bg-info"></div>
+                  <div class="wi-bg"></div>
                   <div class="wi-content-bottom p-a-30">
                     <div class="wi-title">Total User</div>
                     <div class="wi-stat">
                       <span class="m-r-10">
                         <i class="zmdi zmdi-account"></i>
-                      </span> - SOON - </div>
-                      <br>
+                        <?php
+                          $banyakuser= "SELECT id_user FROM user";
+                          $prosesbanyakuser= mysqli_query($con, $banyakuser);
+                        ?>
+                      </span> - <?php echo mysqli_num_rows($prosesbanyakuser) ?> - </div>
+                    <br>
                     <div class="wi-text">
                       <a href="user.php" style="color:white">
                         <i class="zmdi zmdi-search"></i> Lihat Data User Disini
@@ -41,13 +45,17 @@
               </div>
               <div class="col-sm-6">
                 <div class="widget-infoblock wi-small m-b-30" style="background-image: url(img/photos/3.jpg)">
-                  <div class="wi-bg bg-info"></div>
+                  <div class="wi-bg"></div>
                   <div class="wi-content-bottom p-a-30">
-                    <div class="wi-title">Total Buku Sekarang</div>
+                    <div class="wi-title">Total Buku</div>
                     <div class="wi-stat">
                       <span class="m-r-10">
                         <i class="zmdi zmdi-book"></i>
-                      </span> - SOON - </div>
+                        <?php
+                          $banyakbuku= "SELECT id_buku FROM buku";
+                          $prosesbanyakbuku= mysqli_query($con, $banyakbuku);
+                        ?>
+                      </span> - <?php echo mysqli_num_rows($prosesbanyakbuku) ?> - </div>
                       <br>
                     <div class="wi-text">
                       <a href="buku.php" style="color:white">
@@ -61,17 +69,21 @@
             <div class="row">
               <div class="col-sm-6">
                 <div class="widget-infoblock wi-small m-b-30" style="background-image: url(img/photos/4.jpg)">
-                  <div class="wi-bg bg-primary"></div>
+                  <div class="wi-bg"></div>
                   <div class="wi-content-bottom p-a-30">
                     <div class="wi-title">Total Peminjaman</div>
                     <div class="wi-stat">
                       <span class="m-r-10">
                         <i class="zmdi zmdi-assignment"></i>
-                      </span> - SOON - </div>
+                        <?php
+                          $banyakpeminjaman= "SELECT id_peminjaman FROM peminjaman";
+                          $prosesbanyakpeminjaman= mysqli_query($con, $banyakpeminjaman);
+                        ?>
+                      </span> - <?php echo mysqli_num_rows($prosesbanyakpeminjaman) ?> - </div>
                       <br>
                     <div class="wi-text">
                       <a href="peminjaman.php" style="color:white">
-                        <i class="zmdi zmdi-search"></i> Lihat Data Peminjaman Disini
+                        <i class="zmdi zmdi-search"></i> Lihat Peminjaman Disini
                       </a>
                     </div>
                   </div>
@@ -79,7 +91,7 @@
               </div>
               <div class="col-sm-6">
                 <div class="widget-infoblock wi-small m-b-30" style="background-image: url(img/photos/5.jpg)">
-                  <div class="wi-bg bg-warning"></div>
+                  <div class="wi-bg"></div>
                   <div class="wi-content-bottom p-a-30">
                     <div class="wi-title">Total Data Sanksi</div>
                     <div class="wi-stat">
