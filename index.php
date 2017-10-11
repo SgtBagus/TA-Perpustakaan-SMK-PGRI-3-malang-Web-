@@ -123,7 +123,7 @@
               </a>
             </div>
           </div>
-          <div class="panel-body">
+          <div class="panel-body"  style="background-color: #f5f5f5">
             <div class="row">
               <div class="col-sm-12">
 <?php
@@ -163,35 +163,58 @@
               <div class="panel-heading">
                 <h3 class="panel-title">Peminjaman</h3>
                 <div class="panel-subtitle">
-                  <a href="peminjaman.php">
+                  <a href="peminjaman.php" style="text-decoration:none">
                     <i class="zmdi zmdi-search"></i> Lihat Semua Data Peminjaman Disini
                   </a>
                 </div>
               </div>
               <div class="table-responsive">
+<?php
+  $query_peminjaman = "SELECT a.id_peminjaman, b.username, b.id_siswa_pegawai, a.status_pinjaman FROM peminjaman 
+                       AS a INNER JOIN user AS b WHERE a.id_user = b.id_user LIMIT 5";
+  $result_peminjaman = mysqli_query($con, $query_peminjaman);
+?>
                 <table class="table table-borderless">
                   <thead>
                     <tr>
                       <th>No</th>
-                      <th>Username</th>
-                      <th>Sanksi</th>
-                      <th>Aksi</th>
+                      <th colspan="2">Peminjam</th>
+                      <th>Status</th>
+                      <th>Detail</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
+  <?php
+  $no_peminjaman = 1;
+  while($data_peminjaman = mysqli_fetch_assoc($result_peminjaman)){
+                    echo '<tr>
+                      <td>'.$no_peminjaman.'</td>
+                      <td>';
+
+      $query_siswa = "SELECT NIS FROM SISWA WHERE NIS = '$data_peminjaman[id_siswa_pegawai]'";
+      $result_siswa = mysqli_query($con, $query_siswa);
+                    if($result_siswa->num_rows == 1){
+                      $query_foto_siswa = "SELECT foto_siswa FROM siswa WHERE NIS = '$data_peminjaman[id_siswa_pegawai]'";
+                      $result_foto_siswa = mysqli_query($con, $query_foto_siswa);
+                      $data_foto_siswa = mysqli_fetch_assoc($result_foto_siswa);
+                          echo '<img class="img-circle" src="img/avatars/'.$data_foto_siswa['foto_siswa'].'" alt="" width="50" height="50">';
+                    }else{  
+                      $query_foto_pegawai = "SELECT foto_pegawai FROM pegawai WHERE NIP = '$data_peminjaman[id_siswa_pegawai]'";
+                      $result_foto_pegawai = mysqli_query($con, $query_foto_pegawai);
+                      $data_foto_pegawai = mysqli_fetch_assoc($result_foto_pegawai);
+                          echo '<img class="img-circle" src="img/avatars/'.$data_foto_pegawai['foto_pegawai'].'" alt="" width="50" height="50">';
+                    }
+                    
+                      echo'</td>
                       <td>tes</td>
                       <td>tes</td>
                       <td>tes</td>
-                      <td>tes</td>
-                    </tr>
+                    </tr>';
+                    $no_peminjaman++ ;
+  }
+  ?>
                   </tbody>
                 </table>
-              </div>
-              <div class="panel-footer">
-                <div align="right">
-                  <h3 class="panel-title">Menampilkan sebagian data tersebut</h3>
-                </div>
               </div>
             </div>
           </div>
