@@ -66,6 +66,14 @@
         </ul>
       </li>
       <li>
+        <a href="report.php">
+          <span class="menu-icon">
+            <i class="zmdi zmdi-print"></i>
+          </span>
+          <span class="menu-text">Cetak Laporan</span>
+        </a>
+      </li>
+      <li>
         <a href="riwayat.php">
           <span class="menu-icon">
             <i class="zmdi zmdi-time-restore-setting"></i>

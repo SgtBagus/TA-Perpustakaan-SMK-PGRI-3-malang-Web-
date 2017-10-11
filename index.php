@@ -169,11 +169,11 @@
                 </div>
               </div>
               <div class="table-responsive">
-<?php
-  $query_peminjaman = "SELECT a.id_peminjaman, b.username, b.id_siswa_pegawai, a.status_pinjaman FROM peminjaman 
-                       AS a INNER JOIN user AS b WHERE a.id_user = b.id_user LIMIT 5";
-  $result_peminjaman = mysqli_query($con, $query_peminjaman);
-?>
+      <?php
+        $query_peminjaman = "SELECT a.id_peminjaman, b.username, b.id_siswa_pegawai, a.status_pinjaman FROM peminjaman 
+                            AS a INNER JOIN user AS b WHERE a.id_user = b.id_user LIMIT 5";
+        $result_peminjaman = mysqli_query($con, $query_peminjaman);
+      ?>
                 <table class="table table-borderless">
                   <thead>
                     <tr>
@@ -184,9 +184,9 @@
                     </tr>
                   </thead>
                   <tbody>
-  <?php
-  $no_peminjaman = 1;
-  while($data_peminjaman = mysqli_fetch_assoc($result_peminjaman)){
+      <?php
+      $no_peminjaman = 1;
+      while($data_peminjaman = mysqli_fetch_assoc($result_peminjaman)){
                     echo '<tr>
                       <td>'.$no_peminjaman.'</td>
                       <td>';
@@ -194,21 +194,50 @@
       $query_siswa = "SELECT NIS FROM SISWA WHERE NIS = '$data_peminjaman[id_siswa_pegawai]'";
       $result_siswa = mysqli_query($con, $query_siswa);
                     if($result_siswa->num_rows == 1){
-                      $query_foto_siswa = "SELECT foto_siswa FROM siswa WHERE NIS = '$data_peminjaman[id_siswa_pegawai]'";
+                      $query_foto_siswa = "SELECT NIS, foto_siswa FROM siswa WHERE NIS = '$data_peminjaman[id_siswa_pegawai]'";
                       $result_foto_siswa = mysqli_query($con, $query_foto_siswa);
                       $data_foto_siswa = mysqli_fetch_assoc($result_foto_siswa);
-                          echo '<img class="img-circle" src="img/avatars/'.$data_foto_siswa['foto_siswa'].'" alt="" width="50" height="50">';
+                          echo '
+                          <a href="detail_siswa.php?no_induk='.$data_foto_siswa['NIS'].'">
+                            <img class="img-circle" src="img/avatars/'.$data_foto_siswa['foto_siswa'].'" alt="" width="50" height="50">
+                          </a>
+                          ';
                     }else{  
-                      $query_foto_pegawai = "SELECT foto_pegawai FROM pegawai WHERE NIP = '$data_peminjaman[id_siswa_pegawai]'";
+                      $query_foto_pegawai = "SELECT NIP, foto_pegawai FROM pegawai WHERE NIP = '$data_peminjaman[id_siswa_pegawai]'";
                       $result_foto_pegawai = mysqli_query($con, $query_foto_pegawai);
                       $data_foto_pegawai = mysqli_fetch_assoc($result_foto_pegawai);
-                          echo '<img class="img-circle" src="img/avatars/'.$data_foto_pegawai['foto_pegawai'].'" alt="" width="50" height="50">';
+                          echo '
+                          <a href="detail_pegawai.php?no_induk='.$data_foto_pegawai['NIP'].'">
+                            <img class="img-circle" src="img/avatars/'.$data_foto_pegawai['foto_pegawai'].'" alt="" width="50" height="50">
+                          </a>
+                          ';
                     }
                     
                       echo'</td>
-                      <td>tes</td>
-                      <td>tes</td>
-                      <td>tes</td>
+                      <td>'.$data_peminjaman['username'].'</td>
+                      <td>
+                        <div align="center">';
+                          if($data_peminjaman['status_pinjaman'] == "Menunggu"){
+                          echo '<span class="label label-warning label-pill m-w-60">Menunggu</span>';
+                          } 
+                          else if ($data_peminjaman['status_pinjaman'] == "Diterima"){
+                            echo '<span class="label label-primary label-pill m-w-60">Diterima</span>';
+                          }
+                          else if ($data_peminjaman['status_pinjaman'] == "Ditolak"){
+                            echo '<span class="label label-danger label-pill m-w-60">Ditolak</span>';
+                          }
+                          else{ 
+                              echo '<span class="label label-primary label-pill m-w-60">Kembali</span>';
+                          }
+                          echo'<div>
+                      </td>
+                      <td>
+                        <div align="center">
+                          <a href="system/detail_refresh.php?id='.$data_peminjaman['id_peminjaman'].'">
+                            <i class="zmdi zmdi-eye"></i>
+                          </a>
+                        </div>
+                      </td>
                     </tr>';
                     $no_peminjaman++ ;
   }
