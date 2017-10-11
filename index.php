@@ -158,10 +158,10 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-4">
+          <div class="col-md-6">
             <div class="panel panel-default panel-table">
               <div class="panel-heading">
-                <h3 class="panel-title">Peminjaman</h3>
+                <h3 class="panel-title">Peminjaman Terbaru </h3>
                 <div class="panel-subtitle">
                   <a href="peminjaman.php" style="text-decoration:none">
                     <i class="zmdi zmdi-search"></i> Lihat Semua Data Peminjaman Disini
@@ -247,77 +247,77 @@
               </div>
             </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-6">
           <div class="panel panel-default panel-table">
             <div class="panel-heading">
-              <h3 class="panel-title">Peminjaman</h3>
+              <h3 class="panel-title">Pengembalian</h3>
               <div class="panel-subtitle">
-                <a href="peminjaman.php">
+                <a href="pengembalian.php">
                   <i class="zmdi zmdi-search"></i> Lihat Semua Data Peminjaman Disini
                 </a>
               </div>
             </div>
             <div class="table-responsive">
               <table class="table table-borderless">
+                
+<?php
+  $query_pengembalian = "SELECT a.id_peminjaman, b.username, b.id_siswa_pegawai,
+            a.tgl_kembali FROM peminjaman 
+            AS a INNER JOIN user AS b WHERE a.id_user = b.id_user AND a.tgl_kembali NOT LIKE '0000-00-00'";
+  $result_pengembalian = mysqli_query($con, $query_pengembalian);
+?>   
                 <thead>
                   <tr>
                     <th>No</th>
-                    <th>Username</th>
-                    <th>Sanksi</th>
+                    <th colspan="2">Pengembali</th>
+                    <th>Tanggal Kembali</th>
                     <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>tes</td>
-                    <td>tes</td>
-                    <td>tes</td>
-                    <td>tes</td>
-                  </tr>
+                
+<?php
+$no_pengembalian = 1;
+while($data_pengembalian = mysqli_fetch_assoc($result_pengembalian)){
+                  echo '<tr>
+                    <td>'.$no_pengembalian.'</td>
+                    <td>';                  
+      $query_siswa_pengembalian = "SELECT NIS FROM SISWA WHERE NIS = '$data_pengembalian[id_siswa_pegawai]'";
+      $result_siswa_pengembalian = mysqli_query($con, $query_siswa_pengembalian);
+                    if($result_siswa_pengembalian->num_rows == 1){
+                      $query_foto_siswa_pengembalian = "SELECT NIS, foto_siswa FROM siswa WHERE NIS = '$data_pengembalian[id_siswa_pegawai]'";
+                      $result_foto_siswa_pengembalian = mysqli_query($con, $query_foto_siswa_pengembalian);
+                      $data_foto_siswa_pengembalian = mysqli_fetch_assoc($result_foto_siswa_pengembalian);
+                          echo '
+                          <a href="detail_siswa.php?no_induk='.$data_foto_siswa_pengembalian['NIS'].'">
+                            <img class="img-circle" src="img/avatars/'.$data_foto_siswa_pengembalian['foto_siswa'].'" alt="" width="50" height="50">
+                          </a>
+                          ';
+                    }else{  
+                      $query_foto_pegawai_pengembalian = "SELECT NIP, foto_pegawai FROM pegawai WHERE NIP = '$data_pengembalian[id_siswa_pegawai]'";
+                      $result_foto_pegawai_pengembalian = mysqli_query($con, $query_foto_pegawai_pengembalian);
+                      $data_foto_pegawai_pengembalian = mysqli_fetch_assoc($result_foto_pegawai_pengembalian);
+                          echo '
+                          <a href="detail_pegawai.php?no_induk='.$data_foto_pegawai_pengembalian['NIP'].'">
+                            <img class="img-circle" src="img/avatars/'.$data_foto_pegawai_pengembalian['foto_pegawai'].'" alt="" width="50" height="50">
+                          </a>
+                          ';
+                    }
+                  echo'</td>
+                    <td>'.$data_pengembalian['username'].'</td>
+                    <td>'.tanggal_indo(''.$data_pengembalian['tgl_kembali'].'').'</td>
+                    <td>
+                      <a href="detail_peminjaman.php?id_peminjaman='.$data_pengembalian['id_peminjaman'].'">
+                        <i class="zmdi zmdi-eye"></i>
+                      </a>
+                    </td>
+                  </tr>';
+                  
+$no_pengembalian++ ;
+}
+?>
                 </tbody>
               </table>
-            </div>
-            <div class="panel-footer">
-              <div align="right">
-                <h3 class="panel-title">Menampilkan sebagian data tersebut</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="panel panel-default panel-table">
-            <div class="panel-heading">
-            <h3 class="panel-title">Peminjaman</h3>
-              <div class="panel-subtitle">
-                <a href="peminjaman.php">
-                  <i class="zmdi zmdi-search"></i> Lihat Semua Data Peminjaman Disini
-                </a>
-              </div>
-            </div>
-            <div class="table-responsive">
-              <table class="table table-borderless">
-                <thead>
-                  <tr>
-                    <th>No</th>
-                    <th>Username</th>
-                    <th>Sanksi</th>
-                    <th>Aksi</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>tes</td>
-                    <td>tes</td>
-                    <td>tes</td>
-                    <td>tes</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="panel-footer">
-              <div align="right">
-                <h3 class="panel-title">Menampilkan sebagian data tersebut</h3>
-              </div>
             </div>
           </div>
         </div>
