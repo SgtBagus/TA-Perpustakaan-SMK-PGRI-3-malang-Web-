@@ -24,7 +24,7 @@
               <div class="col-sm-6">
                 <div class="widget-infoblock wi-small m-b-30" style="background-image: url(img/photos/2.jpg)">
                   <div class="wi-bg"></div>
-                  <div class="wi-content-bottom p-a-30">
+                  <div class="wi-content-bottom p-a-30"> 
                     <div class="wi-title">Total User</div>
                     <div class="wi-stat">
                       <span class="m-r-10">
