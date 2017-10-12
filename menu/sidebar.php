@@ -66,7 +66,7 @@
         </ul>
       </li>
       <li>
-        <a href="report.php">
+        <a href="cetak.php">
           <span class="menu-icon">
             <i class="zmdi zmdi-print"></i>
           </span>
