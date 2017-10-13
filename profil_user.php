@@ -77,46 +77,61 @@
                         <div class="wi-content-bottom p-a-30">
                             <div class="wi-text">
                                 <div class="pa-avatar">
-                                    <img src="img/avatars/<?php echo $foto ?>" alt="Foto Profil" width="120" height="120">
+                                    <img id="preview_gambar"  src="img/avatars/<?php echo $foto ?>" alt="Foto Profil" width="100" height="100">
                                 </div>
                             </div>
                             <div class="wi-text"><h4><?php echo $username ?></h4></div>
                             <div class="wi-text"><?php echo $nama ?> · <?php echo $jabatan ?></div>                  
+                            <div class="wi-text"><i class="zmdi zmdi-email"></i> - <?php echo $email ?></div>                  
                         </div>
                     </div>
                 </div>
                 <br>
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-12">
                         <div class="p-info m-b-20">
-                        <h4 class="m-y-0">Info</h4>
+                        <h4 class="m-y-0">Ubah Profil</h4>
                         <hr>
-                            <div class="pi-item">
-                                <div class="pii-icon">
-                                    <i class="zmdi zmdi-phone"></i>
-                                </div>
-                                <div class="pii-value"><?php echo $no_hp?></div>
+                        <form id="inputmasks" class="form-horizontal"  method="post" action="system/proses_ubah_user.php" enctype="multipart/form-data">
+                            <div class="form-group">
+                              <input id="preview" style="visibility:hidden;" type="file" accept="image/png, image/jpeg, image/jpg" name="foto" onchange="readURL(this);" onclick="myFunction()" type="hidden"/>
+                              <label class="col-sm-3 control-label" for="form-control-5">Foto Profil</label>
+                              <div class="col-sm-9">
+                                <label for="preview" class="btn btn-primary btn-fill"><i class="zmdi zmdi-edit"> </i> Ubah Foto Profil</label> 
+                              </div>
                             </div>
-                            <div class="pi-item">
-                                <div class="pii-icon">
-                                    <i class="zmdi zmdi-email"></i>
-                                </div>
-                                <div class="pii-value">
-                                    <div class="pii-value"><?php echo $email ?></div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="form-control-1">Username</label>
+                                <div class="col-sm-9">
+                                    <input id="form-control-1" class="form-control" type="text" name="username" value="<?php echo $username ?>" >
                                 </div>
                             </div>
-                            <div class="pi-item">
-                                <div class="pii-icon">
-                                    <i class="zmdi zmdi-home"></i>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="form-control-1">Ubah Password</label>
+                                <div class="col-sm-9">
+                                    <input id="form-control-1" class="form-control" type="password" name="password" >
                                 </div>
-                                <div class="pii-value"><?php echo $alamat ?></div>
                             </div>
-                            <div class="pi-item">
-                                <div class="pii-icon">
-                                    <i class="zmdi zmdi-accounts-add"></i>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="form-control-1">No Hp</label>
+                                <div class="col-sm-9">
+                                    <input id="form-control-1" class="form-control" type="text" name="No Hp" value="<?php echo $no_hp ?>" >
                                 </div>
-                                <div class="pii-value"><?php echo tanggal_indo(''.$tgl_entri.'')?></div>
                             </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="form-control-1">Alamat</label>
+                                <div class="col-sm-9">
+                                    <textarea id="form-control-8" class="form-control" rows="3"><?php echo $alamat ?></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12" align="center">
+                                    <button type="submit" name="input" rel="tooltip" class="btn btn-primary btn-fill">
+                                    <i class="zmdi zmdi-edit"></i> Ubah Profil
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
                         </div>
                     </div>
                 </div>
