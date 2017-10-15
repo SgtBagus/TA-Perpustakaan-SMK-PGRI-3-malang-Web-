@@ -101,7 +101,7 @@
                                         <i class="zmdi zmdi-close"></i>
                                     </span>
                                 </button>
-                                <h4 class="modal-title">Menu Cetak Buku</h4>
+                                <h4 class="modal-title">Kegiatan</h4>
                             </div>
                             <div class="modal-body">    
                                 <div class="panel panel-default">

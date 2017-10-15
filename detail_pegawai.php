@@ -15,8 +15,8 @@
             $data        = mysqli_fetch_assoc($result);
             $id          = $data["NIP"];
             $nama        = $data["nama_pegawai"];
-            $foto        = $data["foto_pegawai"];
-            $jabatan     = $data["jabatan_pegawai"];
+            $foto        = $data["foto_pegawai"]; 
+            $jabatan_pegawai     = $data["jabatan_pegawai"];
             $email       = $data["email"];
             $username    = $data["username"];
             $no_hp       = $data["no_hp_pegawai"];
@@ -47,7 +47,7 @@
                     echo $username;
                   }
                   ?>
-                    <div class="pa-text"><?php echo $nama ?> · <?php echo $jabatan ?></div>                  </div>
+                    <div class="pa-text"><?php echo $nama ?> · <?php echo $jabatan_pegawai ?></div>                  </div>
                 </div>
               </div>
               <div class="p-info m-b-20">
@@ -104,28 +104,182 @@
             <div class="col-md-8 col-sm-7">
               <div class="panel panel-default">
                 <div class="panel-body">
-                  <div class="row">
-                    <div class="col-md-12">
-                      <ul class="nav nav-tabs nav-tabs-custom nav-justified m-b-15">
-                        <li class="active">
-                          <a href="#kegiatan" role="tab" data-toggle="tab" >
-                            <i class="zmdi zmdi-time-restore-setting"></i> Kegiatan</a>
-                        </li>
-                      </ul>
-                      <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane fade  active in" id="kegiatan">
-                            <?php
-                            if($verifikasi == "Belum"){
-                                echo '<p> - Belum Terverifikasi - </p>';
-                            }
-                            else{
-                                echo '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque lacinia non massa a euismod. Nam bibendum mauris mollis, ultricies orci vitae, tristique est. Mauris pellentesque justo ut est fringilla imperdiet.</p>
-                                <p>Cras varius vehicula lorem sollicitudin ullamcorper. Sed nec purus eget velit elementum posuere. Aliquam et orci tincidunt, vulputate tortor quis, iaculis sapien. Praesent semper dui at porta consequat. In quis turpis mollis, rutrum erat tincidunt, tincidunt ipsum. Suspendisse feugiat bibendum faucibus.</p>';                            }
-                        ?>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ul class="nav nav-tabs nav-tabs-custom nav-justified m-b-15">
+                                <li class="active">
+                                    <a href="#riwayat" role="tab" data-toggle="tab">
+                                        <i class="zmdi zmdi-time"></i> Riwayat
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#sanksi" role="tab" data-toggle="tab">
+                                        <i class="zmdi zmdi-info"></i> Sanksi
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane fade active in" id="riwayat">
+                                    <div class="table-responsive">
+                                        <?php
+                                            $query_riwayat = "SELECT * FROM riwayat_kegiatan WHERE id_user = '$id' ";
+                                            $result_riwayat = mysqli_query($con, $query_riwayat);
+                                        ?>
+                                        <table class="table" id="myTable">
+                                            <thead>
+                                                <tr>
+                                                    <th>No</th>
+                                                    <th>Tanggal</th>
+                                                    <th width ="350">Kegiatan</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                        <?php
+                                            $no_riwyat = 1;
+                                            if($result_riwayat->num_rows == 0){
+                                                echo '<tr>
+                                                    <td colspan="3">
+                                                        <div align="center">';
+                                                        if($verifikasi == "Belum"){
+                                                            echo '<p> - Belum Terverifikasi - </p>';
+                                                        }
+                                                        else{
+                                                            echo '<p> - Tidak ada Data - </p>';
+                                                        }
+                                                        echo '</div>
+                                                    </td>
+                                                </tr>';
+                                            }
+                                            else{
+                                                while($data_riwayat = mysqli_fetch_assoc($result_riwayat)){
+                                                    echo '<tr>
+                                                        <td>'.$no_riwyat.'</td>
+                                                        <td>'.tanggal_indo(''.$data_riwayat['tgl_riwayat_kegiatan'].'').'</td>
+                                                        <td>'.$data_riwayat['riwayat_kegiatan'].'</td>
+                                                    </tr>';
+                                                $no_riwyat++;
+                                                }
+                                            }
+                                        ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade" id="sanksi">
+                                    <div class="table-responsive">
+                                        <?php
+                                            $query_sanksi = "SELECT * FROM sanksi WHERE id_user = '$id'"; 
+                                            $result_sanksi = mysqli_query($con, $query_sanksi);
+                                        ?>
+                                        <table class="table" id="myTable">
+                                            <thead>
+                                                <tr>
+                                                    <th>No</th>
+                                                    <th>Sanksi</th>
+                                                    <th width ="350">Catatan</th>
+                                                    <th>Status Sanksi</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                        <?php
+                                            $no_sanksi = 1;
+                                            if($result_sanksi->num_rows == 0){
+                                                echo '<tr>
+                                                    <td colspan="4">
+                                                        <div align="center">';
+                                                            if($verifikasi == "Belum"){
+                                                                echo '<p> - Belum Terverifikasi - </p>';
+                                                            }
+                                                            else{
+                                                                echo '<p> - Tidak ada Data - </p>';
+                                                            }
+                                                        echo '</div>
+                                                    </td>
+                                                </tr>';
+                                            }
+                                            else{
+                                                while($data_sanksi = mysqli_fetch_assoc($result_sanksi)){
+                                                    echo '<tr>
+                                                        <td>'.$no_sanksi.'</td>
+                                                        <td>'.$data_sanksi['sanksi'].'</td>
+                                                        <td>'.$data_sanksi['catatan'].'</td>
+                                                        <td>'.$data_sanksi['status_sanksi'].'</td>
+                                                    </tr>';
+                                                $no_riwyat++;
+                                                }
+                                            }
+                                        ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                      </div>
                     </div>
-                  </div>
+                </div>
+              </div>
+              <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                          <h4 class="m-y-0">Edit Pegawai</h4>
+                          <hr>
+                          <form id="inputmasks" class="form-horizontal"  method="post" action="system/proses_ubah_pegawai.php" enctype="multipart/form-data">
+                            <div class="form-group">
+                              <label class="col-sm-3 control-label" for="form-control-5">Nama</label>
+                              <div class="col-sm-9">
+                                <input type="hidden" name="id_login" value="<?php echo $id_login ?>">
+                                <input type="hidden" name="NIP" value="<?php echo $id ?>">
+                                <input class="form-control" type="text" name="nama" placeholder="Nama" value="<?php echo $nama ?>">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="col-sm-3 control-label" for="form-control-21">Jabatan</label>
+                              <div class="col-sm-9">
+                                <select name="jabatan" class="form-control">
+                                <?php                        
+$semua_jabatan = array("Guru Pengajar", "Kesiswaan", "Pustakawan", "Karyawan", 
+                     "Administrasi", "Siswa");
+
+foreach ($semua_jabatan as $jabatan) 
+{
+  if($jabatan == $jabatan_pegawai) {
+    echo "<option value=".$jabatan." SELECTED>$jabatan</option>";
+  } 
+  else{
+    echo "<option value=".$jabatan.">$jabatan</option>";
+  }
+}
+                                ?>
+                                </select>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="form-control-1">No Hp</label>
+                                <div class="col-sm-9">
+                                    <input id="form-control-1" class="form-control" type="text" name="no_hp" value="<?php echo $no_hp ?>" >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="form-control-1">Alamat</label>
+                                <div class="col-sm-9">
+                                    <textarea id="form-control-8" class="form-control" rows="3" name="alamat" ><?php echo $alamat ?></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="col-sm-3 control-label" for="form-control-5">Password Anda</label>
+                              <div class="col-sm-9">
+                                <input class="form-control" type="password" name="konfirmasi" placeholder="Password Anda">
+                              </div>
+                            </div>
+                            <div align="right">
+                                <button type="submit" name="input" rel="tooltip" class="btn btn-primary btn-fill">
+                                  <i class="zmdi zmdi-edit"></i> Edit Pegawai
+                                </button>
+                            </div>
+                          </form>
+                        </div>
+                    </div>
                 </div>
               </div>
             </div>
@@ -136,4 +290,35 @@
     </div>
   </body>
       <?php include('script/footer_script.php') ?>
+      <script type="text/javascript">
+  <?php
+      if (isset($_GET['aksi'])) {
+          $aksi = ($_GET["aksi"]);
+          if($aksi == "terubah"){
+              echo 'swal({
+                title: "Terubah!",
+                text: "Profil Telah Diubah.",
+                type: "success",
+                showConfirmButton: true,
+              })';
+          }
+          else if($aksi == "error"){
+              echo 'swal({
+                title: "Kesalahan!",
+                text: "Mohon maaf terjadi Kesalahan.",
+                type: "error",
+                showConfirmButton: true,
+              })';
+          }
+          else if($aksi == "password"){
+              echo 'swal({
+                title: "Kesalahan!",
+                text: "Mohon maaf password tidak sesuai.",
+                type: "error",
+                showConfirmButton: true,
+              })';
+          }
+      }
+  ?>
+  </script>
 </html>
