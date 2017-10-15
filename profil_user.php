@@ -265,4 +265,43 @@
         </div>
     </body>
         <?php include('script/footer_script.php') ?>
+        <script type="text/javascript">
+  <?php
+      if (isset($_GET['aksi'])) {
+          $aksi = ($_GET["aksi"]);
+          if($aksi == "terubah"){
+              echo 'swal({
+                title: "Terubah!",
+                text: "Profil Telah Diubah.",
+                type: "success",
+                showConfirmButton: true,
+              })';
+          }
+          else if($aksi == "error"){
+              echo 'swal({
+                title: "Kesalahan!",
+                text: "Mohon maaf terjadi Kesalahan.",
+                type: "error",
+                showConfirmButton: true,
+              })';
+          }
+          else if($aksi == "size"){
+              echo 'swal({
+                title: "Kesalahan!",
+                text: "Mohon maaf ukruan file terlalu besar.",
+                type: "error",
+                showConfirmButton: true,
+              })';
+          }
+          else if($aksi == "format"){
+              echo 'swal({
+                title: "Kesalahan!",
+                text: "Mohon maaf file tidak sesuai.",
+                type: "error",
+                showConfirmButton: true,
+              })';
+          }
+      }
+  ?>
+  </script>
 </html>
