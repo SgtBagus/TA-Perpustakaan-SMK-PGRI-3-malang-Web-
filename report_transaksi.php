@@ -1,19 +1,23 @@
-<?php $page="LAPORAN DATA BUKU"; ?>
+<?php $page="LAPORAN DATA TRANSAKSI"; ?>
 <!DOCTYPE html>
 <html lang="en">
   <?php include('script/head_script.php') ?>
   <body class="layout layout-header-fixed">
     <div class="panel panel-default panel-table">
-         <?php include('menu/header_report.php') ?>
-         <?php
+         <?php include('menu/header_report.php');
+         if (isset($_GET['awal']) && isset($_GET['akhir'])) {
+            $awal       = date('Y-m-d', strtotime(($_GET['awal'])));
+            $akhir      = date('Y-m-d', strtotime(($_GET['akhir'])));
+            
          
-  $query_buku = "SELECT a.*, b.* 
-  FROM buku AS a INNER JOIN jenis_buku AS b WHERE a.id_jenis_buku = b.id_jenis_buku 
-  GROUP BY a.judul_buku ORDER BY a.id_buku  DESC" ;
-  $result_buku = mysqli_query($con, $query_buku);
-  
-  $banyak_buku = $result_buku->num_rows;
-         ?>
+            $query_transaksi = "SELECT a.*, b.* 
+            FROM peminjaman AS a INNER JOIN user AS b WHERE a.id_user = b.id_user
+            AND (a.tgl_peminjaman BETWEEN '$awal' AND '$akhir')" ;
+            $result_transaksi = mysqli_query($con, $query_transaksi);
+
+            $banyak_transaksi = $result_transaksi->num_rows;
+        }
+        ?>
         <div class="panel-body">
           <div align="center">
             <h3>Laporan Semua Buku</h3>
@@ -44,59 +48,132 @@
             </tr>
             <tr>
                 <td width="50%">
-                    Banyak Buku
+                    Banyak Transaksi
                 </td>
                 <td>
                     :
                 </td>
                 <td>
-                    <?php echo $banyak_buku ?>
+                    <?php echo $banyak_transaksi ?>
                 </td>
             </tr>
         </table>
         <div align="center">
-            Buku Tersebut Terdiri Dari
+            Transaksi Tersebut Terdiri Dari
         </div>
         </h4>
-            <table class="table">
-              <thead>
+        <table class="table">
+            <thead>
                 <tr>
-                  <th>No</th>
-                  <th></th>
-                  <th>Judul buku</th>
-                  <th>Jenis Buku</th>
-                  <th>Media</th>
-                  <th>Bahasa</th>
-                  <th>Total Buku</th>
+                    <th>No</th>
+                    <th colspan="3">Peminjam</th>
+                    <th>Jumlah Buku</th>
+                    <th>Tanggal Pinjaman</th>
+                    <th></th>
+                    <th>Tanggal Pengmbalian</th>
+                    <th>Sisa Hari</th>
+                    <th>Status</th>
                 </tr>
-              </thead>
+            </thead>
               <tbody>
-<?php
-  $no_buku = 1; 
-  while($data_buku = mysqli_fetch_assoc($result_buku)){
-                echo '<tr>
-                  <td>'.$no_buku.'</td>
-                  <td><img class="img-rounded" src="img/book/'.$data_buku['gambar_buku'].'" alt="" width="40" height="60"></td>
-                  <td>'.$data_buku['judul_buku'].'</td>
-                  <td>'.$data_buku['subyek'].'</td>
-                  <td>'.$data_buku['jenis_media'].'</td>
-                  <td>'.$data_buku['bahasa'].'</td>
-                  <td><b><div align="center">';
-        $query_banyak = "SELECT id_detail_buku 
-                         FROM detail_buku WHERE id_buku LIKE '$data_buku[id_buku]'";
+              <?php
+  $no = 1;
+  while($data = mysqli_fetch_assoc($result_transaksi)){
+    $date2 = new DateTime(''.$data['tgl_pengembalian'].'');
+    $tanggal = date('Y-m-d');
+    $date3 = new DateTime($tanggal); 
+                  echo '
+                  <tr>
+                    <td>'.$no.'</td>
+                    <td>';
+      $query_siswa = "SELECT NIS FROM SISWA WHERE NIS = '$data[id_siswa_pegawai]'";
+      $result_siswa = mysqli_query($con, $query_siswa);
+                    if($result_siswa->num_rows == 1){
+                      $query_foto_siswa = "SELECT foto_siswa FROM siswa WHERE NIS = '$data[id_siswa_pegawai]'";
+                      $result_foto_siswa = mysqli_query($con, $query_foto_siswa);
+                      $data_foto_siswa = mysqli_fetch_assoc($result_foto_siswa);
+                          echo '<img class="img-circle" src="img/avatars/'.$data_foto_siswa['foto_siswa'].'" alt="" width="50" height="50">';
+                    }else{  
+                      $query_foto_pegawai = "SELECT foto_pegawai FROM pegawai WHERE NIP = '$data[id_siswa_pegawai]'";
+                      $result_foto_pegawai = mysqli_query($con, $query_foto_pegawai);
+                      $data_foto_pegawai = mysqli_fetch_assoc($result_foto_pegawai);
+                          echo '<img class="img-circle" src="img/avatars/'.$data_foto_pegawai['foto_pegawai'].'" alt="" width="50" height="50">';
+                    }
+                    echo '</td>
+                    <td>'.$data['username'].'</td>
+                    <td>';
+                          if($result_siswa->num_rows == 1){
+                              echo '
+                      <a href="detail_siswa.php?no_induk='.$data['id_siswa_pegawai'].'">
+                        <i class="zmdi zmdi-eye"></i>
+                      </a>';
+                          }else{
+                              echo '
+                      <a href="detail_pegawai.php?no_induk='.$data['id_siswa_pegawai'].'">
+                        <i class="zmdi zmdi-eye"></i>
+                      </a>';
+                          }
+                    echo'</td>
+                    <td>
+                      <div align="center"><b>'; 
+        $query_banyak = "SELECT id_detail_peminjaman
+                         FROM detail_peminjaman WHERE id_peminjaman LIKE '$data[id_peminjaman]'";
         $result_banyak = mysqli_query($con, $query_banyak);
         $banyakdata_banyak = $result_banyak->num_rows;
-                  echo $banyakdata_banyak.'
-                  </div></b>
-                  </td>
-                </tr>';
-                $no_buku++;
-              }
-?>
+                  echo $banyakdata_banyak ;
+                      echo '</b></div>
+                    </td>
+                    <td>'.tanggal_indo(''.$data['tgl_peminjaman'].'').'</td>
+                    <td><b>s/d</b></td>
+                    <td>'.tanggal_indo(''.$data['tgl_pengembalian'].'').'</td>
+                    <td>
+                    <div align="center">';
+                    $diff = $date3->diff($date2)->format("%a");
+                    if($data['status_pinjaman'] == "Menunggu"){
+                      if($date3 > $date2){
+                        echo '<span class="label label-danger label-pill m-w-60">Kadarluasa</span>';
+                      }else{
+                        echo '<span class="label label-warning label-pill m-w-60">Belum Tersedia</span>';
+                      }
+                    } 
+                    else if ($data['status_pinjaman'] == "Ditolak"){
+                      echo '<span class="label label-danger label-pill m-w-60">Di Tolak</span>';
+                    }
+                    else if ($data['status_pinjaman'] == "Kembali"){
+                      echo '<span class="label label-primary label-pill m-w-60">Kembali</span>';
+                    }
+                    else{ 
+                      if($date3 > $date2){
+                        echo '<span class="label label-danger label-pill m-w-60">Terlambat</span>';
+                      }
+                      else if ($date3 == $date2){
+                        echo '<span class="label label-warning label-pill m-w-60">Hari Ini</span>';
+                      }
+                      else{
+                        echo '<b>'.$diff.'</b> - Hari Lagi';
+                      }
+                    }
+                        echo'<div>
+                      </td>
+                      <td>
+                        <div align="center">';
+                      if ($data['status_pinjaman'] == "Ditolak"){
+                          echo '<span class="label label-outline-danger">'.$data['status_pinjaman'].'</span>';
+                      }else if ($data['status_pinjaman'] == "Menunggu"){
+                        echo '<span class="label label-outline-warning">'.$data['status_pinjaman'].'</span>';
+                      }else{
+                          echo '<span class="label label-outline-info">'.$data['status_pinjaman'].'</span>';
+                      }
+                      echo '</div>
+                      </td>
+                  </tr>';
+                  $no++;
+  }
+  ?>
               </tbody>
               <tfoot>
                 <tf>
-                    <td colspan="7">
+                    <td colspan="10">
                         <?php include('menu/footer_report.php') ?>
                     </td>
                 </tf>

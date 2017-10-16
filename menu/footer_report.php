@@ -4,6 +4,6 @@
 
 <script type="text/javascript">
   function cetak_print() {
-    // window.print();
+    window.print();
   }
 </script>
