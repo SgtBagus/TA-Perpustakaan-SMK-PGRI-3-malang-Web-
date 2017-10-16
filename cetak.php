@@ -68,10 +68,19 @@
                         ?>
                       </span> - <?php echo mysqli_num_rows($prosesbanyakuser) ?> - </div>
                     <br>
-                    <div class="wi-text">   
-                      <a href="user.php" style="color:white;text-decoration:none">
-                        <i class="zmdi zmdi-search"></i> Lihat Data User Disini
-                      </a>
+                    <div class="wi-text">
+                      <div class="row">
+                        <div class="col-sm-6" align="middle">
+                          <a href="user.php" style="color:white;text-decoration:none">
+                            <i class="zmdi zmdi-search"></i> Lihat Data User 
+                          </a>
+                        </div>
+                        <div class="col-sm-6">
+                            <button type="button" class="btn btn-primary m-w-120" data-toggle="modal" data-target="#transaksi">
+                              <i class="zmdi zmdi-print"></i> Cetak Transaksi
+                            </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -173,6 +182,47 @@
             </div>
           </div>
         </div>
+        <div id="transaksi" class="modal fade" tabindex="-1" role="dialog" style="display: none;">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header bg-primary">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">
+                    <i class="zmdi zmdi-close"></i>
+                  </span>
+                </button>
+                <h4 class="modal-title">Menu Cetak Transaksi</h4>
+              </div>
+              <div class="modal-body">    
+                <form id="inputmasks" class="form-horizontal" action="?">   
+                  <div class="form-group">
+                    <label class="col-sm-12">
+                        <div align="center">
+                            <h3>FILTER TRANSAKSI</h3>
+                        </div>
+                    </label>
+                  </div> 
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label" for="form-control-5">Jangka Tanggal</label>
+                    <label class="col-sm-1 control-label" for="form-control-5">Awal</label>
+                    <div class="col-sm-3">
+                        <input id="from" class="form-control awal" type="text" name="awal">
+                    </div>
+                    <label class="col-sm-1 control-label" for="form-control-5">Sampai</label>
+                    <div class="col-sm-3">
+                        <input id="to" class="form-control akhir" type="text" name="akhir">
+                    </div>
+                  </div> 
+                  <div class="modal-footer text-center">
+                    <div type="submit" onclick="report_transaksi()" name="input" rel="tooltip" class="btn btn-primary btn-fill">
+                      <i class="zmdi zmdi-print"></i> Cetak Transaksi
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <?php include('menu/footer.php') ?>
     </div>
@@ -186,6 +236,15 @@
         function new_tap($type,$value,$attr) {
             window.open("report_detail_buku.php"+"?"+"id_buku"+"="+$('.judul').val()+"&status_buku="+$('.status_buku').val(),"_blank");
         }
-    }
+    } 
+    
+    function report_transaksi(){
+        $v = "new_book_transaksi";
+        $a = $("body").attr('class');
+        new_tap('idn',$v,$a);
+        function new_tap($type,$value,$attr) {
+            window.open("report_transaksi.php"+"?"+"awal"+"="+$('.awal').val()+"&akhir="+$('.akhir').val(),"_blank");
+        }
+    } 
   </script>
 </html>
