@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <?php include('script/head_script.php') ?>
+  <body class="layout layout-header-fixed">
     <div class="panel panel-default panel-table">
          <?php include('menu/header_report.php') ?>
          <?php
@@ -20,7 +21,7 @@
           <h4>
           <table width="50%">
             <tr>
-                <td width="30%">
+                <td width="50%">
                     Pencetak
                 </td>
                 <td>
@@ -31,7 +32,7 @@
                 </td>
             </tr>
             <tr>
-                <td width="30%">
+                <td width="50%">
                     Tanggal Pencetakan 
                 </td>
                 <td>
@@ -42,7 +43,7 @@
                 </td>
             </tr>
             <tr>
-                <td width="30%">
+                <td width="50%">
                     Banyak Buku
                 </td>
                 <td>
@@ -101,6 +102,7 @@
                 </tf>
               </tfoot>
             </table>
-        </div>    
+        </div>  
+    </body>  
   <?php include('script/footer_script.php') ?>
 </html>

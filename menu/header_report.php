@@ -30,6 +30,51 @@ function tanggal_indo($tanggal){
     }
 ?>
 
+<div class="site-header">
+  <nav class="navbar navbar-default"  style="background-color: rgb(238, 238, 238);">
+    <div class="navbar-header" align="center">
+      <a class="navbar-brand" href="#">
+        <img src="img/icon.png" alt="" height="25">
+        <span>Katalog Perpustakaan</span>
+      </a>
+    </div>
+    <div class="navbar-collapsible">
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li class="visible-xs-block">
+            <div class="nav-avatar">
+              <img class="img-circle" src="img/avatars/<?php echo $foto_login ?>" alt="" width="48" height="48">
+            </div>
+            <h4 class="navbar-text text-center"><?php echo $username_login ?></h4>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="nav-table dropdown hidden-sm-down">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              <span class="nav-cell">
+                <i class="zmdi zmdi-download m-r-10"></i> Cetak Laporan
+                <span class="caret"></span>
+              </span>
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <a href="#" onclick="cetak_print()">
+                  <i class="zmdi zmdi-print m-r-10"></i> Print
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="zmdi zmdi-collection-pdf m-r-10"></i> PDF
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>
+
 <table width="100%">
     <tr>
         <td width="10%">

@@ -1,4 +1,4 @@
-<?php $page="DASHBOARD"; ?>
+<?php $page="CETAK"; ?>
 <!DOCTYPE html>
 <html lang="en">
   <?php include('script/head_script.php') ?>
@@ -15,7 +15,7 @@
               <div class="wi-content-bottom p-a-30">
                 <div class="wi-title m-b-30">CETAK LAPORAN</div>
                 <div class="wi-text"><h4>KATALOG PERPUSTAKAAN MK PGRI 3 SKARIGA</h4></div>
-                <div class="wi-text">Cetak Laporan Perekapan data dalam format <i>- Print Screen -</i></div>
+                <div class="wi-text">Cetak Laporan Perekapan data dalam format <i>- <b> Print Screen </b> -</i> dan save file dengan format <i>- <b> PDF </b> -</i></div>
               </div>
             </div>
           </div>
@@ -117,7 +117,7 @@
                   <div class="form-group">
                     <label class="col-sm-3 control-label" for="form-control-5">Semua Buku</label>
                     <div type="button" name="input" rel="tooltip" class="btn btn-primary btn-fill" 
-                    onclick="window.open('report_buku.php', '_blank', 'toolbar=0, location=0, menubar=0');">
+                    onclick="window.open('report_buku.php', '_blank');">
                         <i class="zmdi zmdi-print"></i> Cetak Semua Buku
                     </div>
                   </div>  
@@ -155,6 +155,7 @@
                     <label class="col-sm-3 control-label" for="form-control-5">Status Buku</label>
                     <div class="col-sm-6">
                       <select name="status_buku" class="form-control status_buku" required>  
+                        <option value="Semua">Semua</option>
                         <option value="Siap Terpinjam">Siap Terpinjam</option>
                         <option value="Dipesan">Dipesan</option>
                         <option value="Dipinjam">Dipinjam</option>
@@ -183,7 +184,7 @@
         $a = $("body").attr('class');
         new_tap('idn',$v,$a);
         function new_tap($type,$value,$attr) {
-            window.open("report_detail_buku.php"+"?"+"id_buku"+"="+$('.judul').val()+"&status_buku="+$('.status_buku').val(),"_blank", "toolbar=0,location=0,menubar=0");
+            window.open("report_detail_buku.php"+"?"+"id_buku"+"="+$('.judul').val()+"&status_buku="+$('.status_buku').val(),"_blank");
         }
     }
   </script>

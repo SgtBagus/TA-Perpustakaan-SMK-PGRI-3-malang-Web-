@@ -114,45 +114,46 @@
             </div>
           </div>
         </div>
-        <div class="panel panel-default panel-table">
-          <div class="panel-heading">
-            <h3 class="panel-title">Data Sebagian Buku Baru</h3>
-            <div class="panel-subtitle">
-              <a href="sanksi.php" style="color:black;text-decoration:none">
-                <i class="zmdi zmdi-search"></i> Klik disini untuk melihat data buku lainya
-              </a>
-            </div>
-          </div>
-          <div class="panel-body"  style="background-color: #f5f5f5">
-            <div class="row">
-              <div class="col-sm-12">
-<?php
-  $buku = "SELECT * FROM buku ORDER BY id_buku DESC LIMIT 6";
-  $resultbuku = mysqli_query($con, $buku);
-                echo '<table class="table">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="panel panel-default panel-table">
+              <div class="panel-heading">
+                <h3 class="panel-title">Buku Terbaru</h3>
+                <div class="panel-subtitle">
+                  <a href="buku.php" style="text-decoration:none">
+                    <i class="zmdi zmdi-search"></i> Lihat Semua Data Buku Disini
+                  </a>
+                </div>
+              </div>
+              <div class="table-responsive">
+      <?php
+        $buku = "SELECT * FROM buku ORDER BY id_buku DESC LIMIT 6";
+        $resultbuku = mysqli_query($con, $buku);
+      ?>
+                <table class="table table-borderless">
                   <thead>
-                    <tr>';
-                    
-  while($data_buku = mysqli_fetch_assoc($resultbuku)){
-                      echo'<td>
-                        <div align="center">
-                          <a href="detail_buku.php?ISBN='.$data_buku['ISBN'].'" style="color:black;text-decoration:none">
-                            <img class="img-rounded" src="img/book/'.$data_buku['gambar_buku'].'" alt="" width="120" height="200">
-                            <br><b>'.$data_buku['judul_singkat'].'</b><br>';
-                            $query_banyak = "SELECT id_detail_buku
-                                             FROM detail_buku WHERE id_buku LIKE '$data_buku[id_buku]'";
-                            $result_banyak = mysqli_query($con, $query_banyak);
-                            $banyakdata_banyak = $result_banyak->num_rows;
+                    <tr>
+      <?php
+            while($data_buku = mysqli_fetch_assoc($resultbuku)){
+                    echo'<td>
+                      <div align="center">
+                        <a href="detail_buku.php?ISBN='.$data_buku['ISBN'].'" style="color:black;text-decoration:none">
+                          <img class="img-rounded" src="img/book/'.$data_buku['gambar_buku'].'" alt="" width="120" height="200">
+                          <br><b>'.$data_buku['judul_singkat'].'</b><br>';
+                          $query_banyak = "SELECT id_detail_buku
+                                          FROM detail_buku WHERE id_buku LIKE '$data_buku[id_buku]'";
+                          $result_banyak = mysqli_query($con, $query_banyak);
+                          $banyakdata_banyak = $result_banyak->num_rows;
 
-                            echo 'Total Buku : <b>'.$banyakdata_banyak.'</b>
-                          </a>
-                        </div>
-                      </td>';                   
-  }
-                    echo '</tr>
+                          echo 'Total Buku : <b>'.$banyakdata_banyak.'</b>
+                        </a>
+                      </div>
+                    </td>';                   
+            }
+      ?>
+                    </tr>
                   </thead>
-                </table>';
-?>
+                </table>
               </div>
             </div>
           </div>
