@@ -41,31 +41,6 @@
             <h3>Laporan Buku - <?php echo $judul_buku ?></h3>
           </div>
           <h4>
-          <table width="50%">
-            <tr>
-                <td width="50%">
-                    Pencetak
-                </td>
-                <td>
-                    :
-                </td>
-                <td>
-                    <?php echo $username_login ?>
-                </td>
-            </tr>
-            <tr>
-                <td width="50%">
-                    Tanggal Pencetakan 
-                </td>
-                <td>
-                    :
-                </td>
-                <td>
-                    <?php echo tanggal_indo(date('Y-m-d'))?>
-                </td>
-            </tr>
-        </table>
-        <br>
         <table width="100%">
             <tr>
                 <td width="80%">
@@ -169,7 +144,7 @@
                 </td>
                 <td width="20%">
                     <div align="center">
-                        <img src="img/book/<?php echo $gambar_buku?>" alt="Foto Profil" width="150" height="200">
+                        <img src="img/book/<?php echo $gambar_buku?>" alt="Foto Profil" width="160" height="190" style="border:3px solid #ddd">
                         <br>
                         <?php echo $judul_singkat ?>
                         <br>
@@ -271,9 +246,19 @@
         }
         ?>
         <table class="table">
+            <tbody>
+                <tr>
+                    <td width="70%">
+
+                    </td>
+                    <td>
+                        <?php include('menu/petanda_tangan_report.php') ?>
+                    </td>
+                </tr>
+            </tbody>
             <tfoot>
                 <tf>
-                    <td colspan="7">
+                    <td colspan="2">
                         <?php include('menu/footer_report.php') ?>
                     </td>
                 </tf>

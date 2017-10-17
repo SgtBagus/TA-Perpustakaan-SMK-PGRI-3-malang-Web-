@@ -61,13 +61,13 @@ function tanggal_indo($tanggal){
             <ul class="dropdown-menu">
               <li>
                 <a href="#" onclick="cetak_print()">
-                  <i class="zmdi zmdi-print m-r-10"></i> Print
+                  <i class="zmdi zmdi-print m-r-10"></i> Cetak
                 </a>
               </li>
               <li>
-                <a href="#">
-                  <i class="zmdi zmdi-collection-pdf m-r-10"></i> PDF
-                </a>
+                <a href="#" onclick="close_window()">
+                  <i class="zmdi zmdi-close-circle m-r-10"></i> Batal
+                </a> 
               </li>
             </ul>
           </li>

@@ -9,10 +9,11 @@
             $awal       = date('Y-m-d', strtotime(($_GET['awal'])));
             $akhir      = date('Y-m-d', strtotime(($_GET['akhir'])));
             $status = ($_GET['status']);
+
             if($status == "Menunggu"){
                    $query_transaksi = "SELECT a.*, b.* 
                    FROM peminjaman AS a INNER JOIN user AS b WHERE a.id_user = b.id_user
-                   AND (a.tgl_peminjaman BETWEEN '$awal' AND '$akhir')" ;
+                   AND (a.tgl_peminjaman BETWEEN '$awal' AND '$akhir') AND status_pinjaman = 'Menunggu'" ;
             }
             else if ($status == "Diterima"){
                 $query_transaksi = "SELECT a.*, b.* 
@@ -26,6 +27,10 @@
                 $query_transaksi = "SELECT a.*, b.* 
                 FROM peminjaman AS a INNER JOIN user AS b WHERE a.id_user = b.id_user
                 AND (a.tgl_peminjaman BETWEEN '$awal' AND '$akhir') AND status_pinjaman = 'Kembali'" ;
+            }else if  ($status == "Semua"){
+                $query_transaksi = "SELECT a.*, b.* 
+                FROM peminjaman AS a INNER JOIN user AS b WHERE a.id_user = b.id_user
+                AND (a.tgl_peminjaman BETWEEN '$awal' AND '$akhir')" ;
             }
             
             $result_transaksi = mysqli_query($con, $query_transaksi);
@@ -41,7 +46,7 @@
           <table width="50%">
             <tr>
                 <td width="30%">
-                    Tangga 
+                    Tanggal
                 </td>
                 <td>
                     :
@@ -93,6 +98,16 @@
               <tbody>
               <?php
   $no = 1;
+    if($result_transaksi->num_rows == 0){
+        echo '<tr>
+            <td colspan="9">
+                <div align="center">
+                    Tidak ada Data
+                </div>
+            </td>
+        </tr>';
+    }
+else{
   while($data = mysqli_fetch_assoc($result_transaksi)){
     $date2 = new DateTime(''.$data['tgl_pengembalian'].'');
     $tanggal = date('Y-m-d');
@@ -171,6 +186,7 @@
                   </tr>';
                   $no++;
   }
+}
   ?>
                 <tr>
                     <td colspan="7">

@@ -21,7 +21,7 @@
         <tr>
             <td>
                 <div align="center">
-                    <?php echo tanggal_indo(date('d-m-Y')) ?>
+                    <?php echo tanggal_indo(date('Y-m-d')) ?>
                 </div>
             </td>
         </tr>
