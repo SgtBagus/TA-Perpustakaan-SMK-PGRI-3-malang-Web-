@@ -9,7 +9,7 @@
       <div class="site-content">
         <div class="row">
           <div class="col-sm-12">
-            <div class="widget-infoblock wi-small m-b-30" style="background-image: url(img/photos/5.jpg)">
+            <div class="widget-infoblock wi-small m-b-30" style="background-image: url(img/photos/2.jpg)">
               <div class="wi-bg">
               </div>
               <div class="wi-content-bottom p-a-30">
@@ -55,24 +55,24 @@
                 </div>
               </div>
               <div class="col-sm-4">
-                <div class="widget-infoblock wi-small m-b-30" style="background-image: url(img/photos/2.jpg)">
+                <div class="widget-infoblock wi-small m-b-30" style="background-image: url(img/photos/4.jpg)">
                   <div class="wi-bg"></div>
                   <div class="wi-content-bottom p-a-30">
-                    <div class="wi-title">Total User</div>
+                    <div class="wi-title">Total Transaksi</div>
                     <div class="wi-stat">
                       <span class="m-r-10">
-                        <i class="zmdi zmdi-account"></i>
+                        <i class="zmdi zmdi-assignment"></i>
                         <?php
-                          $banyakuser= "SELECT id_user FROM user";
-                          $prosesbanyakuser= mysqli_query($con, $banyakuser);
+                          $banyaktransaksi= "SELECT id_user FROM peminjaman";
+                          $prosestransaksi= mysqli_query($con, $banyaktransaksi);
                         ?>
-                      </span> - <?php echo mysqli_num_rows($prosesbanyakuser) ?> - </div>
+                      </span> - <?php echo mysqli_num_rows($prosestransaksi) ?> - </div>
                     <br>
                     <div class="wi-text">
                       <div class="row">
                         <div class="col-sm-6" align="middle">
-                          <a href="user.php" style="color:white;text-decoration:none">
-                            <i class="zmdi zmdi-search"></i> Lihat Data User 
+                          <a href="peminjaman.php" style="color:white;text-decoration:none">
+                            <i class="zmdi zmdi-search"></i> Lihat Transaksi
                           </a>
                         </div>
                         <div class="col-sm-6">
@@ -86,7 +86,7 @@
                 </div>
               </div>
               <div class="col-sm-4">
-                <div class="widget-infoblock wi-small m-b-30" style="background-image: url(img/photos/4.jpg)">
+                <div class="widget-infoblock wi-small m-b-30" style="background-image: url(img/photos/5.jpg)">
                   <div class="wi-bg"></div>
                   <div class="wi-content-bottom p-a-30">
                     <div class="wi-title">Total Peminjaman</div>
@@ -208,9 +208,21 @@
                     <div class="col-sm-3">
                         <input id="from" class="form-control awal" type="text" name="awal">
                     </div>
-                    <label class="col-sm-1 control-label" for="form-control-5">Sampai</label>
+                    <label class="col-sm-2 control-label" for="form-control-5">Sampai</label>
                     <div class="col-sm-3">
                         <input id="to" class="form-control akhir" type="text" name="akhir">
+                    </div>
+                  </div> 
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label" for="form-control-5">Status</label>
+                    <div class="col-sm-9">
+                      <select name="status_peminjaman" class="form-control status_peminjaman" required>  
+                        <option value="Semua">Semua</option>
+                        <option value="Menunggu">Menunggu</option>
+                        <option value="Diterima">Diterima</option>
+                        <option value="Ditolak">Ditolak</option>
+                        <option value="Kembali">Kembali</option>
+                      </select>
                     </div>
                   </div> 
                   <div class="modal-footer text-center">
@@ -243,7 +255,7 @@
         $a = $("body").attr('class');
         new_tap('idn',$v,$a);
         function new_tap($type,$value,$attr) {
-            window.open("report_transaksi.php"+"?"+"awal"+"="+$('.awal').val()+"&akhir="+$('.akhir').val(),"_blank");
+            window.open("report_transaksi.php"+"?"+"awal"+"="+$('.awal').val()+"&akhir="+$('.akhir').val()+"&status="+$('.status_peminjaman').val(),"_blank");
         }
     } 
   </script>

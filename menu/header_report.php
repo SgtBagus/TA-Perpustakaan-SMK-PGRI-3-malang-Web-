@@ -10,6 +10,8 @@
 
   $data_login         = mysqli_fetch_assoc($result_login);
   $username_login     = $data_login["username"]; 
+  $jabatan_login      = $data_login["jabatan_pegawai"];
+  $nama_login         = $data_login["nama_pegawai"];
 
 function tanggal_indo($tanggal){
         $bulan = array (1 =>   'Januari',

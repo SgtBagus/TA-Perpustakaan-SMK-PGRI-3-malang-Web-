@@ -8,11 +8,26 @@
          if (isset($_GET['awal']) && isset($_GET['akhir'])) {
             $awal       = date('Y-m-d', strtotime(($_GET['awal'])));
             $akhir      = date('Y-m-d', strtotime(($_GET['akhir'])));
+            $status = ($_GET['status']);
+            if($status == "Menunggu"){
+                   $query_transaksi = "SELECT a.*, b.* 
+                   FROM peminjaman AS a INNER JOIN user AS b WHERE a.id_user = b.id_user
+                   AND (a.tgl_peminjaman BETWEEN '$awal' AND '$akhir')" ;
+            }
+            else if ($status == "Diterima"){
+                $query_transaksi = "SELECT a.*, b.* 
+                FROM peminjaman AS a INNER JOIN user AS b WHERE a.id_user = b.id_user
+                AND (a.tgl_peminjaman BETWEEN '$awal' AND '$akhir') AND status_pinjaman = 'Diterima'" ;
+            }else if ($status == "Ditolak"){
+                $query_transaksi = "SELECT a.*, b.* 
+                FROM peminjaman AS a INNER JOIN user AS b WHERE a.id_user = b.id_user
+                AND (a.tgl_peminjaman BETWEEN '$awal' AND '$akhir') AND status_pinjaman = 'Ditolak'" ;
+            }else if ($status == "Kembali"){
+                $query_transaksi = "SELECT a.*, b.* 
+                FROM peminjaman AS a INNER JOIN user AS b WHERE a.id_user = b.id_user
+                AND (a.tgl_peminjaman BETWEEN '$awal' AND '$akhir') AND status_pinjaman = 'Kembali'" ;
+            }
             
-         
-            $query_transaksi = "SELECT a.*, b.* 
-            FROM peminjaman AS a INNER JOIN user AS b WHERE a.id_user = b.id_user
-            AND (a.tgl_peminjaman BETWEEN '$awal' AND '$akhir')" ;
             $result_transaksi = mysqli_query($con, $query_transaksi);
 
             $banyak_transaksi = $result_transaksi->num_rows;
@@ -20,34 +35,34 @@
         ?>
         <div class="panel-body">
           <div align="center">
-            <h3>Laporan Semua Buku</h3>
+            <h3>Laporan Data Transaksi</h3>
           </div>
           <h4>
           <table width="50%">
             <tr>
-                <td width="50%">
-                    Pencetak
+                <td width="30%">
+                    Tangga 
                 </td>
                 <td>
                     :
                 </td>
                 <td>
-                    <?php echo $username_login ?>
+                    <?php echo tanggal_indo(date($awal)) ?> - <?php echo tanggal_indo(date($akhir)) ?>
                 </td>
             </tr>
             <tr>
-                <td width="50%">
-                    Tanggal Pencetakan 
+                <td width="30%">
+                    Status Peminjaman 
                 </td>
                 <td>
                     :
                 </td>
                 <td>
-                    <?php echo tanggal_indo(date('Y-m-d'))?>
+                    <?php echo $status ?>
                 </td>
             </tr>
             <tr>
-                <td width="50%">
+                <td width="30%">
                     Banyak Transaksi
                 </td>
                 <td>
@@ -66,11 +81,11 @@
             <thead>
                 <tr>
                     <th>No</th>
-                    <th colspan="3">Peminjam</th>
-                    <th>Jumlah Buku</th>
-                    <th>Tanggal Pinjaman</th>
+                    <th colspan="2">Peminjam</th>
+                    <th>Jml Buku</th>
+                    <th>Tgl Pinjaman</th>
                     <th></th>
-                    <th>Tanggal Pengmbalian</th>
+                    <th>Tgl Pengmbalian</th>
                     <th>Sisa Hari</th>
                     <th>Status</th>
                 </tr>
@@ -101,19 +116,6 @@
                     }
                     echo '</td>
                     <td>'.$data['username'].'</td>
-                    <td>';
-                          if($result_siswa->num_rows == 1){
-                              echo '
-                      <a href="detail_siswa.php?no_induk='.$data['id_siswa_pegawai'].'">
-                        <i class="zmdi zmdi-eye"></i>
-                      </a>';
-                          }else{
-                              echo '
-                      <a href="detail_pegawai.php?no_induk='.$data['id_siswa_pegawai'].'">
-                        <i class="zmdi zmdi-eye"></i>
-                      </a>';
-                          }
-                    echo'</td>
                     <td>
                       <div align="center"><b>'; 
         $query_banyak = "SELECT id_detail_peminjaman
@@ -131,23 +133,23 @@
                     $diff = $date3->diff($date2)->format("%a");
                     if($data['status_pinjaman'] == "Menunggu"){
                       if($date3 > $date2){
-                        echo '<span class="label label-danger label-pill m-w-60">Kadarluasa</span>';
+                        echo 'Kadarluasa';
                       }else{
-                        echo '<span class="label label-warning label-pill m-w-60">Belum Tersedia</span>';
+                        echo 'Belum Tersedia';
                       }
                     } 
                     else if ($data['status_pinjaman'] == "Ditolak"){
-                      echo '<span class="label label-danger label-pill m-w-60">Di Tolak</span>';
+                      echo 'Di Tolak';
                     }
                     else if ($data['status_pinjaman'] == "Kembali"){
-                      echo '<span class="label label-primary label-pill m-w-60">Kembali</span>';
+                      echo 'Kembali';
                     }
                     else{ 
                       if($date3 > $date2){
-                        echo '<span class="label label-danger label-pill m-w-60">Terlambat</span>';
+                        echo 'Terlambat';
                       }
                       else if ($date3 == $date2){
-                        echo '<span class="label label-warning label-pill m-w-60">Hari Ini</span>';
+                        echo 'Hari Ini';
                       }
                       else{
                         echo '<b>'.$diff.'</b> - Hari Lagi';
@@ -158,11 +160,11 @@
                       <td>
                         <div align="center">';
                       if ($data['status_pinjaman'] == "Ditolak"){
-                          echo '<span class="label label-outline-danger">'.$data['status_pinjaman'].'</span>';
+                          echo $data['status_pinjaman'];
                       }else if ($data['status_pinjaman'] == "Menunggu"){
-                        echo '<span class="label label-outline-warning">'.$data['status_pinjaman'].'</span>';
+                        echo $data['status_pinjaman'];
                       }else{
-                          echo '<span class="label label-outline-info">'.$data['status_pinjaman'].'</span>';
+                          echo $data['status_pinjaman'];
                       }
                       echo '</div>
                       </td>
@@ -170,10 +172,17 @@
                   $no++;
   }
   ?>
+                <tr>
+                    <td colspan="7">
+                    </td>
+                    <td colspan="2">
+                        <?php include('menu/petanda_tangan_report.php') ?>
+                    </td>
+                </tr>
               </tbody>
               <tfoot>
                 <tf>
-                    <td colspan="10">
+                    <td colspan="9">
                         <?php include('menu/footer_report.php') ?>
                     </td>
                 </tf>
