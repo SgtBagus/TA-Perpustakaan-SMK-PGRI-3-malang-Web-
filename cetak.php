@@ -14,7 +14,7 @@
               </div>
               <div class="wi-content-bottom p-a-30">
                 <div class="wi-title m-b-30">CETAK LAPORAN</div>
-                <div class="wi-text"><h4>KATALOG PERPUSTAKAAN MK PGRI 3 SKARIGA</h4></div>
+                <div class="wi-text"><h4>KATALOG PERPUSTAKAAN SMK PGRI 3 SKARIGA</h4></div>
                 <div class="wi-text">Cetak Laporan Perekapan data dalam format <i>- <b> Print Screen </b> -</i> dan save file dengan format <i>- <b> PDF </b> -</i></div>
               </div>
             </div>
@@ -39,14 +39,14 @@
                       <br>
                     <div class="wi-text">
                       <div class="row">
-                        <div class="col-sm-6" align="middle">
+                        <div class="col-sm-6">
                           <a href="buku.php" style="color:white;text-decoration:none">
-                            <i class="zmdi zmdi-search"></i> Lihat Data Buku
+                            <i class="zmdi zmdi-search"></i> Lihat Buku
                           </a>  
                         </div>
                         <div class="col-sm-6">
                             <button type="button" class="btn btn-primary m-w-120" data-toggle="modal" data-target="#printbuku">
-                              <i class="zmdi zmdi-print"></i> Cetak Data Buku
+                              <i class="zmdi zmdi-print"></i> Cetak Buku
                             </button>
                         </div>
                       </div>
@@ -70,7 +70,7 @@
                     <br>
                     <div class="wi-text">
                       <div class="row">
-                        <div class="col-sm-6" align="middle">
+                        <div class="col-sm-6">
                           <a href="peminjaman.php" style="color:white;text-decoration:none">
                             <i class="zmdi zmdi-search"></i> Lihat Transaksi
                           </a>

@@ -2,7 +2,9 @@
 <!DOCTYPE html>
 <html lang="en">
   <?php include('script/head_script.php') ?>
-  <body class="layout layout-header-fixed>
+  <body class="layout layout-header-fixed"> 
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
     <div class="panel panel-default panel-table">
          <?php include('menu/header_report.php');
          if (isset($_GET['id_buku'])) {
@@ -37,11 +39,11 @@
         }
         ?>
         <div class="panel-body">
-          <div align="center">
-            <h3>Laporan Buku - <?php echo $judul_buku ?></h3>
-          </div>
-          <h4>
-        <table width="100%">
+            <div align="center">
+                <h3>Laporan Buku - <?php echo $judul_buku ?></h3>
+            </div>
+            <h4>
+            <table width="100%">
             <tr>
                 <td width="80%">
                     <table width="100%">
@@ -241,30 +243,49 @@
                 }
             ?>
                 </tbody>
+                <tfoot>
+                    <tf>
+                        <td colspan="3">
+                        
+                        </td>
+                    </tf>
+                </tfoot>
             </table>
         <?php
         }
         ?>
-        <table class="table">
-            <tbody>
-                <tr>
-                    <td width="70%">
-
-                    </td>
-                    <td>
-                        <?php include('menu/petanda_tangan_report.php') ?>
-                    </td>
-                </tr>
-            </tbody>
-            <tfoot>
-                <tf>
-                    <td colspan="2">
-                        <?php include('menu/footer_report.php') ?>
-                    </td>
-                </tf>
-            </tfoot>
-        </table>
-        </div>    
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="5">
+                                </td>
+                                <td colspan="2">
+                                    <?php include('menu/petanda_tangan_report.php') ?>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tf>
+                                <td colspan="7">
+                                    <?php include('menu/footer_report.php') ?>
+                                </td>
+                            </tf>
+                        </tfoot>  
+                    </table>  
+                </div>    
+            </div>
+        </div>
     </body>
   <?php include('script/footer_script.php') ?>
 </html>
