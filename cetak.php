@@ -23,7 +23,7 @@
         <div class="row">
           <div class="col-sm-12">
             <div class="row">
-                <div class="col-sm-4">
+              <div class="col-sm-4">
                 <div class="widget-infoblock wi-small m-b-30" style="background-image: url(img/photos/3.jpg)">
                   <div class="wi-bg"></div>
                   <div class="wi-content-bottom p-a-30">
@@ -56,9 +56,12 @@
               </div>
               <div class="col-sm-4">
                 <div class="widget-infoblock wi-small m-b-30" style="background-image: url(img/photos/4.jpg)">
-                  <div class="wi-bg"></div>
+                  <div class="wi-bg">
+                  </div>
                   <div class="wi-content-bottom p-a-30">
-                    <div class="wi-title">Cetak Transaksi</div>
+                    <div class="wi-title">
+                        Cetak Transaksi
+                    </div>
                     <div class="wi-stat">
                       <span class="m-r-10">
                         <i class="zmdi zmdi-assignment"></i>
@@ -66,7 +69,8 @@
                           $banyaktransaksi= "SELECT id_user FROM peminjaman";
                           $prosestransaksi= mysqli_query($con, $banyaktransaksi);
                         ?>
-                      </span> - <?php echo mysqli_num_rows($prosestransaksi) ?> - </div>
+                      </span> - <?php echo mysqli_num_rows($prosestransaksi) ?> - 
+                    </div>
                     <br>
                     <div class="wi-text">
                       <div class="row">

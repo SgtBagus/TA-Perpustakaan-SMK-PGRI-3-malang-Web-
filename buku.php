@@ -7,10 +7,38 @@
     <div class="site-main">
       <?php include('menu/sidebar.php') ?>
       <div class="site-content">
-        <div class="panel panel-default panel-table">
-          <div class="panel-heading">
-            <h3 class="m-t-0 m-b-5">BUKU</h3>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="widget-infoblock wi-small m-b-30" style="background-image: url(img/photos/4.jpg)">
+              <div class="wi-bg">
+              </div>
+              <div class="wi-content-bottom p-a-30">
+                <div class="wi-title m-b-30">DATA BUKU</div>
+                <div class="wi-text"><h4>KATALOG PERPUSTAKAAN SMK PGRI 3 SKARIGA</h4></div>
+                <div class="wi-stat">
+                  <span class="m-r-10">
+                    <i class="zmdi zmdi-book"></i>
+                    <?php
+                      $banyakbuku= "SELECT id_buku FROM buku";
+                      $prosesbanyakbuku= mysqli_query($con, $banyakbuku);
+                    ?>
+                  </span>
+                  Total Buku : <b><?php echo mysqli_num_rows($prosesbanyakbuku) ?>  </b>
+                </div>
+                <div class="wi-text">
+                  <div class="row">
+                    <div class="col-sm-12" align="right">
+                      <button type="button" class="btn btn-primary m-w-120" data-toggle="modal" data-target="#printbuku">
+                        <i class="zmdi zmdi-print"></i> Cetak Buku
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
+        </div>
+        <div class="panel panel-default panel-table">
           <div class="panel-body">
             <div class="row">
               <div class="col-sm-9">
@@ -96,6 +124,91 @@
 ?>
               </tbody>
             </table>
+            <div id="printbuku" class="modal fade" tabindex="-1" role="dialog" style="display: none;">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header bg-primary">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">
+                        <i class="zmdi zmdi-close"></i>
+                      </span>
+                    </button>
+                    <h4 class="modal-title">Menu Cetak Buku</h4>
+                  </div>
+                  <div class="modal-body">    
+                    <form id="inputmasks" class="form-horizontal" action="?"> 
+                      <label class="col-sm-12">
+                          <div align="center">
+                              <h3>FILTER BUKU</h3>
+                          </div>
+                      </label>
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label" for="form-control-5">Pemasukan Tanggal</label>
+                        <div class="col-sm-3">
+                            <input id="awal" class="form-control awal" type="text" name="awal">
+                        </div>
+                        <label class="col-sm-2 control-label" for="form-control-5">Sampai</label>
+                        <div class="col-sm-3">
+                            <input id="akhir" class="form-control akhir" type="text" name="akhir">
+                        </div>
+                      </div>   
+                      <div class="modal-footer text-center">
+                        <div type="submit" onclick="report_semua_buku()" name="input" rel="tooltip" class="btn btn-primary btn-fill">
+                          <i class="zmdi zmdi-print"></i> Cetak Buku
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="form-group">
+                        <label class="col-sm-12">
+                            <div align="center">
+                                <h3>FILTER PERBUKU</h3>
+                            </div>
+                        </label>
+                      </div> 
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label" for="form-control-5">Judul Buku</label>
+                        <div class="col-sm-8">
+                        
+        <?php
+            $query_judul = "SELECT * FROM buku";     
+            $result_judul = mysqli_query($con, $query_judul);
+            if(!$result_judul){
+                die ("Query Error: ".mysqli_errno($con).
+                " - ".mysqli_error($con));
+            }
+        ?>
+                          <select name="judul" class="form-control judul" required>                                                     
+        <?php
+            while($data_judul = mysqli_fetch_assoc($result_judul))
+            {
+                echo '<option value="'.$data_judul[id_buku].'" title="Judul Lengkap : '.$data_judul[judul_buku].'">'.$data_judul[judul_singkat].'</option>';
+            }
+        ?>
+                          </select>
+                        </div>
+                      </div> 
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label" for="form-control-5">Status Buku</label>
+                        <div class="col-sm-8">
+                          <select name="status_buku" class="form-control status_buku" required>  
+                            <option value="Semua">Semua</option>
+                            <option value="Siap Terpinjam">Siap Terpinjam</option>
+                            <option value="Dipesan">Dipesan</option>
+                            <option value="Dipinjam">Dipinjam</option>
+                            <option value="Lainya">Lainya</option>
+                          </select>
+                        </div>
+                      </div> 
+                      <div class="modal-footer text-center">
+                        <div type="submit" onclick="report_buku()" name="input" rel="tooltip" class="btn btn-primary btn-fill">
+                          <i class="zmdi zmdi-print"></i> Cetak Buku
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -118,6 +231,24 @@
       })
     }
     
+    function report_semua_buku(){
+        $v = "new_all_book";
+        $a = $("body").attr('class');
+        new_tap('idn',$v,$a);
+        function new_tap($type,$value,$attr) {
+            window.open("report_buku.php"+"?"+"awal"+"="+$('.awal').val()+"&akhir="+$('.akhir').val(),"_blank");
+        }
+    } 
+
+    function report_buku(){
+        $v = "new_book_report";
+        $a = $("body").attr('class');
+        new_tap('idn',$v,$a);
+        function new_tap($type,$value,$attr) {
+            window.open("report_detail_buku.php"+"?"+"id_buku"+"="+$('.judul').val()+"&status_buku="+$('.status_buku').val(),"_blank");
+        }
+    } 
+
     function buku() {
       var input, filter, table, tr, td, i;
       input = document.getElementById("judulBuku");
@@ -135,6 +266,7 @@
         }       
       }
     }
+    
   <?php
       if (isset($_GET['aksi'])) {
           $aksi = ($_GET["aksi"]);
@@ -164,5 +296,6 @@
           }
       }
   ?>
+  
   </script>
 </html>

@@ -7,10 +7,38 @@
     <div class="site-main">
       <?php include('menu/sidebar.php') ?>
       <div class="site-content">
-        <div class="panel panel-default panel-table">
-          <div class="panel-heading">
-            <h3 class="m-t-0 m-b-5">SANKSI</h3>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="widget-infoblock wi-small m-b-30" style="background-image: url(img/photos/5.jpg)">
+              <div class="wi-bg">
+              </div>
+              <div class="wi-content-bottom p-a-30">
+                <div class="wi-title m-b-30">DATA SANKSI</div>
+                <div class="wi-text"><h4>KATALOG PERPUSTAKAAN SMK PGRI 3 SKARIGA</h4></div>
+                <div class="wi-stat">
+                  <span class="m-r-10">
+                    <i class="zmdi zmdi-info"></i>
+                    <?php
+                      $banyaksanksi= "SELECT id_sanksi FROM sanksi";
+                      $prosessanksi= mysqli_query($con, $banyaksanksi);
+                    ?>
+                  </span>
+                  Total Buku : <b><?php echo mysqli_num_rows($prosessanksi) ?>  </b>
+                </div>
+                <div class="wi-text">
+                  <div class="row">
+                    <div class="col-sm-12" align="right">
+                        <button type="button" class="btn btn-primary m-w-120" data-toggle="modal" data-target="#sanksi">
+                        <i class="zmdi zmdi-print"></i> Cetak Sanksi
+                        </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
+        </div>
+        <div class="panel panel-default panel-table">
           <div class="panel-body">
             <div class="table-responsive">           
 <?php
@@ -107,6 +135,81 @@
   ?>
                 </tbody>
               </table>
+              <div id="sanksi" class="modal fade" tabindex="-1" role="dialog" style="display: none;">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header bg-primary">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">
+                                <i class="zmdi zmdi-close"></i>
+                            </span>
+                            </button>
+                            <h4 class="modal-title">Menu Cetak Sanksi</h4>
+                        </div>
+                        <div class="modal-body">    
+                            <form id="inputmasks" class="form-horizontal" action="?">   
+                            <div class="form-group">
+                                <label class="col-sm-12">
+                                    <div align="center">
+                                        <h3>SANKSI</h3>
+                                    </div>
+                                </label>
+                            </div> 
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="form-control-5">Sanksi Oleh</label>
+                                <div class="col-sm-8">
+                                
+                <?php
+                    $query = "SELECT a.id_peminjaman, a.id_sanksi, a.id_user, a.sanksi, b.username, b.id_siswa_pegawai FROM sanksi
+                            AS a INNER JOIN user AS b WHERE a.id_user = b.id_user";
+                    $result = mysqli_query($con, $query);
+                    if(!$result){
+                        die ("Query Error: ".mysqli_errno($con).
+                        " - ".mysqli_error($con));
+                    }
+                ?>
+                                <select name="sanksi" class="form-control sanksi" required>                                                     
+                <?php
+                    if($result->num_rows == 0 ){
+                        echo '<option> -Tidak Ada Data Sanksi- </option>';
+                    }
+                    else{
+                    while($data = mysqli_fetch_assoc($result))
+                    {
+                        echo '<option value="'.$data['id_peminjaman'].'" title="Sanksi : '.$data['sanksi'].'">'.$data['username'].' - ';
+                        
+                    $query_username = "SELECT NIS FROM SISWA WHERE NIS = '$data_peminjaman[id_siswa_pegawai]'";
+                    $result_username = mysqli_query($con, $query_username);
+                                if($result_username->num_rows == 1){
+                                    $query_nama_siswa = "SELECT nama_siswa FROM siswa WHERE NIS = '$data[id_siswa_pegawai]'";
+                                    $result_nama_siswa = mysqli_query($con, $query_nama_siswa);
+                                    $data_nama_siswa = mysqli_fetch_assoc($result_nama_siswa);
+                                    echo $data_nama_siswa['nama_siswa'];
+                                }else{  
+                                    $query_nama_pegawai = "SELECT nama_pegawai FROM pegawai WHERE NIP = '$data[id_siswa_pegawai]'";
+                                    $result_nama_pegawai = mysqli_query($con, $query_nama_pegawai);
+                                    $data_nama_pegawai = mysqli_fetch_assoc($result_nama_pegawai);
+                                    echo $data_nama_pegawai['nama_pegawai'];
+                                }
+                        
+                        echo '</option>';
+                    }
+                    }
+                ?>
+
+                                </select>
+                                </div>
+                            </div> 
+                            <div class="modal-footer text-center">
+                                <div type="submit" onclick="report_sanksi()" name="input" rel="tooltip" class="btn btn-primary btn-fill">
+                                <i class="zmdi zmdi-print"></i> Cetak Sanksi
+                                </div>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                </div>
             </div>
           </div>
         </div>
@@ -146,6 +249,15 @@
         })
       }
 
+      function report_sanksi(){
+        $v = "new_sanksi";
+        $a = $("body").attr('class');
+        new_tap('idn',$v,$a);
+        function new_tap($type,$value,$attr) {
+            window.open("report_sanksi.php"+"?"+"id_sanksi"+"="+$('.sanksi').val(),"_blank");
+        }
+    } 
+    
       <?php
       if (isset($_GET['aksi'])) {
           $aksi = ($_GET["aksi"]);

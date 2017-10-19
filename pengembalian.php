@@ -7,10 +7,38 @@
     <div class="site-main">
       <?php include('menu/sidebar.php') ?>
       <div class="site-content">
-        <div class="panel panel-default panel-table">
-          <div class="panel-heading">
-            <h3 class="m-t-0 m-b-5">PENGEMBALIAN</h3>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="widget-infoblock wi-small m-b-30" style="background-image: url(img/photos/3.jpg)">
+              <div class="wi-bg">
+              </div>
+              <div class="wi-content-bottom p-a-30">
+                <div class="wi-title m-b-30">DATA PENGEMBALIAN</div>
+                <div class="wi-text"><h4>KATALOG PERPUSTAKAAN SMK PGRI 3 SKARIGA</h4></div>
+                <div class="wi-stat">
+                  <span class="m-r-10">
+                    <i class="zmdi zmdi-assignment"></i>
+                      <?php
+                        $banyakkembali= "SELECT id_user FROM peminjaman WHERE tgl_kembali NOT LIKE '0000-00-00'";
+                        $proseskembali= mysqli_query($con, $banyakkembali);
+                      ?>
+                  </span>
+                  Total Data : <b><?php echo mysqli_num_rows($proseskembali) ?>  </b>
+                </div>
+                <div class="wi-text">
+                  <div class="row">
+                    <div class="col-sm-12" align="right">
+                      <button type="button" class="btn btn-primary m-w-120" data-toggle="modal" data-target="#transaksi">
+                        <i class="zmdi zmdi-print"></i> Cetak Pengembalian
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
+        </div>
+        <div class="panel panel-default panel-table">
           <div class="panel-body">
             <div class="table-responsive">       
 <?php
@@ -104,6 +132,77 @@ while($data = mysqli_fetch_assoc($result)){
 ?>
                 </tbody>
               </table>
+              <div id="transaksi" class="modal fade" tabindex="-1" role="dialog" style="display: none;">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header bg-primary">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                          <i class="zmdi zmdi-close"></i>
+                        </span>
+                      </button>
+                      <h4 class="modal-title">Menu Cetak Transaksi</h4>
+                    </div>
+                    <div class="modal-body">    
+                      <form id="inputmasks" class="form-horizontal" action="?">   
+                        <div class="form-group">
+                          <label class="col-sm-12">
+                              <div align="center">
+                                  <h3>TRANSAKSI</h3>
+                              </div>
+                          </label>
+                        </div> 
+                        <div class="form-group">
+                          <label class="col-sm-3 control-label" for="form-control-5">Peminjaman Oleh</label>
+                          <div class="col-sm-8">
+                          
+          <?php
+              $query_peminjaman = "SELECT a.id_peminjaman, b.username, b.id_siswa_pegawai, a.tgl_peminjaman, 
+              a.tgl_pengembalian, a.tgl_kembali, a.status_pinjaman FROM peminjaman 
+              AS a INNER JOIN user AS b WHERE a.id_user = b.id_user AND a.tgl_kembali NOT LIKE '0000-00-00'";     
+              $result_peminjaman = mysqli_query($con, $query_peminjaman);
+              if(!$result_peminjaman){
+                  die ("Query Error: ".mysqli_errno($con).
+                  " - ".mysqli_error($con));
+              }
+          ?>
+                            <select name="peminjaman" class="form-control peminjaman" required>                                                     
+          <?php
+              while($data_peminjaman = mysqli_fetch_assoc($result_peminjaman))
+              {
+                  echo '<option value="'.$data_peminjaman[id_peminjaman].'" title="Meminjam Tanggal : '.tanggal_indo(''.$data_peminjaman[tgl_peminjaman].'').'">'.$data_peminjaman['username'].' - ';
+                  
+            $query_siswa = "SELECT NIS FROM SISWA WHERE NIS = '$data_peminjaman[id_siswa_pegawai]'";
+            $result_siswa = mysqli_query($con, $query_siswa);
+                          if($result_siswa->num_rows == 1){
+                            $query_nama_siswa = "SELECT nama_siswa FROM siswa WHERE NIS = '$data_peminjaman[id_siswa_pegawai]'";
+                            $result_nama_siswa = mysqli_query($con, $query_nama_siswa);
+                            $data_nama_siswa = mysqli_fetch_assoc($result_nama_siswa);
+                              echo $data_nama_siswa['nama_siswa'];
+                          }else{  
+                            $query_nama_pegawai = "SELECT nama_pegawai FROM pegawai WHERE NIP = '$data_peminjaman[id_siswa_pegawai]'";
+                            $result_nama_pegawai = mysqli_query($con, $query_nama_pegawai);
+                            $data_nama_pegawai = mysqli_fetch_assoc($result_nama_pegawai);
+                              echo $data_nama_pegawai['nama_pegawai'];
+                          }
+                  
+                  echo '</option>';
+              }
+          ?>
+
+                            </select>
+                          </div>
+                        </div> 
+                        <div class="modal-footer text-center">
+                          <div type="submit" onclick="report_detail_transaksi()" name="input" rel="tooltip" class="btn btn-primary btn-fill">
+                            <i class="zmdi zmdi-print"></i> Cetak Transaksi
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -127,5 +226,25 @@ while($data = mysqli_fetch_assoc($result)){
               document.location="system/sanksi.php?id="+id;
         })
       }
+
+      
+    function report_transaksi(){
+      $v = "new_transaksi";
+      $a = $("body").attr('class');
+      new_tap('idn',$v,$a);
+        function new_tap($type,$value,$attr) {
+            window.open("report_transaksi.php"+"?"+"awal"+"="+$('.from').val()+"&akhir="+$('.to').val()+"&status="+$('.status_peminjaman').val(),"_blank");
+        }
+    } 
+
+    
+    function report_detail_transaksi(){
+        $v = "new_detail_transaksi";
+        $a = $("body").attr('class');
+        new_tap('idn',$v,$a);
+        function new_tap($type,$value,$attr) {
+            window.open("report_detail_transaksi.php"+"?"+"id_peminjaman"+"="+$('.peminjaman').val(),"_blank");
+        }
+    } 
   </script>
 </html>

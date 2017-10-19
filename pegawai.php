@@ -7,10 +7,29 @@
     <div class="site-main">
       <?php include('menu/sidebar.php') ?>
       <div class="site-content">
-        <div class="panel panel-default panel-table">
-          <div class="panel-heading">
-            <h3 class="m-t-0 m-b-5">PEGAWAI</h3>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="widget-infoblock wi-small m-b-30" style="background-image: url(img/photos/2.jpg)">
+              <div class="wi-bg">
+              </div>
+              <div class="wi-content-bottom p-a-30">
+                <div class="wi-title m-b-30">DATA PEGAWAI</div>
+                <div class="wi-text"><h4>KATALOG PERPUSTAKAAN SMK PGRI 3 SKARIGA</h4></div>
+                <div class="wi-stat">
+                  <span class="m-r-10">
+                    <i class="zmdi zmdi-account"></i>
+                    <?php
+                      $banyakpegawai= "SELECT NIP FROM pegawai";
+                      $prosespegawai= mysqli_query($con, $banyakpegawai);
+                    ?>
+                  </span>
+                  Total Pegawai : <b><?php echo mysqli_num_rows($prosespegawai) ?>  </b>
+                </div>
+              </div>
+            </div>
           </div>
+        </div>
+        <div class="panel panel-default panel-table">
           <div class="panel-body">
             <div class="row">
               <div class="col-sm-9">
