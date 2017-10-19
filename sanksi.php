@@ -23,8 +23,8 @@
                 <thead>
                   <tr>
                     <th>No</th>
-                    <th colspan="3">Username</th>
-                    <th width="250px">Sanksi</th>
+                    <th colspan="3" width="100px">Username</th>
+                    <th>Sanksi</th>
                     <th width="300px">Catatan</th>
                     <th colspan="2">Status</th>
                     <th>Aksi</th>

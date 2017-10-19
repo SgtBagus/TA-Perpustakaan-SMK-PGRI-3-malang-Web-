@@ -7,11 +7,11 @@
             <div class="col-sm-8 col-sm-offset-2">
                 <div class="panel panel-default panel-table">
          <?php include('menu/header_report.php');
-            if (isset($_GET['id_peminjaman'])) { 
+            if (isset($_GET['id_sanksi'])) { 
                 $tanggal = date('Y-m-d');
-                $id_peminjaman = ($_GET["id_peminjaman"]);
+                $id_peminjaman = ($_GET["id_sanksi"]);
                 $query = "SELECT a.*, b.* FROM 
-                                peminjaman AS a INNER JOIN user AS b
+                                sanksi AS a INNER JOIN user AS b
                                 WHERE a.id_user = b.id_user AND a.id_peminjaman = '$id_peminjaman'"; 
                 $result = mysqli_query($con, $query);
                     if(!$result){
@@ -20,16 +20,10 @@
                     }
 
                 $data      = mysqli_fetch_assoc($result);
-                $tanggal_peminjaman   = $data["tgl_peminjaman"];
-                $tanggal_pengembalian = $data["tgl_pengembalian"];
                 $username_profil      = $data["username"];
-                $status_pemesanan     = $data["status_pinjaman"];
-                
-                $date1 = new DateTime($tanggal_peminjaman);
-                $date2 = new DateTime($tanggal_pengembalian);
-
-                $date3 = new DateTime($tanggal); 
-                $totalhari_100persen = $date2->diff($date1)->format("%a");
+                $status_pemesanan     = $data["status_sanksi"];
+                $catatan_sanksi       = $data["catatan_sanksi"];
+                $sanksi               = $data["sanksi"];
             }  
         ?>
         <h4>
@@ -63,13 +57,24 @@
                 </tr>
                 <tr>
                     <td width="20%">
-                        Tanggal Peminjaman
+                        Sanksi
                     </td>
                     <td>
                         :
                     </td>
                     <td>
-                        <?php echo tanggal_indo(''.$tanggal_peminjaman.'') ?> <small>s/d</small> <?php echo tanggal_indo(''.$tanggal_pengembalian.'') ?> 
+                          <?php echo $sanksi ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%">
+                          Catatan
+                    </td>
+                    <td>
+                        :
+                    </td>
+                    <td>
+                          <?php echo $catatan_sanksi ?>
                     </td>
                 </tr>
                 <tr>
@@ -81,15 +86,7 @@
                     </td>
                     <td>
                         <?php 
-                        if($status_pemesanan == "Diterima"){
-                            echo "Belum Kembali";
-                        }
-                        else if ($date3 > $date2){
-                            echo "<small>Peminjaman Kadarluasa</small>";
-                        }
-                        else{
                             echo $status_pemesanan;
-                        }
                         ?>
                     </td>
                 </tr>
@@ -132,36 +129,6 @@
                                 }
                 ?>
                           </tbody>
-                        </table>
-                        <table width="50%" align="right">
-                            <thead>
-                                <tr style="background-color:rgb(238, 238, 238)">
-                                    <th>
-                                        <div align="center">
-                                            Total Hari Terlambat
-                                        </div>
-                                    </th>
-                                    <th>
-                                        <div align="center">
-                                            Denda
-                                        </div>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr >
-                                    <td style="background-color:rgb(238, 238, 238)">
-                                        <div align="center" >
-                                            <b> <?php echo $data['total_terlambat'] ?></b>
-                                        </div>
-                                    </td> 
-                                    <td>
-                                        <div align="center">
-                                            <h5>Rp. <b><?php echo $data['denda'] ?></b>,00,-</h5>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
                         </table>
                     <table class="table">
                         <thead>

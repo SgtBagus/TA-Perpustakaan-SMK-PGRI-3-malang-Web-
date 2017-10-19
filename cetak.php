@@ -58,7 +58,7 @@
                 <div class="widget-infoblock wi-small m-b-30" style="background-image: url(img/photos/4.jpg)">
                   <div class="wi-bg"></div>
                   <div class="wi-content-bottom p-a-30">
-                    <div class="wi-title">Total Transaksi</div>
+                    <div class="wi-title">Cetak Transaksi</div>
                     <div class="wi-stat">
                       <span class="m-r-10">
                         <i class="zmdi zmdi-assignment"></i>
@@ -89,20 +89,30 @@
                 <div class="widget-infoblock wi-small m-b-30" style="background-image: url(img/photos/5.jpg)">
                   <div class="wi-bg"></div>
                   <div class="wi-content-bottom p-a-30">
-                    <div class="wi-title">Total Peminjaman</div>
+                    <div class="wi-title">Cetak Sanksi</div>
                     <div class="wi-stat">
                       <span class="m-r-10">
-                        <i class="zmdi zmdi-assignment"></i>
+                        <i class="zmdi zmdi-info"></i>
                         <?php
-                          $banyakpeminjaman= "SELECT id_peminjaman FROM peminjaman";
-                          $prosesbanyakpeminjaman= mysqli_query($con, $banyakpeminjaman);
+                          $banyaksanksi= "SELECT id_sanksi FROM sanksi";
+                          $prosessanksi= mysqli_query($con, $banyaksanksi);
                         ?>
-                      </span> - <?php echo mysqli_num_rows($prosesbanyakpeminjaman) ?> - </div>
+                      </span> - <?php echo mysqli_num_rows($prosessanksi) ?> - </div>
                       <br>
-                    <div class="wi-text">
-                      <a href="peminjaman.php" style="color:white;text-decoration:none">
-                        <i class="zmdi zmdi-search"></i> Lihat Peminjaman Disini
-                      </a>
+                      <div class="wi-text">
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <a href="Sanksis.php" style="color:white;text-decoration:none">
+                              <i class="zmdi zmdi-search"></i> Lihat Sanksi
+                            </a>
+                          </div>
+                          <div class="col-sm-6">
+                              <button type="button" class="btn btn-primary m-w-120" data-toggle="modal" data-target="#sanksi">
+                                <i class="zmdi zmdi-print"></i> Cetak Sanksi
+                              </button>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -305,6 +315,81 @@
             </div>
           </div>
         </div>
+        <div id="sanksi" class="modal fade" tabindex="-1" role="dialog" style="display: none;">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header bg-primary">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">
+                    <i class="zmdi zmdi-close"></i>
+                  </span>
+                </button>
+                <h4 class="modal-title">Menu Cetak Sanksi</h4>
+              </div>
+              <div class="modal-body">    
+                <form id="inputmasks" class="form-horizontal" action="?">   
+                  <div class="form-group">
+                    <label class="col-sm-12">
+                        <div align="center">
+                            <h3>SANKSI</h3>
+                        </div>
+                    </label>
+                  </div> 
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label" for="form-control-5">Sanksi Oleh</label>
+                    <div class="col-sm-8">
+                    
+    <?php
+        $query = "SELECT a.id_peminjaman, a.id_sanksi, a.id_user, a.sanksi, b.username, b.id_siswa_pegawai FROM sanksi
+                  AS a INNER JOIN user AS b WHERE a.id_user = b.id_user";
+        $result = mysqli_query($con, $query);
+        if(!$result){
+            die ("Query Error: ".mysqli_errno($con).
+            " - ".mysqli_error($con));
+        }
+    ?>
+                      <select name="sanksi" class="form-control sanksi" required>                                                     
+    <?php
+        if($result->num_rows == 0 ){
+            echo '<option> -Tidak Ada Data Sanksi- </option>';
+        }
+        else{
+          while($data = mysqli_fetch_assoc($result))
+          {
+              echo '<option value="'.$data['id_peminjaman'].'" title="Sanksi : '.$data['sanksi'].'">'.$data['username'].' - ';
+              
+        $query_username = "SELECT NIS FROM SISWA WHERE NIS = '$data_peminjaman[id_siswa_pegawai]'";
+        $result_username = mysqli_query($con, $query_username);
+                      if($result_username->num_rows == 1){
+                        $query_nama_siswa = "SELECT nama_siswa FROM siswa WHERE NIS = '$data[id_siswa_pegawai]'";
+                        $result_nama_siswa = mysqli_query($con, $query_nama_siswa);
+                        $data_nama_siswa = mysqli_fetch_assoc($result_nama_siswa);
+                          echo $data_nama_siswa['nama_siswa'];
+                      }else{  
+                        $query_nama_pegawai = "SELECT nama_pegawai FROM pegawai WHERE NIP = '$data[id_siswa_pegawai]'";
+                        $result_nama_pegawai = mysqli_query($con, $query_nama_pegawai);
+                        $data_nama_pegawai = mysqli_fetch_assoc($result_nama_pegawai);
+                          echo $data_nama_pegawai['nama_pegawai'];
+                      }
+              
+              echo '</option>';
+          }
+        }
+    ?>
+
+                      </select>
+                    </div>
+                  </div> 
+                  <div class="modal-footer text-center">
+                    <div type="submit" onclick="report_sanksi()" name="input" rel="tooltip" class="btn btn-primary btn-fill">
+                      <i class="zmdi zmdi-print"></i> Cetak Sanksi
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <?php include('menu/footer.php') ?>
     </div>
@@ -346,6 +431,15 @@
         new_tap('idn',$v,$a);
         function new_tap($type,$value,$attr) {
             window.open("report_detail_transaksi.php"+"?"+"id_peminjaman"+"="+$('.peminjaman').val(),"_blank");
+        }
+    } 
+
+    function report_sanksi(){
+        $v = "new_sanksi";
+        $a = $("body").attr('class');
+        new_tap('idn',$v,$a);
+        function new_tap($type,$value,$attr) {
+            window.open("report_sanksi.php"+"?"+"id_sanksi"+"="+$('.sanksi').val(),"_blank");
         }
     } 
   </script>
