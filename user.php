@@ -25,28 +25,30 @@
                   </span>
                   Total User : <b><?php echo mysqli_num_rows($prosesuser) ?>  </b>
                 </div>
+                <div class="wi-text">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <form class="form-horizontal">
+                        <div class="form-group">
+                          <label class="col-sm-2 control-label" for="form-control-2">
+                            Pencarian
+                          </label>
+                          <div class="col-sm-10">
+                            <input id="judulBuku" onkeyup="buku()" placeholder="Username" class="form-control input-pill" type="text">
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
         <div class="panel panel-default panel-table">
           <div class="panel-body">
-            <div class="row">
-              <div class="col-sm-9">
-                <form class="form-horizontal">
-                  <div class="form-group">
-                    <label class="col-sm-2 control-label" for="form-control-2">
-                      Pencarian
-                    </label>
-                    <div class="col-sm-7">
-                      <input id="judulBuku" onkeyup="buku()" placeholder="Username" class="form-control input-pill" type="text">
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
             <br>
-          <div class="table-responsive">
+            <div class="table-responsive">
 <?php
   $query = "SELECT * FROM user" ;
   $result = mysqli_query($con, $query);

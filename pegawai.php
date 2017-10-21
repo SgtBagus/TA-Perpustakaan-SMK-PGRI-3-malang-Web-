@@ -25,39 +25,42 @@
                   </span>
                   Total Pegawai : <b><?php echo mysqli_num_rows($prosespegawai) ?>  </b>
                 </div>
+                <div class="wi-text">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="row">
+                        <div class="col-sm-8">
+                          <form class="form-horizontal">
+                            <div class="form-group">
+                              <label class="col-sm-2 control-label" for="form-control-2">
+                                Pencarian
+                              </label>
+                              <div class="col-sm-3">
+                                <input id="noNIS" onkeyup="noInduk()" placeholder="NIP" class="form-control input-pill" type="text">
+                              </div>
+                              <div class="col-sm-7">
+                                <input id="namaSiswa" onkeyup="nama()" placeholder="Nama Pegawai" class="form-control input-pill" type="text">
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                        <div class="col-sm-4" align="center">
+                          <a href="tambah_pegawai.php">
+                            <button type="button" class="btn btn-primary">
+                              <i class="zmdi zmdi-account-add"></i> Tambah Data Pegawai
+                            </button>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
         <div class="panel panel-default panel-table">
           <div class="panel-body">
-            <div class="row">
-              <div class="col-sm-9">
-                <form class="form-horizontal">
-                  <div class="form-group">
-                    <label class="col-sm-2 control-label" for="form-control-2">
-                      Pencarian
-                    </label>
-                    <div class="col-sm-3">
-                      <input id="noNIS" onkeyup="noInduk()" placeholder="NIP" class="form-control input-pill" type="text">
-                    </div>
-                    <div class="col-sm-7">
-                      <input id="namaSiswa" onkeyup="nama()" placeholder="Nama Pegawai" class="form-control input-pill" type="text">
-                    </div>
-                  </div>
-                </form>
-              </div>
-              <div class="col-sm-3">
-                <div align="right">
-                  <a href="tambah_pegawai.php">
-                    <button type="button" class="btn btn-primary">
-                      <i class="zmdi zmdi-account-add"></i> Tambah Data Pegawai
-                    </button>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <br>
             <div class="table-responsive">
 <?php
   $query_pegawai = "SELECT NIP, foto_pegawai, nama_pegawai, jabatan_pegawai, tgl_entri_pegawai
@@ -142,7 +145,7 @@
       table = document.getElementById("myTable");
       tr = table.getElementsByTagName("tr");
       for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[1];
+        td = tr[i].getElementsByTagName("td")[2];
         if (td) {
           if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
             tr[i].style.display = "";
@@ -159,7 +162,7 @@
       table = document.getElementById("myTable");
       tr = table.getElementsByTagName("tr");
       for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[2];
+        td = tr[i].getElementsByTagName("td")[3];
         if (td) {
           if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
             tr[i].style.display = "";

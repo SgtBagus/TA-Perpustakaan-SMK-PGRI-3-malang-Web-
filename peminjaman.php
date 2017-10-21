@@ -27,11 +27,58 @@
                 </div>
                 <div class="wi-text">
                   <div class="row">
-                    <div class="col-sm-12" align="right">
+                    <div class="col-sm-10">
+                      <form class="form-horizontal" method="GET" action="?" >
+                        <div class="form-group">
+                          <label class="col-sm-1 control-label" for="form-control-2">
+                            Filter
+                          </label>
+                          <div class="col-sm-4">
+                          <?php
+                          if (isset($_GET['awal'])) {
+                            $awal= ($_GET["awal"]);
+                            echo '<input id="peminjaman_awal" name="awal" placeholder="Tanggal Awal" class="form-control input-pill" type="text" value="'.$awal.'">';
+                          }else{
+                            echo '<input id="peminjaman_awal" name="awal" placeholder="Tanggal Awal" class="form-control input-pill" type="text">';
+                          }
+                          ?>
+                          </div>
+                          <div class="col-sm-1"> 
+                            sampai
+                          </div>
+                          <div class="col-sm-4">
+                          <?php
+                          if (isset($_GET['akhir'])) {
+                            $akhir= ($_GET["akhir"]);
+                            echo'<input id="peminjaman_akhir" name="akhir" placeholder="Tanggal Akhir" class="form-control input-pill" type="text" value="'.$akhir.'">';
+                          }else{
+                            echo '<input id="peminjaman_akhir" name="akhir" placeholder="Tanggal Akhir" class="form-control input-pill" type="text">';
+                          }
+                          ?>
+                          </div>
+                          <div class="col-sm-2">
+                          <?php
+                          if (isset($_GET['akhir']) || isset($_GET['akhir']) ) {
+                            echo '<a href="peminjaman.php">
+                              <button type="button" class="btn btn-primary m-w-120" data-toggle="modal">
+                                <i class="zmdi zmdi-refresh-sync"></i> Reset
+                              </button>
+                              </a>';
+                          }else{
+                            echo '<button type="submit" class="btn btn-primary m-w-120" data-toggle="modal">
+                              <i class="zmdi zmdi-search"></i> Cari
+                            </button>';
+                          }
+                          ?>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="col-sm-2" align="right">
                       <button type="button" class="btn btn-primary m-w-120" data-toggle="modal" data-target="#transaksi">
                         <i class="zmdi zmdi-print"></i> Cetak Transaksi
                       </button>
-                    </div>
+                    </div>  
                   </div>
                 </div>
               </div>

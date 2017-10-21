@@ -27,10 +27,29 @@
                 </div>
                 <div class="wi-text">
                   <div class="row">
-                    <div class="col-sm-12" align="right">
-                      <button type="button" class="btn btn-primary m-w-120" data-toggle="modal" data-target="#printbuku">
-                        <i class="zmdi zmdi-print"></i> Cetak Buku
-                      </button>
+                    <div class="col-sm-12">
+                      <div class="row">
+                        <div class="col-sm-8">
+                          <form class="form-horizontal">
+                            <div class="form-group">
+                              <label class="col-sm-2 control-label" for="form-control-2">
+                                Pencarian
+                              </label>
+                              <div class="col-sm-10">
+                                <input id="judulBuku" onkeyup="buku()" placeholder="Judul Buku" class="form-control input-pill" type="text">
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                        <div class="col-sm-4" align="center">
+                          <button type="button" class="btn btn-primary m-w-120" data-toggle="modal" data-target="#printbuku">
+                            <i class="zmdi zmdi-print"></i> Cetak Buku
+                          </button>
+                          <button type="button" class="btn btn-primary m-w-120" data-toggle="modal" onclick="tambah_buku()">
+                            <i class="zmdi zmdi-plus-circle"></i> Buku
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -40,30 +59,7 @@
         </div>
         <div class="panel panel-default panel-table">
           <div class="panel-body">
-            <div class="row">
-              <div class="col-sm-9">
-                <form class="form-horizontal">
-                  <div class="form-group">
-                    <label class="col-sm-2 control-label" for="form-control-2">
-                      Pencarian
-                    </label>
-                    <div class="col-sm-7">
-                      <input id="judulBuku" onkeyup="buku()" placeholder="Judul Buku" class="form-control input-pill" type="text">
-                    </div>
-                  </div>
-                </form>
-              </div>
-              <div class="col-sm-3">
-                <div align="right">
-                  <a href="tambah_buku.php">
-                    <button type="button" class="btn btn-primary">
-                      <i class="zmdi zmdi-plus-circle"></i> Buku
-                    </button>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <br>
+          <br>
           <div class="table-responsive">
 <?php
   $query_buku = "SELECT a.*, b.* 
@@ -119,7 +115,7 @@
                     </button>
                   </td>
                 </tr>';
-                $no_buku++;
+                $no_buku++; 
               }
 ?>
               </tbody>
@@ -218,6 +214,10 @@
 </body>
   <?php include('script/footer_script.php') ?>
   <script type="text/javascript">
+    function tambah_buku() {
+      document.location="tambah_buku.php";
+    }
+
     function hapus(id) {
       swal({
         title: 'Apakah anda yakin?',

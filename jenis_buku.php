@@ -25,39 +25,39 @@
                   </span>
                   Total Jenis Buku : <b><?php echo mysqli_num_rows($prosesjb) ?>  </b>
                 </div>
+                <div class="wi-text">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="row">
+                        <div class="col-sm-8">
+                          <form class="form-horizontal">
+                            <div class="form-group">
+                              <label class="col-sm-2 control-label" for="form-control-2">
+                                Pencarian
+                              </label>
+                              <div class="col-sm-10">
+                                <input id="namaSubyek" onkeyup="subyek()" placeholder="Subyek" class="form-control input-pill" type="text">
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                        <div class="col-sm-4" align="center">
+                          <a href="tambah_jenis_buku.php">
+                            <button type="button" class="btn btn-primary">
+                              <i class="zmdi zmdi-plus-circle"></i> Tambah Jenis Buku
+                            </button>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
         <div class="panel panel-default panel-table">
-          <div class="panel-heading">
-            <h3 class="m-t-0 m-b-5">Jenis Buku</h3>
-          </div>
           <div class="panel-body">
-            <div class="row">
-              <div class="col-sm-6">
-                <form class="form-horizontal">
-                  <div class="form-group">
-                    <label class="col-sm-2 control-label" for="form-control-2">
-                      Pencarian
-                    </label>
-                    <div class="col-sm-8">
-                      <input id="namaSubyek" onkeyup="subyek()" placeholder="Subyek" class="form-control input-pill" type="text">
-                    </div>
-                  </div>
-                </form>
-              </div>
-              <div class="col-sm-6">
-                <div align="right">
-                  <a href="tambah_jenis_buku.php">
-                    <button type="button" class="btn btn-primary">
-                      <i class="zmdi zmdi-plus-circle"></i> Tambah Jenis Buku
-                    </button>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <br>
             <div class="table-responsive">
 <?php
     $query_jenis_buku = "SELECT * FROM jenis_buku"; 

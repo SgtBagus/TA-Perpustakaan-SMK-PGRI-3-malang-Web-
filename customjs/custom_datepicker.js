@@ -11,6 +11,54 @@ $(function() {
 });
 
 
+
+$(function() {
+    var dateFormat = "dd-mm-yy",
+        peminjaman_awal = $("#peminjaman_awal")
+        .datepicker({
+            dateFormat: "dd-mm-yy",
+            monthNames: ["Januari", "Febuari", "Maret",
+                "April", "Mei", "Juni",
+                "Juli", "Agustus", "September",
+                "Oktober", "November", "December"
+            ],
+            dayNamesMin: ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"],
+            defaultDate: "+1w",
+            changeMonth: false,
+            numberOfMonths: 1
+        })
+        .on("change", function() {
+            peminjaman_akhir.datepicker("option", "minDate", getDate(this));
+        }),
+        peminjaman_akhir = $("#peminjaman_akhir").datepicker({
+            dateFormat: "dd-mm-yy",
+            monthNames: ["Januari", "Febuari", "Maret",
+                "April", "Mei", "Juni",
+                "Juli", "Agustus", "September",
+                "Oktober", "November", "December"
+            ],
+            dayNamesMin: ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"],
+            defaultDate: "+1w",
+            changeMonth: false,
+            numberOfMonths: 1
+        })
+        .on("change", function() {
+            peminjaman_awal.datepicker("option", "maxDate", getDate(this));
+        });
+
+    function getDate(element) {
+        var date;
+        try {
+            date = $.datepicker.parseDate(dateFormat, element.value);
+        } catch (error) {
+            date = null;
+        }
+
+        return date;
+    }
+});
+
+
 $(function() {
     var dateFormat = "dd-mm-yy",
         from = $("#from")
