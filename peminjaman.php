@@ -30,10 +30,10 @@
                     <div class="col-sm-10">
                       <form class="form-horizontal" method="GET" action="?" >
                         <div class="form-group">
-                          <label class="col-sm-1 control-label" for="form-control-2">
-                            Filter
+                          <label class="col-sm-3 control-label" for="form-control-2">
+                            Filter Peminjaman
                           </label>
-                          <div class="col-sm-4">
+                          <div class="col-sm-3">
                           <?php
                           if (isset($_GET['awal'])) {
                             $awal= ($_GET["awal"]);
@@ -46,7 +46,7 @@
                           <div class="col-sm-1"> 
                             sampai
                           </div>
-                          <div class="col-sm-4">
+                          <div class="col-sm-3">
                           <?php
                           if (isset($_GET['akhir'])) {
                             $akhir= ($_GET["akhir"]);
@@ -88,10 +88,18 @@
         <div class="panel panel-default panel-table">
           <div class="panel-body">
             <div class="table-responsive">           
-<?php
-  $query = "SELECT a.id_peminjaman, b.username, b.id_siswa_pegawai, a.tgl_peminjaman, 
-            a.tgl_pengembalian, a.tgl_kembali, a.status_pinjaman FROM peminjaman 
-            AS a INNER JOIN user AS b WHERE a.id_user = b.id_user";
+<?php 
+  if (isset($_GET['akhir']) || isset($_GET['akhir']) ) {
+    $awal       = date('Y-m-d', strtotime(($_GET['awal'])));
+    $akhir      = date('Y-m-d', strtotime(($_GET['akhir'])));
+    $query = "SELECT a.id_peminjaman, b.username, b.id_siswa_pegawai, a.tgl_peminjaman, 
+              a.tgl_pengembalian, a.tgl_kembali, a.status_pinjaman FROM peminjaman 
+              AS a INNER JOIN user AS b WHERE a.id_user = b.id_user AND (a.tgl_peminjaman BETWEEN '$awal' AND '$akhir')";
+  }else{
+    $query = "SELECT a.id_peminjaman, b.username, b.id_siswa_pegawai, a.tgl_peminjaman, 
+              a.tgl_pengembalian, a.tgl_kembali, a.status_pinjaman FROM peminjaman 
+              AS a INNER JOIN user AS b WHERE a.id_user = b.id_user";
+  }
   $result = mysqli_query($con, $query);
 ?>
               <table class="table">
@@ -102,7 +110,7 @@
                     <th>Jumlah Buku</th>
                     <th>Tanggal Pinjaman</th>
                     <th></th>
-                    <th>Tanggal Pengmbalian</th>
+                    <th>Tanggal Pengembalian</th>
                     <th>Sisa Hari</th>
                     <th>Status</th>
                     <th colspan="2">Aksi</th>
@@ -111,150 +119,161 @@
                 <tbody>
                 <?php
   $no = 1;
-  while($data = mysqli_fetch_assoc($result)){
-    $date2 = new DateTime(''.$data['tgl_pengembalian'].'');
-    $tanggal = date('Y-m-d');
-    $date3 = new DateTime($tanggal); 
-                  echo '
-                  <tr>
-                    <td>'.$no.'</td>
-                    <td>';
-      $query_siswa = "SELECT NIS FROM SISWA WHERE NIS = '$data[id_siswa_pegawai]'";
-      $result_siswa = mysqli_query($con, $query_siswa);
-                    if($result_siswa->num_rows == 1){
-                      $query_foto_siswa = "SELECT foto_siswa FROM siswa WHERE NIS = '$data[id_siswa_pegawai]'";
-                      $result_foto_siswa = mysqli_query($con, $query_foto_siswa);
-                      $data_foto_siswa = mysqli_fetch_assoc($result_foto_siswa);
-                          echo '<img class="img-circle" src="img/avatars/'.$data_foto_siswa['foto_siswa'].'" alt="" width="50" height="50">';
-                    }else{  
-                      $query_foto_pegawai = "SELECT foto_pegawai FROM pegawai WHERE NIP = '$data[id_siswa_pegawai]'";
-                      $result_foto_pegawai = mysqli_query($con, $query_foto_pegawai);
-                      $data_foto_pegawai = mysqli_fetch_assoc($result_foto_pegawai);
-                          echo '<img class="img-circle" src="img/avatars/'.$data_foto_pegawai['foto_pegawai'].'" alt="" width="50" height="50">';
-                    }
-                    echo '</td>
-                    <td>'.$data['username'].'</td>
-                    <td>';
-                          if($result_siswa->num_rows == 1){
-                              echo '
-                      <a href="detail_siswa.php?no_induk='.$data['id_siswa_pegawai'].'">
-                        <i class="zmdi zmdi-eye"></i>
-                      </a>';
-                          }else{
-                              echo '
-                      <a href="detail_pegawai.php?no_induk='.$data['id_siswa_pegawai'].'">
-                        <i class="zmdi zmdi-eye"></i>
-                      </a>';
-                          }
-                    echo'</td>
-                    <td>
-                      <div align="center"><b>'; 
-        $query_banyak = "SELECT id_detail_peminjaman
-                         FROM detail_peminjaman WHERE id_peminjaman LIKE '$data[id_peminjaman]'";
-        $result_banyak = mysqli_query($con, $query_banyak);
-        $banyakdata_banyak = $result_banyak->num_rows;
-                  echo $banyakdata_banyak ;
-                      echo '</b></div>
-                    </td>
-                    <td>'.tanggal_indo(''.$data['tgl_peminjaman'].'').'</td>
-                    <td><b>s/d</b></td>
-                    <td>'.tanggal_indo(''.$data['tgl_pengembalian'].'').'</td>
-                    <td>
-                    <div align="center">';
-                    $diff = $date3->diff($date2)->format("%a");
-                    if($data['status_pinjaman'] == "Menunggu"){
-                      if($date3 > $date2){
-                        echo '<span class="label label-danger label-pill m-w-60">Kadarluasa</span>';
-                      }else{
-                        echo '<span class="label label-warning label-pill m-w-60">Belum Tersedia</span>';
+  if($result->num_rows == 0){
+      echo '<tr>
+          <td colspan="12">
+              <div align="center">
+                  Tidak ada Data
+              </div>
+          </td>
+      </tr>';
+  }
+  else{
+    while($data = mysqli_fetch_assoc($result)){
+      $date2 = new DateTime(''.$data['tgl_pengembalian'].'');
+      $tanggal = date('Y-m-d');
+      $date3 = new DateTime($tanggal); 
+                    echo '
+                    <tr>
+                      <td>'.$no.'</td>
+                      <td>';
+        $query_siswa = "SELECT NIS FROM SISWA WHERE NIS = '$data[id_siswa_pegawai]'";
+        $result_siswa = mysqli_query($con, $query_siswa);
+                      if($result_siswa->num_rows == 1){
+                        $query_foto_siswa = "SELECT foto_siswa FROM siswa WHERE NIS = '$data[id_siswa_pegawai]'";
+                        $result_foto_siswa = mysqli_query($con, $query_foto_siswa);
+                        $data_foto_siswa = mysqli_fetch_assoc($result_foto_siswa);
+                            echo '<img class="img-circle" src="img/avatars/'.$data_foto_siswa['foto_siswa'].'" alt="" width="50" height="50">';
+                      }else{  
+                        $query_foto_pegawai = "SELECT foto_pegawai FROM pegawai WHERE NIP = '$data[id_siswa_pegawai]'";
+                        $result_foto_pegawai = mysqli_query($con, $query_foto_pegawai);
+                        $data_foto_pegawai = mysqli_fetch_assoc($result_foto_pegawai);
+                            echo '<img class="img-circle" src="img/avatars/'.$data_foto_pegawai['foto_pegawai'].'" alt="" width="50" height="50">';
                       }
-                    } 
-                    else if ($data['status_pinjaman'] == "Ditolak"){
-                      echo '<span class="label label-danger label-pill m-w-60">Di Tolak</span>';
-                    }
-                    else if ($data['status_pinjaman'] == "Kembali"){
-                      echo '<span class="label label-primary label-pill m-w-60">Kembali</span>';
-                    }
-                    else{ 
-                      if($date3 > $date2){
-                        echo '<span class="label label-danger label-pill m-w-60">Terlambat</span>';
-                      }
-                      else if ($date3 == $date2){
-                        echo '<span class="label label-warning label-pill m-w-60">Hari Ini</span>';
-                      }
-                      else{
-                        echo '<b>'.$diff.'</b> - Hari Lagi';
-                      }
-                    }
-                        echo'<div>
-                      </td>
+                      echo '</td>
+                      <td>'.$data['username'].'</td>
+                      <td>';
+                            if($result_siswa->num_rows == 1){
+                                echo '
+                        <a href="detail_siswa.php?no_induk='.$data['id_siswa_pegawai'].'">
+                          <i class="zmdi zmdi-eye"></i>
+                        </a>';
+                            }else{
+                                echo '
+                        <a href="detail_pegawai.php?no_induk='.$data['id_siswa_pegawai'].'">
+                          <i class="zmdi zmdi-eye"></i>
+                        </a>';
+                            }
+                      echo'</td>
                       <td>
-                        <div align="center">';
-                      if ($data['status_pinjaman'] == "Ditolak"){
-                          echo '<span class="label label-outline-danger">'.$data['status_pinjaman'].'</span>';
-                      }else if ($data['status_pinjaman'] == "Menunggu"){
-                        echo '<span class="label label-outline-warning">'.$data['status_pinjaman'].'</span>';
-                      }else{
-                          echo '<span class="label label-outline-info">'.$data['status_pinjaman'].'</span>';
-                      }
-                      echo '</div>
+                        <div align="center"><b>'; 
+          $query_banyak = "SELECT id_detail_peminjaman
+                          FROM detail_peminjaman WHERE id_peminjaman LIKE '$data[id_peminjaman]'";
+          $result_banyak = mysqli_query($con, $query_banyak);
+          $banyakdata_banyak = $result_banyak->num_rows;
+                    echo $banyakdata_banyak ;
+                        echo '</b></div>
                       </td>
+                      <td>'.tanggal_indo(''.$data['tgl_peminjaman'].'').'</td>
+                      <td><b>s/d</b></td>
+                      <td>'.tanggal_indo(''.$data['tgl_pengembalian'].'').'</td>
                       <td>
-                        <div align="center">';
-                      if ($data['status_pinjaman'] == "Ditolak"){
-                        echo '<button onclick="hapus('.$data['id_peminjaman'].')" type="button" data-toggle="tooltip" data-placement="top" title="" data-original-title="Hapus Permintaan" class="btn btn-danger" name="input">
-                          <i class="zmdi zmdi-delete"></i>
-                        </button>';
-                      }else if ($data['status_pinjaman'] == "Menunggu"){
+                      <div align="center">';
+                      $diff = $date3->diff($date2)->format("%a");
+                      if($data['status_pinjaman'] == "Menunggu"){
                         if($date3 > $date2){
+                          echo '<span class="label label-danger label-pill m-w-60">Kadarluasa</span>';
+                        }else{
+                          echo '<span class="label label-warning label-pill m-w-60">Belum Tersedia</span>';
+                        }
+                      } 
+                      else if ($data['status_pinjaman'] == "Ditolak"){
+                        echo '<span class="label label-danger label-pill m-w-60">Di Tolak</span>';
+                      }
+                      else if ($data['status_pinjaman'] == "Kembali"){
+                        echo '<span class="label label-primary label-pill m-w-60">Kembali</span>';
+                      }
+                      else{ 
+                        if($date3 > $date2){
+                          echo '<span class="label label-danger label-pill m-w-60">Terlambat</span>';
+                        }
+                        else if ($date3 == $date2){
+                          echo '<span class="label label-warning label-pill m-w-60">Hari Ini</span>';
+                        }
+                        else{
+                          echo '<b>'.$diff.'</b> - Hari Lagi';
+                        }
+                      }
+                          echo'<div>
+                        </td>
+                        <td>
+                          <div align="center">';
+                        if ($data['status_pinjaman'] == "Ditolak"){
+                            echo '<span class="label label-outline-danger">'.$data['status_pinjaman'].'</span>';
+                        }else if ($data['status_pinjaman'] == "Menunggu"){
+                          echo '<span class="label label-outline-warning">'.$data['status_pinjaman'].'</span>';
+                        }else{
+                            echo '<span class="label label-outline-info">'.$data['status_pinjaman'].'</span>';
+                        }
+                        echo '</div>
+                        </td>
+                        <td>
+                          <div align="center">';
+                        if ($data['status_pinjaman'] == "Ditolak"){
                           echo '<button onclick="hapus('.$data['id_peminjaman'].')" type="button" data-toggle="tooltip" data-placement="top" title="" data-original-title="Hapus Permintaan" class="btn btn-danger" name="input">
                             <i class="zmdi zmdi-delete"></i>
                           </button>';
-                        }else{
-                        echo '<button onclick="terima('.$data['id_peminjaman'].')" type="button" class="btn btn-primary" name="input" data-toggle="tooltip" data-placement="top" title="" data-original-title="Terima">
-                          <i class="zmdi zmdi-check"></i>
-                        </button>
-                        <button onclick="tolak('.$data['id_peminjaman'].')" type="button" class="btn btn-danger" name="input" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tolak">
-                          <i class="zmdi zmdi-close"></i>
-                        </button>';
-                        }
-                        echo '<div class="btn-group" role="group">';
-                      }else if ($data['status_pinjaman'] == "Diterima"){
-                        echo '<button onclick="kembali('.$data['id_peminjaman'].')"  type="button" class="btn btn-primary" name="input" data-toggle="tooltip" data-placement="top" title="" data-original-title="Terima Pengembalian">
-                          <i class="zmdi zmdi-check"></i>
-                        </button>';
-                        if( $date2 = $date3){
-                          echo'
-                          <button onclick="sanksi('.$data['id_peminjaman'].')" type="button" class="btn btn-warning" name="input" data-toggle="tooltip" data-placement="top" title="" data-original-title="Masukan data Sanksi">
-                            <i class="zmdi zmdi-edit"></i>
+                        }else if ($data['status_pinjaman'] == "Menunggu"){
+                          if($date3 > $date2){
+                            echo '<button onclick="hapus('.$data['id_peminjaman'].')" type="button" data-toggle="tooltip" data-placement="top" title="" data-original-title="Hapus Permintaan" class="btn btn-danger" name="input">
+                              <i class="zmdi zmdi-delete"></i>
+                            </button>';
+                          }else{
+                          echo '<button onclick="terima('.$data['id_peminjaman'].')" type="button" class="btn btn-primary" name="input" data-toggle="tooltip" data-placement="top" title="" data-original-title="Terima">
+                            <i class="zmdi zmdi-check"></i>
+                          </button>
+                          <button onclick="tolak('.$data['id_peminjaman'].')" type="button" class="btn btn-danger" name="input" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tolak">
+                            <i class="zmdi zmdi-close"></i>
                           </button>';
-                        }else if ($date2 < $date3) {
-                          echo '
-                          <button onclick="sanksi('.$data['id_peminjaman'].')" type="button" class="btn btn-warning" name="input" data-toggle="tooltip" data-placement="top" title="" data-original-title="Masukan data Sanksi">
-                            <i class="zmdi zmdi-edit"></i>
+                          }
+                          echo '<div class="btn-group" role="group">';
+                        }else if ($data['status_pinjaman'] == "Diterima"){
+                          echo '<button onclick="kembali('.$data['id_peminjaman'].')"  type="button" class="btn btn-primary" name="input" data-toggle="tooltip" data-placement="top" title="" data-original-title="Terima Pengembalian">
+                            <i class="zmdi zmdi-check"></i>
                           </button>';
-                        }else{
-                          
+                          if( $date2 = $date3){
+                            echo'
+                            <button onclick="sanksi('.$data['id_peminjaman'].')" type="button" class="btn btn-warning" name="input" data-toggle="tooltip" data-placement="top" title="" data-original-title="Masukan data Sanksi">
+                              <i class="zmdi zmdi-edit"></i>
+                            </button>';
+                          }else if ($date2 < $date3) {
+                            echo '
+                            <button onclick="sanksi('.$data['id_peminjaman'].')" type="button" class="btn btn-warning" name="input" data-toggle="tooltip" data-placement="top" title="" data-original-title="Masukan data Sanksi">
+                              <i class="zmdi zmdi-edit"></i>
+                            </button>';
+                          }else{
+                            
+                          }
+                        }else if ($data['status_pinjaman'] == "Kembali"){
+                          echo '<button onclick="sanksi('.$data['id_peminjaman'].')" type="button" class="btn btn-warning" name="input" data-toggle="tooltip" data-placement="top" title="" data-original-title="Masukan data Sanksi">
+                            <i class="zmdi zmdi-edit"></i>
+                          </button>
+                          <button onclick="hapus('.$data['id_peminjaman'].')" type="button" data-toggle="tooltip" data-placement="top" title="" data-original-title="Hapus Permintaan" class="btn btn-danger" name="input">
+                            <i class="zmdi zmdi-delete"></i>
+                          </button>';
                         }
-                      }else if ($data['status_pinjaman'] == "Kembali"){
-                        echo '<button onclick="sanksi('.$data['id_peminjaman'].')" type="button" class="btn btn-warning" name="input" data-toggle="tooltip" data-placement="top" title="" data-original-title="Masukan data Sanksi">
-                          <i class="zmdi zmdi-edit"></i>
-                        </button>
-                        <button onclick="hapus('.$data['id_peminjaman'].')" type="button" data-toggle="tooltip" data-placement="top" title="" data-original-title="Hapus Permintaan" class="btn btn-danger" name="input">
-                          <i class="zmdi zmdi-delete"></i>
-                        </button>';
-                      }
-                      echo '</div>
-                    </td>
-                    <td>
-                      <a href="system/detail_refresh.php?id='.$data['id_peminjaman'].'">
-                        <button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Detail Peminjaman">
-                          <i class="zmdi zmdi-eye"></i>
-                        </button>
-                      </a>
-                    </td>
-                  </tr>';
-                  $no++;
+                        echo '</div>
+                      </td>
+                      <td>
+                        <a href="system/detail_refresh.php?id='.$data['id_peminjaman'].'">
+                          <button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Detail Peminjaman">
+                            <i class="zmdi zmdi-eye"></i>
+                          </button>
+                        </a>
+                      </td>
+                    </tr>';
+                    $no++;
+    }
   }
   ?>
                 </tbody>

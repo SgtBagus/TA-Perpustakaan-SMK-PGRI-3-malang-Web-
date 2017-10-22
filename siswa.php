@@ -79,28 +79,40 @@
                 </thead>
                 <tbody>
 <?php
-  $no_user = 1;
-  while($data_user = mysqli_fetch_assoc($result_user)){
-    $data_NIS = (int) substr($data_user['NIS'], 0, 5);
-                 echo '<tr>
-                    <td>'.$no_user.'</td>
-                    <td><img class="img-circle" src="img/avatars/'.$data_user['foto_siswa'].'" alt="" width="50" height="50"></td>
-                    <td>'.$data_user['NIS'].'</td>
-                    <td>'.$data_user['nama_siswa'].'</td>
-                    <td>'.$data_user['kelas'].'</td>
-                    <td>'.tanggal_indo(''.$data_user['tgl_entri_siswa'].'').'</td>
-                    <td align="center">
-                      <a href="detail_siswa.php?no_induk='.$data_user['NIS'].'">
-                        <button type="button" class="btn btn-primary">
-                          <i class="zmdi zmdi-eye"></i> Detail
+  if($result_user->num_rows == 0){
+    echo '<tr>
+        <td colspan="11">
+            <div align="center">
+                Tidak ada Data
+            </div>
+        </td>
+    </tr>';
+
+  }
+  else{
+    $no_user = 1;
+    while($data_user = mysqli_fetch_assoc($result_user)){
+      $data_NIS = (int) substr($data_user['NIS'], 0, 5);
+                  echo '<tr>
+                      <td>'.$no_user.'</td>
+                      <td><img class="img-circle" src="img/avatars/'.$data_user['foto_siswa'].'" alt="" width="50" height="50"></td>
+                      <td>'.$data_user['NIS'].'</td>
+                      <td>'.$data_user['nama_siswa'].'</td>
+                      <td>'.$data_user['kelas'].'</td>
+                      <td>'.tanggal_indo(''.$data_user['tgl_entri_siswa'].'').'</td>
+                      <td align="center">
+                        <a href="detail_siswa.php?no_induk='.$data_user['NIS'].'">
+                          <button type="button" class="btn btn-primary">
+                            <i class="zmdi zmdi-eye"></i> Detail
+                          </button>
+                        </a>
+                        <button onclick="hapus('.$data_NIS.')" type="button" class="btn btn-danger">
+                          <i class="zmdi zmdi-delete"></i> Hapus
                         </button>
-                      </a>
-                      <button onclick="hapus('.$data_NIS.')" type="button" class="btn btn-danger">
-                        <i class="zmdi zmdi-delete"></i> Hapus
-                      </button>
-                    </td>
-                  </tr>';
-                  $no_user++;
+                      </td>
+                    </tr>';
+                    $no_user++;
+                  }
                 }
   ?>
                 </tbody>

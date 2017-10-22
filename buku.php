@@ -82,41 +82,53 @@
               </thead>
               <tbody>
 <?php
-  $no_buku = 1; 
-  while($data_buku = mysqli_fetch_assoc($result_buku)){
-                echo '<tr>
-                  <td>'.$no_buku.'</td>
-                  <td><img class="img-rounded" src="img/book/'.$data_buku['gambar_buku'].'" alt="" width="40" height="60"></td>
-                  <td>'.$data_buku['judul_buku'].'</td>
-                  <td>'.$data_buku['subyek'].'</td>
-                  <td>'.$data_buku['jenis_media'].'</td>
-                  <td>'.$data_buku['bahasa'].'</td>
-                  <td><b><div align="center">';
-        $query_banyak = "SELECT id_detail_buku 
-                         FROM detail_buku WHERE id_buku LIKE '$data_buku[id_buku]'";
-        $result_banyak = mysqli_query($con, $query_banyak);
-        $banyakdata_banyak = $result_banyak->num_rows;
-                  echo $banyakdata_banyak.'
-                  </div></b>
-                  </td>
-                  <td> 
-                    <a href="detail_buku.php?ISBN='.$data_buku['ISBN'].'">
-                      <button type="button" class="btn btn-primary">
-                        <i class="zmdi zmdi-eye"></i> Detail
+  if($result_buku->num_rows == 0){
+    echo '<tr>
+        <td colspan="8">
+            <div align="center">
+                Tidak ada Data
+            </div>
+        </td>
+    </tr>';
+
+  } 
+  else{ 
+    $no_buku = 1; 
+    while($data_buku = mysqli_fetch_assoc($result_buku)){
+                  echo '<tr>
+                    <td>'.$no_buku.'</td>
+                    <td><img class="img-rounded" src="img/book/'.$data_buku['gambar_buku'].'" alt="" width="40" height="60"></td>
+                    <td>'.$data_buku['judul_buku'].'</td>
+                    <td>'.$data_buku['subyek'].'</td>
+                    <td>'.$data_buku['jenis_media'].'</td>
+                    <td>'.$data_buku['bahasa'].'</td>
+                    <td><b><div align="center">';
+          $query_banyak = "SELECT id_detail_buku 
+                          FROM detail_buku WHERE id_buku LIKE '$data_buku[id_buku]'";
+          $result_banyak = mysqli_query($con, $query_banyak);
+          $banyakdata_banyak = $result_banyak->num_rows;
+                    echo $banyakdata_banyak.'
+                    </div></b>
+                    </td>
+                    <td> 
+                      <a href="detail_buku.php?ISBN='.$data_buku['ISBN'].'">
+                        <button type="button" class="btn btn-primary">
+                          <i class="zmdi zmdi-eye"></i> Detail
+                        </button>
+                      </a>
+                      <a href="ubah_buku.php?ISBN='.$data_buku['ISBN'].'">
+                        <button type="button" class="btn btn-primary">
+                          <i class="zmdi zmdi-edit"></i> Ubah
+                        </button>
+                      </a>
+                      <button onclick="hapus('.$data_buku['id_buku'].')" type="button" class="btn btn-danger">
+                        <i class="zmdi zmdi-delete"></i> Hapus
                       </button>
-                    </a>
-                    <a href="ubah_buku.php?ISBN='.$data_buku['ISBN'].'">
-                      <button type="button" class="btn btn-primary">
-                        <i class="zmdi zmdi-edit"></i> Ubah
-                      </button>
-                    </a>
-                    <button onclick="hapus('.$data_buku['id_buku'].')" type="button" class="btn btn-danger">
-                      <i class="zmdi zmdi-delete"></i> Hapus
-                    </button>
-                  </td>
-                </tr>';
-                $no_buku++; 
-              }
+                    </td>
+                  </tr>';
+                  $no_buku++; 
+                }
+  }
 ?>
               </tbody>
             </table>

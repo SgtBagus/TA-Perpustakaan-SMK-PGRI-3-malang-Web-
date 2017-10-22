@@ -30,40 +30,8 @@
                   </div> 
                   <div class="form-group">
                     <label class="col-sm-3 control-label" for="form-control-21">Kelas</label>
-                    <div class="col-sm-3">
-                      <select name="kelas" class="form-control" required>
-                        <option value="X">X</option>
-                        <option value="XI">XI</option>
-                        <option value="XII">XII</option>
-                      </select>
-                    </div>
-                    <div class="col-sm-3">
-                      <select name="jurusan" class="form-control" required>
-                        <option value="RPL">RPL</option>
-                        <option value="TKJ">TKJ</option>
-                        <option value="MM">MM</option>
-                        <option value="IP">IP</option>
-                        <option value="PB">PB</option>
-                        <option value="KR">KR</option>
-                        <option value="AV">AV</option>
-                        <option value="KB">KB</option>
-                        <option value="Alfaclass">Alfaclass</option>
-                      </select>
-                    </div>
-                    <div class="col-sm-3">
-                      <select name="sub_kelas" class="form-control" required>
-                        <option value="A">A</option>
-                        <option value="B">B</option>
-                        <option value="C">C</option>
-                        <option value="D">D</option>
-                        <option value="E">E</option>
-                        <option value="F">F</option>
-                        <option value="G">G</option>
-                        <option value="H">H</option>
-                        <option value="I">I</option>
-                        <option value="J">J</option>
-                        <option value="K">K</option>
-                      </select>
+                    <div class="col-sm-9">
+                      <input class="form-control" type="text" name="kelas" placeholder="Kelas" required>
                     </div>
                   </div>
                   <div class="form-group">

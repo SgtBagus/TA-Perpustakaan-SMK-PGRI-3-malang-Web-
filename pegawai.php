@@ -81,6 +81,17 @@
                 </thead>
                 <tbody>
 <?php
+  if($result_pegawai->num_rows == 0){
+    echo '<tr>
+        <td colspan="11">
+            <div align="center">
+                Tidak ada Data
+            </div>
+        </td>
+    </tr>';
+
+  }
+  else{
   $no_pegawai = 1;
   while($data_pegawai = mysqli_fetch_assoc($result_pegawai)){
     $data_id = (int) substr($data_pegawai['NIP'], 0, 5);
@@ -113,6 +124,7 @@
                   </tr>';
                   $no_pegawai++;
                 }
+    }
   ?>
                 </tbody>
               </table>
