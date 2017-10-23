@@ -68,9 +68,9 @@
         }
 
     ?>
-    <body>
+    <!-- <body> -->
         <div class="profile">
-            <div class="col-md-12">
+            <!-- <div class="col-md-12"> -->
                 <div class="p-about m-b-0">
                     <div class="widget-infoblock wi-small m-b-30" style="background-image: url(img/photos/<?php echo(rand(2,5)); ?>.jpg)">
                         <div class="wi-bg">
@@ -261,9 +261,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            <!-- </div> -->
         </div>
-    </body>
+    <!-- </body> -->
         <?php include('script/footer_script.php') ?>
         <script type="text/javascript">
   <?php

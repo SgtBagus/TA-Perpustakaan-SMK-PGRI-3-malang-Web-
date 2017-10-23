@@ -166,43 +166,79 @@
                     </label>
                   </div> 
                   <div class="form-group">
-                    <label class="col-sm-3 control-label" for="form-control-5">Judul Buku</label>
-                    <div class="col-sm-6">
-                    
-    <?php
-        $query_judul = "SELECT * FROM buku ORDER BY judul_buku ASC";     
-        $result_judul = mysqli_query($con, $query_judul);
-        if(!$result_judul){
-            die ("Query Error: ".mysqli_errno($con).
-            " - ".mysqli_error($con));
-        }
-    ?>
-                      <select name="judul" class="form-control judul" required>                                                     
-    <?php
-        while($data_judul = mysqli_fetch_assoc($result_judul))
-        {
-            echo '<option value="'.$data_judul[id_buku].'" title="Judul Lengkap : '.$data_judul[judul_buku].'">'.$data_judul[judul_singkat].'</option>';
-        }
-    ?>
-                      </select>
+                    <label class="col-sm-2 control-label" for="form-control-2">
+                      Judul Buku
+                    </label>
+                    <div class="col-sm-10">
+                      <input id="judulbuku" onkeyup="buku()" placeholder="Judul Buku" class="form-control input-pill" type="text">
                     </div>
-                  </div> 
-                  <div class="form-group">
-                    <label class="col-sm-3 control-label" for="form-control-5">Status Buku</label>
-                    <div class="col-sm-6">
-                      <select name="status_buku" class="form-control status_buku" required>  
-                        <option value="Semua">Semua</option>
-                        <option value="Siap Terpinjam">Siap Terpinjam</option>
-                        <option value="Dipesan">Dipesan</option>
-                        <option value="Dipinjam">Dipinjam</option>
-                        <option value="Lainya">Lainya</option>
-                      </select>
-                    </div>
-                  </div> 
-                  <div class="modal-footer text-center">
-                    <div type="submit" onclick="report_buku()" name="input" rel="tooltip" class="btn btn-primary btn-fill">
-                      <i class="zmdi zmdi-print"></i> Cetak Buku
-                    </div>
+                  </div>
+                  <div class="table-responsive">
+<?php
+  $query_buku = "SELECT gambar_buku,judul_buku,id_buku,tgl_entri_buku FROM buku" ;
+  $result_buku = mysqli_query($con, $query_buku);
+?>
+            <table class="table" id="myTable2">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Tanggal Masuk</th>
+                  <th colspan="2">Judul buku</th>
+                  <th>Total Buku</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+<?php
+  if($result_buku->num_rows == 0){
+    echo '<tr>
+        <td colspan="8">
+            <div align="center">
+                Tidak ada Data
+            </div>
+        </td>
+    </tr>';
+
+  } 
+  else{ 
+    $no_buku = 1; 
+    while($data_buku = mysqli_fetch_assoc($result_buku)){
+                  echo '<tr>
+                    <td>'.$no_buku.'</td>
+                    <td>'.tanggal_indo(''.$data_buku['tgl_entri_buku'].'').'</td>
+                    <td><img class="img-rounded" src="img/book/'.$data_buku['gambar_buku'].'" alt="" width="40" height="60"></td>
+                    <td>'.$data_buku['judul_buku'].'</td>
+                    <td><b><div align="center">';
+          $query_banyak = "SELECT id_detail_buku 
+                          FROM detail_buku WHERE id_buku LIKE '$data_buku[id_buku]'";
+          $result_banyak = mysqli_query($con, $query_banyak);
+          $banyakdata_banyak = $result_banyak->num_rows;
+                    echo $banyakdata_banyak.'
+                    </div></b>
+                    </td>
+                    <td> 
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i class="zmdi zmdi-print"></i> 
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                          <li><a href="report_detail_buku.php?id_buku='.$data_buku['id_buku'].'&status_buku=Semua", target="_blank">Semua</a></li>
+                          <li role="separator" class="divider"></li>
+                          <li><a href="report_detail_buku.php?id_buku='.$data_buku['id_buku'].'&status_buku=Siap Terpinjam", target="_blank">Siap Terpinjam</a></li>
+                          <li><a href="report_detail_buku.php?id_buku='.$data_buku['id_buku'].'&status_buku=Dipesan", target="_blank">Dipesan</a></li>
+                          <li><a href="report_detail_buku.php?id_buku='.$data_buku['id_buku'].'&status_buku=Dipinjam", target="_blank">Dipinjam</a></li>
+                          <li role="separator" class="divider"></li>
+                          <li><a href="report_detail_buku.php?id_buku='.$data_buku['id_buku'].'&status_buku=Lainya", target="_blank">Lainya</a></li>
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>';
+                  $no_buku++; 
+                }
+  }
+?>
+                      </tbody>
+                    </table>
                   </div>
                 </form>
               </div>
@@ -278,17 +314,9 @@
                   </div>
                   <div class="table-responsive">           
 <?php 
-  if (isset($_GET['akhir']) || isset($_GET['akhir']) ) {
-    $awal       = date('Y-m-d', strtotime(($_GET['awal'])));
-    $akhir      = date('Y-m-d', strtotime(($_GET['akhir'])));
-    $query = "SELECT a.id_peminjaman, b.username, b.id_siswa_pegawai, a.tgl_peminjaman, 
-              a.tgl_pengembalian, a.tgl_kembali, a.status_pinjaman FROM peminjaman 
-              AS a INNER JOIN user AS b WHERE a.id_user = b.id_user AND (a.tgl_peminjaman BETWEEN '$awal' AND '$akhir')";
-  }else{
     $query = "SELECT a.id_peminjaman, b.username, b.id_siswa_pegawai, a.tgl_peminjaman, 
               a.tgl_pengembalian, a.tgl_kembali, a.status_pinjaman FROM peminjaman 
               AS a INNER JOIN user AS b WHERE a.id_user = b.id_user";
-  }
   $result = mysqli_query($con, $query);
 ?>
               <table class="table" id="myTable">
@@ -384,65 +412,88 @@
                 <h4 class="modal-title">Menu Cetak Sanksi</h4>
               </div>
               <div class="modal-body">    
-                <form id="inputmasks" class="form-horizontal" action="?">   
-                  <div class="form-group">
-                    <label class="col-sm-12">
-                        <div align="center">
-                            <h3>SANKSI</h3>
-                        </div>
-                    </label>
-                  </div> 
-                  <div class="form-group">
-                    <label class="col-sm-3 control-label" for="form-control-5">Sanksi Oleh</label>
-                    <div class="col-sm-8">
-                    
-    <?php
-        $query = "SELECT a.id_peminjaman, a.id_sanksi, a.id_user, a.sanksi, b.username, b.id_siswa_pegawai FROM sanksi
-                  AS a INNER JOIN user AS b WHERE a.id_user = b.id_user";
-        $result = mysqli_query($con, $query);
-        if(!$result){
-            die ("Query Error: ".mysqli_errno($con).
-            " - ".mysqli_error($con));
-        }
-    ?>
-                      <select name="sanksi" class="form-control sanksi" required>                                                     
-    <?php
-        if($result->num_rows == 0 ){
-            echo '<option> -Tidak Ada Data Sanksi- </option>';
-        }
-        else{
-          while($data = mysqli_fetch_assoc($result))
-          {
-              echo '<option value="'.$data['id_peminjaman'].'" title="Sanksi : '.$data['sanksi'].'">'.$data['username'].' - ';
-              
-        $query_username = "SELECT NIS FROM SISWA WHERE NIS = '$data_peminjaman[id_siswa_pegawai]'";
-        $result_username = mysqli_query($con, $query_username);
-                      if($result_username->num_rows == 1){
-                        $query_nama_siswa = "SELECT nama_siswa FROM siswa WHERE NIS = '$data[id_siswa_pegawai]'";
-                        $result_nama_siswa = mysqli_query($con, $query_nama_siswa);
-                        $data_nama_siswa = mysqli_fetch_assoc($result_nama_siswa);
-                          echo $data_nama_siswa['nama_siswa'];
-                      }else{  
-                        $query_nama_pegawai = "SELECT nama_pegawai FROM pegawai WHERE NIP = '$data[id_siswa_pegawai]'";
-                        $result_nama_pegawai = mysqli_query($con, $query_nama_pegawai);
-                        $data_nama_pegawai = mysqli_fetch_assoc($result_nama_pegawai);
-                          echo $data_nama_pegawai['nama_pegawai'];
-                      }
-              
-              echo '</option>';
-          }
-        }
-    ?>
+              <div class="table-responsive">           
+<?php
+  $query = "SELECT a.id_peminjaman, b.username, b.id_siswa_pegawai, c.id_sanksi, c.sanksi, 
+            c.catatan_sanksi, c.status_sanksi FROM peminjaman 
+            AS a INNER JOIN user AS b INNER JOIN sanksi AS c WHERE a.id_user = b.id_user AND c.id_user = a.id_user";
+  $result = mysqli_query($con, $query);
+?>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>No</th>
+                    <th colspan="3" width="100px">Username</th>
+                    <th>Sanksi</th>
+                    <th width="300px">Catatan</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                <?php
+  if($result->num_rows == 0){
+    echo '<tr>
+        <td colspan="7">
+            <div align="center">
+                Tidak ada Data
+            </div>
+        </td>
+    </tr>';
 
-                      </select>
-                    </div>
-                  </div> 
-                  <div class="modal-footer text-center">
-                    <div type="submit" onclick="report_sanksi()" name="input" rel="tooltip" class="btn btn-primary btn-fill">
-                      <i class="zmdi zmdi-print"></i> Cetak Sanksi
-                    </div>
-                  </div>
-                </form>
+  }
+  else{
+    $no = 1;
+    while($data = mysqli_fetch_assoc($result)){
+                    echo '
+                    <tr>
+                        <td>'.$no.'</td>
+                        <td>';
+        $query_siswa = "SELECT NIS FROM SISWA WHERE NIS = '$data[id_siswa_pegawai]'";
+        $result_siswa = mysqli_query($con, $query_siswa);
+                        if($result_siswa->num_rows == 1){
+                        $query_foto_siswa = "SELECT foto_siswa FROM siswa WHERE NIS = '$data[id_siswa_pegawai]'";
+                        $result_foto_siswa = mysqli_query($con, $query_foto_siswa);
+                        $data_foto_siswa = mysqli_fetch_assoc($result_foto_siswa);
+                            echo '<img class="img-circle" src="img/avatars/'.$data_foto_siswa['foto_siswa'].'" alt="" width="50" height="50">';
+                        }else{  
+                        $query_foto_pegawai = "SELECT foto_pegawai FROM pegawai WHERE NIP = '$data[id_siswa_pegawai]'";
+                        $result_foto_pegawai = mysqli_query($con, $query_foto_pegawai);
+                        $data_foto_pegawai = mysqli_fetch_assoc($result_foto_pegawai);
+                            echo '<img class="img-circle" src="img/avatars/'.$data_foto_pegawai['foto_pegawai'].'" alt="" width="50" height="50">';
+                        }
+                        echo '</td>
+                        <td>'.$data['username'].'</td>
+                        <td>';
+                            if($result_siswa->num_rows == 1){
+                                    echo '
+                            <a href="detail_siswa.php?no_induk='.$data['id_siswa_pegawai'].'">
+                                <i class="zmdi zmdi-eye"></i>
+                            </a>';
+                                }else{
+                                    echo '
+                            <a href="detail_pegawai.php?no_induk='.$data['id_siswa_pegawai'].'">
+                                <i class="zmdi zmdi-eye"></i>
+                            </a>';
+                        }
+                        echo'</td>
+                        <td>'.$data['sanksi'].'</td>
+                        <td>'.$data['catatan_sanksi'].'</td>';
+                        echo '<td align="right">
+                            <a href="report_sanksi.php?id_sanksi='.$data['id_peminjaman'].'" target="_blank">
+                              <button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cetak Sanksi">
+                                <i class="zmdi zmdi-print"></i>
+                              </button>
+                            </a> 
+                        </td>
+                        <div>
+                    </tr>'; 
+                    $no++;
+    }
+}
+  ?>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
@@ -463,15 +514,6 @@
         }
     } 
 
-    function report_buku(){
-        $v = "new_book_report";
-        $a = $("body").attr('class');
-        new_tap('idn',$v,$a);
-        function new_tap($type,$value,$attr) {
-            window.open("report_detail_buku.php"+"?"+"id_buku"+"="+$('.judul').val()+"&status_buku="+$('.status_buku').val(),"_blank");
-        }
-    } 
-    
     function report_transaksi(){
         $v = "new_transaksi";
         $a = $("body").attr('class');
@@ -484,15 +526,6 @@
     
     function report_detail_transaksi(id){
       window.open("report_detail_transaksi.php?id_peminjaman="+id);
-    } 
-
-    function report_sanksi(){
-        $v = "new_sanksi";
-        $a = $("body").attr('class');
-        new_tap('idn',$v,$a);
-        function new_tap($type,$value,$attr) {
-            window.open("report_sanksi.php"+"?"+"id_sanksi"+"="+$('.sanksi').val(),"_blank");
-        }
     } 
     
     function user() {
@@ -512,5 +545,25 @@
         }       
       }
     }
+
+    
+    function buku() {
+      var input, filter, table, tr, td, i;
+      input = document.getElementById("judulbuku");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable2");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[3];
+        if (td) {
+          if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }       
+      }
+    }
+
   </script>
 </html>

@@ -107,13 +107,12 @@
                   <tr>
                     <th>No</th>
                     <th colspan="3">Peminjam</th>
-                    <th>Jumlah Buku</th>
                     <th>Tanggal Pinjaman</th>
                     <th></th>
                     <th>Tanggal Pengembalian</th>
                     <th>Sisa Hari</th>
                     <th>Status</th>
-                    <th colspan="2">Aksi</th>
+                    <th colspan="3">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -165,15 +164,6 @@
                         </a>';
                             }
                       echo'</td>
-                      <td>
-                        <div align="center"><b>'; 
-          $query_banyak = "SELECT id_detail_peminjaman
-                          FROM detail_peminjaman WHERE id_peminjaman LIKE '$data[id_peminjaman]'";
-          $result_banyak = mysqli_query($con, $query_banyak);
-          $banyakdata_banyak = $result_banyak->num_rows;
-                    echo $banyakdata_banyak ;
-                        echo '</b></div>
-                      </td>
                       <td>'.tanggal_indo(''.$data['tgl_peminjaman'].'').'</td>
                       <td><b>s/d</b></td>
                       <td>'.tanggal_indo(''.$data['tgl_pengembalian'].'').'</td>
@@ -271,6 +261,13 @@
                           </button>
                         </a>
                       </td>
+                      <td>
+                        <a href="report_detail_transaksi.php?id_peminjaman='.$data['id_peminjaman'].'" target="_blank">
+                          <button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cetak Peminjaman">
+                            <i class="zmdi zmdi-print"></i>
+                          </button>
+                        </a>
+                      </td>
                     </tr>';
                     $no++;
     }
@@ -322,64 +319,6 @@
                         </div> 
                         <div class="modal-footer text-center">
                           <div type="submit" onclick="report_transaksi()" name="input" rel="tooltip" class="btn btn-primary btn-fill">
-                            <i class="zmdi zmdi-print"></i> Cetak Transaksi
-                          </div>
-                        </div>
-                      </form>
-                    </div>
-                    <hr>
-                    <div class="modal-body">    
-                      <form id="inputmasks" class="form-horizontal" action="?">   
-                        <div class="form-group">
-                          <label class="col-sm-12">
-                              <div align="center">
-                                  <h3>TRANSAKSI</h3>
-                              </div>
-                          </label>
-                        </div> 
-                        <div class="form-group">
-                          <label class="col-sm-3 control-label" for="form-control-5">Peminjaman Oleh</label>
-                          <div class="col-sm-8">
-                          
-          <?php
-              $query_peminjaman = "SELECT a.id_peminjaman, b.username, b.id_siswa_pegawai, a.tgl_peminjaman, 
-              a.tgl_pengembalian, a.tgl_kembali, a.status_pinjaman FROM peminjaman 
-              AS a INNER JOIN user AS b WHERE a.id_user = b.id_user";     
-              $result_peminjaman = mysqli_query($con, $query_peminjaman);
-              if(!$result_peminjaman){
-                  die ("Query Error: ".mysqli_errno($con).
-                  " - ".mysqli_error($con));
-              }
-          ?>
-                            <select name="peminjaman" class="form-control peminjaman" required>                                                     
-          <?php
-              while($data_peminjaman = mysqli_fetch_assoc($result_peminjaman))
-              {
-                  echo '<option value="'.$data_peminjaman[id_peminjaman].'" title="Meminjam Tanggal : '.tanggal_indo(''.$data_peminjaman[tgl_peminjaman].'').'">'.$data_peminjaman['username'].' - ';
-                  
-            $query_siswa = "SELECT NIS FROM SISWA WHERE NIS = '$data_peminjaman[id_siswa_pegawai]'";
-            $result_siswa = mysqli_query($con, $query_siswa);
-                          if($result_siswa->num_rows == 1){
-                            $query_nama_siswa = "SELECT nama_siswa FROM siswa WHERE NIS = '$data_peminjaman[id_siswa_pegawai]'";
-                            $result_nama_siswa = mysqli_query($con, $query_nama_siswa);
-                            $data_nama_siswa = mysqli_fetch_assoc($result_nama_siswa);
-                              echo $data_nama_siswa['nama_siswa'];
-                          }else{  
-                            $query_nama_pegawai = "SELECT nama_pegawai FROM pegawai WHERE NIP = '$data_peminjaman[id_siswa_pegawai]'";
-                            $result_nama_pegawai = mysqli_query($con, $query_nama_pegawai);
-                            $data_nama_pegawai = mysqli_fetch_assoc($result_nama_pegawai);
-                              echo $data_nama_pegawai['nama_pegawai'];
-                          }
-                  
-                  echo '</option>';
-              }
-          ?>
-
-                            </select>
-                          </div>
-                        </div> 
-                        <div class="modal-footer text-center">
-                          <div type="submit" onclick="report_detail_transaksi()" name="input" rel="tooltip" class="btn btn-primary btn-fill">
                             <i class="zmdi zmdi-print"></i> Cetak Transaksi
                           </div>
                         </div>

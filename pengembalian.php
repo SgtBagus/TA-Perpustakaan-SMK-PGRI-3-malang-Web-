@@ -114,9 +114,9 @@
                     <th>Tanggal Pengembalian</th>
                     <th></th>
                     <th>Tanggal Kembali</th>
-                    <th>Banyak Hari Terlambat</th>
+                    <th>Total Terlambat</th>
                     <th>Denda</th>
-                    <th>Action</th>
+                    <th colspan="2">Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -165,7 +165,7 @@ while($data = mysqli_fetch_assoc($result)){
                   <td>'.tanggal_indo(''.$data['tgl_kembali'].'').'</td>
                   <td>
                     <div align="center">
-                      <b>'.$data['total_terlambat'].'</b>
+                      <b>'.$data['total_terlambat'].'</b> - Hari 
                     </div>
                   </td>
                   <td>
@@ -182,6 +182,13 @@ while($data = mysqli_fetch_assoc($result)){
                     <button onclick="sanksi('.$data['id_peminjaman'].')" type="button" class="btn btn-warning" name="input" data-toggle="tooltip" data-placement="top" title="" data-original-title="Masukan data Sanksi">
                       <i class="zmdi zmdi-edit"></i>
                     </button>
+                  </td>
+                  <td>
+                    <a href="report_detail_transaksi.php?id_peminjaman='.$data['id_peminjaman'].'" target="_blank">
+                      <button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cetak Peminjaman">
+                        <i class="zmdi zmdi-print"></i>
+                      </button>
+                    </a>
                   </td>
                 </tr>';
                 $no++;
@@ -210,50 +217,110 @@ while($data = mysqli_fetch_assoc($result)){
                           </label>
                         </div> 
                         <div class="form-group">
-                          <label class="col-sm-3 control-label" for="form-control-5">Peminjaman Oleh</label>
-                          <div class="col-sm-8">
-                          
-          <?php
-              $query_peminjaman = "SELECT a.id_peminjaman, b.username, b.id_siswa_pegawai, a.tgl_peminjaman, 
-              a.tgl_pengembalian, a.tgl_kembali, a.status_pinjaman FROM peminjaman 
-              AS a INNER JOIN user AS b WHERE a.id_user = b.id_user AND a.tgl_kembali NOT LIKE '0000-00-00'";     
-              $result_peminjaman = mysqli_query($con, $query_peminjaman);
-              if(!$result_peminjaman){
-                  die ("Query Error: ".mysqli_errno($con).
-                  " - ".mysqli_error($con));
-              }
-          ?>
-                            <select name="peminjaman" class="form-control peminjaman" required>                                                     
-          <?php
-              while($data_peminjaman = mysqli_fetch_assoc($result_peminjaman))
-              {
-                  echo '<option value="'.$data_peminjaman[id_peminjaman].'" title="Meminjam Tanggal : '.tanggal_indo(''.$data_peminjaman[tgl_peminjaman].'').'">'.$data_peminjaman['username'].' - ';
-                  
-            $query_siswa = "SELECT NIS FROM SISWA WHERE NIS = '$data_peminjaman[id_siswa_pegawai]'";
-            $result_siswa = mysqli_query($con, $query_siswa);
-                          if($result_siswa->num_rows == 1){
-                            $query_nama_siswa = "SELECT nama_siswa FROM siswa WHERE NIS = '$data_peminjaman[id_siswa_pegawai]'";
-                            $result_nama_siswa = mysqli_query($con, $query_nama_siswa);
-                            $data_nama_siswa = mysqli_fetch_assoc($result_nama_siswa);
-                              echo $data_nama_siswa['nama_siswa'];
-                          }else{  
-                            $query_nama_pegawai = "SELECT nama_pegawai FROM pegawai WHERE NIP = '$data_peminjaman[id_siswa_pegawai]'";
-                            $result_nama_pegawai = mysqli_query($con, $query_nama_pegawai);
-                            $data_nama_pegawai = mysqli_fetch_assoc($result_nama_pegawai);
-                              echo $data_nama_pegawai['nama_pegawai'];
-                          }
-                  
-                  echo '</option>';
-              }
-          ?>
-
-                            </select>
-                          </div>
+                          <label class="col-sm-12">
+                              <div align="center">
+                                  <h3>PER-USER</h3>
+                              </div>
+                          </label>
                         </div> 
-                        <div class="modal-footer text-center">
-                          <div type="submit" onclick="report_detail_transaksi()" name="input" rel="tooltip" class="btn btn-primary btn-fill">
-                            <i class="zmdi zmdi-print"></i> Cetak Transaksi
+                        <div class="form-group">
+                          <label class="col-sm-2 control-label" for="form-control-2">
+                            Username
+                          </label>
+                          <div class="col-sm-10">
+                            <input id="username" onkeyup="user()" placeholder="Username" class="form-control input-pill" type="text">
                           </div>
+                        </div>
+                        <div class="table-responsive">           
+      <?php 
+        if (isset($_GET['akhir']) || isset($_GET['akhir']) ) {
+          $awal       = date('Y-m-d', strtotime(($_GET['awal'])));
+          $akhir      = date('Y-m-d', strtotime(($_GET['akhir'])));
+          $query = "SELECT a.id_peminjaman, b.username, b.id_siswa_pegawai, a.tgl_peminjaman, 
+              a.tgl_pengembalian, a.tgl_kembali, a.status_pinjaman FROM peminjaman 
+              AS a INNER JOIN user AS b WHERE a.id_user = b.id_user AND a.tgl_kembali NOT LIKE '0000-00-00' AND (a.tgl_peminjaman BETWEEN '$awal' AND '$akhir')";
+        }else{
+          $query = "SELECT a.id_peminjaman, b.username, b.id_siswa_pegawai, a.tgl_peminjaman, 
+              a.tgl_pengembalian, a.tgl_kembali, a.status_pinjaman FROM peminjaman 
+              AS a INNER JOIN user AS b WHERE a.id_user = b.id_user AND a.tgl_kembali NOT LIKE '0000-00-00'";
+        }
+        $result = mysqli_query($con, $query);
+      ?>
+                    <table class="table" id="myTable">
+                      <thead>
+                        <tr>
+                          <th>No</th>
+                          <th colspan="3">Peminjam</th>
+                          <th>Tanggal Pinjaman</th>
+                          <th></th>
+                          <th>Tanggal Pengembalian</th>
+                          <th>Cetak</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      <?php
+        $no = 1;
+        if($result->num_rows == 0){
+            echo '<tr>
+                <td colspan="8">
+                    <div align="center">
+                        Tidak ada Data
+                    </div>
+                </td>
+            </tr>';
+        }
+        else{
+          while($data = mysqli_fetch_assoc($result)){
+            $date2 = new DateTime(''.$data['tgl_pengembalian'].'');
+            $tanggal = date('Y-m-d');
+            $date3 = new DateTime($tanggal); 
+                          echo '
+                          <tr>
+                            <td>'.$no.'</td>
+                            <td>';
+              $query_siswa = "SELECT NIS FROM SISWA WHERE NIS = '$data[id_siswa_pegawai]'";
+              $result_siswa = mysqli_query($con, $query_siswa);
+                            if($result_siswa->num_rows == 1){
+                              $query_foto_siswa = "SELECT foto_siswa FROM siswa WHERE NIS = '$data[id_siswa_pegawai]'";
+                              $result_foto_siswa = mysqli_query($con, $query_foto_siswa);
+                              $data_foto_siswa = mysqli_fetch_assoc($result_foto_siswa);
+                                  echo '<img class="img-circle" src="img/avatars/'.$data_foto_siswa['foto_siswa'].'" alt="" width="50" height="50">';
+                            }else{  
+                              $query_foto_pegawai = "SELECT foto_pegawai FROM pegawai WHERE NIP = '$data[id_siswa_pegawai]'";
+                              $result_foto_pegawai = mysqli_query($con, $query_foto_pegawai);
+                              $data_foto_pegawai = mysqli_fetch_assoc($result_foto_pegawai);
+                                  echo '<img class="img-circle" src="img/avatars/'.$data_foto_pegawai['foto_pegawai'].'" alt="" width="50" height="50">';
+                            }
+                            echo '</td>
+                            <td>'.$data['username'].'</td>
+                            <td>';
+                                  if($result_siswa->num_rows == 1){
+                                      echo '
+                              <a href="detail_siswa.php?no_induk='.$data['id_siswa_pegawai'].'">
+                                <i class="zmdi zmdi-eye"></i>
+                              </a>';
+                                  }else{
+                                      echo '
+                              <a href="detail_pegawai.php?no_induk='.$data['id_siswa_pegawai'].'">
+                                <i class="zmdi zmdi-eye"></i>
+                              </a>';
+                                  }
+                            echo'</td>
+                            <td>'.tanggal_indo(''.$data['tgl_peminjaman'].'').'</td>
+                            <td><b>s/d</b></td>
+                            <td>'.tanggal_indo(''.$data['tgl_pengembalian'].'').'</td>
+                            <td>
+                              <button type="button" onclick="report_detail_transaksi('.$data['id_peminjaman'].')" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cetak Transaksi">
+                                <i class="zmdi zmdi-print"></i>
+                              </button>
+                            </td>
+                          </tr>';
+                          $no++;
+          }
+        }
+        ?>
+                          </tbody>
+                        </table>
                         </div>
                       </form>
                     </div>
@@ -283,17 +350,6 @@ while($data = mysqli_fetch_assoc($result)){
               document.location="system/sanksi.php?id="+id;
         })
       }
-
-      
-    function report_transaksi(){
-      $v = "new_transaksi";
-      $a = $("body").attr('class');
-      new_tap('idn',$v,$a);
-        function new_tap($type,$value,$attr) {
-            window.open("report_transaksi.php"+"?"+"awal"+"="+$('.from').val()+"&akhir="+$('.to').val()+"&status="+$('.status_peminjaman').val(),"_blank");
-        }
-    } 
-
     
     function report_detail_transaksi(){
         $v = "new_detail_transaksi";
@@ -303,5 +359,24 @@ while($data = mysqli_fetch_assoc($result)){
             window.open("report_detail_transaksi.php"+"?"+"id_peminjaman"+"="+$('.peminjaman').val(),"_blank");
         }
     } 
+    
+    function user() {
+      var input, filter, table, tr, td, i;
+      input = document.getElementById("username");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[2];
+        if (td) {
+          if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }       
+      }
+    }
+    
   </script>
 </html>

@@ -165,53 +165,6 @@
                           <i class="zmdi zmdi-print"></i> Cetak Buku
                         </div>
                       </div>
-                      <hr>
-                      <div class="form-group">
-                        <label class="col-sm-12">
-                            <div align="center">
-                                <h3>FILTER PERBUKU</h3>
-                            </div>
-                        </label>
-                      </div> 
-                      <div class="form-group">
-                        <label class="col-sm-3 control-label" for="form-control-5">Judul Buku</label>
-                        <div class="col-sm-8">
-                        
-        <?php
-            $query_judul = "SELECT * FROM buku";     
-            $result_judul = mysqli_query($con, $query_judul);
-            if(!$result_judul){
-                die ("Query Error: ".mysqli_errno($con).
-                " - ".mysqli_error($con));
-            }
-        ?>
-                          <select name="judul" class="form-control judul" required>                                                     
-        <?php
-            while($data_judul = mysqli_fetch_assoc($result_judul))
-            {
-                echo '<option value="'.$data_judul[id_buku].'" title="Judul Lengkap : '.$data_judul[judul_buku].'">'.$data_judul[judul_singkat].'</option>';
-            }
-        ?>
-                          </select>
-                        </div>
-                      </div> 
-                      <div class="form-group">
-                        <label class="col-sm-3 control-label" for="form-control-5">Status Buku</label>
-                        <div class="col-sm-8">
-                          <select name="status_buku" class="form-control status_buku" required>  
-                            <option value="Semua">Semua</option>
-                            <option value="Siap Terpinjam">Siap Terpinjam</option>
-                            <option value="Dipesan">Dipesan</option>
-                            <option value="Dipinjam">Dipinjam</option>
-                            <option value="Lainya">Lainya</option>
-                          </select>
-                        </div>
-                      </div> 
-                      <div class="modal-footer text-center">
-                        <div type="submit" onclick="report_buku()" name="input" rel="tooltip" class="btn btn-primary btn-fill">
-                          <i class="zmdi zmdi-print"></i> Cetak Buku
-                        </div>
-                      </div>
                     </form>
                   </div>
                 </div>
