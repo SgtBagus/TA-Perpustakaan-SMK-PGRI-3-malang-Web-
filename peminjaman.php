@@ -232,22 +232,42 @@
                             <i class="zmdi zmdi-check"></i>
                           </button>';
                           if( $date2 = $date3){
-                            echo'
-                            <button onclick="sanksi('.$data['id_peminjaman'].')" type="button" class="btn btn-warning" name="input" data-toggle="tooltip" data-placement="top" title="" data-original-title="Masukan data Sanksi">
-                              <i class="zmdi zmdi-edit"></i>
-                            </button>';
+                            $query_sanksi = "SELECT id_peminjaman FROM sanksi WHERE id_peminjaman = '$data[id_peminjaman]'";
+                            $result_sanksi = mysqli_query($con, $query_sanksi);
+                                          if($result_sanksi->num_rows == 1){
+
+                                          }else{  
+                                            echo'
+                                            <button onclick="sanksi('.$data['id_peminjaman'].')" type="button" class="btn btn-warning" name="input" data-toggle="tooltip" data-placement="top" title="" data-original-title="Masukan data Sanksi">
+                                              <i class="zmdi zmdi-edit"></i>
+                                            </button>';
+                                          }
                           }else if ($date2 < $date3) {
-                            echo '
-                            <button onclick="sanksi('.$data['id_peminjaman'].')" type="button" class="btn btn-warning" name="input" data-toggle="tooltip" data-placement="top" title="" data-original-title="Masukan data Sanksi">
-                              <i class="zmdi zmdi-edit"></i>
-                            </button>';
+                            $query_sanksi = "SELECT id_peminjaman FROM sanksi WHERE id_peminjaman = '$data[id_peminjaman]'";
+                            $result_sanksi = mysqli_query($con, $query_sanksi);
+                                          if($result_sanksi->num_rows == 1){
+
+                                          }else{  
+                                            echo'
+                                            <button onclick="sanksi('.$data['id_peminjaman'].')" type="button" class="btn btn-warning" name="input" data-toggle="tooltip" data-placement="top" title="" data-original-title="Masukan data Sanksi">
+                                              <i class="zmdi zmdi-edit"></i>
+                                            </button>';
+                                          }
                           }else{
                             
                           }
                         }else if ($data['status_pinjaman'] == "Kembali"){
-                          echo '<button onclick="sanksi('.$data['id_peminjaman'].')" type="button" class="btn btn-warning" name="input" data-toggle="tooltip" data-placement="top" title="" data-original-title="Masukan data Sanksi">
-                            <i class="zmdi zmdi-edit"></i>
-                          </button>
+                          $query_sanksi = "SELECT id_peminjaman FROM sanksi WHERE id_peminjaman = '$data[id_peminjaman]'";
+                          $result_sanksi = mysqli_query($con, $query_sanksi);
+                                        if($result_sanksi->num_rows == 1){
+
+                                        }else{  
+                                          echo'
+                                          <button onclick="sanksi('.$data['id_peminjaman'].')" type="button" class="btn btn-warning" name="input" data-toggle="tooltip" data-placement="top" title="" data-original-title="Masukan data Sanksi">
+                                            <i class="zmdi zmdi-edit"></i>
+                                          </button>';
+                                        }
+                          echo '
                           <button onclick="hapus('.$data['id_peminjaman'].')" type="button" data-toggle="tooltip" data-placement="top" title="" data-original-title="Hapus Permintaan" class="btn btn-danger" name="input">
                             <i class="zmdi zmdi-delete"></i>
                           </button>';

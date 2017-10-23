@@ -39,11 +39,6 @@
                         </div>
                       </form>
                     </div>
-                    <div class="col-sm-4" align="right">
-                        <button type="button" class="btn btn-primary m-w-120" data-toggle="modal" data-target="#sanksi">
-                        <i class="zmdi zmdi-print"></i> Cetak Sanksi
-                        </button>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -59,7 +54,7 @@
             AS a INNER JOIN user AS b INNER JOIN sanksi AS c WHERE a.id_user = b.id_user AND c.id_user = a.id_user";
   $result = mysqli_query($con, $query);
 ?>
-              <table class="table">
+              <table class="table" id="myTable">
                 <thead>
                   <tr>
                     <th>No</th>
@@ -147,9 +142,11 @@
                                     <i class="zmdi zmdi-edit"></i>
                                 </button>
                             </a>
-                            <button onclick="hapus('.$data['id_sanksi'].')" type="button" class="btn btn-danger">
-                                <i class="zmdi zmdi-delete"></i>
-                            </button>   
+                            <a href="report_sanksi.php?id_sanksi='.$data['id_peminjaman'].'" target="_blank">
+                              <button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cetak Sanksi">
+                                <i class="zmdi zmdi-print"></i>
+                              </button>
+                            </a> 
                         </td>
                         <div>
                     </tr>';
@@ -159,81 +156,6 @@
   ?>
                 </tbody>
               </table>
-              <div id="sanksi" class="modal fade" tabindex="-1" role="dialog" style="display: none;">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header bg-primary">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">
-                                <i class="zmdi zmdi-close"></i>
-                            </span>
-                            </button>
-                            <h4 class="modal-title">Menu Cetak Sanksi</h4>
-                        </div>
-                        <div class="modal-body">    
-                            <form id="inputmasks" class="form-horizontal" action="?">   
-                            <div class="form-group">
-                                <label class="col-sm-12">
-                                    <div align="center">
-                                        <h3>SANKSI</h3>
-                                    </div>
-                                </label>
-                            </div> 
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label" for="form-control-5">Sanksi Oleh</label>
-                                <div class="col-sm-8">
-                                
-                <?php
-                    $query = "SELECT a.id_peminjaman, a.id_sanksi, a.id_user, a.sanksi, b.username, b.id_siswa_pegawai FROM sanksi
-                            AS a INNER JOIN user AS b WHERE a.id_user = b.id_user";
-                    $result = mysqli_query($con, $query);
-                    if(!$result){
-                        die ("Query Error: ".mysqli_errno($con).
-                        " - ".mysqli_error($con));
-                    }
-                ?>
-                                <select name="sanksi" class="form-control sanksi" required>                                                     
-                <?php
-                    if($result->num_rows == 0 ){
-                        echo '<option> -Tidak Ada Data Sanksi- </option>';
-                    }
-                    else{
-                    while($data = mysqli_fetch_assoc($result))
-                    {
-                        echo '<option value="'.$data['id_peminjaman'].'" title="Sanksi : '.$data['sanksi'].'">'.$data['username'].' - ';
-                        
-                    $query_username = "SELECT NIS FROM SISWA WHERE NIS = '$data_peminjaman[id_siswa_pegawai]'";
-                    $result_username = mysqli_query($con, $query_username);
-                                if($result_username->num_rows == 1){
-                                    $query_nama_siswa = "SELECT nama_siswa FROM siswa WHERE NIS = '$data[id_siswa_pegawai]'";
-                                    $result_nama_siswa = mysqli_query($con, $query_nama_siswa);
-                                    $data_nama_siswa = mysqli_fetch_assoc($result_nama_siswa);
-                                    echo $data_nama_siswa['nama_siswa'];
-                                }else{  
-                                    $query_nama_pegawai = "SELECT nama_pegawai FROM pegawai WHERE NIP = '$data[id_siswa_pegawai]'";
-                                    $result_nama_pegawai = mysqli_query($con, $query_nama_pegawai);
-                                    $data_nama_pegawai = mysqli_fetch_assoc($result_nama_pegawai);
-                                    echo $data_nama_pegawai['nama_pegawai'];
-                                }
-                        
-                        echo '</option>';
-                    }
-                    }
-                ?>
-
-                                </select>
-                                </div>
-                            </div> 
-                            <div class="modal-footer text-center">
-                                <div type="submit" onclick="report_sanksi()" name="input" rel="tooltip" class="btn btn-primary btn-fill">
-                                <i class="zmdi zmdi-print"></i> Cetak Sanksi
-                                </div>
-                            </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                </div>
             </div>
           </div>
         </div>

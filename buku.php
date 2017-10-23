@@ -77,7 +77,7 @@
                   <th>Media</th>
                   <th>Bahasa</th>
                   <th>Total Buku</th>
-                  <th></th>
+                  <th colspan="2"></th>
                 </tr>
               </thead>
               <tbody>
@@ -112,18 +112,36 @@
                     </td>
                     <td> 
                       <a href="detail_buku.php?ISBN='.$data_buku['ISBN'].'">
-                        <button type="button" class="btn btn-primary">
-                          <i class="zmdi zmdi-eye"></i> Detail
+                        <button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Detail Buku">
+                          <i class="zmdi zmdi-eye"></i>
                         </button>
                       </a>
                       <a href="ubah_buku.php?ISBN='.$data_buku['ISBN'].'">
-                        <button type="button" class="btn btn-primary">
-                          <i class="zmdi zmdi-edit"></i> Ubah
+                        <button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit Buku">
+                          <i class="zmdi zmdi-edit"></i>
                         </button>
                       </a>
-                      <button onclick="hapus('.$data_buku['id_buku'].')" type="button" class="btn btn-danger">
-                        <i class="zmdi zmdi-delete"></i> Hapus
+                      <button onclick="hapus('.$data_buku['id_buku'].')" type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Hapus Buku">
+                        <i class="zmdi zmdi-delete"></i>
                       </button>
+                    </td>
+                    <td> 
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-primary dropdown-toggle" 
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                            >
+                          <i class="zmdi zmdi-print"></i>  Cetak Buku
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                          <li><a href="report_detail_buku.php?id_buku='.$data_buku['id_buku'].'&status_buku=Semua", target="_blank">Semua</a></li>
+                          <li role="separator" class="divider"></li>
+                          <li><a href="report_detail_buku.php?id_buku='.$data_buku['id_buku'].'&status_buku=Siap Terpinjam", target="_blank">Siap Terpinjam</a></li>
+                          <li><a href="report_detail_buku.php?id_buku='.$data_buku['id_buku'].'&status_buku=Dipesan", target="_blank">Dipesan</a></li>
+                          <li><a href="report_detail_buku.php?id_buku='.$data_buku['id_buku'].'&status_buku=Dipinjam", target="_blank">Dipinjam</a></li>
+                          <li role="separator" class="divider"></li>
+                          <li><a href="report_detail_buku.php?id_buku='.$data_buku['id_buku'].'&status_buku=Lainya", target="_blank">Lainya</a></li>
+                        </ul>
+                      </div>
                     </td>
                   </tr>';
                   $no_buku++; 

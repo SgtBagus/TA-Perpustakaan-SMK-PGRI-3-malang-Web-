@@ -23,7 +23,7 @@ if (isset($_POST['input'])) {
   $jenis_buku       = $_POST['jenis_buku'];
   $biografi         = $_POST['biografi'];
   $total_buku       = $_POST['total_buku'];
-
+ 
     $date = date("Ymd");
 
         $cekdulu= "SELECT * FROM buku WHERE judul_buku='$judul'";

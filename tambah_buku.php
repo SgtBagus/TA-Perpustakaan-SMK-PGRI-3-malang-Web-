@@ -177,15 +177,50 @@
   <?php include('script/footer_script.php') ?>
   <script type="text/javascript">
   <?php
-      if (isset($_GET['pesan'])) {
-          $pesan = ($_GET["pesan"]);
-          if($pesan == "error"){
+      if (isset($_GET['aksi'])) {
+          $aksi = ($_GET["aksi"]);
+          if($aksi == "error"){
               echo 'swal({
                 title: "Kesalahan!",
-                text: "Pengguna Sudah Terdaftar",
+                text: "Mohon Maaf Terjadi Kesalahan",
                 type: "error",
                 showConfirmButton: true,
               })';
+          }else if ($aksi == "duplicate"){
+            echo 'swal({
+              title: "Kesalahan!",
+              text: "Data Buku Sudah Ada",
+              type: "error",
+              showConfirmButton: true,
+            })';
+          }else if ($aksi == "mana"){
+            echo 'swal({
+              title: "Kesalahan!",
+              text: "Mohon Isi Total Buku",
+              type: "error",
+              showConfirmButton: true,
+            })';
+          }else if ($aksi == "kebanyakan"){
+            echo 'swal({
+              title: "Kesalahan!",
+              text: "Total Buku Terlalu Banyak",
+              type: "error",
+              showConfirmButton: true,
+            })';
+          }else if ($aksi == "format"){
+            echo 'swal({
+              title: "Kesalahan!",
+              text: "Gambar Tidak Cocok",
+              type: "error",
+              showConfirmButton: true,
+            })';
+          }else if ($aksi == "size"){
+            echo 'swal({
+              title: "Kesalahan!",
+              text: "Ukuran Gambar Terlalu Besar",
+              type: "error",
+              showConfirmButton: true,
+            })';
           }
       }
   ?>

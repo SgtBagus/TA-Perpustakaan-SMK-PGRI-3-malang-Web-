@@ -116,11 +116,10 @@
                 }
   ?>
                 </tbody>
-              </table>
+              </table> 
             </div>
           </div>
         </div>
-      </div>
       <?php include('menu/footer.php') ?>
     </div>
   </body>
