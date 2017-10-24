@@ -9,7 +9,7 @@ if (isset($_POST['input'])) {
     $explode	    = explode('.',$foto);
     $extensi	    = $explode[count($explode)-1];
     $username       = $_POST['username'];
-    $password       = $_POST['password'];
+    $password       = md5($_POST['password']);
     $no_hp          = $_POST['no_hp'];
     $alamat         = $_POST['alamat'];
 

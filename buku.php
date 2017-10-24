@@ -71,6 +71,7 @@
               <thead>
                 <tr>
                   <th>No</th>
+                  <th>Tgl Masuk</th>
                   <th></th>
                   <th>Judul buku</th>
                   <th>Jenis Buku</th>
@@ -97,6 +98,7 @@
     while($data_buku = mysqli_fetch_assoc($result_buku)){
                   echo '<tr>
                     <td>'.$no_buku.'</td>
+                    <td>'.tanggal_indo(''.$data_buku['tgl_entri_buku'].'').'</td>
                     <td><img class="img-rounded" src="img/book/'.$data_buku['gambar_buku'].'" alt="" width="40" height="60"></td>
                     <td>'.$data_buku['judul_buku'].'</td>
                     <td>'.$data_buku['subyek'].'</td>
@@ -130,7 +132,7 @@
                         <button type="button" class="btn btn-primary dropdown-toggle" 
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                             >
-                          <i class="zmdi zmdi-print"></i>  Cetak Buku
+                          <i class="zmdi zmdi-print"></i>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-right">
                           <li><a href="report_detail_buku.php?id_buku='.$data_buku['id_buku'].'&status_buku=Semua", target="_blank">Semua</a></li>
