@@ -94,11 +94,12 @@
     $akhir      = date('Y-m-d', strtotime(($_GET['akhir'])));
     $query = "SELECT a.id_peminjaman, b.username, b.id_siswa_pegawai, a.tgl_peminjaman, 
               a.tgl_pengembalian, a.tgl_kembali, a.status_pinjaman FROM peminjaman 
-              AS a INNER JOIN user AS b WHERE a.id_user = b.id_user AND (a.tgl_peminjaman BETWEEN '$awal' AND '$akhir')";
+              AS a INNER JOIN user AS b WHERE a.id_user = b.id_user AND (a.tgl_peminjaman BETWEEN '$awal' AND '$akhir')
+              ORDER BY a.id_peminjaman DESC";
   }else{
     $query = "SELECT a.id_peminjaman, b.username, b.id_siswa_pegawai, a.tgl_peminjaman, 
               a.tgl_pengembalian, a.tgl_kembali, a.status_pinjaman FROM peminjaman 
-              AS a INNER JOIN user AS b WHERE a.id_user = b.id_user";
+              AS a INNER JOIN user AS b WHERE a.id_user = b.id_user ORDER BY a.id_peminjaman DESC";
   }
   $result = mysqli_query($con, $query);
 ?>

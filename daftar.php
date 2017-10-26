@@ -2,7 +2,6 @@
 <?php $page = "DAFTAR" ?>
 <html lang="en">
   <?php include('script/head_script.php') ?>
-  <link rel="stylesheet" href="assets/css/login.css">
   <body class="authentication-body bg">
     <div class="container-fluid">
       <div class="row">

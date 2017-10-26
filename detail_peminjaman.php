@@ -332,8 +332,8 @@
     </div>
   </body>
       <?php include('script/footer_script.php') ?>
-      <script>
-
+      
+      <script> 
         function terima(id) {
           swal({
             title: 'Konfirmasi?',
@@ -403,5 +403,36 @@
                 document.location="system/peminjaman_hapus.php?id="+id;
           })
         }
+        
+  <?php
+      if (isset($_GET['aksi'])) {
+          $aksi = ($_GET["aksi"]);
+          if($aksi == "diterima"){
+              echo 'swal({
+                title: "Diterima!",
+                text: "Peminjaman ini diterima",
+                type: "success",
+                showConfirmButton: true,
+              })';
+          }
+          else if($aksi == "ditolak"){
+              echo 'swal({
+                title: "Ditolak",
+                text: "Peminjaman ini Ditolak",
+                type: "success",
+                showConfirmButton: true,
+              })';
+          }
+          else if($aksi == "kembali"){
+              echo 'swal({
+                title: "Kembali",
+                text: "Peminjaman ini Telah Kembali",
+                type: "success",
+                showConfirmButton: true,
+              })';
+          }
+      }
+  ?>
+  
       </script>
 </html>

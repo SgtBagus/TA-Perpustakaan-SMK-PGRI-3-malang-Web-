@@ -27,8 +27,14 @@ if (isset($_POST['input'])) {
                         " - ".mysqli_error($con)); 
             }
             if($result){ 
-                $query_user = "UPDATE user SET username='$username', 
-                            password='$password' WHERE id_siswa_pegawai ='$no_induk'";
+                if($password == ""){
+                    $query_user = "UPDATE user SET username='$username',
+                                    WHERE id_siswa_pegawai ='$no_induk'";
+                }
+                else{
+                    $query_user = "UPDATE user SET username='$username', 
+                        password='$password' WHERE id_siswa_pegawai ='$no_induk'";
+                }
                 $result_user = mysqli_query($con, $query_user);
 
                 if(!$result_user){
@@ -83,8 +89,14 @@ if (isset($_POST['input'])) {
                                     " - ".mysqli_error($con));
                             }
                             if($result){ 
-                                $query_user = "UPDATE user SET username='$username', 
-                                            password='$password' WHERE id_siswa_pegawai ='$no_induk'";
+                                if($password == ""){
+                                    $query_user = "UPDATE user SET username='$username',
+                                                    WHERE id_siswa_pegawai ='$no_induk'";
+                                }
+                                else{
+                                    $query_user = "UPDATE user SET username='$username', 
+                                        password='$password' WHERE id_siswa_pegawai ='$no_induk'";
+                                }
                                 $result_user = mysqli_query($con, $query_user);
                 
                                 if(!$result_user){
@@ -120,8 +132,14 @@ if (isset($_POST['input'])) {
                                     " - ".mysqli_error($con));
                             }
                             if($result){ 
-                                $query_user = "UPDATE user SET username='$username', 
-                                            password='$password' WHERE id_siswa_pegawai ='$no_induk'";
+                                if($password == ""){
+                                    $query_user = "UPDATE user SET username='$username',
+                                                    WHERE id_siswa_pegawai ='$no_induk'";
+                                }
+                                else{
+                                    $query_user = "UPDATE user SET username='$username', 
+                                        password='$password' WHERE id_siswa_pegawai ='$no_induk'";
+                                }
                                 $result_user = mysqli_query($con, $query_user);
                 
                                 if(!$result_user){
@@ -158,8 +176,14 @@ if (isset($_POST['input'])) {
                         " - ".mysqli_error($con)); 
             }
             if($result){ 
-                $query_user = "UPDATE user SET username='$username', 
-                            password='$password' WHERE id_siswa_pegawai ='$no_induk'";
+                if($password == ""){
+                    $query_user = "UPDATE user SET username='$username',
+                                    WHERE id_siswa_pegawai ='$no_induk'";
+                }
+                else{
+                    $query_user = "UPDATE user SET username='$username', 
+                        password='$password' WHERE id_siswa_pegawai ='$no_induk'";
+                }
                 $result_user = mysqli_query($con, $query_user);
 
                 if(!$result_user){
@@ -214,8 +238,14 @@ if (isset($_POST['input'])) {
                                     " - ".mysqli_error($con));
                             }
                             if($result){ 
-                                $query_user = "UPDATE user SET username='$username', 
-                                            password='$password' WHERE id_siswa_pegawai ='$no_induk'";
+                                if($password == ""){
+                                    $query_user = "UPDATE user SET username='$username',
+                                                    WHERE id_siswa_pegawai ='$no_induk'";
+                                }
+                                else{
+                                    $query_user = "UPDATE user SET username='$username', 
+                                        password='$password' WHERE id_siswa_pegawai ='$no_induk'";
+                                }
                                 $result_user = mysqli_query($con, $query_user);
                 
                                 if(!$result_user){
@@ -251,8 +281,14 @@ if (isset($_POST['input'])) {
                                     " - ".mysqli_error($con));
                             }
                             if($result){ 
-                                $query_user = "UPDATE user SET username='$username', 
-                                            password='$password' WHERE id_siswa_pegawai ='$no_induk'";
+                                if($password == ""){
+                                    $query_user = "UPDATE user SET username='$username',
+                                                    WHERE id_siswa_pegawai ='$no_induk'";
+                                }
+                                else{
+                                    $query_user = "UPDATE user SET username='$username', 
+                                        password='$password' WHERE id_siswa_pegawai ='$no_induk'";
+                                }
                                 $result_user = mysqli_query($con, $query_user);
                 
                                 if(!$result_user){
