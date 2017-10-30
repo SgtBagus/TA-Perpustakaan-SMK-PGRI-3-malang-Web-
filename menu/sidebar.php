@@ -16,78 +16,7 @@
           </span>
           <span class="menu-text">Dasboard</span>
         </a>
-      </li>
-      <?php
-      if($page == "PEMINJAMAN"){
-        echo '<li class="active">';
-      }else{
-        echo '<li>';
-      }
-      ?>
-        <a href="peminjaman.php">
-          <span class="menu-icon">
-            <i class="zmdi zmdi-assignment"></i>
-          </span>
-          <span class="menu-text">Peminjaman</span>
-        </a>
-      </li>
-      <?php
-      if($page == "PENGEMBALIAN"){
-        echo '<li class="active">';
-      }else{
-        echo '<li>';
-      }
-      ?>
-        <a href="pengembalian.php">
-          <span class="menu-icon">
-            <i class="zmdi zmdi-assignment-returned"></i>
-          </span>
-          <span class="menu-text">Pengembalian</span>
-        </a>
-      </li>
-      <?php
-      if($page == "BUKU"){
-        echo '<li class="active">';
-      }else{
-        echo '<li>';
-      }
-      ?>
-        <a href="buku.php">
-          <span class="menu-icon">
-            <i class="zmdi zmdi-book"></i>
-          </span>
-          <span class="menu-text">Buku</span>
-        </a>
-      </li>
-      <?php
-      if($page == "SANKSI"){
-        echo '<li class="active">';
-      }else{
-        echo '<li>';
-      }
-      ?>
-        <a href="sanksi.php">
-          <span class="menu-icon">
-            <i class="zmdi zmdi-info"></i>
-          </span>
-          <span class="menu-text">Sanksi</span>
-        </a>
-      </li>
-      <?php
-      if($page == "USER"){
-        echo '<li class="active">';
-      }else{
-        echo '<li>';
-      }
-      ?>
-        <a href="user.php">
-          <span class="menu-icon">
-            <i class="zmdi zmdi-account"></i>
-          </span>
-          <span class="menu-text">User</span>
-        </a>
-      </li>
-      <?php
+      </li><?php
       if($page == "SISWA"){
         echo '<li class="with-sub active open">';
       }else if ($page == "PEGAWAI"){
@@ -137,6 +66,76 @@
             <a href="jenis_buku.php">Jenis Buku</a>
           </li>
         </ul>
+      </li>
+      <?php
+      if($page == "USER"){
+        echo '<li class="active">';
+      }else{
+        echo '<li>';
+      }
+      ?>
+        <a href="user.php">
+          <span class="menu-icon">
+            <i class="zmdi zmdi-account"></i>
+          </span>
+          <span class="menu-text">User</span>
+        </a>
+      </li>
+      <?php
+      if($page == "BUKU"){
+        echo '<li class="active">';
+      }else{
+        echo '<li>';
+      }
+      ?>
+        <a href="buku.php">
+          <span class="menu-icon">
+            <i class="zmdi zmdi-book"></i>
+          </span>
+          <span class="menu-text">Buku</span>
+        </a>
+      </li>
+      <?php
+      if($page == "PEMINJAMAN"){
+        echo '<li class="active">';
+      }else{
+        echo '<li>';
+      }
+      ?>
+        <a href="peminjaman.php">
+          <span class="menu-icon">
+            <i class="zmdi zmdi-assignment"></i>
+          </span>
+          <span class="menu-text">Peminjaman</span>
+        </a>
+      </li>
+      <?php
+      if($page == "PENGEMBALIAN"){
+        echo '<li class="active">';
+      }else{
+        echo '<li>';
+      }
+      ?>
+        <a href="pengembalian.php">
+          <span class="menu-icon">
+            <i class="zmdi zmdi-assignment-returned"></i>
+          </span>
+          <span class="menu-text">Pengembalian</span>
+        </a>
+      </li>
+      <?php
+      if($page == "SANKSI"){
+        echo '<li class="active">';
+      }else{
+        echo '<li>';
+      }
+      ?>
+        <a href="sanksi.php">
+          <span class="menu-icon">
+            <i class="zmdi zmdi-info"></i>
+          </span>
+          <span class="menu-text">Sanksi</span>
+        </a>
       </li>
       <?php
       if($page == "CETAK"){
