@@ -1,7 +1,7 @@
 # TA Perpustakaan SMK PGRI 3 malang (Backend)
 Project Online Untuk Perpustakaan SMK PGRI 3
 
-Bertujuan sebagai syarat kelulusan di SMK PGRI 3 serta sebagai membantu karyawan Perpustaan untuk memperbudah memperoleh 
+Bertujuan sebagai syarat kelulusan di SMK PGRI 3 serta sebagai membantu karyawan Perpustaan untuk memperpudah memperoleh 
 informasi perpustaan berupa data.
 
 Langkah menggunakan program : 
