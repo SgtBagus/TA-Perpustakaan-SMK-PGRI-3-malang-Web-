@@ -55,7 +55,7 @@
                 <hr>
                 <div class="pi-item">
                   <div class="pii-icon">
-                    <i class="zmdi zmdi-phone"></i>
+                    <i class="zmdi zmdi-phone"></i> 
                   </div>
                   <div class="pii-value"><?php echo $no_hp?></div>
                 </div>
