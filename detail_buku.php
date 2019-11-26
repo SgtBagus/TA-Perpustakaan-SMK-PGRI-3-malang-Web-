@@ -16,7 +16,7 @@
 
             $data_buku          = mysqli_fetch_assoc($result_buku);
             $id_buku            = $data_buku['id_buku'];
-            $judul_buku         = $data_buku['judul_buku'];
+            $judul_buku         = $data_buku['judul_buku']; 
             $judul_singkat      = $data_buku['judul_singkat'];
             $gambar_buku        = $data_buku['gambar_buku'];
             $jenis_buku         = $data_buku['subyek'];
