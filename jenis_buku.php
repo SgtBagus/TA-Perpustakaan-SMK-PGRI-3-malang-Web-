@@ -7,7 +7,7 @@
     <div class="site-main">
       <?php include('menu/sidebar.php') ?>
       <div class="site-content">
-        <div class="row">
+        <div class="row"> 
           <div class="col-sm-12">
             <div class="widget-infoblock wi-small m-b-30" style="background-image: url(img/photos/2.jpg)">
               <div class="wi-bg">
@@ -23,7 +23,7 @@
                       $prosesjb= mysqli_query($con, $banyakjb);
                     ?>
                   </span>
-                  Total Jenis Buku : <b><?php echo mysqli_num_rows($prosesjb) ?>  </b>
+                  Total Jenis Buku : <b><?php echo mysqli_num_rows($prosesjb) ?>  </b> 
                 </div>
                 <div class="wi-text">
                   <div class="row">
@@ -31,7 +31,7 @@
                       <div class="row">
                         <div class="col-sm-8">
                           <form class="form-horizontal">
-                            <div class="form-group">
+                            <div class="form-group"> 
                               <label class="col-sm-2 control-label" for="form-control-2">
                                 Pencarian
                               </label>

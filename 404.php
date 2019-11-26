@@ -9,7 +9,7 @@
           <div class="error">
             <div class="e-icon text-warning">
               <i class="zmdi zmdi-alert-circle-o"></i>
-            </div>
+            </div> 
             <h1>404</h1>
             <h2>Halaman Tidak Di Temukan</h2>
             <div class="e-text">Maaf, Sepertinya halaman yang akan anda akses tidak ada.</div>

@@ -53,7 +53,7 @@
               <div class="p-info m-b-20">
                 <h4 class="m-y-0">Info</h4>
                 <hr>
-                <div class="pi-item">
+                <div class="pi-item"> 
                   <div class="pii-icon">
                     <i class="zmdi zmdi-phone"></i> 
                   </div>
@@ -64,7 +64,7 @@
                     <i class="zmdi zmdi-email"></i>
                   </div>
                   <div class="pii-value">
-                    <?php
+                    <?php 
                     if($verifikasi == "Belum"){
                         echo ' - Belum Terverifikasi - ';
                     }
