@@ -1,4 +1,4 @@
-# TA Perpustakaan SMK PGRI 3 malang (Backend)
+# TA Perpustakaan SMK PGRI 3 malang (Admin Management)
 Project Online Untuk Perpustakaan SMK PGRI 3
 
 Bertujuan sebagai syarat kelulusan di SMK PGRI 3 serta sebagai membantu karyawan Perpustaan untuk memperpudah memperoleh 
